@@ -5,12 +5,14 @@
 --%>
 
 <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Bootstrap Icons -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -92,6 +94,19 @@
         .login-link a:hover {
             text-decoration: underline;
         }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper i {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #aaa;
+        }
     </style>
 </head>
 <body>
@@ -100,11 +115,13 @@
         <form>
             <div class="form-group">
                 <label for="username">Username (Tidak dapat diubah!)</label>
-                <input type="text" id="username" placeholder="Enter username" >
+                <input type="text" id="username" placeholder="Enter username">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter password">
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="Enter password">
+                </div>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
@@ -137,5 +154,3 @@
         </form>
     </div>
 </body>
-</html>
-
