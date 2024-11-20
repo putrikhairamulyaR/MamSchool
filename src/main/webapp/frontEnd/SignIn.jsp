@@ -152,6 +152,7 @@
                     <option value="" disabled selected>Pilih...</option>
                     <option value="student">Siswa/Siswi</option>
                     <option value="teacher">Guru</option>
+                    <option value="principal">Kepala Sekolah</option>
                 </select>
             </div>
             <div id="student-field" class="form-group hidden">
@@ -183,7 +184,7 @@
                 studentField.classList.remove("hidden");
                 teacherField.classList.add("hidden");
                 specializationField.classList.add("hidden");
-            } else if (role === "teacher") {
+            } else if (role === "teacher" || role === "principal") {
                 teacherField.classList.remove("hidden");
                 specializationField.classList.remove("hidden");
                 studentField.classList.add("hidden");
@@ -220,15 +221,13 @@
             if (role === "student" && !document.getElementById("nis").value) {
                 isValid = false;
                 document.getElementById("nis").style.borderColor = "red";
-            } else if (role === "teacher") {
-                if (!document.getElementById("nip").value) {
-                    isValid = false;
-                    document.getElementById("nip").style.borderColor = "red";
-                }
-                if (!document.getElementById("specialization").value) {
-                    isValid = false;
-                    document.getElementById("specialization").style.borderColor = "red";
-                }
+            } else if ((role === "teacher" || role === "principal") && !document.getElementById("nip").value) {
+                isValid = false;
+                document.getElementById("nip").style.borderColor = "red";
+            }
+            if ((role === "teacher" || role === "principal") && !document.getElementById("specialization").value) {
+                isValid = false;
+                document.getElementById("specialization").style.borderColor = "red";
             }
 
             if (!isValid) {
