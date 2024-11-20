@@ -143,14 +143,14 @@
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <h2>Dashboard Siswa</h2>
-            <a href="#profile.jsp"><i class="bi bi-person-circle"></i> Profile</a>
-            <a href="#beranda"><i class="bi bi-house-door-fill"></i> Beranda</a>
+            <a href="profileSiswa.jsp"><i class="bi bi-person-circle"></i> Profile</a>
+            <a href="DasboardSiswa.jsp#beranda><i class="bi bi-house-door-fill"></i> Beranda</a>
             <a href="#kelas"><i class="bi bi-list-check"></i> Kelas</a>
             <a href="#nilai"><i class="bi bi-clipboard2-check"></i> Nilai</a>
             <a href="#mapel"><i class="bi bi-book"></i> Mapel</a>
             <a href="#setting"><i class="bi bi-gear"></i> Setting</a>
             <a href="#bantuan"><i class="bi bi-question-circle"></i> Bantuan</a>
-            <a href="#logout" style="margin-top: auto;"><i class="bi bi-box-arrow-left"></i> Logout</a>
+            <a href="tampilanAwal.jsp" style="margin-top: auto;"><i class="bi bi-box-arrow-left"></i> Logout</a>
         </div>
 
         <!-- Toggle Button -->
