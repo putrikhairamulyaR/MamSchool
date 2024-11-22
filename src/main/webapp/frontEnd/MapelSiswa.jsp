@@ -130,8 +130,8 @@
         <div class="sort-container">
             <label for="sortOption"><strong>Urutkan Berdasarkan:</strong></label>
             <select id="sortOption" class="form-select" style="width: 300px;">
-                <option value="hari">Hari dan Jam</option>
-                <option value="abjad">Abjad Mata Pelajaran</option>
+                <option value="hari">waktu</option>
+                <option value="abjad">Abjad</option>
             </select>
         </div>
 
@@ -176,11 +176,9 @@
                     return dayA - dayB;
                 });
             } else if (sortBy === 'abjad') {
-                // Sort alphabetically
                 subjects.sort((a, b) => a.dataset.nama.localeCompare(b.dataset.nama));
             }
 
-            // Append sorted subjects back to the container
             subjectContainer.innerHTML = '';
             subjects.forEach(subject => subjectContainer.appendChild(subject));
         });
