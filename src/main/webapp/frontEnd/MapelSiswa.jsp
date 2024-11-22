@@ -23,7 +23,7 @@
 
         .sidebar {
             width: 250px;
-            background-color: #4682b4;
+            background-color: #34495e;
             color: white;
             display: flex;
             flex-direction: column;

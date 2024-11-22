@@ -29,7 +29,7 @@
                 left: 0;
                 width: 250px;
                 height: 100%;
-                background-color: #4682b4;
+                background-color: #34495e;
                 color: #fff;
                 display: flex;
                 flex-direction: column;
