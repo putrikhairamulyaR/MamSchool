@@ -147,6 +147,10 @@
                     <span id="nama">xxx</span>
                 </p>
                 <p>
+                    <strong>NIS:</strong>
+                    <span id="nis">1234567</span>
+                </p>
+                <p>
                     <strong>Email:</strong>
                     <span id="email">xxx@gmail.com</span>
                 </p>
@@ -162,11 +166,7 @@
                     <strong>Posisi:</strong>
                     <span id="position">Siswa/Siswi</span>
                 </p>
-                <p>
-                    <strong>NIS:</strong>
-                    <span id="nis">1234567</span>
-                </p>
-                <button type="button" class="btn btn-primary save-btn" id="saveBtn">Simpan</button>
+                <button type="button" class="btn btn-primary save-btn" id="saveBtn">Save</button>
             </form>
         </div>
     </div>
