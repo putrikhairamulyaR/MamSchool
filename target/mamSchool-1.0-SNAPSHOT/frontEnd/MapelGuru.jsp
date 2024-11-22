@@ -1,6 +1,6 @@
 <%-- 
-    Document   : nilaiGuru
-    Created on : 20 Nov 2024, 14.52.29
+    Document   : MapelGuru
+    Created on : 20 Nov 2024, 15.01.29
     Author     : putri
 --%>
 
@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jadwal Mata Pelajaran</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -23,7 +22,7 @@
 
         .sidebar {
             width: 250px;
-            background-color: #34495e;
+            background-color: #4682b4;
             color: white;
             display: flex;
             flex-direction: column;
@@ -46,11 +45,6 @@
             margin-bottom: 5px;
             display: flex;
             align-items: center;
-            gap: 10px; /* Menambahkan jarak antara ikon dan teks */
-        }
-
-        .sidebar a i {
-            font-size: 18px; /* Ukuran ikon disesuaikan agar konsisten */
         }
 
         .sidebar a:hover {
@@ -62,6 +56,7 @@
             padding: 20px;
             flex: 1;
             background-color: #f5f5f5;
+            overflow-y: auto;
         }
 
         .info-container {
@@ -79,10 +74,6 @@
 
         .info-container p strong {
             color: #3366cc;
-        }
-
-        .sort-container {
-            margin-bottom: 20px;
         }
 
         .subject-card {
@@ -126,62 +117,21 @@
             <p><strong>Jumlah Subjek:</strong> 9</p>
         </div>
 
-        <!-- Sorting Options -->
-        <div class="sort-container">
-            <label for="sortOption"><strong>Urutkan Berdasarkan:</strong></label>
-            <select id="sortOption" class="form-select" style="width: 300px;">
-                <option value="hari">waktu</option>
-                <option value="abjad">Abjad</option>
-            </select>
-        </div>
-
         <!-- Subject Cards -->
-        <div id="subjectContainer">
-            <div class="subject-card" data-hari="2" data-jam="0730" data-nama="Seni Budaya">
-                <h5>Seni Budaya</h5>
-                <p><strong>Jadwal:</strong> Selasa, 07.30 - 12.00</p>
-                <p><strong>Pengampu:</strong> xxxx</p>
-            </div>
-            <div class="subject-card" data-hari="1" data-jam="0930" data-nama="Matematika">
-                <h5>Matematika</h5>
-                <p><strong>Jadwal:</strong> Senin, 09.30 - 12.30</p>
-                <p><strong>Pengampu:</strong> xxxx</p>
-            </div>
-            <div class="subject-card" data-hari="3" data-jam="0800" data-nama="Fisika">
-                <h5>Fisika</h5>
-                <p><strong>Jadwal:</strong> Rabu, 08.00 - 11.30</p>
-                <p><strong>Pengampu:</strong> xxxx</p>
-            </div>
+        <div class="subject-card">
+            <h5>Matematika</h5>
+            <p><strong>Jadwal:</strong> Senin, 09.30 - 12.30</p>
+            <p><strong>Kelas:</strong> xxx</p>
         </div>
+
+        <div class="subject-card">
+            <h5>Matematika</h5>
+            <p><strong>Jadwal:</strong> Selasa, 07.30 - 12.00</p>
+            <p><strong>Kelas:</strong> xxx</p>
+        </div>
+
+        <!-- Add additional subject cards as needed -->
     </div>
-
-    <script>
-        const sortOption = document.getElementById('sortOption');
-        const subjectContainer = document.getElementById('subjectContainer');
-
-        sortOption.addEventListener('change', () => {
-            const subjects = Array.from(subjectContainer.children);
-            const sortBy = sortOption.value;
-
-            if (sortBy === 'hari') {
-                // Sort by day and time
-                subjects.sort((a, b) => {
-                    const dayA = parseInt(a.dataset.hari);
-                    const dayB = parseInt(b.dataset.hari);
-                    if (dayA === dayB) {
-                        const timeA = parseInt(a.dataset.jam);
-                        const timeB = parseInt(b.dataset.jam);
-                        return timeA - timeB;
-                    }
-                    return dayA - dayB;
-                });
-            } else if (sortBy === 'abjad') {
-                subjects.sort((a, b) => a.dataset.nama.localeCompare(b.dataset.nama));
-            }
-
-            subjectContainer.innerHTML = '';
-            subjects.forEach(subject => subjectContainer.appendChild(subject));
-        });
-    </script>
 </body>
 </html>
+
