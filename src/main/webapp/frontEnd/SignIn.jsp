@@ -5,14 +5,13 @@
 --%>
 
 <!DOCTYPE html>
-<!DOCTYPE html>
-
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -67,7 +66,7 @@
         .btn {
             width: 100%;
             padding: 10px;
-            background-color:#6ec1e4;
+            background-color: #4682b4;
             color: white;
             font-size: 16px;
             font-weight: 600;
@@ -107,33 +106,41 @@
             cursor: pointer;
             color: #aaa;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="form-container">
         <h1>Create Account</h1>
-        <form>
+        <form onsubmit="validateForm(event)">
             <div class="form-group">
                 <label for="username">Username (Tidak dapat diubah!)</label>
-                <input type="text" id="username" placeholder="Enter username">
+                <input type="text" id="username" placeholder="Enter username" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
                 <div class="password-wrapper">
-                    <input type="password" id="password" placeholder="Enter password">
+                    <input type="password" id="password" placeholder="Enter password" required>
                 </div>
             </div>
             <div class="form-group">
+                <label for="nama">Nama</label>
+                <input type="text" id="nama" placeholder="Masukkan nama lengkap" required>
+            </div>
+            <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Enter your email">
+                <input type="email" id="email" placeholder="Enter your email" required>
             </div>
             <div class="form-group">
                 <label for="dob">Tanggal Lahir</label>
-                <input type="date" id="dob">
+                <input type="date" id="dob" required>
             </div>
             <div class="form-group">
                 <label for="gender">Jenis Kelamin</label>
-                <select id="gender">
+                <select id="gender" required>
                     <option value="" disabled selected>Pilih...</option>
                     <option value="male">Laki-laki</option>
                     <option value="female">Perempuan</option>
@@ -141,11 +148,24 @@
             </div>
             <div class="form-group">
                 <label for="role">Posisi</label>
-                <select id="role">
+                <select id="role" onchange="toggleRoleFields()" required>
                     <option value="" disabled selected>Pilih...</option>
                     <option value="student">Siswa/Siswi</option>
                     <option value="teacher">Guru</option>
+                    <option value="principal">Kepala Sekolah</option>
                 </select>
+            </div>
+            <div id="student-field" class="form-group hidden">
+                <label for="nis">NIS</label>
+                <input type="text" id="nis" placeholder="Masukkan NIS">
+            </div>
+            <div id="teacher-field" class="form-group hidden">
+                <label for="nip">NIP</label>
+                <input type="text" id="nip" placeholder="Masukkan NIP">
+            </div>
+            <div id="specialization-field" class="form-group hidden">
+                <label for="specialization">Spesialisasi</label>
+                <input type="text" id="specialization" placeholder="Masukkan bidang spesialisasi">
             </div>
             <button type="submit" class="btn">Sign Up</button>
             <div class="login-link">
@@ -153,4 +173,68 @@
             </div>
         </form>
     </div>
+    <script>
+        function toggleRoleFields() {
+            const role = document.getElementById("role").value;
+            const studentField = document.getElementById("student-field");
+            const teacherField = document.getElementById("teacher-field");
+            const specializationField = document.getElementById("specialization-field");
+
+            if (role === "student") {
+                studentField.classList.remove("hidden");
+                teacherField.classList.add("hidden");
+                specializationField.classList.add("hidden");
+            } else if (role === "teacher" || role === "principal") {
+                teacherField.classList.remove("hidden");
+                specializationField.classList.remove("hidden");
+                studentField.classList.add("hidden");
+            } else {
+                studentField.classList.add("hidden");
+                teacherField.classList.add("hidden");
+                specializationField.classList.add("hidden");
+            }
+        }
+
+        function validateForm(event) {
+            const fields = [
+                document.getElementById("username"),
+                document.getElementById("password"),
+                document.getElementById("nama"),
+                document.getElementById("email"),
+                document.getElementById("dob"),
+                document.getElementById("gender"),
+                document.getElementById("role"),
+            ];
+
+            let isValid = true;
+
+            fields.forEach(field => {
+                if (!field.value) {
+                    isValid = false;
+                    field.style.borderColor = "red";
+                } else {
+                    field.style.borderColor = "#ccc";
+                }
+            });
+
+            const role = document.getElementById("role").value;
+            if (role === "student" && !document.getElementById("nis").value) {
+                isValid = false;
+                document.getElementById("nis").style.borderColor = "red";
+            } else if ((role === "teacher" || role === "principal") && !document.getElementById("nip").value) {
+                isValid = false;
+                document.getElementById("nip").style.borderColor = "red";
+            }
+            if ((role === "teacher" || role === "principal") && !document.getElementById("specialization").value) {
+                isValid = false;
+                document.getElementById("specialization").style.borderColor = "red";
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+                alert("Mohon isi semua field sebelum melanjutkan.");
+            }
+        }
+    </script>
 </body>
+</html>

@@ -56,7 +56,7 @@
         }
 
         .content {
-            margin-left: 260px; /* Matches the sidebar width */
+            margin-left: 260px;
             padding: 20px;
             flex: 1;
             background-color: #f5f5f5;
@@ -78,10 +78,6 @@
 
         .info-container p strong {
             color: #3366cc;
-        }
-
-        .dropdown-container {
-            margin-bottom: 20px;
         }
 
         .table-container {
@@ -116,9 +112,9 @@
         <h2>Dashboard Siswa</h2>
         <a href="profileSiswa.jsp"><i class="bi bi-person-circle"></i> Profile</a>
         <a href="DasboardSiswa.jsp#beranda"><i class="bi bi-house-door-fill"></i> Beranda</a>
-        <a href="#kelas"><i class="bi bi-list-check"></i> Kelas</a>
-        <a href="#nilai"><i class="bi bi-clipboard2-check"></i> Nilai</a>
-        <a href="#mapel"><i class="bi bi-book"></i> Mapel</a>
+        <a href="kelasSiswa.jsp"><i class="bi bi-list-check"></i> Kelas</a>
+        <a href="nilai.jsp"><i class="bi bi-clipboard2-check"></i> Nilai</a>
+        <a href="mapelSiswa.jsp"><i class="bi bi-book"></i> Mapel</a>
         <a href="#setting"><i class="bi bi-gear"></i> Setting</a>
         <a href="#bantuan"><i class="bi bi-question-circle"></i> Bantuan</a>
         <a href="tampilanAwal.jsp" style="margin-top: auto;"><i class="bi bi-box-arrow-left"></i> Logout</a>
@@ -130,18 +126,6 @@
         <div class="info-container">
             <p><strong>Jumlah Subjek:</strong> 9</p>
             <p><strong>Rata-rata:</strong> 9.9</p>
-        </div>
-
-        <!-- Dropdown Section -->
-        <div class="dropdown-container">
-            <label for="subjectSelect"><strong>Pilih Mata Pelajaran:</strong></label>
-            <select id="subjectSelect" class="form-select" style="width: 300px;">
-                <option value="">Pilih Mapel</option>
-                <option value="matematika">Matematika</option>
-                <option value="bahasa-indonesia">Bahasa Indonesia</option>
-                <option value="fisika">Fisika</option>
-                <!-- Tambahkan pilihan lainnya -->
-            </select>
         </div>
 
         <!-- Table Section -->
@@ -157,7 +141,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Contoh data nilai -->
+                    <!-- Data nilai -->
                     <tr>
                         <td>1</td>
                         <td>Matematika</td>
@@ -170,7 +154,48 @@
                         <td>88</td>
                         <td>Baik</td>
                     </tr>
-                    <!-- Tambahkan data nilai lainnya -->
+                    <tr>
+                        <td>3</td>
+                        <td>Fisika</td>
+                        <td>85</td>
+                        <td>Baik</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Kimia</td>
+                        <td>78</td>
+                        <td>Cukup</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Biologi</td>
+                        <td>92</td>
+                        <td>Sangat Baik</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Sejarah</td>
+                        <td>80</td>
+                        <td>Baik</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Geografi</td>
+                        <td>84</td>
+                        <td>Baik</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Sosiologi</td>
+                        <td>75</td>
+                        <td>Cukup</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Ekonomi</td>
+                        <td>89</td>
+                        <td>Baik</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

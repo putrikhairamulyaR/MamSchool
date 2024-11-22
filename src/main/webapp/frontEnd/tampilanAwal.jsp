@@ -55,7 +55,7 @@
                 display: inline-block;
                 width: 100%;
                 padding: 12px 0;
-                background-color: #6ec1e4; 
+                background-color: #4682b4; 
                 color: #fff;
                 font-size: 16px;
                 font-weight: bold;

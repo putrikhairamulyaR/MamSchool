@@ -37,7 +37,7 @@
                 margin-bottom: 20px;
             }
             .btn-custom {
-                background-color: #6ec1e4;
+                background-color: #4682b4;
                 color: white;
                 font-weight: bold;
                 border: none;
