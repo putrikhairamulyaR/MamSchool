@@ -15,7 +15,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f5f5f5;
+            background-color: #f0f8ff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -76,7 +76,7 @@
         }
 
         .btn:hover {
-            background-color: #008f7a;
+            background-color: #3e75a2;
         }
 
         .login-link {
