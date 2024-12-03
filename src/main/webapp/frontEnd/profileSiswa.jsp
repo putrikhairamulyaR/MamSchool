@@ -21,34 +21,40 @@
             font-family: Arial, sans-serif;
         }
         .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 250px;
-            height: 100%;
-            background-color: #4682b4;
-            color: #fff;
+            background-color: #34495e;
+            color: white;
             display: flex;
             flex-direction: column;
-            padding: 20px;
+            padding: 15px;
+            position: fixed;
+            height: 100%;
         }
+
         .sidebar h2 {
-            font-size: 25px;
-            text-align: left;
-            margin-bottom: 30px;
+            text-align: center;
+            margin-bottom: 20px;
         }
+
         .sidebar a {
-            color: #fff;
             text-decoration: none;
-            margin: 10px 0;
-            font-size: 20px;
+            color: white;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 5px;
             display: flex;
             align-items: center;
-            gap: 10px;
         }
+
         .sidebar a:hover {
-            text-decoration: underline;
+            background-color: #628ab1;
         }
+
+        .sidebar a i {
+            margin-right: 10px;
+        }
+        
         .content {
             margin-left: 260px;
             padding: 20px;
@@ -126,12 +132,13 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <h2>Dashboard Siswa</h2>
+        <h4 class="mb-4 mt-2 px-2">Dashboard Siswa</h4>
         <a href="profileSiswa.jsp"><i class="bi bi-person-circle"></i> Profile</a>
         <a href="DasboardSiswa.jsp#beranda"><i class="bi bi-house-door-fill"></i> Beranda</a>
-        <a href="kelas.jsp"><i class="bi bi-list-check"></i> Kelas</a>
-        <a href="#nilai"><i class="bi bi-clipboard2-check"></i> Nilai</a>
-        <a href="#mapel"><i class="bi bi-book"></i> Mapel</a>
+        <a href="kelasSiswa.jsp"><i class="bi bi-list-check"></i> Kelas</a>
+        <a href="nilai.jsp"><i class="bi bi-clipboard2-check"></i> Nilai</a>
+        <a href="mapelSiswa.jsp"><i class="bi bi-book"></i> Mapel</a>
+        <hr>
         <a href="#setting"><i class="bi bi-gear"></i> Setting</a>
         <a href="#bantuan"><i class="bi bi-question-circle"></i> Bantuan</a>
         <a href="tampilanAwal.jsp" style="margin-top: auto;"><i class="bi bi-box-arrow-left"></i> Logout</a>
