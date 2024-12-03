@@ -44,13 +44,20 @@
             }
             .btn-custom:hover {
                 background-color: #5ba9cd;
+                color: white;
             }
-
+            a{
+                text-decoration: none;
+            }
+            a:hover{
+                text-decoration: underline;
+            }
         </style>
     </head>
     <body>
         <div class="login-container">
-            <h1>Login</h1>
+            <h1 class="mb-1">HALO!</h1>
+            <p class="text-center">Silahkan login menggunakan akunmu!</p>
             <form action="LoginServlet" method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
@@ -63,7 +70,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-custom w-100">Login</button>
-                <div class="text-center mt-3">
+                <div class="text-center mt-2 mb-1">
                     <p>Belum punya akun? <a href="SignIn.jsp" class="text-primary">Daftar di sini!</a></p>
                 </div>
             </form>
