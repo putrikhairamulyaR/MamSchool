@@ -48,7 +48,7 @@
         }
 
         .sidebar a:hover {
-            background-color: #4d88ff;
+            background-color: #628ab1;
         }
 
         .sidebar a i {
@@ -109,12 +109,13 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <h2>Dashboard Siswa</h2>
+        <h4 class="mb-4 mt-2 px-2">Dashboard Siswa</h4>
         <a href="profileSiswa.jsp"><i class="bi bi-person-circle"></i> Profile</a>
         <a href="DasboardSiswa.jsp#beranda"><i class="bi bi-house-door-fill"></i> Beranda</a>
         <a href="kelasSiswa.jsp"><i class="bi bi-list-check"></i> Kelas</a>
         <a href="nilai.jsp"><i class="bi bi-clipboard2-check"></i> Nilai</a>
         <a href="mapelSiswa.jsp"><i class="bi bi-book"></i> Mapel</a>
+        <hr>
         <a href="#setting"><i class="bi bi-gear"></i> Setting</a>
         <a href="#bantuan"><i class="bi bi-question-circle"></i> Bantuan</a>
         <a href="tampilanAwal.jsp" style="margin-top: auto;"><i class="bi bi-box-arrow-left"></i> Logout</a>
@@ -122,10 +123,21 @@
 
     <!-- Main Content -->
     <div class="content">
-        <!-- Information Section -->
-        <div class="info-container">
-            <p><strong>Jumlah Subjek:</strong> 9</p>
-            <p><strong>Rata-rata:</strong> 9.9</p>
+        <div class="info-container container">
+            <div class="row"> 
+                <div class="col-md-6 px-5"> 
+                    <p><strong>Kelas:</strong> 11.1</p> 
+                </div> 
+                <div class="col-md-6 px-5"> 
+                    <p><strong>Jumlah Subjek:</strong> 9</p> 
+                </div> 
+                <div class="col-md-6 px-5"> 
+                    <p><strong>Semester:</strong> 1</p> 
+                </div> 
+                <div class="col-md-6 px-5"> 
+                    <p><strong>Rata-rata:</strong> 9.9</p> 
+                </div> 
+            </div> 
         </div>
 
         <!-- Table Section -->
