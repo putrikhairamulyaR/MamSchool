@@ -214,12 +214,10 @@
                         formRow.classList.add('form-row', 'mb-2');
                         formRow.innerHTML = `
             <div>
-                <label for="kelas${i}" class="form-label">Nama Kelas ${i}:</label>
-                <input type="text" id="kelas${i}" name="kelas${i}" class="form-control" placeholder="Masukkan nama kelas">
+                <label for="kelas${i}" class="form-label">Nama Kelas: 10 IPA (i)</label>
             </div>
             <div>
-                <label for="jumlah${i}" class="form-label">Jumlah Siswa ${i}:</label>
-                <input type="number" id="jumlah${i}" name="jumlah${i}" class="form-control" placeholder="Masukkan jumlah siswa">
+                <input type="number" id="jumlah" name="jumlah" class="form-control" placeholder="Masukkan jumlah siswa">
             </div>
         `;
                         dynamicForms.appendChild(formRow);
