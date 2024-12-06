@@ -77,8 +77,12 @@
             font-size: 16px;
         }
 
-        .info-container p strong {
-            color: #3366cc;
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
         .table-container {
@@ -105,6 +109,24 @@
         th {
             background-color: #f2f2f2;
         }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row > div {
+            flex: 1;
+        }
+
+        .btn{
+            background-color: #4682b4;
+            color: white;
+        }
+        .btn:hover{
+            background-color: #3e75a2;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -124,28 +146,50 @@
 
     <!-- Main Content -->
     <div class="content">
-        <div class="info-container">
-            <p><strong>Pilih Tingkat dan Jurusan!</strong></p>
-            <select name="Choose">
-                <option disabled>Choose</option>
-                <option>10 IPA</option>
-                <option>10 IPS</option>
-                <option>11 IPA</option>
-                <option>11 IPS</option>
-                <option>12 IPA</option>
-                <option>12 IPS</option>
-            </select>
-            <p>
-                            <strong>Jumlah Siswa:</strong>
-                            <span id="jumlah">xxx</span>
-                        </p>
-                        <<form>
-                            
-                        </form>
+        <div class="info-container"> 
+            <h4>Pilih Tingkat dan Jurusan!</h4>
+            <div class="row"> 
+                <div class="col-md-6"> 
+                    <p><b>Pilih Tingkat:</b></p>
+                    <select name="Choose" class="form-select"> 
+                        <option selected disabled> </option> 
+                        <option>1</option> 
+                        <option>2</option> 
+                        <option>3</option>
+                    </select> 
+                </div>
+                <div class="col-md-6"> 
+                    <p><b>Pilih Jurusan:</b></p>
+                    <select name="Choose" class="form-select"> 
+                        <option selected disabled> </option> 
+                        <option>IPA</option> 
+                        <option>IPS</option> 
+                    </select> 
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <p><strong>Jumlah Siswa:</strong></p>
+                    <input type="text" id="jumlahSiswa" class="form-control" value="xxx" readOnly>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Jumlah Kelas:</strong></p>
+                    <input type="number" id="jumlahKelas" class="form-control" placeholder="Masukkan jumlah kelas">
+                </div>
+            </div>
+            <div class="mt-3">
+                <button type="button" id="generateForms" class="btn">Buat Form</button>
+            </div>
         </div>
-        
+
+        <div class="form-container" id="formContainer" style="display: none;">
+            <h4>Form Kelas</h4>
+            <div id="dynamicForms" class="mt-4"></div>
+            <button type="button" id="confirmForms" class="btn mt-3" style="display: none;">Confirm</button>
+        </div>
+
         <div class="table-container">
-                <h4>Daftar Siswa</h4>
+            <h4>Daftar Siswa</h4>
             <table>
                 <thead>
                     <tr>
@@ -153,7 +197,8 @@
                         <th>Nama Siswa</th>
                         <th>Tingkat</th>
                         <th>Jurusan</th>
-                        <th>Kelas<th>
+                        <th>Kelas</th>
+                        <th>Pilih</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -163,10 +208,74 @@
                         <td>1</td>
                         <td>IPA</td>
                         <td>10 IPA 1</td>
+                        <td><input type="checkbox"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-</body>
+        <script>
+            document.getElementById('generateForms').addEventListener('click', function () {
+    const jumlahKelas = parseInt(document.getElementById('jumlahKelas').value);
+    const formContainer = document.getElementById('formContainer');
+    const dynamicForms = document.getElementById('dynamicForms');
+    const confirmButton = document.getElementById('confirmForms');
+
+    dynamicForms.innerHTML = '';
+    formContainer.style.display = 'none';
+
+    if (!isNaN(jumlahKelas) && jumlahKelas > 0) {
+        formContainer.style.display = 'block';
+        for (let i = 1; i <= jumlahKelas; i++) {
+            const formRow = document.createElement('div');
+            formRow.classList.add('form-row', 'mb-2');
+            formRow.innerHTML = `
+                <div>
+                    <label for="kelas" class="form-label">Nama Kelas : 10 IPA (i)</label>
+                </div>
+                <div>
+                    <input type="number" id="jumlah" name="jumlah" class="form-control" placeholder="Masukkan jumlah siswa">
+                </div>
+            `;
+            dynamicForms.appendChild(formRow);
+        }
+        confirmButton.style.display = 'inline-block';
+    } else {
+        alert('Masukkan jumlah kelas yang valid!');
+    }
+});
+
+document.getElementById('confirmForms').addEventListener('click', function () {
+    const jumlahKelas = parseInt(document.getElementById('jumlahKelas').value);
+    const data = [];
+
+    for (let i = 1; i <= jumlahKelas; i++) {
+        const namaKelas = document.getElementById(`kelas${i}`).value;
+        const jumlahSiswa = document.getElementById(`jumlah${i}`).value;
+
+        if (namaKelas && jumlahSiswa) {
+            data.push({ namaKelas, jumlahSiswa });
+        } else {
+            alert(`Data pada kelas ${i} belum lengkap!`);
+            return;
+        }
+    }
+
+    console.log(data);
+    alert('Data berhasil dikonfirmasi!');
+});
+
+//const checkboxes = document.querySelectorAll('table tbody input[type="checkbox"]');
+//const counterDisplay = document.createElement('p');
+//counterDisplay.innerText = `Checkbox selected: 0`;
+//document.querySelector('.table-container').appendChild(counterDisplay);
+//
+//document.addEventListener('change', function () {
+//    const selected = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+//    counterDisplay.innerText = `Checkbox selected: ${selected}`;
+//});
+
+
+        </script>
+    </body>
 </html>

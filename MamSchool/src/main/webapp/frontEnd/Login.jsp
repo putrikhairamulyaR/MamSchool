@@ -34,25 +34,48 @@
             background-color: #5ba9cd;
         }
     </style>
-    <body class="bg-light d-flex justify-content-center align-items-center  login-container">
+    <body class="bg-light d-flex justify-content-center align-items-center login-container">
 
         <div class="card p-4 shadow" style="min-width: 400px">
             <h1 class="text-center mb-3">HALO!</h1>
             <p class="text-center mb-4">Silahkan login menggunakan akunmu!</p>
+            <p>Context Path: ${pageContext.request.contextPath}</p>
 
-            <form action="LoginServlet" method="post">
+
+            <!-- Pesan Error atau Sukses -->
+            <c:if test="${not empty errorMessage}">
+                <div class="alert alert-danger text-center" role="alert">
+                    ${errorMessage}
+                </div>
+            </c:if>
+
+            <c:if test="${not empty message}">
+                <div class="alert alert-success text-center" role="alert">
+                    ${message}
+                </div>
+            </c:if>
+
+            <!-- Form Login -->
+            <form action="/LoginServlet" method="get">
+                <!-- Input Username -->
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+                    <input type="text" class="form-control" id="username" name="username" 
+                           pattern="^[a-zA-Z0-9._-]{3,20}$" 
+                           title="Username harus berupa 3-20 karakter alfanumerik" required>
                 </div>
 
+                <!-- Input Password -->
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <input type="password" class="form-control" id="password" name="password" 
+                           minlength="6" title="Password minimal 6 karakter" required>
                 </div>
 
+                <!-- Tombol Login -->
                 <button type="submit" class="btn btn-mam-1 w-100">Login</button>
 
+                <!-- Link ke Halaman Daftar -->
                 <div class="text-center mt-3">
                     <p>Belum punya akun? <a href="SignIn.jsp" class="text-primary">Daftar di sini!</a></p>
                 </div>
@@ -60,5 +83,6 @@
         </div>
 
     </body>
+
 </html>
 

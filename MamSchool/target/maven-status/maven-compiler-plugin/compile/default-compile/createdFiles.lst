@@ -1,2 +1,5 @@
-com\mycompany\mamschool\resources\JakartaEE11Resource.class
 com\mycompany\mamschool\JakartaRestConfiguration.class
+classes\JDBC.class
+com\mycompany\mamschool\resources\JakartaEE11Resource.class
+servlets\LoginServlet.class
+dao\LoginDAO.class
