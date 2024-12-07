@@ -13,18 +13,18 @@ import java.sql.*;
  */
 public class LoginDAO {
 
-    public boolean validateUser(String username, String password) {
-        String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+    public String getUserRole(String username, String password) {
+        String query = "SELECT role FROM users WHERE username = ? AND password = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = JDBC.getConnection();
-            
+
             if (connection == null) {
                 System.out.println("Koneksi database gagal.");
-                return false;
+                return null;
             }
 
             preparedStatement = connection.prepareStatement(query);
@@ -33,10 +33,14 @@ public class LoginDAO {
 
             resultSet = preparedStatement.executeQuery();
 
-            return resultSet.next();
+            if (resultSet.next()) {
+                return resultSet.getString("role"); // Mengembalikan role pengguna
+            } else {
+                return null; // Jika username dan password tidak cocok
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return null;
         } finally {
             try {
                 if (resultSet != null) resultSet.close();

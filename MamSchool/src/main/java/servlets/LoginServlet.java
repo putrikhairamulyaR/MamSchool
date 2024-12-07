@@ -25,12 +25,27 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         LoginDAO loginDAO = new LoginDAO();
-        boolean isValidUser = loginDAO.validateUser(username, password);
+        String role = loginDAO.getUserRole(username, password);
 
-        if (isValidUser) {
-            request.setAttribute("message", "Login berhasil, selamat datang " + username);
-            request.getRequestDispatcher("/frontEnd/DashboardGuru.jsp").forward(request, response);
+        if (role != null) {
+            switch (role) {
+                case "kepsek":
+                    request.getRequestDispatcher("/frontEnd/Kepsek/DashboardKepsek.jsp").forward(request, response);
+                    break;
+                case "guru":
+                    request.getRequestDispatcher("/frontEnd/Guru/DashboardGuru.jsp").forward(request, response);
+                    break;
+                case "siswa":
+                    request.getRequestDispatcher("/frontEnd/Murid/DashboardSiswa.jsp").forward(request, response);
+                    break;
+                default:
+                    // Jika role tidak dikenal, kembalikan ke login dengan pesan error
+                    request.setAttribute("errorMessage", "Role tidak dikenal.");
+                    request.getRequestDispatcher("/frontEnd/Login.jsp").forward(request, response);
+                    break;
+            }
         } else {
+            // Jika username/password salah
             request.setAttribute("errorMessage", "Invalid username or password");
             request.getRequestDispatcher("/frontEnd/Login.jsp").forward(request, response);
         }
