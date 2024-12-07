@@ -6,3 +6,4 @@ classes\JDBC.class
 com\mycompany\mamschool\resources\JakartaEE11Resource.class
 dao\BagiKelasDAO.class
 servlets\BagiKelasServlet.class
+model\User.class

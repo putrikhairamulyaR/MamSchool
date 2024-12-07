@@ -5,6 +5,7 @@
 package dao;
 
 import classes.JDBC;
+import model.User;
 import java.sql.*;
 
 /**
@@ -13,11 +14,12 @@ import java.sql.*;
  */
 public class LoginDAO {
 
-    public String getUserRole(String username, String password) {
-        String query = "SELECT role FROM users WHERE username = ? AND password = ?";
+    public User getUser(String username, String password) {
+        String query = "SELECT * FROM users WHERE username = ? AND password = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+        User user = null;
 
         try {
             connection = JDBC.getConnection();
@@ -29,18 +31,21 @@ public class LoginDAO {
 
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(2, password); 
 
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return resultSet.getString("role"); 
-            } else {
-                return null; 
+                user = new User(
+                        resultSet.getInt("id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password"),
+                        resultSet.getString("role"),
+                        resultSet.getTimestamp("created_at")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
@@ -50,5 +55,7 @@ public class LoginDAO {
                 e.printStackTrace();
             }
         }
+
+        return user; 
     }
 }

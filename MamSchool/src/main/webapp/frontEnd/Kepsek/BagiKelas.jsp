@@ -181,13 +181,15 @@ Author     : Raisa Lukman Hakim
             </div>
         </div>
         <script>
-            document.getElementById("jurusanDropdown").addEventListener("change", function () {
-                if (document.getElementById("tingkatDropdown").value === "" || document.getElementById("jurusanDropdown").value === "") {
-                    alert("Pilih tingkat dan jurusan terlebih dahulu!");
-                    return;
-                }
+            function fetchData() {
+                const tingkat = document.getElementById("tingkatDropdown").value;
+                const jurusan = document.getElementById("jurusanDropdown").value;
 
-                fetch("<%= request.getContextPath()%>/BagiKelasServlet?jurusan=" + document.getElementById("jurusanDropdown").value + "&tingkat=" + document.getElementById("tingkatDropdown").value)
+                console.log("Tingkat terpilih:", tingkat);
+                console.log("Jurusan terpilih:", jurusan);
+
+                // Fetch data dari servlet
+                fetch("<%= request.getContextPath()%>/BagiKelasServlet?jurusan=" + jurusan + "&tingkat=" + tingkat)
                         .then(function (response) {
                             console.log("Status Response:", response.status);
                             if (!response.ok) {
@@ -203,8 +205,11 @@ Author     : Raisa Lukman Hakim
                         .catch(function (error) {
                             console.error("Error:", error);
                         });
-            });
-        </script>
+            }
 
+            // Tambahkan event listener pada kedua dropdown
+            document.getElementById("tingkatDropdown").addEventListener("change", fetchData);
+            document.getElementById("jurusanDropdown").addEventListener("change", fetchData);
+        </script>
     </body>
 </html>
