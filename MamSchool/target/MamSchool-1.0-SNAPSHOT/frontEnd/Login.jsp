@@ -56,7 +56,7 @@
             </c:if>
 
             <!-- Form Login -->
-            <form action="/LoginServlet" method="get">
+            <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
                 <!-- Input Username -->
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>

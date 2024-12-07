@@ -29,21 +29,15 @@ public class LoginServlet extends HttpServlet {
 
         if (isValidUser) {
             request.setAttribute("message", "Login berhasil, selamat datang " + username);
-            request.getRequestDispatcher("/frontEnd/dashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("/frontEnd/DashboardGuru.jsp").forward(request, response);
         } else {
             request.setAttribute("errorMessage", "Invalid username or password");
-            request.getRequestDispatcher("/frontEnd/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/frontEnd/Login.jsp").forward(request, response);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Arahkan pengguna ke halaman login jika mengakses dengan GET
-        response.sendRedirect(request.getContextPath() + "/frontEnd/login.jsp");
     }
 }
