@@ -28,24 +28,25 @@ public class LoginServlet extends HttpServlet {
         String role = loginDAO.getUserRole(username, password);
 
         if (role != null) {
+            request.getSession().setAttribute("username", username);
+            request.getSession().setAttribute("role", role);
+
             switch (role) {
                 case "kepsek":
-                    request.getRequestDispatcher("/frontEnd/Kepsek/DashboardKepsek.jsp").forward(request, response);
+                    response.sendRedirect("frontEnd/Kepsek/DashboardKepsek.jsp");
                     break;
                 case "guru":
-                    request.getRequestDispatcher("/frontEnd/Guru/DashboardGuru.jsp").forward(request, response);
+                    response.sendRedirect("frontEnd/Guru/DashboardGuru.jsp");
                     break;
                 case "siswa":
-                    request.getRequestDispatcher("/frontEnd/Murid/DashboardSiswa.jsp").forward(request, response);
+                    response.sendRedirect("frontEnd/Murid/DashboardSiswa.jsp");
                     break;
                 default:
-                    // Jika role tidak dikenal, kembalikan ke login dengan pesan error
                     request.setAttribute("errorMessage", "Role tidak dikenal.");
                     request.getRequestDispatcher("/frontEnd/Login.jsp").forward(request, response);
                     break;
             }
         } else {
-            // Jika username/password salah
             request.setAttribute("errorMessage", "Invalid username or password");
             request.getRequestDispatcher("/frontEnd/Login.jsp").forward(request, response);
         }

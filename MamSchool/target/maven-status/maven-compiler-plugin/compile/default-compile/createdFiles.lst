@@ -1,5 +1,8 @@
+servlets\LoginServlet.class
+servlets\LogoutServlet.class
+dao\LoginDAO.class
 com\mycompany\mamschool\JakartaRestConfiguration.class
 classes\JDBC.class
 com\mycompany\mamschool\resources\JakartaEE11Resource.class
-servlets\LoginServlet.class
-dao\LoginDAO.class
+dao\BagiKelasDAO.class
+servlets\BagiKelasServlet.class

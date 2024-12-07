@@ -34,9 +34,9 @@ public class LoginDAO {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return resultSet.getString("role"); // Mengembalikan role pengguna
+                return resultSet.getString("role"); 
             } else {
-                return null; // Jika username dan password tidak cocok
+                return null; 
             }
         } catch (SQLException e) {
             e.printStackTrace();

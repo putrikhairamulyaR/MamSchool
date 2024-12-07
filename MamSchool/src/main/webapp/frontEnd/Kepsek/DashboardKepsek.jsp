@@ -5,6 +5,25 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+    
+    if (session == null || session.getAttribute("username") == null) {
+        response.sendRedirect("../Login.jsp");
+        return;
+    }
+
+    String username = (String) session.getAttribute("username");
+    String role = (String) session.getAttribute("role");
+
+    if (!"kepsek".equals(role)) {
+        response.sendRedirect("../Login.jsp");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,7 +39,7 @@
             #sidebar {
                 width: 250px;
                 transition: transform 0.3s ease, visibility 0.3s ease;
-                overflow: hidden;
+                overflow: auto;
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -148,6 +167,19 @@
                             <span class="align-middle">Maps</span>
                         </a>
                     </li>
+                </ul>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class="nav-link text-muted">Accounts</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
+                            <i data-feather="log-out" class="align-middle"></i>
+                            <span class="align-middle">Log Out</span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </nav>
