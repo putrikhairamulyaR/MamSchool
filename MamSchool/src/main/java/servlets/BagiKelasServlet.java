@@ -1,50 +1,90 @@
-package servlets;
-
 import dao.BagiKelasDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.io.PrintWriter;
 /**
  *
  * @author Raisa Lukman Hakim
  */
-@WebServlet(name = "BagiKelasServlet", urlPatterns = {"/BagiKelasServlet"})
+@WebServlet("/BagiKelasServlet")
 public class BagiKelasServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String[] studentIds = request.getParameterValues("studentIds");
-        int classId = Integer.parseInt(request.getParameter("classId"));
+    private final BagiKelasDAO dao = new BagiKelasDAO();
 
-        BagiKelasDAO dao = new BagiKelasDAO();
-        List<Integer> selectedStudentIds = new ArrayList<>();
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
 
-        int getTotalStudents = dao.getTotalStudents();
-        if (getTotalStudents > 0) {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
 
+        if (action == null) {
+            out.println("Invalid action!");
+            return;
         }
 
-        boolean allStudentsHaveClasses = dao.allStudentsHaveClasses();
-        if (allStudentsHaveClasses) {
-            request.setAttribute("message", "Semua siswa sudah memiliki kelas.");
-        } else {
-            request.setAttribute("error", "Siswa belum memiliki kelas.");
+        switch (action) {
+            case "getTotalStudents":
+                int totalStudents = dao.getTotalStudents();
+                out.println("Total Students: " + totalStudents);
+                break;
+
+            case "getTotalStudentsWithClass":
+                int totalWithClass = dao.getTotalStudentsWithClass();
+                out.println("Total Students with Class: " + totalWithClass);
+                break;
+
+            case "listStudentsWithClass":
+                dao.getStudentsWithClass().forEach(student -> out.println(student));
+                break;
+
+            case "listAllStudents":
+                dao.getAllStudents().forEach(student -> out.println(student));
+                break;
+
+            case "listStudentsInClass":
+                int classId = Integer.parseInt(request.getParameter("classId"));
+                dao.getStudentsInClass().forEach(student -> out.println(student));
+                break;
+
+            default:
+                out.println("Unknown action!");
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        if (action == null) {
+            out.println("Invalid action!");
+            return;
         }
 
-        boolean success = dao.assignStudentsToClass(classId, selectedStudentIds);
-        if (success) {
-            request.setAttribute("message", "Siswa berhasil dimasukkan ke kelas.");
-        } else {
-            request.setAttribute("error", "Gagal memasukkan siswa ke kelas.");
-        }
+        switch (action) {
+            case "assignStudentToClass":
+                int studentId = Integer.parseInt(request.getParameter("studentId"));
+                int classId = Integer.parseInt(request.getParameter("classId"));
+                boolean assigned = dao.assignStudentToClass(studentId, classId);
+                out.println(assigned ? "Student assigned successfully!" : "Failed to assign student.");
+                break;
 
-        request.getRequestDispatcher("BagiKelas.jsp").forward(request, response);
+            case "addClass":
+                String name = request.getParameter("name");
+                String major = request.getParameter("major");
+                boolean classAdded = dao.addClass(name, major);
+                out.println(classAdded ? "Class added successfully!" : "Failed to add class.");
+                break;
+
+            default:
+                out.println("Unknown action!");
+        }
     }
 }
