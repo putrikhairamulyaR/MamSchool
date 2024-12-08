@@ -65,7 +65,7 @@
                            title="Username harus berupa 3-20 karakter alfanumerik" required>
                 </div>
 
-                <!-- Input Password -->
+                <!-- Input Password User -->
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" 
