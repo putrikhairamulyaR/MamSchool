@@ -32,11 +32,12 @@ public class BagiKelasServlet extends HttpServlet {
         BagiKelasDAO dao = new BagiKelasDAO();
         int jumlahKelas = dao.countClassesByTingkatAndMajor(tingkat, jurusan);
         int jumlahSiswa = dao.countStudentsByTingkatAndMajor(tingkat, jurusan);
+        int jumlahAllSiswa = dao.countAllStudentsByTingkatAndMajor(tingkat, jurusan);
 
         // Kembalikan hasil dalam format JSON
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"jumlahKelas\": " + jumlahKelas + ", \"jumlahSiswa\": " + jumlahSiswa + "}");
+        response.getWriter().write("{\"jumlahAllSiswa\": " + jumlahAllSiswa + ", \"jumlahSiswa\": " + jumlahSiswa + ", \"jumlahKelas\": " + jumlahKelas +"}");
     }
 
     @Override
