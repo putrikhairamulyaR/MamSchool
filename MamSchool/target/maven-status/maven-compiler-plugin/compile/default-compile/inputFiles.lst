@@ -1,2 +1,9 @@
-D:\NetBeans\TUBES\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
-D:\NetBeans\TUBES\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\classes\JDBC.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\BagiKelasDAO.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\LoginDAO.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\model\User.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\BagiKelasServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\LoginServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\LogoutServlet.java
