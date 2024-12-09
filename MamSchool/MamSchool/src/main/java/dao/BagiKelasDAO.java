@@ -54,50 +54,19 @@ public class BagiKelasDAO {
         return count;
     }
     
-    // Metode untuk menghitung jumlah kelas berdasarkan tingkat dan jurusan
-    public int countClassesByTingkatAndMajor(String tingkat, String major) {
-        String query = "SELECT COUNT(*) FROM classes WHERE name LIKE ? AND major = ?";
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        int count = 0;
 
-        try {
-            connection = JDBC.getConnection();
-
-            if (connection == null) {
-                System.out.println("Koneksi database gagal.");
-                return count;
-            }
-
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, tingkat + "%"); // Filter tingkat, misalnya 'X%'
-            preparedStatement.setString(2, major);
-            resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                count = resultSet.getInt(1); // Ambil jumlah kelas
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (preparedStatement != null) preparedStatement.close();
-                JDBC.closeConnection(connection);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return count;
-    }
-
-    // Metode untuk menghitung jumlah siswa di kelas berdasarkan tingkat dan jurusan
-    public int countStudentsByTingkatAndMajor(String tingkat, String major) {
-        String query = "SELECT COUNT(*) FROM students s "
-                     + "JOIN classes c ON s.class_id = c.id "
-                     + "WHERE c.name LIKE ? AND c.major = ?";
+    // Metode untuk menghitung jumlah siswa yang belum punya kelas berdasarkan tingkat dan jurusan
+    public int countStudentsNoClass(String tingkat, String major) {
+        String query = "SELECT COUNT(*) " +
+                   "FROM students " +
+                   "WHERE (YEAR(CURRENT_DATE) - enrollment_year = " +
+                   "        CASE " +
+                   "            WHEN ? = 'X' THEN 1 " +
+                   "            WHEN ? = 'XI' THEN 2 " +
+                   "            WHEN ? = 'XII' THEN 3 " +
+                   "        END) " +
+                   "AND major = ?" +
+                   "AND class_id is NULL";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
