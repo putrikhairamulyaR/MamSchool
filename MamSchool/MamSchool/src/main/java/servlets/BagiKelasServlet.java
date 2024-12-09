@@ -30,14 +30,13 @@ public class BagiKelasServlet extends HttpServlet {
 
         // Gunakan DAO untuk menghitung jumlah kelas dan siswa
         BagiKelasDAO dao = new BagiKelasDAO();
-        int jumlahKelas = dao.countClassesByTingkatAndMajor(tingkat, jurusan);
-        int jumlahSiswa = dao.countStudentsByTingkatAndMajor(tingkat, jurusan);
+        int jumlahSiswa = dao.countStudentsNoClass(tingkat, jurusan);
         int jumlahAllSiswa = dao.countAllStudentsByTingkatAndMajor(tingkat, jurusan);
 
         // Kembalikan hasil dalam format JSON
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"jumlahAllSiswa\": " + jumlahAllSiswa + ", \"jumlahSiswa\": " + jumlahSiswa + ", \"jumlahKelas\": " + jumlahKelas +"}");
+        response.getWriter().write("{\"jumlahAllSiswa\": " + jumlahAllSiswa + ", \"jumlahSiswa\": " + jumlahSiswa  +"}");
     }
 
     @Override
