@@ -1,13 +1,17 @@
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\classes\JDBC.java
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\dao\BagiKelasDAO.java
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\dao\LoginDAO.java
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\model\Classes.java
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\model\Student.java
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\model\Teacher.java
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\model\User.java
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\servlets\BagiKelasServlet.java
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\servlets\LoginServlet.java
-C:\Tubes PBO\MamSchool\MamSchool\src\main\java\servlets\LogoutServlet.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\classes\JDBC.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\dao\BagiKelasDAO.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\dao\gradeDao.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\dao\LoginDAO.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\dao\siswaDAO.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\model\Classes.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\model\gradeStudent.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\model\nilai.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\model\Student.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\model\Teacher.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\model\User.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\servlets\BagiKelasServlet.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\servlets\LoginServlet.java
+D:\Semester 5\MAM School\MamSchool\MamSchool\src\main\java\servlets\LogoutServlet.java
