@@ -170,12 +170,12 @@ Author     : Raisa Lukman Hakim
 
                 <div class="row mt-3">
                     <div class="col-md-6">
-                        <p><strong>Jumlah Seluruh Siswa:</strong></p>
-                        <input type="text" id="JumlahAllSiswa" class="form-control" value="-" readonly>
+                        <p><strong>Jumlah Siswa Ada Kelas:</strong></p>
+                        <input type="number" id="SiswaHasKelas" class="form-control" value="-" readonly>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Jumlah Siswa di Kelas:</strong></p>
-                        <input type="text" id="jumlahSiswa" class="form-control" value="-" readonly>
+                        <p><strong>Jumlah Siswa Tidak Ada Kelas</strong></p>
+                        <input type="number" id="SiswaNoKelas" class="form-control" value="-" readonly>
                     </div>
                 </div>
                 <div id="jumlahKelasContainer" style="display: none;">

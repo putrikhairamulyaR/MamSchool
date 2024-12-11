@@ -7,8 +7,8 @@ import java.sql.*;
  * @author Raisa Lukman Hakim
  */
 public class BagiKelasDAO {
-    // Metode untuk menghitung jumlah seluruh siswa berdasarkan tingkat dan jurusan
-    public int countAllStudentsByTingkatAndMajor(String tingkat, String major) {
+    // Metode untuk menghitung jumlah siswa yang sudah punya kelas berdasarkan tingkat dan jurusan
+    public int countStudentsHasClass(String tingkat, String major) {
        String query = "SELECT COUNT(*) " +
                    "FROM students " +
                    "WHERE (YEAR(CURRENT_DATE) - enrollment_year = " +
@@ -17,7 +17,8 @@ public class BagiKelasDAO {
                    "            WHEN ? = 'XI' THEN 2 " +
                    "            WHEN ? = 'XII' THEN 3 " +
                    "        END) " +
-                   "AND major = ?";
+                   "AND major = ?" +
+                   "AND class_id is NOT NULL";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

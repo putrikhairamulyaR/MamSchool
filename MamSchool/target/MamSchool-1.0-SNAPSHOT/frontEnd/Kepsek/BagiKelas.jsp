@@ -153,9 +153,9 @@ Author     : Raisa Lukman Hakim
                         <p><b>Pilih Tingkat:</b></p>
                         <select name="tingkat" id="tingkatDropdown" class="form-select">
                             <option selected disabled value="">Pilih Tingkat</option>
-                            <option value="X">X</option>
-                            <option value="XI">XI</option>
-                            <option value="XII">XII</option>
+                            <option value="X">1</option>
+                            <option value="XI">2</option>
+                            <option value="XII">3</option>
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -170,12 +170,19 @@ Author     : Raisa Lukman Hakim
 
                 <div class="row mt-3">
                     <div class="col-md-6">
-                        <p><strong>Jumlah Siswa:</strong></p>
-                        <input type="text" id="jumlahKelas" class="form-control" value="-" readonly>
+                        <p><strong>Jumlah Siswa Ada Kelas:</strong></p>
+                        <input type="number" id="SiswaHasKelas" class="form-control" value="-" readonly>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Jumlah Kelas:</strong></p>
-                        <input type="text" id="jumlahSiswa" class="form-control" value="-" readonly>
+                        <p><strong>Jumlah Siswa Tidak Ada Kelas</strong></p>
+                        <input type="number" id="SiswaNoKelas" class="form-control" value="-" readonly>
+                    </div>
+                </div>
+                <div id="jumlahKelasContainer" style="display: none;">
+                    <p><strong>Jumlah Kelas:</strong></p>
+                    <input type="number" id="jumlahKelas" class="form-control" placeholder="Masukkan jumlah kelas yang ingin dibuat">
+                    <div class="mt-3">
+                        <button type="button" id="generateForms" class="btn">Buat Form</button>
                     </div>
                 </div>
             </div>
@@ -199,8 +206,17 @@ Author     : Raisa Lukman Hakim
                         })
                         .then(function (data) {
                             console.log("Data diterima dari server:", data);
-                            document.getElementById("jumlahKelas").value = data.jumlahKelas;
-                            document.getElementById("jumlahSiswa").value = data.jumlahSiswa;
+                            const jumlahKelasInput = document.getElementById("jumlahKelas");
+                            const jumlahSiswaInput = document.getElementById("jumlahSiswa");
+                            const jumlahKelasContainer = document.getElementById("jumlahKelasContainer");
+                            jumlahKelasInput.value = data.jumlahKelas;
+                            jumlahSiswaInput.value = data.jumlahSiswa;
+
+                            if (data.jumlahKelas !== data.jumlahSiswa) {
+                                jumlahKelasContainer.style.display = "block";
+                            } else {
+                                jumlahKelasContainer.style.display = "none";
+                            }
                         })
                         .catch(function (error) {
                             console.error("Error:", error);
