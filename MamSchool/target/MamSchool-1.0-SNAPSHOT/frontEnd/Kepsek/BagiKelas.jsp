@@ -150,32 +150,34 @@ Author     : Raisa Lukman Hakim
                 <h4>Pilih Tingkat dan Jurusan!</h4>
                 <div class="row">
                     <div class="col-md-6">
+                        <form method="post" action="BagiKelasServlet">
                         <p><b>Pilih Tingkat:</b></p>
-                        <select name="tingkat" id="tingkatDropdown" class="form-select">
+                        <select name="tingkat" id="tingkat" class="form-select">
                             <option selected disabled value="">Pilih Tingkat</option>
-                            <option value="X">1</option>
-                            <option value="XI">2</option>
-                            <option value="XII">3</option>
+                            <option value="X">X</option>
+                            <option value="XI">XI</option>
+                            <option value="XII">XII</option>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <p><b>Pilih Jurusan:</b></p>
-                        <select name="jurusan" id="jurusanDropdown" class="form-select">
+                        <select name="jurusan" id="jurusan" class="form-select">
                             <option selected disabled value="">Pilih Jurusan</option>
                             <option value="IPA">IPA</option>
                             <option value="IPS">IPS</option>
                         </select>
+                    </form>
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <p><strong>Jumlah Siswa Ada Kelas:</strong></p>
-                        <input type="number" id="SiswaHasKelas" class="form-control" value="-" readonly>
+                        <input type="text" id="SiswaHasKelas" class="form-control" value="-" readonly>
                     </div>
                     <div class="col-md-6">
                         <p><strong>Jumlah Siswa Tidak Ada Kelas</strong></p>
-                        <input type="number" id="SiswaNoKelas" class="form-control" value="-" readonly>
+                        <input type="text" id="SiswaNoKelas" class="form-control" value="-" readonly>
                     </div>
                 </div>
                 <div id="jumlahKelasContainer" style="display: none;">
@@ -187,45 +189,5 @@ Author     : Raisa Lukman Hakim
                 </div>
             </div>
         </div>
-        <script>
-            function fetchData() {
-                const tingkat = document.getElementById("tingkatDropdown").value;
-                const jurusan = document.getElementById("jurusanDropdown").value;
-
-                console.log("Tingkat terpilih:", tingkat);
-                console.log("Jurusan terpilih:", jurusan);
-
-                // Fetch data dari servlet
-                fetch("<%= request.getContextPath()%>/BagiKelasServlet?jurusan=" + jurusan + "&tingkat=" + tingkat)
-                        .then(function (response) {
-                            console.log("Status Response:", response.status);
-                            if (!response.ok) {
-                                throw new Error("HTTP error " + response.status);
-                            }
-                            return response.json();
-                        })
-                        .then(function (data) {
-                            console.log("Data diterima dari server:", data);
-                            const jumlahKelasInput = document.getElementById("jumlahKelas");
-                            const jumlahSiswaInput = document.getElementById("jumlahSiswa");
-                            const jumlahKelasContainer = document.getElementById("jumlahKelasContainer");
-                            jumlahKelasInput.value = data.jumlahKelas;
-                            jumlahSiswaInput.value = data.jumlahSiswa;
-
-                            if (data.jumlahKelas !== data.jumlahSiswa) {
-                                jumlahKelasContainer.style.display = "block";
-                            } else {
-                                jumlahKelasContainer.style.display = "none";
-                            }
-                        })
-                        .catch(function (error) {
-                            console.error("Error:", error);
-                        });
-            }
-
-            // Tambahkan event listener pada kedua dropdown
-            document.getElementById("tingkatDropdown").addEventListener("change", fetchData);
-            document.getElementById("jurusanDropdown").addEventListener("change", fetchData);
-        </script>
     </body>
 </html>
