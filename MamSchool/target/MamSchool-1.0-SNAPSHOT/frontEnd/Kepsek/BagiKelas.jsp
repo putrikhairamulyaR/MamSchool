@@ -150,44 +150,116 @@ Author     : Raisa Lukman Hakim
                 <h4>Pilih Tingkat dan Jurusan!</h4>
                 <div class="row">
                     <div class="col-md-6">
-                        <form method="post" action="BagiKelasServlet">
                         <p><b>Pilih Tingkat:</b></p>
-                        <select name="tingkat" id="tingkat" class="form-select">
+                        <select name="tingkat" id="tingkatDropdown" class="form-select">
                             <option selected disabled value="">Pilih Tingkat</option>
-                            <option value="X">X</option>
-                            <option value="XI">XI</option>
-                            <option value="XII">XII</option>
+                            <option value="X">1</option>
+                            <option value="XI">2</option>
+                            <option value="XII">3</option>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <p><b>Pilih Jurusan:</b></p>
-                        <select name="jurusan" id="jurusan" class="form-select">
+                        <select name="jurusan" id="jurusanDropdown" class="form-select">
                             <option selected disabled value="">Pilih Jurusan</option>
                             <option value="IPA">IPA</option>
                             <option value="IPS">IPS</option>
                         </select>
-                    </form>
                     </div>
                 </div>
-
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <p><strong>Jumlah Siswa Ada Kelas:</strong></p>
-                        <input type="text" id="SiswaHasKelas" class="form-control" value="-" readonly>
+                        <input type="number" id="SiswaHasKelas" class="form-control" value="-" readonly>
                     </div>
                     <div class="col-md-6">
                         <p><strong>Jumlah Siswa Tidak Ada Kelas</strong></p>
-                        <input type="text" id="SiswaNoKelas" class="form-control" value="-" readonly>
+                        <input type="number" id="SiswaNoKelas" class="form-control" value="-" readonly>
                     </div>
                 </div>
-                <div id="jumlahKelasContainer" style="display: none;">
-                    <p><strong>Jumlah Kelas:</strong></p>
-                    <input type="number" id="jumlahKelas" class="form-control" placeholder="Masukkan jumlah kelas yang ingin dibuat">
-                    <div class="mt-3">
-                        <button type="button" id="generateForms" class="btn">Buat Form</button>
+
+                <div>
+                    <div class="tab">
+                        <button class="tablinks" onclick="open('Kelas')">Kelas</button>
+                        <button class="tablinks" onclick="open('Siswa')">Siswa</button
                     </div>
+
+                    <!-- Tab content -->
+                    <div id="Kelas" class="tabcontent">
+                        <h3>Pembuatan Kelas</h3>
+                        <p>London is the capital city of England.</p>
+                    </div>
+
+                    <div id="Siswa" class="tabcontent">
+                        <h3>Pembagian Kelas Untuk Siswa</h3>
+                        <p>Paris is the capital of France.</p>
+                    </div>
+
                 </div>
             </div>
         </div>
+        <script>
+            function open(content) {
+                // Declare all variables
+                var i, tabcontent, tablinks;
+
+                // Get all elements with class="tabcontent" and hide them
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+
+                // Get all elements with class="tablinks" and remove the class "active"
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+
+                // Show the current tab, and add an "active" class to the button that opened the tab
+                document.getElementById(content).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+
+            function fetchData() {
+                const tingkatDropdown = document.getElementById("tingkatDropdown");
+                const jurusanDropdown = document.getElementById("jurusanDropdown");
+
+                const tingkat = tingkatDropdown.value;
+                const jurusan = jurusanDropdown.value;
+
+                if (!tingkat || !jurusan) {
+                    console.log("Tingkat atau jurusan belum dipilih.");
+                    return;
+                }
+
+                console.log("Tingkat terpilih:", tingkat);
+                console.log("Jurusan terpilih:", jurusan);
+
+                // Fetch data dari servlet
+                fetch("<%= request.getContextPath()%>/BagiKelasServlet?jurusan=" + jurusan + "&tingkat=" + tingkat)
+                        .then(function (response) {
+                            console.log("Status Response:", response.status);
+                            if (!response.ok) {
+                                throw new Error("HTTP error " + response.status);
+                            }
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            console.log("Data diterima dari server:", data);
+
+                            // Update jumlah siswa
+                            document.getElementById("SiswaHasKelas").value = data.SiswaHasKelas;
+                            document.getElementById("SiswaNoKelas").value = data.SiswaNoKelas;
+                        })
+                        .catch(function (error) {
+                            console.error("Error:", error);
+                        });
+            }
+
+            // Tambahkan event listener pada dropdown
+            document.getElementById("tingkatDropdown").addEventListener("change", fetchData);
+            document.getElementById("jurusanDropdown").addEventListener("change", fetchData);
+
+        </script>
     </body>
 </html>

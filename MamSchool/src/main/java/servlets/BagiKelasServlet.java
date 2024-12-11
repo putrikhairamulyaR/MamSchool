@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 package servlets;
 
 import dao.BagiKelasDAO;
@@ -18,13 +13,13 @@ import java.io.PrintWriter;
  *
  * @author Raisa Lukman Hakim
  */
-@WebServlet(name = "BagiKelasServlet", urlPatterns = {"/BagiKelasServlet"})
 public class BagiKelasServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String tingkat = request.getParameter("tingkat");
         String jurusan = request.getParameter("jurusan");
 
+        // Validasi input
         if (tingkat == null || tingkat.isEmpty() || jurusan == null || jurusan.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json");
@@ -32,13 +27,15 @@ public class BagiKelasServlet extends HttpServlet {
             return;
         }
 
+        // Gunakan DAO untuk menghitung jumlah siswa
         BagiKelasDAO dao = new BagiKelasDAO();
-        int jumlahSiswaDenganKelas = dao.countStudentsHasClass(tingkat, jurusan);
-        int jumlahSiswaTanpaKelas = dao.countStudentsNoClass(tingkat, jurusan);
+        int siswaHasKelas = dao.countStudentsWithClass(tingkat, jurusan);
+        int siswaNoKelas = dao.countStudentsWithoutClass(tingkat, jurusan);
 
+        // Kembalikan hasil dalam format JSON
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"jumlahSiswaDenganKelas\": " + jumlahSiswaDenganKelas + ", \"jumlahSiswaTanpaKelas\": " + jumlahSiswaTanpaKelas + "}");
+        response.getWriter().write("{\"SiswaHasKelas\": " + siswaHasKelas + ", \"SiswaNoKelas\": " + siswaNoKelas + "}");
     }
 
     @Override
