@@ -9,17 +9,21 @@ package model;
  * @author Dafi Utomo
  */
 public class Classes {
-  private int id;         
-    private String name;    
-    private String major;   
+    private int id;         // ID kelas
+    private String name;    // Nama kelas (contoh: Kelas 1A, Kelas 2B, dll)
+    private String major;   // Jurusan (IPA, IPS, dll)
+
+    // Constructor
     public Classes(int id, String name, String major) {
         this.id = id;
         this.name = name;
         this.major = major;
     }
 
+    // Constructor tanpa parameter (default)
     public Classes() {}
 
+    // Getter dan Setter
     public int getId() {
         return id;
     }
@@ -52,5 +56,4 @@ public class Classes {
                 ", major='" + major + '\'' +
                 '}';
     }
-}  
-
+}

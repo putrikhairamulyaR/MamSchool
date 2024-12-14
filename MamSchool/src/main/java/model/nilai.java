@@ -117,22 +117,22 @@ public class nilai {
         return student != null ? student.getName() : null;
     }
 
-    public String getNim() {
-        return student != null ? student.getNis() : null;
-    }
-
-    @Override
-    public String toString() {
-        return "Grade{" +
-                "name='" + getName() + '\'' +
-                ", nim='" + getNim() + '\'' +
-                ", idNilai=" + idNilai +
-                ", kelas=" + kelas +
-                ", uts=" + uts +
-                ", uas=" + uas +
-                ", tugas=" + tugas +
-                ", kategori='" + kategori + '\'' +
-                ", total=" + total +
-                '}';
-    }
+//    public String getNim() {
+//        return student != null ? student.getNis() : null;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "Grade{" +
+//                "name='" + getName() + '\'' +
+//                ", nim='" + getNim() + '\'' +
+//                ", idNilai=" + idNilai +
+//                ", kelas=" + kelas +
+//                ", uts=" + uts +
+//                ", uas=" + uas +
+//                ", tugas=" + tugas +
+//                ", kategori='" + kategori + '\'' +
+//                ", total=" + total +
+//                '}';
+//    }
 }

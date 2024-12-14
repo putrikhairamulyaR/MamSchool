@@ -5,6 +5,7 @@ Author     : Raisa Lukman Hakim
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://jakarta.servlet.jsp.jstl.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="id">
     <head>
@@ -119,14 +120,26 @@ Author     : Raisa Lukman Hakim
                 flex: 1;
             }
 
-            .btn{
+            .btn-cust{
                 background-color: #4682b4;
                 color: white;
             }
-            .btn:hover{
+            .btn-cust:hover{
                 background-color: #3e75a2;
                 color: white;
             }
+
+            /* Custom styles to separate containers */
+            .tab-container {
+                margin-top: 20px;
+            }
+            .nav-link.active {
+                background-color: #4682b4 !important;  /* Ganti dengan warna pilihan Anda */
+                color: white !important;  /* Mengubah warna teks saat tab aktif */
+                border: 20px;
+            }
+
+
         </style>
     </head>
     <body>
@@ -146,86 +159,135 @@ Author     : Raisa Lukman Hakim
 
         <!-- Main Content -->
         <div class="content">
+            <!-- Container for Jumlah Siswa -->
             <div class="info-container"> 
                 <h4>Pilih Tingkat dan Jurusan!</h4>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><b>Pilih Tingkat:</b></p>
-                        <select name="tingkat" id="tingkatDropdown" class="form-select">
-                            <option selected disabled value="">Pilih Tingkat</option>
-                            <option value="X">1</option>
-                            <option value="XI">2</option>
-                            <option value="XII">3</option>
-                        </select>
+                <form action="${pageContext.request.contextPath}/BagiKelasServlet" method="get">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><b>Pilih Tingkat:</b></p>
+                            <select name="tingkat" id="tingkatDropdown" class="form-select">
+                                <option selected disabled value="">Pilih Tingkat</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Pilih Jurusan:</b></p>
+                            <select name="jurusan" id="jurusanDropdown" class="form-select">
+                                <option selected disabled value="">Pilih Jurusan</option>
+                                <option value="IPA">IPA</option>
+                                <option value="IPS">IPS</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <p><b>Pilih Jurusan:</b></p>
-                        <select name="jurusan" id="jurusanDropdown" class="form-select">
-                            <option selected disabled value="">Pilih Jurusan</option>
-                            <option value="IPA">IPA</option>
-                            <option value="IPS">IPS</option>
-                        </select>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <p><strong>Jumlah Siswa Ada Kelas:</strong></p>
+                            <input type="number" id="SiswaHasKelas" class="form-control" value="${siswaDenganKelas}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Jumlah Siswa Tidak Ada Kelas</strong></p>
+                            <input type="number" id="SiswaNoKelas" class="form-control" value="${siswaTanpaKelas}" readonly>
+                        </div>
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-primary mt-3">Tampilkan Data</button>
+                </form>
+            </div>
 
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <p><strong>Jumlah Siswa Ada Kelas:</strong></p>
-                        <input type="number" id="SiswaHasKelas" class="form-control" value="-" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Jumlah Siswa Tidak Ada Kelas</strong></p>
-                        <input type="number" id="SiswaNoKelas" class="form-control" value="-" readonly>
-                    </div>
-                </div>
-                <div id="jumlahKelasContainer" style="display: none;">
-                    <p><strong>Jumlah Kelas:</strong></p>
-                    <input type="number" id="jumlahKelas" class="form-control" placeholder="Masukkan jumlah kelas yang ingin dibuat">
-                    <div class="mt-3">
-                        <button type="button" id="generateForms" class="btn">Buat Form</button>
+            <!-- Tab Container -->
+            <div class="tab-container">
+                <div class="info-container"> 
+                    <nav>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <button class="nav-link active border border-black" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Kelas</button>
+                            <button class="nav-link border border-black" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Siswa</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <!-- Tab Kelas -->
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                            <h2>Jumlah Siswa dengan Kelas</h2>
+                            <p>${siswaDenganKelas} siswa memiliki kelas.</p>
+                            <h2>Jumlah Siswa Tanpa Kelas</h2>
+                            <p>${siswaTanpaKelas} siswa tidak memiliki kelas.</p>
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nama Kelas</th>
+                                        <th>Jurusan</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="kelas" items="${classes}">
+                                    <tr>
+                                        <td>${kelas.id}</td>
+                                        <td>${kelas.name}</td>
+                                        <td>${kelas.major}</td>
+                                        <td>
+                                            <a href="editKelas.jsp?id=${kelas.id}" class="btn btn-warning btn-sm">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                            <a href="deleteKelas?id=${kelas.id}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus kelas ini?');">
+                                                <i class="bi bi-trash"></i> Hapus
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Tab Siswa -->
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nama Siswa</th>
+                                        <th>NIS</th>
+                                        <th>Jurusan</th>
+                                        <th>Kelas</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="siswa" items="${students}">
+                                    <tr>
+                                        <td>${siswa.id}</td>
+                                        <td>${siswa.name}</td>
+                                        <td>${siswa.nis}</td>
+                                        <td>${siswa.major}</td>
+                                        <td>
+                                    <c:forEach var="kelas" items="${classes}">
+                                        <c:if test="${kelas.id == siswa.classId}">
+                                            ${kelas.name}
+                                        </c:if>
+                                    </c:forEach>
+                                    </td>
+                                    <td>
+                                        <a href="editSiswa.jsp?id=${siswa.id}" class="btn btn-warning btn-sm">
+                                            <i class="bi bi-pencil"></i> Edit
+                                        </a>
+                                        <a href="deleteSiswa?id=${siswa.id}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus siswa ini?');">
+                                            <i class="bi bi-trash"></i> Hapus
+                                        </a>
+                                    </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script>
-            function fetchData() {
-                const tingkat = document.getElementById("tingkatDropdown").value;
-                const jurusan = document.getElementById("jurusanDropdown").value;
 
-                console.log("Tingkat terpilih:", tingkat);
-                console.log("Jurusan terpilih:", jurusan);
-
-                // Fetch data dari servlet
-                fetch("<%= request.getContextPath()%>/BagiKelasServlet?jurusan=" + jurusan + "&tingkat=" + tingkat)
-                        .then(function (response) {
-                            console.log("Status Response:", response.status);
-                            if (!response.ok) {
-                                throw new Error("HTTP error " + response.status);
-                            }
-                            return response.json();
-                        })
-                        .then(function (data) {
-                            console.log("Data diterima dari server:", data);
-                            const jumlahKelasInput = document.getElementById("jumlahKelas");
-                            const jumlahSiswaInput = document.getElementById("jumlahSiswa");
-                            const jumlahKelasContainer = document.getElementById("jumlahKelasContainer");
-                            jumlahKelasInput.value = data.jumlahKelas;
-                            jumlahSiswaInput.value = data.jumlahSiswa;
-
-                            if (data.jumlahKelas !== data.jumlahSiswa) {
-                                jumlahKelasContainer.style.display = "block";
-                            } else {
-                                jumlahKelasContainer.style.display = "none";
-                            }
-                        })
-                        .catch(function (error) {
-                            console.error("Error:", error);
-                        });
-            }
-
-            // Tambahkan event listener pada kedua dropdown
-            document.getElementById("tingkatDropdown").addEventListener("change", fetchData);
-            document.getElementById("jurusanDropdown").addEventListener("change", fetchData);
-        </script>
+        <!-- Load Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

@@ -1,51 +1,54 @@
 package servlets;
 
 import dao.BagiKelasDAO;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import model.Student;
+import model.Classes;
 
 /**
  *
  * @author Raisa Lukman Hakim
  */
-@WebServlet(name = "BagiKelasServlet", urlPatterns = {"/BagiKelasServlet"})
 public class BagiKelasServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Mendapatkan parameter dari form
         String tingkat = request.getParameter("tingkat");
         String jurusan = request.getParameter("jurusan");
 
-        // Validasi input
-        if (tingkat == null || tingkat.isEmpty() || jurusan == null || jurusan.isEmpty()) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.setContentType("application/json");
-            response.getWriter().write("{\"error\": \"Invalid parameters\"}");
-            return;
-        }
+        // Debugging untuk memastikan parameter diterima dengan benar
+        System.out.println("Tingkat: " + tingkat);  // Tingkat: "1", "2", atau "3"
+        System.out.println("Jurusan: " + jurusan);  // Jurusan: "IPA" atau "IPS"
 
-        // Gunakan DAO untuk menghitung jumlah kelas dan siswa
-        BagiKelasDAO dao = new BagiKelasDAO();
-        int SiswaHasKelas = dao.countStudentsNoClass(tingkat, jurusan);
-        int SiswaNoKelas = dao.countStudentsHasClass(tingkat, jurusan);
+        // Buat instance BagiKelasDAO untuk mengambil data
+        BagiKelasDAO bagiKelasDAO = new BagiKelasDAO();
 
-        // Kembalikan hasil dalam format JSON
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"SiswaHasKelas\": " + SiswaHasKelas + ", \"SiswaNoKelas\": " + SiswaNoKelas  +"}");
-    }
+        // Menghitung tahun pendaftaran berdasarkan tingkat
+        int enrollmentYear = bagiKelasDAO.calculateEnrollmentYear(tingkat);
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        // Ambil jumlah siswa yang memiliki kelas dan tidak memiliki kelas berdasarkan tingkat dan jurusan
+        int siswaDenganKelas = bagiKelasDAO.getSiswaDenganKelas(jurusan, enrollmentYear);
+        int siswaTanpaKelas = bagiKelasDAO.getSiswaTanpaKelas(jurusan, enrollmentYear);
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        // Ambil semua siswa dan kelas mereka
+        List<Student> students = bagiKelasDAO.getAllSiswaAndClasses();
+        List<Classes> classes = bagiKelasDAO.getAllClasses();
+
+        // Set atribut untuk diteruskan ke JSP
+        request.setAttribute("siswaDenganKelas", siswaDenganKelas);
+        request.setAttribute("siswaTanpaKelas", siswaTanpaKelas);
+        request.setAttribute("students", students);  // Kirim data siswa
+        request.setAttribute("classes", classes);    // Kirim data kelas
+
+        // Forward ke JSP untuk menampilkan hasil
+        RequestDispatcher dispatcher = request.getRequestDispatcher("frontEnd/Kepsek/BagiKelas.jsp");
+        dispatcher.forward(request, response);
     }
 }

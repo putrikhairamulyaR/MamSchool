@@ -12,6 +12,19 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    
+    <servlet>
+        <servlet-name>jsp</servlet-name>
+        <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+        <init-param>
+            <param-name>jsp-file</param-name>
+            <param-value>/WEB-INF/*.jsp</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jsp</servlet-name>
+        <url-pattern>*.jsp</url-pattern>
+    </servlet-mapping>
 
     
     <!-- LoginServlet Configuration -->
@@ -29,9 +42,10 @@
         <servlet-name>BagiKelasServlet</servlet-name>
         <servlet-class>servlets.BagiKelasServlet</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>BagiKelasServlet</servlet-name>
-        <url-pattern>/BagiKelasServlet</url-pattern>
+        <url-pattern>/BagiKelasServlet</url-pattern> <!-- Path to access this servlet -->
     </servlet-mapping>
     
     <servlet>

@@ -4,10 +4,12 @@ servlets\DashboardKepsekServlet.class
 classes\JDBC.class
 com\mycompany\mamschool\resources\JakartaEE11Resource.class
 dao\BagiKelasDAO.class
+servlets\PresensiServlet.class
 dao\gradeDao.class
 dao\siswaDAO.class
 model\Student.class
 model\Teacher.class
+dao\PresensiDao.class
 servlets\LogoutServlet.class
 com\mycompany\mamschool\JakartaRestConfiguration.class
 model\gradeStudent.class
