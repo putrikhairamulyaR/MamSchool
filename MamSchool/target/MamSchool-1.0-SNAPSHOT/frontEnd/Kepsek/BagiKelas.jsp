@@ -5,7 +5,6 @@ Author     : Raisa Lukman Hakim
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://jakarta.servlet.jsp.jstl.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="id">
     <head>
@@ -199,6 +198,13 @@ Author     : Raisa Lukman Hakim
             <!-- Tab Container -->
             <div class="tab-container">
                 <div class="info-container"> 
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3>Data Kelas</h3>
+                        <a href="addKelas.jsp" class="btn btn-success btn-sm">
+                            <i class="bi bi-plus"></i> Tambah Kelas
+                        </a>
+                    </div>
+
                     <nav>
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                             <button class="nav-link active border border-black" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Kelas</button>
@@ -208,11 +214,6 @@ Author     : Raisa Lukman Hakim
                     <div class="tab-content" id="nav-tabContent">
                         <!-- Tab Kelas -->
                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                            <h2>Jumlah Siswa dengan Kelas</h2>
-                            <p>${siswaDenganKelas} siswa memiliki kelas.</p>
-                            <h2>Jumlah Siswa Tanpa Kelas</h2>
-                            <p>${siswaTanpaKelas} siswa tidak memiliki kelas.</p>
-
                             <table class="table table-striped">
                                 <thead>
                                     <tr>

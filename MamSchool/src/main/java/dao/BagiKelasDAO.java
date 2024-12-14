@@ -13,49 +13,6 @@ import java.time.LocalDate;
  * @author Raisa Lukman Hakim
  */
 public class BagiKelasDAO {
-
-    // Ambil semua siswa dan kelas mereka
-    public List<Student> getAllSiswaAndClasses() {
-        List<Student> students = new ArrayList<>();
-        String sql = "SELECT s.id AS student_id, s.nis, s.name AS student_name, s.major, " +
-                     "s.enrollment_year, s.date_of_birth, s.class_id, s.teacher_id, " +
-                     "c.name AS class_name, c.major AS class_major " +
-                     "FROM students s " +
-                     "JOIN classes c ON s.class_id = c.id";
-
-        try (Connection connection = JDBC.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                int studentId = rs.getInt("student_id");
-                String nis = rs.getString("nis");
-                String studentName = rs.getString("student_name");
-                String major = rs.getString("major");
-                int enrollmentYear = rs.getInt("enrollment_year");
-
-                // Konversi dari java.sql.Date ke LocalDate
-                Date sqlDate = rs.getDate("date_of_birth");
-                LocalDate dateOfBirth = sqlDate != null ? sqlDate.toLocalDate() : null;
-
-                int classId = rs.getInt("class_id");
-                int teacherId = rs.getInt("teacher_id");
-                String className = rs.getString("class_name");
-                String classMajor = rs.getString("class_major");
-
-                // Buat objek Student dan set nilai berdasarkan constructor yang baru
-                Student student = new Student(studentId, nis, studentName, enrollmentYear, major, true, dateOfBirth, enrollmentYear, classId, teacherId);
-
-                // Tambahkan siswa ke dalam daftar
-                students.add(student);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return students;
-    }
-
     // Ambil semua kelas yang tersedia
     public List<Classes> getAllClasses() {
         List<Classes> classes = new ArrayList<>();
