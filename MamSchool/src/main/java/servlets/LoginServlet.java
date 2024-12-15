@@ -49,6 +49,9 @@ public class LoginServlet extends HttpServlet {
                 case "guru":
                     response.sendRedirect("frontEnd/Guru/DashboardGuru.jsp");
                     break;
+                case "tu":
+                    response.sendRedirect("frontEnd/TU/DashboardTU.jsp");
+                    break;
                 case "siswa":
                     response.sendRedirect("frontEnd/Murid/DashboardSiswa.jsp");
                     break;
