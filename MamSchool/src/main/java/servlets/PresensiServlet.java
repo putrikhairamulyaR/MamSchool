@@ -1,5 +1,6 @@
 package servlets;
 
+import dao.PresensiDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,11 +14,35 @@ public class PresensiServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id_siswa = request.getParameter("student_id");
-        String tanggal = request.getParameter("date");
-        String kehadiran = request.getParameter("status");
         
-        //atur kehadiran
+        try {
+            String id_siswa = request.getParameter("student_id");
+            String dateStr = request.getParameter("date");
+            String status = request.getParameter("status");
+            if (id_siswa == null || dateStr == null || status == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters");
+                return;
+            }
+            int studentId = Integer.parseInt(id_siswa);
+            java.sql.Date date = java.sql.Date.valueOf(dateStr);
+            
+            PresensiDao presensiDao = new PresensiDao();
+            boolean result = presensiDao.addKehadiran(studentId, date, status);
+            try (PrintWriter out = response.getWriter()) {
+                if (result) {
+                    out.println("Attendance recorded successfully for student ID: " + studentId);
+                } else {
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to record attendance");
+                }
+            }
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid student ID format");
+        } catch (IllegalArgumentException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid date format");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred");
+        }
         
     }
 
