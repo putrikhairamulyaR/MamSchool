@@ -8,42 +8,21 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import model.User;
+
 @WebServlet(name = "PresensiServlet", urlPatterns = {"/PresensiServlet"})
 public class PresensiServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        try {
-            String id_siswa = request.getParameter("student_id");
-            String dateStr = request.getParameter("date");
-            String status = request.getParameter("status");
-            if (id_siswa == null || dateStr == null || status == null) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters");
-                return;
-            }
-            int studentId = Integer.parseInt(id_siswa);
-            java.sql.Date date = java.sql.Date.valueOf(dateStr);
-            
-            PresensiDao presensiDao = new PresensiDao();
-            boolean result = presensiDao.addKehadiran(studentId, date, status);
-            try (PrintWriter out = response.getWriter()) {
-                if (result) {
-                    out.println("Attendance recorded successfully for student ID: " + studentId);
-                } else {
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to record attendance");
-                }
-            }
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid student ID format");
-        } catch (IllegalArgumentException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid date format");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred");
-        }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -72,17 +51,48 @@ public class PresensiServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String action = request.getParameter("action");
+
+        if ("add".equals(action)) {
+            try {
+                addKehadiran(request, response);
+            } catch (ParseException ex) {
+                Logger.getLogger(PresensiServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if ("edit".equals(action)) {
+            editKehadiran(request, response);
+        }
+
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    protected void addKehadiran(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+
+        User user = (User) request.getSession().getAttribute("user");
+
+        PresensiDao PresensiDao = new PresensiDao();
+        String Id = request.getParameter("id");
+        int id = Integer.parseInt(Id);
+        String attendanceParam = request.getParameter("attendance");
+        String dateString = request.getParameter("Date");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // Match HTML date format
+        Date releaseDate = null;
+        releaseDate = formatter.parse(dateString);
+        
+        boolean cekPresensi = PresensiDao.addKehadiran(id, releaseDate, attendanceParam);
+
+        if (cekPresensi) {
+            response.getWriter().print("Berhasil Masuk");
+        } else {
+            response.getWriter().print(releaseDate);
+        }
+
+    }
+
+    protected void editKehadiran(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
 
 }

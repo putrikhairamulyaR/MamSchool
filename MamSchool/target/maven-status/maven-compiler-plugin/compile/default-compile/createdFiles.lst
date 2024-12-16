@@ -1,3 +1,4 @@
+model\Jadwal.class
 servlets\LoginServlet.class
 dao\LoginDAO.class
 servlets\DashboardKepsekServlet.class
@@ -7,6 +8,7 @@ dao\BagiKelasDAO.class
 servlets\PresensiServlet.class
 dao\gradeDao.class
 dao\siswaDAO.class
+dao\JadwalDAO.class
 model\Student.class
 model\Teacher.class
 servlets\siswaServlet.class
@@ -18,3 +20,4 @@ model\Classes.class
 servlets\BagiKelasServlet.class
 model\nilai.class
 model\User.class
+servlets\JadwalServlet.class
