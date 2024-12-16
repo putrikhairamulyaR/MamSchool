@@ -114,19 +114,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="jadwal" items="${jadwalList}">
+                    <c:forEach var="Jadwal" items="${JadwalList}">
                         <tr>
-                            <td>${jadwal.index + 1}</td>
-                            <td>${jadwal.kelas}</td>
-                            <td>${jadwal.mapel}</td>
-                            <td>${jadwal.nipGuru}</td>
-                            <td>${jadwal.hari}</td>
-                            <td>${jadwal.jam}</td>
+                            <td>${Jadwal.index + 1}</td>
+                            <td>${Jadwal.kelas}</td>
+                            <td>${Jadwal.mapel}</td>
+                            <td>${Jadwal.nipGuru}</td>
+                            <td>${Jadwal.hari}</td>
+                            <td>${Jadwal.jam}</td>
                             <td>
-                                <a href="editJadwal.jsp?id=${jadwal.id}" class="btn btn-warning btn-sm">
+                                <a href="editJadwal.jsp?id=${Jadwal.id}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Edit
                                 </a>
-                                <a href="deleteJadwal?id=${jadwal.id}" class="btn btn-danger btn-sm">
+                                <a href="deleteJadwal?id=${Jadwal.id}" class="btn btn-danger btn-sm">
                                     <i class="bi bi-trash"></i> Hapus
                                 </a>
                             </td>

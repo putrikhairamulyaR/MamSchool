@@ -106,52 +106,52 @@
         <h3>Edit Jadwal</h3>
         <!-- Form Input Jadwal -->
         <div class="form-container">
-            <form id="editJadwalForm" action="${pageContext.request.contextPath}/jadwal" method="post">
+            <form id="editJadwalForm" action="${pageContext.request.contextPath}/Jadwal" method="post">
                 <input type="hidden" name="action" value="update" />
-                <input type="hidden" name="id" value="${jadwal.id}" />
+                <input type="hidden" name="id" value="${Jadwal.id}" />
 
                 <div class="mb-3">
                     <label for="kelas" class="form-label">Kelas</label>
-                    <input type="text" name="kelas" id="kelas" class="form-control" value="${jadwal.kelas}" required>
+                    <input type="text" name="kelas" id="kelas" class="form-control" value="${Jadwal.kelas}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="subjectId" class="form-label">Mata Pelajaran ID</label>
-                    <input type="number" name="subjectId" id="subjectId" class="form-control" value="${jadwal.subjectId}" required>
+                    <input type="number" name="subjectId" id="subjectId" class="form-control" value="${Jadwal.subjectId}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="teacherId" class="form-label">Guru ID</label>
-                    <input type="number" name="teacherId" id="teacherId" class="form-control" value="${jadwal.teacherId}" required>
+                    <input type="number" name="teacherId" id="teacherId" class="form-control" value="${Jadwal.teacherId}" required>
                 </div>
 
                 <div class="mb- 3">
                     <label for="day" class="form-label">Hari</label>
                     <select name="day" id="day" class="form-select" required>
-                        <option value="Senin" <c:if test="${jadwal.day == 'Senin'}">selected</c:if>>Senin</option>
-                        <option value="Selasa" <c:if test="${jadwal.day == 'Selasa'}">selected</c:if>>Selasa</option>
-                        <option value="Rabu" <c:if test="${jadwal.day == 'Rabu'}">selected</c:if>>Rabu</option>
-                        <option value="Kamis" <c:if test="${jadwal.day == 'Kamis'}">selected</c:if>>Kamis</option>
-                        <option value="Jumat" <c:if test="${jadwal.day == 'Jumat'}">selected</c:if>>Jumat</option>
-                        <option value="Sabtu" <c:if test="${jadwal.day == 'Sabtu'}">selected</c:if>>Sabtu</option>
+                        <option value="Senin" <c:if test="${Jadwal.day == 'Senin'}">selected</c:if>>Senin</option>
+                        <option value="Selasa" <c:if test="${Jadwal.day == 'Selasa'}">selected</c:if>>Selasa</option>
+                        <option value="Rabu" <c:if test="${Jadwal.day == 'Rabu'}">selected</c:if>>Rabu</option>
+                        <option value="Kamis" <c:if test="${Jadwal.day == 'Kamis'}">selected</c:if>>Kamis</option>
+                        <option value="Jumat" <c:if test="${Jadwal.day == 'Jumat'}">selected</c:if>>Jumat</option>
+                        <option value="Sabtu" <c:if test="${Jadwal.day == 'Sabtu'}">selected</c:if>>Sabtu</option>
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label for="startTime" class="form-label">Waktu Mulai</label>
-                    <input type="time" name="startTime" id="startTime" class="form-control" value="${jadwal.startTime}" required>
+                    <input type="time" name="startTime" id="startTime" class="form-control" value="${Jadwal.startTime}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="endTime" class="form-label">Waktu Selesai</label>
-                    <input type="time" name="endTime" id="endTime" class="form-control" value="${jadwal.endTime}" required>
+                    <input type="time" name="endTime" id="endTime" class="form-control" value="${Jadwal.endTime}" required>
                 </div>
 
                 <div class="text-end">
                     <button type="button" class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#confirmModal">
                         <i class="bi bi-save me-2"></i> Simpan
                     </button>
-                    <a href="${pageContext.request.contextPath}/jadwal?action=list" class="btn btn-secondary btn-custom">
+                    <a href="${pageContext.request.contextPath}/Jadwal?action=list" class="btn btn-secondary btn-custom">
                         <i class="bi bi-arrow-left me-2"></i> Kembali
                     </a>
                 </div>

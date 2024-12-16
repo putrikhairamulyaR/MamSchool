@@ -127,12 +127,12 @@
     <!-- Konten Utama -->
 
     <div class="content">
-        <h3>Tambah Jadwal</h3>
+        <h3>Tambah Jadwal1</h3>
         <!-- Form Input Jadwal -->
 
         <div class="form-container">
-            <form id="addJadwalForm" action="${pageContext.request.contextPath}/AddJadwalServlet" method="post">
-
+            <form id="addJadwalForm" action="${pageContext.request.contextPath}/Jadwal" method="post">
+                <input type="hidden"  name="action" value="add">
                 <!-- Pilih Kategori Jadwal -->
                 <div class="mb-3">
                     <label for="mapel" class="form-label">Pilihan Jadwal</label>
@@ -145,8 +145,9 @@
                         <option value="biologi">Biologi</option>
                         <option value="sejarah">Sejarah</option>
                         <option value="geografi">Geografi</option>
-                        <a href="editJadwal.jsp"></a>
+                        
                         <option value="ekonomi">Ekonomi</option>
+                        
 
                     </select>
 
@@ -182,11 +183,16 @@
                 </div>
 
 
-                <div class="mb-3">
-                    <label for="jam" class="form-label">Jam</label>
-                    <input type="time" name="jam" id="jam" class="form-control" required>
+   <div class="mb-3">
+    <label for="jamMulai" class="form-label">Jam Mulai</label>
+    <input type="time" name="jam" id="jamMulai" class="form-control" required>
+    </div>
 
-                </div>
+    <div class="mb-3">
+        <label for="jamSelesai" class="form-label">Jam Selesai</label>
+        <input type="time" name="jamSelesai" id="jamSelesai" class="form-control" required>
+    </div>
+
 
 
                 <div class="text-end">

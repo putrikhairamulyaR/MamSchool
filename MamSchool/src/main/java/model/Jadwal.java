@@ -28,6 +28,16 @@ public class Jadwal {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+    
+    public Jadwal( String kelas, int subjectId, int teacherId, String day, LocalTime startTime, LocalTime endTime) {
+        
+        this.kelas = kelas;
+        this.subjectId = subjectId;
+        this.teacherId = teacherId;
+        this.day = day;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 
     public Jadwal() {}
 

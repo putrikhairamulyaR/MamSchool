@@ -1,10 +1,10 @@
 package servlets;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,39 +14,40 @@ import java.time.LocalTime;
 import java.util.List;
 
 import dao.JadwalDAO;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import model.Jadwal;
 
-@WebServlet("/jadwal")
+@WebServlet("/Jadwal")
 public class JadwalServlet extends HttpServlet {
     private JadwalDAO jadwalDAO;
 
     @Override
     public void init() throws ServletException {
-        
-        String jdbcURL = "jdbc:mysql://localhost:3306/class_schedule"; 
-        String jdbcUsername = "your_username";
-        String jdbcPassword = "your_password"; 
-
-        try {
-            Connection connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-            jadwalDAO = new JadwalDAO(connection);
-        } catch (SQLException e) {
-            throw new ServletException("Database connection error", e);
-        }
+        // Instantiate the JadwalDAO when the servlet is initialized
+        jadwalDAO = new JadwalDAO();
     }
+
+
+    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if ("list".equals(action)) {
-            listJadwals(request, response);
-        } else if ("edit".equals(action)) {
-            editJadwal(request, response);
-        } else if ("delete".equals(action)) {
-            deleteJadwal(request, response);
-        } else {
-            response.sendRedirect("index.jsp"); // Redirect to a default page
+        switch (action != null ? action : "") {
+            case "list":
+                listJadwals(request, response);
+                break;
+            case "edit":
+                editJadwal(request, response);
+                break;
+            case "delete":
+                deleteJadwal(request, response);
+                break;
+            default:
+                response.sendRedirect("index.jsp");
+                break;
         }
     }
 
@@ -54,52 +55,78 @@ public class JadwalServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if ("add".equals(action)) {
-            addJadwal(request, response);
-        } else if ("update".equals(action)) {
-            updateJadwal(request, response);
-        } else {
-            response.sendRedirect("index.jsp"); // Redirect to a default page
+        switch (action) {
+            case "add":
+                addJadwal(request, response);
+                break;
+            case "update":
+                updateJadwal(request, response);
+                break;
+            default:
+                response.sendRedirect("index.jsp");
+                break;
         }
     }
 
     private void listJadwals(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            List<Jadwal> jadwals = jadwalDAO.getAllJadwals();
-            request.setAttribute("jadwals", jadwals);
-            request.getRequestDispatcher("listJadwal.jsp").forward(request, response);
-        } catch (SQLException e) {
-            throw new ServletException("Error retrieving jadwals", e);
-        }
+        List<Jadwal> Jadwals = jadwalDAO.getAllJadwals();
+        request.getSession().setAttribute("scheduleList", Jadwals);
+        response.sendRedirect("/MamSchool/frontEnd/Kepsek/listJadwal.jsp");
     }
 
     private void addJadwal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String kelas = request.getParameter("kelas");
-        int subjectId = Integer.parseInt(request.getParameter("subjectId"));
-        int teacherId = Integer.parseInt(request.getParameter("teacherId"));
-        String day = request.getParameter("day");
- LocalTime startTime = LocalTime.parse(request.getParameter("startTime"));
-        LocalTime endTime = LocalTime.parse(request.getParameter("endTime"));
+        String mapel = request.getParameter("mapel"); // Subject
+        String nip = request.getParameter("nip"); // Teacher NIP
+        String hari = request.getParameter("hari"); // Day
+        String startTime = request.getParameter("jam"); // Start time
+        String endTime = request.getParameter("jamSelesai"); // End time
+        
+       
+        int idMapel=0; 
+        
+        
+        if(mapel.equals("matematika")){
+            idMapel=1;
+        }else if(mapel.equals("bahasaing")){
+            idMapel=2;
+        }else if(mapel.equals("fisika")){
+            idMapel=3;
+        }else if(mapel.equals("kimia")){
+            idMapel=4;
+        }else if(mapel.equals("biologi")){
+            idMapel=5;
+        }else if(mapel.equals("sejarah")){
+            idMapel=6;
+        }else if(mapel.equals("geografi")){
+            idMapel=7;
+        }else if(mapel.equals("ekonomi")){
+            idMapel=8;
+        } 
 
-        Jadwal jadwal = new Jadwal(0, kelas, subjectId, teacherId, day, startTime, endTime);
+       
+        LocalTime start = LocalTime.parse(startTime);
+        LocalTime end = LocalTime.parse(endTime);
 
         try {
-            jadwalDAO.addJadwal(jadwal);
-            response.sendRedirect("jadwal?action=list");
+            
+            int teacherId = jadwalDAO.getTeacherId(nip);
+           
+           
+            Jadwal jadwal = new Jadwal(kelas, idMapel, teacherId, hari, start, end);
+
+           boolean cek = jadwalDAO.addJadwal(jadwal);
+            response.sendRedirect("Jadwal?action=list"); // Redirect to the list after adding
         } catch (SQLException e) {
-            throw new ServletException("Error adding jadwal", e);
+            throw new ServletException("Error adding Jadwal", e);
         }
     }
 
     private void editJadwal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        try {
-            Jadwal jadwal = jadwalDAO.getJadwalById(id);
-            request.setAttribute("jadwal", jadwal);
-            request.getRequestDispatcher("editJadwal.jsp").forward(request, response);
-        } catch (SQLException e) {
-            throw new ServletException("Error retrieving jadwal for edit", e);
-        }
+        Jadwal Jadwal = jadwalDAO.getJadwalById(id);
+        request.setAttribute("Jadwal", Jadwal);
+        request.getRequestDispatcher("editJadwal.jsp").forward(request, response);
     }
 
     private void updateJadwal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -111,24 +138,34 @@ public class JadwalServlet extends HttpServlet {
         LocalTime startTime = LocalTime.parse(request.getParameter("startTime"));
         LocalTime endTime = LocalTime.parse(request.getParameter("endTime"));
 
-        Jadwal jadwal = new Jadwal(id, kelas, subjectId, teacherId, day, startTime, endTime);
+        Jadwal Jadwal = new Jadwal(id, kelas, subjectId, teacherId, day, startTime, endTime);
 
-        try {
-            jadwalDAO.updateJadwal(jadwal);
-            response.sendRedirect("jadwal?action=list");
-        } catch (SQLException e) {
-            throw new ServletException("Error updating jadwal", e);
-        }
+        jadwalDAO.updateJadwal(Jadwal);
+        response.sendRedirect("Jadwal?action=list");
     }
 
     private void deleteJadwal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        try {
-            jadwalDAO.deleteJadwal(id);
-            response.sendRedirect("jadwal?action=list");
-        } catch (SQLException e) {
-            throw new ServletException("Error deleting jadwal", e);
+        jadwalDAO.deleteJadwal(id);
+        response.sendRedirect("Jadwal?action=list");
+    }
+
+    private int getSubjectId(String mapel) throws SQLException {
+    String sql = "SELECT id FROM subjects WHERE name = ?";
+    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/subjects", "your_username", "your_password");
+         PreparedStatement stmt = connection.prepareStatement(sql)) {
+        
+        stmt.setString(1, mapel); 
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("id");
+            } else {
+                throw new SQLException("Subject not found: " + mapel); 
+            }
         }
     }
+}
+
 
 }
