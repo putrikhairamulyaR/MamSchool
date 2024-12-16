@@ -104,46 +104,37 @@
 
         <!-- Form Input Nilai Siswa -->
         <div class="form-container">
-            <form id="addNilaiForm" action="prosesTambahNilai.jsp" method="post">
-                <!-- Pilih Kategori Nilai -->
-                <div class="mb-3">
-                    <label for="kategoriNilai" class="form-label">Kategori Nilai</label>
-                    <select name="kategoriNilai" id="kategoriNilai" class="form-select" required>
-                        <option value="" disabled selected>Pilih Kategori</option>
-                        <option value="uts">UTS</option>
-                        <option value="uas">UAS</option>
-                        <option value="tugas">Tugas</option>
-                    </select>
-                </div>
+            <form id="addNilaiForm" action="${pageContext.request.contextPath}/nilaiServlet"" method="post">
 
-                <!-- Input NISN -->
-                <div class="mb-3">
-                    <label for="nisn" class="form-label">NISN Siswa</label>
-                    <input type="text" name="nisn" id="nisn" class="form-control" placeholder="Masukkan NISN siswa" required>
-                </div>
+            <form id="addNilaiForm" action="/nilaiServlet" method="post">
+               <!-- Input UTS -->
+               <div class="mb-3">
+                   <label for="uts" class="form-label">Nilai UTS</label>
+                   <input type="number" name="uts" id="uts" class="form-control" placeholder="Masukkan nilai UTS siswa" min="0" max="100" required>
+               </div>
 
-                <!-- Input Mata Pelajaran -->
-                <div class="mb-3">
-                    <label for="mapel" class="form-label">Mata Pelajaran</label>
-                    <input type="text" name="mapel" id="mapel" class="form-control" placeholder="Masukkan nama mata pelajaran" required>
-                </div>
+               <!-- Input UAS -->
+               <div class="mb-3">
+                   <label for="uas" class="form-label">Nilai UAS</label>
+                   <input type="number" name="uas" id="uas" class="form-control" placeholder="Masukkan nilai UAS siswa" min="0" max="100" required>
+               </div>
 
-                <!-- Input Nilai -->
-                <div class="mb-3">
-                    <label for="nilai" class="form-label">Nilai</label>
-                    <input type="number" name="nilai" id="nilai" class="form-control" placeholder="Masukkan nilai (0-100)" min="0" max="100" required>
-                </div>
+               <!-- Input Tugas -->
+               <div class="mb-3">
+                   <label for="tugas" class="form-label">Nilai Tugas</label>
+                   <input type="number" name="tugas" id="tugas" class="form-control" placeholder="Masukkan nilai tugas siswa" min="0" max="100" required>
+               </div>
 
-                <!-- Tombol Submit -->
-                <div class="text-end">
-                    <button type="button" class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#confirmModal">
-                        <i class="bi bi-save me-2"></i> Simpan
-                    </button>
-                    <a href="nilaiGuruMatkul.jsp" class="btn btn-secondary btn-custom">
-                        <i class="bi bi-arrow-left me-2"></i> Kembali
-                    </a>
-                </div>
-            </form>
+               <!-- Tombol Submit -->
+               <div class="text-end">
+                   <button type="button" class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                       <i class="bi bi-save me-2"></i> Simpan
+                   </button>
+                   <a href="nilaiMapel.jsp" class="btn btn-secondary btn-custom">
+                       <i class="bi bi-arrow-left me-2"></i> Kembali
+                   </a>
+               </div>
+           </form>
         </div>
     </div>
 

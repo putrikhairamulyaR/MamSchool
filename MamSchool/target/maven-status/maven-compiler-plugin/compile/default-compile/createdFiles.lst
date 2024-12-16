@@ -1,6 +1,7 @@
 com\mycompany\mamschool\resources\JakartaEE11Resource.class
 dao\gradeDao.class
 model\Student.class
+servlets\nilaiServlet.class
 model\Classes.class
 model\nilai.class
 model\User.class

@@ -83,14 +83,6 @@
             display: inline-block;
             margin-top: 20px;
         }
-
-        .btn-custom:hover {
-            background-color: #2980b9;
-        }
-
-        .modal-content {
-            border-radius: 10px;
-        }
     </style>
 </head>
 <body>
@@ -112,26 +104,42 @@
         <h3>Informasi Nilai Siswa</h3>
 
         <!-- Tampilkan Informasi Nilai Siswa -->
-        <div class="info-container">
+        <div class="info-container" action="${pageContext.request.contextPath}/nilaiServlet"" method="post">
             <div class="mb-3">
                 <div class="info-label">ID Nilai:</div>
-                <div>12345</div>
+                <div>${grade.id_nilai}</div>
             </div>
             <div class="mb-3">
                 <div class="info-label">Nama:</div>
-                <div>Putri Ayu</div>
+                <div>${grade.nama_siswa}</div>
             </div>
             <div class="mb-3">
                 <div class="info-label">NISN:</div>
-                <div>9876543210</div>
+                <div>${grade.nis}</div>
             </div>
             <div class="mb-3">
-                <div class="info-label">Kategori:</div>
-                <div>UTS</div>
+                <div class="info-label">kelas:</div>
+                <div>${grade.kelas}</div>
             </div>
             <div class="mb-3">
-                <div class="info-label">Nilai:</div>
-                <div>85</div>
+                <div class="info-label">uts:</div>
+                <div>${grade.uts}</div>
+            </div>
+            <div class="mb-3">
+                <div class="info-label">uas:</div>
+                <div>${grade.uas}</div>
+            </div>
+            <div class="mb-3">
+                <div class="info-label">tugas:</div>
+                <div>${grade.tugas}</div>
+            </div>
+            <div class="mb-3">
+                <div class="info-label">total :</div>
+                <div>${grade.grade}</div>
+            </div>
+            <div class="mb-3">
+                <div class="info-label">kategori:</div>
+                <div>${grade.kategori}</div>
             </div>
 
             <!-- Tombol Hapus -->
@@ -139,7 +147,7 @@
                 <button type="button" class="btn btn-danger btn-custom" data-bs-toggle="modal" data-bs-target="#deleteModal">
                     <i class="bi bi-trash me-2"></i> Hapus
                 </button>
-                <a href="nilaiGuruMatkul.jsp" class="btn btn-secondary btn-custom">
+                <a href="nilaiMapel.jsp" class="btn btn-secondary btn-custom">
                     <i class="bi bi-arrow-left me-2"></i> Kembali
                 </a>
             </div>
@@ -159,39 +167,15 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="confirmDeleteBtn">Ya, Hapus</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Konfirmasi Sukses -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel">Data Dihapus</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Data nilai siswa berhasil dihapus.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="window.location.href='nilaiGuruMatkul.jsp'">OK</button>
+                    <form action="${pageContext.request.contextPath}/nilaiServlet" method="post">
+                        <input type="hidden" name="idNilai" value="${grade.idNilai}">
+                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Ketika tombol konfirmasi "Hapus" diklik
-        document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-            // Proses hapus data di sini, misalnya menggunakan AJAX atau penghapusan langsung ke server
-            alert("Data berhasil dihapus.");
-            // Tampilkan modal sukses penghapusan
-            new bootstrap.Modal(document.getElementById('successModal')).show();
-        });
-    </script>
 </body>
 </html>

@@ -20,24 +20,27 @@ package model;
 
 public class nilai {
     private Student student; // Objek Student untuk mendapatkan nim dan nama
-    private int idNilai;     // ID nilai
+    private int idNilai;  
+    private String nis;
     private Classes kelas;   // Objek kelas
     private double uts;      // Nilai UTS
     private double uas;      // Nilai UAS
     private double tugas;    // Nilai tugas
     private String kategori; // Kategori (misalnya A, B, C, dll.)
-    private double total;    // Total nilai
+    private double grade;    // Total nilai
+    private String nama;
 
     // Constructor
-    public nilai(Student student, int idNilai, Classes kelas, double uts, double uas, double tugas, String kategori, double total) {
+    public nilai(Student student,String nis, int idNilai, Classes kelas, double uts, double uas, double tugas, String kategori, double total) {
         this.student = student;
         this.idNilai = idNilai;
+        this.nis =nis;
         this.kelas = kelas;
         this.uts = uts;
         this.uas = uas;
         this.tugas = tugas;
         this.kategori = kategori;
-        this.total = total;
+        this.grade = grade;
     }
 
     public nilai() {}
@@ -46,11 +49,25 @@ public class nilai {
     public Student getStudent() {
         return student;
     }
-
+    
     public void setStudent(Student student) {
         this.student = student;
     }
 
+    public String getNis() {
+        return nis;
+    }
+    
+    public String getName() {
+        return nama;
+    }
+
+    public void setNis(String nis) {
+        this.nis = nis;
+    }
+     public String getNis(String nis) {
+        return this.nis;
+    }
     public int getIdNilai() {
         return idNilai;
     }
@@ -99,40 +116,23 @@ public class nilai {
         this.kategori = kategori;
     }
 
-    public double getTotal() {
-        return total;
+    public double getGrade() {
+        return grade;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
+    public void setGrade(double grade) {
+        this.grade = grade;
     }
 
     // Method untuk menghitung total nilai
-    public void calculateTotal() {
-        this.total = (uts * 0.3) + (uas * 0.4) + (tugas * 0.3); // Contoh bobot
+    public double calculateTotal(Double uts, Double uas, Double tugas) {
+        grade = (uts * 0.3) + (uas * 0.4) + (tugas * 0.3);
+        return grade;
     }
 
-    // Getter untuk nama dan nim melalui Student
-    public String getName() {
-        return student != null ? student.getName() : null;
+    public void setName(String nama) {
+        this.nama=nama;
     }
 
-//    public String getNim() {
-//        return student != null ? student.getNis() : null;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Grade{" +
-//                "name='" + getName() + '\'' +
-//                ", nim='" + getNim() + '\'' +
-//                ", idNilai=" + idNilai +
-//                ", kelas=" + kelas +
-//                ", uts=" + uts +
-//                ", uas=" + uas +
-//                ", tugas=" + tugas +
-//                ", kategori='" + kategori + '\'' +
-//                ", total=" + total +
-//                '}';
-//    }
+
 }

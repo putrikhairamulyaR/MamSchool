@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Nilai Siswa</title>
+    <title>Tambah Nilai Siswa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -69,7 +69,7 @@
         /* Form Styling */
         .form-container {
             background: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -80,17 +80,8 @@
 
         .btn-custom {
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 10px;
         }
-
-        .btn-custom:hover {
-            background-color: #2980b9;
-        }
-
-        .modal-content {
-            border-radius: 10px;
-        }
-
     </style>
 </head>
 <body>
@@ -109,50 +100,41 @@
 
     <!-- Konten Utama -->
     <div class="content">
-        <h3>Update Nilai Siswa</h3>
+        <h3>Tambah Nilai Siswa</h3>
 
         <!-- Form Input Nilai Siswa -->
         <div class="form-container">
-            <form id="addNilaiForm" action="prosesTambahNilai.jsp" method="post">
-                <!-- Pilih Kategori Nilai -->
-                <div class="mb-3">
-                    <label for="kategoriNilai" class="form-label">Kategori Nilai</label>
-                    <select name="kategoriNilai" id="kategoriNilai" class="form-select" required>
-                        <option value="" disabled selected>Pilih Kategori</option>
-                        <option value="uts">UTS</option>
-                        <option value="uas">UAS</option>
-                        <option value="tugas">Tugas</option>
-                    </select>
-                </div>
 
-                <!-- Input NISN -->
-                <div class="mb-3">
-                    <label for="nisn" class="form-label">NISN Siswa</label>
-                    <input type="text" name="nisn" id="nisn" class="form-control" placeholder="Masukkan NISN siswa" required>
-                </div>
+            <form id="editNilaiForm" action="${pageContext.request.contextPath}/nilaiServlet"" method="post">
+               <!-- Input UTS -->
 
-                <!-- Input Mata Pelajaran -->
-                <div class="mb-3">
-                    <label for="mapel" class="form-label">Mata Pelajaran</label>
-                    <input type="text" name="mapel" id="mapel" class="form-control" placeholder="Masukkan nama mata pelajaran" required>
-                </div>
+               <div class="mb-3">
+                   <label for="uts" class="form-label">Nilai UTS</label>
+                   <input type="number" name="uts" id="uts" class="form-control" value="${grade.getUts()}" required><br><br>
+               </div>
 
-                <!-- Input Nilai -->
-                <div class="mb-3">
-                    <label for="nilai" class="form-label">Nilai</label>
-                    <input type="number" name="nilai" id="nilai" class="form-control" placeholder="Masukkan nilai (0-100)" min="0" max="100" required>
-                </div>
+               <!-- Input UAS -->
+               <div class="mb-3">
+                   <label for="uas" class="form-label">Nilai UAS</label>
+                   <input type="number" name="uas" id="uas" class="form-control" value="${grade.getUas()}" required><br><br>
+               </div>
 
-                <!-- Tombol Submit -->
-                <div class="text-end">
-                    <button type="button" class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#confirmModal">
-                        <i class="bi bi-save me-2"></i> Simpan
-                    </button>
-                    <a href="nilaiGuruMatkul.jsp" class="btn btn-secondary btn-custom">
-                        <i class="bi bi-arrow-left me-2"></i> Kembali
-                    </a>
-                </div>
-            </form>
+               <!-- Input Tugas -->
+               <div class="mb-3">
+                   <label for="tugas" class="form-label">Nilai Tugas</label>
+                   <input type="number" name="tugas" id="tugas" class="form-control" value="${grade.getTugas()}" required><br><br>
+               </div>
+
+               <!-- Tombol Submit -->
+               <div class="text-end">
+                   <button type="button" class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                       <i class="bi bi-save me-2"></i> Simpan
+                   </button>
+                   <a href="nilaiMapel.jsp" class="btn btn-secondary btn-custom">
+                       <i class="bi bi-arrow-left me-2"></i> Kembali
+                   </a>
+               </div>
+           </form>
         </div>
     </div>
 
@@ -203,3 +185,4 @@
     </script>
 </body>
 </html>
+
