@@ -6,43 +6,112 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Add Siswa</title>
-</head>
-<body>
-    <h2>Tambah Data Siswa</h2>
-    <form action="${pageContext.request.contextPath}/SiswaServlet" method="post">
-        <!-- Parameter untuk menentukan aksi -->
-        <input type="hidden" name="action" value="add">
-        <input type="hidden" name="id" value= <%= request.getParameter("id") %> >
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tambah Data Siswa</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background: #f8f9fa;
+                color: #333;
+            }
 
-        <label for="userId">User ID:</label>
-        <input type="number" name="userId" required><br><br>
+            h2 {
+                text-align: center;
+                margin-top: 20px;
+                color: #007bff;
+            }
 
-        <label for="nis">NIS:</label>
-        <input type="text" name="nis" required><br><br>
+            .container {
+                width: 90%;
+                max-width: 600px;
+                margin: 30px auto;
+                padding: 20px;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+            }
 
-        <label for="name">Nama:</label>
-        <input type="text" name="name" required><br><br>
+            label {
+                display: block;
+                margin: 10px 0 5px;
+                font-weight: bold;
+            }
 
-        <label for="dateOfBirth">Tanggal Lahir:</label>
-        <input type="date" name="dateOfBirth" required><br><br>
+            input[type="text"],
+            input[type="number"],
+            input[type="date"] {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-sizing: border-box;
+            }
 
-        <label for="enrollmentYear">Tahun Masuk:</label>
-        <input type="number" name="enrollmentYear" required><br><br>
+            button {
+                display: block;
+                width: 100%;
+                padding: 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
 
-        <label for="classId">Kelas ID:</label>
-        <input type="number" name="classId" required><br><br>
+            button:hover {
+                background-color: #0056b3;
+            }
 
-        <label for="major">Jurusan:</label>
-        <input type="text" name="major" required><br><br>
+            /* Responsif */
+            @media (max-width: 768px) {
+                .container {
+                    width: 95%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Tambah Data Siswa</h2>
+        <div class="container">
+            <form action="${pageContext.request.contextPath}/SiswaServlet" method="post">
+                <!-- Parameter untuk menentukan aksi -->
+                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="id" value="<%= request.getParameter("id") %>">
 
-        <label for="teacherId">Guru ID:</label>
-        <input type="number" name="teacherId" required><br><br>
+                <label for="userId">User ID:</label>
+                <input type="number" name="userId" required>
 
-        <button type="submit">Tambah Siswa</button>
-    </form>
-</body>
+                <label for="nis">NIS:</label>
+                <input type="text" name="nis" required>
+
+                <label for="name">Nama:</label>
+                <input type="text" name="name" required>
+
+                <label for="dateOfBirth">Tanggal Lahir:</label>
+                <input type="date" name="dateOfBirth" required>
+
+                <label for="enrollmentYear">Tahun Masuk:</label>
+                <input type="number" name="enrollmentYear" required>
+
+                <label for="classId">Kelas ID:</label>
+                <input type="number" name="classId" required>
+
+                <label for="major">Jurusan:</label>
+                <input type="text" name="major" required>
+
+                <label for="teacherId">Guru ID:</label>
+                <input type="number" name="teacherId" required>
+
+                <button type="submit">Tambah Siswa</button>
+            </form>
+        </div>
+    </body>
 </html>
-

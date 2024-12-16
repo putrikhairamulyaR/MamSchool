@@ -15,98 +15,145 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Daftar Siswa</title>
         <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f9f9f9;
+                margin: 0;
+                padding: 0;
+                color: #333;
+            }
+
+            h1 {
+                text-align: center;
+                color: #007bff;
+                margin-top: 20px;
+            }
+
+            .container {
+                width: 80%;
+                margin: 0 auto;
+                background: white;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                padding: 20px;
+                margin-top: 20px;
+            }
+
             table {
                 width: 100%;
                 border-collapse: collapse;
+                margin-top: 20px;
             }
 
             table, th, td {
-                border: 1px solid black;
+                border: 1px solid #ddd;
             }
 
             th, td {
                 padding: 10px;
-                text-align: left;
+                text-align: center;
             }
 
             th {
+                background-color: #007bff;
+                color: white;
+            }
+
+            tr:nth-child(even) {
                 background-color: #f2f2f2;
             }
 
+            tr:hover {
+                background-color: #e9ecef;
+            }
+
             .action-buttons a {
-                margin-right: 10px;
                 text-decoration: none;
-                padding: 5px 10px;
-                background-color: #007bff;
+                padding: 6px 12px;
                 color: white;
                 border-radius: 5px;
+            }
+
+            .action-buttons a.edit {
+                background-color: #28a745;
             }
 
             .action-buttons a.delete {
                 background-color: #dc3545;
             }
+
+            .btn-add {
+                display: inline-block;
+                padding: 8px 15px;
+                color: white;
+                background-color: #17a2b8;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+            }
+
+            .btn-add:hover {
+                background-color: #138496;
+            }
         </style>
     </head>
     <body>
         <h1>Daftar Siswa</h1>
-        <!-- Button untuk menambahkan siswa -->
-      
-        <br><br>
+        <div class="container">
+            <!-- Tombol Add Siswa -->
+            <a href="frontEnd/TU/addSiswa.jsp" class="btn-add">+ Tambah Siswa</a>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>User ID</th>
-                    <th>NIS</th>
-                    <th>Nama</th>
-                    <th>Tanggal Lahir</th>
-                    <th>Tahun Masuk</th>
-                    <th>Kelas</th>
-                    <th>Jurusan</th>
-                    <th>Wali Kelas</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <%
-                    List<Student> students = (List<Student>) request.getSession().getAttribute("siswa");
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>NIS</th>
+                        <th>Nama</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Tahun Masuk</th>
+                        <th>Kelas</th>
+                        <th>Jurusan</th>
+                        <th>Wali Kelas</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        List<Student> students = (List<Student>) request.getSession().getAttribute("siswa");
 
-                    if (students != null && !students.isEmpty()) {
-                        for (Student student : students) {
-                
-                    
-                %>
-                <tr>
-                    <td><%= student.getId()%></td>
-                    <td><%= student.getUserId()%></td>
-                    <td><%= student.getNis()%></td>
-                    <td><%= student.getName()%></td>
-                    <td><%= student.getDateOfBirth()%></td>
-                    <td><%= student.getEnrollmentYear()%></td>
-                    <td><%= student.getClassId()%></td>
-                    <td><%= student.getMajor()%></td>
-                    <td><%= student.getTeacherId()  %></td>
-                    <td class="action-buttons">
-                        <!-- Tautan untuk edit siswa, mengarahkan ke edit.jsp -->
-                        <a href="frontEnd/TU/addSiswa.jsp?id=<%= student.getId()%>">Add</a>
-                        <a href="frontEnd/TU/editSiswa.jsp?id=<%= student.getId()%>">Edit</a>
-                        <a href="SiswaServlet?action=delete&id=<%= student.getId()%>" class="delete" onclick="return confirm('Apakah Anda yakin ingin menghapus siswa ini?');">Hapus</a>
-                    </td>
-                </tr>
-                <%
-                    }
-                } else {
-                %>
-                <tr>
-                    <td colspan="10" style="text-align: center;">Tidak ada data siswa.</td>
-                </tr>
-                <%
-                    }
-                %>
+                        if (students != null && !students.isEmpty()) {
+                            for (Student student : students) {
+                    %>
+                    <tr>
+                        <td><%= student.getId()%></td>
+                        <td><%= student.getUserId()%></td>
+                        <td><%= student.getNis()%></td>
+                        <td><%= student.getName()%></td>
+                        <td><%= student.getDateOfBirth()%></td>
+                        <td><%= student.getEnrollmentYear()%></td>
+                        <td><%= student.getClassId()%></td>
+                        <td><%= student.getMajor()%></td>
+                        <td><%= student.getTeacherId()%></td>
+                        <td class="action-buttons">
+                            <!-- Edit dan Hapus -->
+                            <a href="frontEnd/TU/editSiswa.jsp?id=<%= student.getId()%>" class="edit">Edit</a>
+                            <a href="SiswaServlet?action=delete&id=<%= student.getId()%>" class="delete" onclick="return confirm('Apakah Anda yakin ingin menghapus siswa ini?');">Hapus</a>
+                        </td>
+                    </tr>
+                    <%
+                        }
+                    } else {
+                    %>
+                    <tr>
+                        <td colspan="10" style="text-align: center;">Tidak ada data siswa.</td>
+                    </tr>
+                    <%
+                        }
+                    %>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </body>
 </html>
-
