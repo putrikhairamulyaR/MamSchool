@@ -7,11 +7,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Dashboard TU</title>
+</head>
+<body>
+    <h1>Dashboard Tata Usaha</h1>
+    
+    <!-- Tautan menuju Menu Siswa -->
+    <a href="/MamSchool/SiswaServlet" style="text-decoration: none; padding: 10px; background-color: #007bff; color: white; border-radius: 5px;">Menu Siswa</a>
+</body>
 </html>

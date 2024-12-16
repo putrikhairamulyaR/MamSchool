@@ -17,6 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.List;
+import model.Student;
 /**
  *
  * @author luthfiah
@@ -54,6 +56,9 @@ public class siswaServlet extends HttpServlet {
             case "edit":
                 editSiswa(request, response);
                 break;
+                
+            case "delete":
+                deleteSiswa(request,response);
             default:
                 showSiswaList(request, response);
                 break;
@@ -121,14 +126,12 @@ public class siswaServlet extends HttpServlet {
         }
     }
     private void showSiswaList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve data for students (this requires an additional DAO method to list students)
-        // Example: List<Student> students = dao.getAllSiswa();
-        // For simplicity, this part is omitted
-
-        // Set attributes for the JSP page (add your attributes here)
-        request.setAttribute("students", null); // Replace with the actual list of students
-
-        // Forward to JSP
+       
+         siswaDAO dao = new siswaDAO();
+        
+        List<Student>siswa=dao.getAllSiswa();
+        
+        request.getSession().setAttribute("siswa",siswa);
         request.getRequestDispatcher("frontEnd/TU/MenuSiswa.jsp").forward(request, response);
     }
 }

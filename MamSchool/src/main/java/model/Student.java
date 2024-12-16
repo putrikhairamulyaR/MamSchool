@@ -4,6 +4,7 @@
  */
 package model;
 import java.time.LocalDate;
+import java.util.Date;
 /**
  *
  * @author Dafi
@@ -15,14 +16,15 @@ public class Student {
     private int level;             // Tingkat (1, 2, 3)
     private String major;          // Jurusan (IPA, IPS)
     private boolean hasClass;      // Apakah sudah memiliki kelas?
-    private LocalDate dateOfBirth; // Tanggal Lahir
+    private Date dateOfBirth; // Tanggal Lahir
     private int enrollmentYear;    // Tahun Masuk
     private int classId;           // ID Kelas (merujuk ke kelas di tabel Classes)
     private int teacherId;         // ID Wali Kelas (merujuk ke pengajar/teacher)
+     private int userId;   
 
     // Constructor
     public Student(int id, String nis, String name, int level, String major, boolean hasClass,
-                   LocalDate dateOfBirth, int enrollmentYear, int classId, int teacherId) {
+                   Date dateOfBirth, int enrollmentYear, int classId, int teacherId) {
         this.id = id;
         this.nis = nis;
         this.name = name;
@@ -87,12 +89,16 @@ public class Student {
         this.hasClass = hasClass;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+    
+    public void setUserId(int userId) {
+       this.userId=userId;
     }
 
     public int getEnrollmentYear() {
@@ -105,6 +111,10 @@ public class Student {
 
     public int getClassId() {
         return classId;
+    }
+    
+    public int getUserId() {
+        return userId;
     }
 
     public void setClassId(int classId) {
