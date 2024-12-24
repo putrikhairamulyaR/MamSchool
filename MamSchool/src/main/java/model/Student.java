@@ -3,50 +3,51 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+
 import java.time.LocalDate;
-import java.util.Date;
 /**
  *
- * @author Dafi
+ * @author Raisa Lukman Hakim
  */
-public class Student {
-    private int id;                // ID Siswa
-    private String nis;            // Nomor Induk Siswa (NIS)
-    private String name;           // Nama Siswa
-    private int level;             // Tingkat (1, 2, 3)
-    private String major;          // Jurusan (IPA, IPS)
-    private boolean hasClass;      // Apakah sudah memiliki kelas?
-    private Date dateOfBirth; // Tanggal Lahir
-    private int enrollmentYear;    // Tahun Masuk
-    private int classId;           // ID Kelas (merujuk ke kelas di tabel Classes)
-    private int teacherId;         // ID Wali Kelas (merujuk ke pengajar/teacher)
-     private int userId;   
 
-    // Constructor
-    public Student(int id, String nis, String name, int level, String major, boolean hasClass,
-                   Date dateOfBirth, int enrollmentYear, int classId, int teacherId) {
+public class Student {
+    private int id;
+    private int userId;
+    private String nis;
+    private String name;
+    private LocalDate dateOfBirth;
+    private int enrollmentYear;
+    private Integer classId; // Nullable
+    private String major;
+
+    public Student() {
+    }
+
+    public Student(int id, int userId, String nis, String name, LocalDate dateOfBirth, int enrollmentYear, Integer classId, String major) {
         this.id = id;
+        this.userId = userId;
         this.nis = nis;
         this.name = name;
-        this.level = level;
-        this.major = major;
-        this.hasClass = hasClass;
         this.dateOfBirth = dateOfBirth;
         this.enrollmentYear = enrollmentYear;
         this.classId = classId;
-        this.teacherId = teacherId;
+        this.major = major;
     }
 
-    // Constructor tanpa parameter (untuk pembuatan objek default)
-    public Student() {}
-
-    // Getter and Setter
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getNis() {
@@ -65,40 +66,12 @@ public class Student {
         this.name = name;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
-    public boolean isHasClass() {
-        return hasClass;
-    }
-
-    public void setHasClass(boolean hasClass) {
-        this.hasClass = hasClass;
-    }
-
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-    
-    public void setUserId(int userId) {
-       this.userId=userId;
     }
 
     public int getEnrollmentYear() {
@@ -109,39 +82,33 @@ public class Student {
         this.enrollmentYear = enrollmentYear;
     }
 
-    public int getClassId() {
+    public Integer getClassId() {
         return classId;
     }
-    
-    public int getUserId() {
-        return userId;
-    }
 
-    public void setClassId(int classId) {
+    public void setClassId(Integer classId) {
         this.classId = classId;
     }
 
-    public int getTeacherId() {
-        return teacherId;
+    public String getMajor() {
+        return major;
     }
 
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
+    public void setMajor(String major) {
+        this.major = major;
     }
 
     @Override
     public String toString() {
         return "Student{" +
                 "id=" + id +
+                ", userId=" + userId +
                 ", nis='" + nis + '\'' +
                 ", name='" + name + '\'' +
-                ", level=" + level +
-                ", major='" + major + '\'' +
-                ", hasClass=" + hasClass +
                 ", dateOfBirth=" + dateOfBirth +
                 ", enrollmentYear=" + enrollmentYear +
                 ", classId=" + classId +
-                ", teacherId=" + teacherId +
+                ", major='" + major + '\'' +
                 '}';
     }
 }
