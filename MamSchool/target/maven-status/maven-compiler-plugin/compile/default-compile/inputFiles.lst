@@ -1,25 +1,25 @@
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\classes\JDBC.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\dao\BagiKelasDAO.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\dao\gradeDao.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\dao\JadwalDAO.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\dao\LoginDAO.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\dao\PresensiDao.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\dao\siswaDAO.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\dao\teacherDAO.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\model\Classes.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\model\gradeStudent.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\model\Jadwal.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\model\nilai.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\model\Student.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\model\Teacher.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\model\User.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\servlets\BagiKelasServlet.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\servlets\JadwalServlet.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\servlets\LoginServlet.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\servlets\LogoutServlet.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\servlets\nilaiServlet.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\servlets\PresensiServlet.java
-C:\putriKhairamulya\pbo tubes baru\MamSchool\MamSchool\src\main\java\servlets\siswaServlet.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\classes\JDBC.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\BagiKelasDAO.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\gradeDao.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\JadwalDAO.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\LoginDAO.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\PresensiDao.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\siswaDAO.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\teacherDAO.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\Classes.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\gradeStudent.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\Jadwal.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\nilai.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\Student.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\Teacher.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\User.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\BagiKelasServlet.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\JadwalServlet.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\LoginServlet.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\LogoutServlet.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\nilaiServlet.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\PresensiServlet.java
+D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\siswaServlet.java

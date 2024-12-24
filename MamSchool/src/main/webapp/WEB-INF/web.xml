@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-         version="6.0">
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    
     <servlet>
         <servlet-name>jsp</servlet-name>
         <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
@@ -25,8 +20,6 @@
         <servlet-name>jsp</servlet-name>
         <url-pattern>*.jsp</url-pattern>
     </servlet-mapping>
-
-    
     <!-- LoginServlet Configuration -->
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
@@ -36,18 +29,16 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
-
     <!-- BagiKelasServlet Configuration -->
     <servlet>
         <servlet-name>BagiKelasServlet</servlet-name>
-        <servlet-class>servlets.BagiKelasServlet</servlet-class>
+        <servlet-class>servlets.ClassesServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>BagiKelasServlet</servlet-name>
-        <url-pattern>/BagiKelasServlet</url-pattern> <!-- Path to access this servlet -->
+        <url-pattern>/BagiKelasServlet</url-pattern>
+        <!-- Path to access this servlet -->
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>DashboardKepsekServlet</servlet-name>
         <servlet-class>servlets.DashboardKepsekServlet</servlet-class>
@@ -56,8 +47,4 @@
         <servlet-name>DashboardKepsekServlet</servlet-name>
         <url-pattern>/DashboardKepsek</url-pattern>
     </servlet-mapping>
-
-
-
-    
 </web-app>
