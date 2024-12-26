@@ -4,6 +4,7 @@
     Author     : luthfiah
 --%>
 
+<%@page import="dao.siswaDAO"%>
 <%@page import="model.Student"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
@@ -120,30 +121,31 @@
                 </thead>
                 <tbody>
                     <%
-                        List<Student> students = (List<Student>) request.getSession().getAttribute("siswa");
+                        // Ambil data siswa dari DAO
+                        siswaDAO dao = new siswaDAO();
+                        List<Student> students = dao.getAllSiswa();
 
                         if (students != null && !students.isEmpty()) {
                             for (Student student : students) {
                     %>
                     <tr>
-                        <td><%= student.getId()%></td>
-                        <td><%= student.getUserId()%></td>
-                        <td><%= student.getNis()%></td>
-                        <td><%= student.getName()%></td>
-                        <td><%= student.getDateOfBirth()%></td>
-                        <td><%= student.getEnrollmentYear()%></td>
-                        <td><%= student.getClassId()%></td>
-                        <td><%= student.getMajor()%></td>
-                        <td><%= student.getTeacherId()%></td>
+                        <td><%= student.getId() %></td>
+                        <td><%= student.getUserId() %></td>
+                        <td><%= student.getNis() %></td>
+                        <td><%= student.getName() %></td>
+                        <td><%= student.getDateOfBirth() %></td>
+                        <td><%= student.getEnrollmentYear() %></td>
+                        <td><%= (student.getClassId() != null ? student.getClassId() : "Tidak Ada") %></td>
+                        <td><%= (student.getMajor() != null ? student.getMajor() : "Tidak Ada") %></td>
                         <td class="action-buttons">
                             <!-- Edit dan Hapus -->
-                            <a href="frontEnd/TU/editSiswa.jsp?id=<%= student.getId()%>" class="edit">Edit</a>
-                            <a href="SiswaServlet?action=delete&id=<%= student.getId()%>" class="delete" onclick="return confirm('Apakah Anda yakin ingin menghapus siswa ini?');">Hapus</a>
+                            <a href="frontEnd/TU/editSiswa.jsp?id=<%= student.getId() %>" class="edit">Edit</a>
+                            <a href="SiswaServlet?action=delete&id=<%= student.getId() %>" class="delete" onclick="return confirm('Apakah Anda yakin ingin menghapus siswa ini?');">Hapus</a>
                         </td>
                     </tr>
                     <%
-                        }
-                    } else {
+                            }
+                        } else {
                     %>
                     <tr>
                         <td colspan="10" style="text-align: center;">Tidak ada data siswa.</td>
@@ -151,7 +153,6 @@
                     <%
                         }
                     %>
-
                 </tbody>
             </table>
         </div>

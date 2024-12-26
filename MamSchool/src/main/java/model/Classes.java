@@ -15,6 +15,12 @@ public class Classes {
     private int teacher_id; // ID guru
     private int tingkat;    // Tingkat kelas
 
+    public Classes() { } // Konstruktor default
+
+    public Classes(int id) { 
+        this.id = id; 
+    }
+    
     // Constructor dengan ID (untuk operasi update atau retrieval)
     public Classes(int id, String name, String major, int teacher_id, int tingkat) {
         this.id = id;
