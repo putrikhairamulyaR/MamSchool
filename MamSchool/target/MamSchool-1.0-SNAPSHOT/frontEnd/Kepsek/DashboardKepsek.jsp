@@ -66,27 +66,34 @@
             }
 
             /* Nav Link */
-            #sidebar .nav-link span {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+            #sidebar .nav-link {
                 color: #ffffff;
+                border-radius: 5px;
+                
+            }
+            #sidebar .nav-link:hover{
+                background-color: #628ab1;
+            }
+            #sidebar .active{
+                border-left: 3px solid #ffffff;
+                background-color: #628ab1;
+                font-weight: bold;
             }
         </style>
     </head>
     <body class="d-flex">
         <!-- Sidebar -->
-        <nav id="sidebar" class="border-end vh-100">
+        <nav id="sidebar" class="border-end vh-100 shadow">
             <div class="p-3">
                 <a class="navbar-brand d-flex align-items-center mb-3" href="#">
                     <span class="align-middle">Mam School</span>
                 </a>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <span class="nav-link text-sm text-muted">Pages</span>
+                        <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link active " href="#">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -101,10 +108,10 @@
                 <hr>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <span class="nav-link text-muted">Siswa</span>
+                        <span class=" text-white fw-bold">Siswa</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/StudentServlet">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">Nama Siswa</span>
                         </a>
@@ -125,7 +132,7 @@
                 <hr>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <span class="nav-link text-muted">Guru</span>
+                        <span class="  text-white fw-bold">Guru</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
@@ -143,7 +150,7 @@
                 <hr>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <span class="nav-link text-muted">Accounts</span>
+                        <span class="  text-white fw-bold">Accounts</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
