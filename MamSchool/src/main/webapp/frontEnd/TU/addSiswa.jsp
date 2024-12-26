@@ -76,6 +76,15 @@
                     width: 95%;
                 }
             }
+            select {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+                color: #333;
+            }
         </style>
     </head>
     <body>
@@ -101,7 +110,11 @@
                 <input type="number" name="enrollmentYear" required>
 
                 <label for="major">Jurusan:</label>
-                <input type="text" name="major" required>
+                <select name="major" id="major" required>
+                    <option value="" disabled selected>Pilih Jurusan</option>
+                    <option value="IPA">IPA</option>
+                    <option value="IPS">IPS</option>
+                </select>
 
                 <button type="submit">Tambah Siswa</button>
             </form>

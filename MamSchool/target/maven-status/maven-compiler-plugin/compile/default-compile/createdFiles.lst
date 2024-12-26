@@ -17,7 +17,6 @@ servlets\DashboardKepsekServlet.class
 classes\JDBC.class
 servlets\PresensiServlet.class
 dao\siswaDAO.class
-dao\teacherDAO.class
 dao\JadwalDAO.class
 model\Teacher.class
 servlets\siswaServlet.class

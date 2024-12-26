@@ -78,6 +78,15 @@
                     width: 95%;
                 }
             }
+            select {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+                color: #333;
+            }
         </style>
     </head>
     <body>
@@ -113,7 +122,10 @@
                 <input type="number" name="enrollmentYear" value="<%= student.getEnrollmentYear() %>" required>
 
                 <label for="major">Jurusan:</label>
-                <input type="text" name="major" value="<%= student.getMajor() %>" required>
+                <select name="major" required>
+                    <option value="IPA" <%= student.getMajor().equals("IPA") ? "selected" : "" %>>IPA</option>
+                    <option value="IPS" <%= student.getMajor().equals("IPS") ? "selected" : "" %>>IPS</option>
+                </select>
 
                 <button type="submit">Edit Siswa</button>
             </form>
