@@ -176,4 +176,155 @@ public class gradeDao {
             }
         }
     }
+       public boolean deleteNilaiSiswa(int id) {
+        String query = "DELETE FROM grades WHERE id_nilai = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = JDBC.getConnection();
+
+            if (connection == null) {
+                System.out.println("Koneksi database gagal.");
+                return false;
+            }
+               
+            // Persiapkan query
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id); 
+
+            // Eksekusi query
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Data berhasil diupdate.");
+                return true;
+            } else {
+                System.out.println("Gagal mengedit data.");
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                JDBC.closeConnection(connection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public boolean setNilaiSiswa(String nis, String c_name, double uts, double uas, double tugas) {
+            // Query untuk memasukkan nilai ke tabel grades
+            String query = "INSERT INTO grades (nis, nama_siswa, kelas, uts, uas, tugas, grade, kategori) " +
+                           "SELECT s.nis, s.name, c.name, ?, ?, ?, ?, ? " +
+                           "FROM students s " +
+                           "JOIN classes c ON s.class_id = c.id " +
+                           "WHERE s.nis = ? AND c.name = ?";
+           
+            Connection connection = null;
+            PreparedStatement preparedStatement = null;
+
+            try {
+                connection = JDBC.getConnection();
+
+                if (connection == null) {
+                    System.out.println("Koneksi database gagal.");
+                    return false;
+                }
+
+                // Hitung grade dan tentukan kategori
+                    nilai grade = new nilai(); 
+                    double total = grade.calculateTotal(uts, uas, tugas);
+                    String kategori = total > 50 ? "lulus" : "tidak lulus";
+                    grade.setIdNilai(grade.getIdNilai());
+                    grade.setNis(nis);
+                    grade.setName(grade.getName());
+                    grade.setUts(uts);
+                    grade.setUas(uas);
+                    grade.setTugas(tugas);
+                    grade.setGrade(total);
+                    grade.setKategori(kategori);
+
+
+                // Persiapkan query
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setDouble(1, uts);
+                preparedStatement.setDouble(2, uas);
+                preparedStatement.setDouble(3, tugas);
+                preparedStatement.setDouble(4, total);
+                preparedStatement.setString(5, kategori);
+                preparedStatement.setString(6, nis);
+                preparedStatement.setString(7, c_name);
+               
+
+                // Eksekusi query
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Data berhasil ditambahkan.");
+                    return true;
+                } else {
+                    System.out.println("Gagal menambahkan data.");
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            } finally {
+                try {
+                    if (preparedStatement != null) {
+                        preparedStatement.close();
+                    }
+                    JDBC.closeConnection(connection);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    //untuk mendapatkan siswa berdasarkan kelas
+    public List<Student> getSiswaByKelas(String kelas) {
+      List<Student> siswaList = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String query = "SELECT * FROM students JOIN classes ON students.class_id = classes.id WHERE classes.name = ?";
+        try {
+            connection = JDBC.getConnection();
+
+            if (connection == null) {
+                System.out.println("Koneksi database gagal.");
+   
+            }
+               
+            // Persiapkan query
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, kelas); 
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Student siswa = new Student();
+                siswa.setNis(rs.getString("nis"));
+                siswa.setName(rs.getString("name"));
+                siswaList.add(siswa);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                JDBC.closeConnection(connection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+      return siswaList;
+  }
+
+
 }
