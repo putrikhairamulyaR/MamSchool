@@ -84,7 +84,6 @@
             <form action="${pageContext.request.contextPath}/SiswaServlet" method="post">
                 <!-- Parameter untuk menentukan aksi -->
                 <input type="hidden" name="action" value="add">
-                <input type="hidden" name="id" value="<%= request.getParameter("id") %>">
 
                 <label for="userId">User ID:</label>
                 <input type="number" name="userId" required>
@@ -101,14 +100,8 @@
                 <label for="enrollmentYear">Tahun Masuk:</label>
                 <input type="number" name="enrollmentYear" required>
 
-                <label for="classId">Kelas ID:</label>
-                <input type="number" name="classId" required>
-
                 <label for="major">Jurusan:</label>
                 <input type="text" name="major" required>
-
-                <label for="teacherId">Guru ID:</label>
-                <input type="number" name="teacherId" required>
 
                 <button type="submit">Tambah Siswa</button>
             </form>

@@ -86,11 +86,16 @@
             <%
                 siswaDAO siswaDao = new siswaDAO();
                 Student student = siswaDao.getSiswaById(Integer.parseInt(request.getParameter("id")));
+                if (student == null) {
+            %>
+                <p style="color: red; text-align: center;">Data siswa tidak ditemukan!</p>
+            <%
+                } else {
             %>
             <form action="${pageContext.request.contextPath}/SiswaServlet" method="post">
                 <!-- Parameter untuk menentukan aksi -->
                 <input type="hidden" name="action" value="edit">
-                <input type="hidden" name="id" value="<%= request.getParameter("id") %>">
+                <input type="hidden" name="id" value="<%= student.getId() %>">
 
                 <label for="userId">User ID:</label>
                 <input type="number" name="userId" value="<%= student.getUserId() %>" required>
@@ -107,17 +112,12 @@
                 <label for="enrollmentYear">Tahun Masuk:</label>
                 <input type="number" name="enrollmentYear" value="<%= student.getEnrollmentYear() %>" required>
 
-                <label for="classId">Kelas ID:</label>
-                <input type="number" name="classId" value="<%= student.getClassId() %>" required>
-
                 <label for="major">Jurusan:</label>
                 <input type="text" name="major" value="<%= student.getMajor() %>" required>
 
-                <label for="teacherId">Guru ID:</label>
-                <input type="number" name="teacherId" value="<%= student.getUserId() %>" required>
-
                 <button type="submit">Edit Siswa</button>
             </form>
+            <% } %>
         </div>
     </body>
 </html>

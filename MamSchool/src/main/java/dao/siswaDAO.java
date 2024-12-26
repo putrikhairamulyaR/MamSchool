@@ -5,7 +5,6 @@
 package dao;
 
 import classes.JDBC;
-import model.Classes;
 import model.Student;
 
 import java.sql.*;
@@ -20,22 +19,15 @@ import java.util.List;
 public class siswaDAO {
 
      // Add new student
-    public boolean addSiswa(int id, int userId, String nis, String name, LocalDate dateOfBirth, int enrollmentYear, Classes classData, String major) {
-        String query = "INSERT INTO students (user_id, nis, name, date_of_birth, enrollment_year, class_id, major) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public boolean addSiswa(int id, int userId, String nis, String name, LocalDate dateOfBirth, int enrollmentYear, String major) {
+        String query = "INSERT INTO students (user_id, nis, name, date_of_birth, enrollment_year, major) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, userId);
             preparedStatement.setString(2, nis);
             preparedStatement.setString(3, name);
             preparedStatement.setDate(4, Date.valueOf(dateOfBirth));
             preparedStatement.setInt(5, enrollmentYear);
-
-            if (classData != null) {
-                preparedStatement.setInt(6, classData.getId());
-            } else {
-                preparedStatement.setNull(6, Types.INTEGER);
-            }
-
-            preparedStatement.setString(7, major);
+            preparedStatement.setString(6, major);
 
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -45,23 +37,16 @@ public class siswaDAO {
     }
     
     // Edit student data
-    public boolean editSiswa(int id, int userId, String nis, String name, LocalDate dateOfBirth, int enrollmentYear, Classes classData, String major) {
-        String query = "UPDATE students SET user_id = ?, nis = ?, name = ?, date_of_birth = ?, enrollment_year = ?, class_id = ?, major = ? WHERE id = ?";
+    public boolean editSiswa(int id, int userId, String nis, String name, LocalDate dateOfBirth, int enrollmentYear, String major) {
+        String query = "UPDATE students SET user_id = ?, nis = ?, name = ?, date_of_birth = ?, enrollment_year = ?, major = ? WHERE id = ?";
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, userId);
             preparedStatement.setString(2, nis);
             preparedStatement.setString(3, name);
             preparedStatement.setDate(4, Date.valueOf(dateOfBirth));
             preparedStatement.setInt(5, enrollmentYear);
-
-            if (classData != null) {
-                preparedStatement.setInt(6, classData.getId());
-            } else {
-                preparedStatement.setNull(6, Types.INTEGER);
-            }
-
-            preparedStatement.setString(7, major);
-            preparedStatement.setInt(8, id);
+            preparedStatement.setString(6, major);
+            preparedStatement.setInt(7, id);
 
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -96,7 +81,6 @@ public class siswaDAO {
                 student.setName(rs.getString("name"));
                 student.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
                 student.setEnrollmentYear(rs.getInt("enrollment_year"));
-                student.setClassId(rs.getObject("class_id") != null ? rs.getInt("class_id") : null);
                 student.setMajor(rs.getString("major"));
                 allSiswa.add(student);
             }
@@ -120,7 +104,6 @@ public class siswaDAO {
                 student.setName(rs.getString("name"));
                 student.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
                 student.setEnrollmentYear(rs.getInt("enrollment_year"));
-                student.setClassId(rs.getObject("class_id") != null ? rs.getInt("class_id") : null);
                 student.setMajor(rs.getString("major"));
                 return student;
             }

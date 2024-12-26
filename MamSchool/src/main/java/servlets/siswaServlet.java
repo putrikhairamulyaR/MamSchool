@@ -4,7 +4,6 @@
  */
 package servlets;
 import dao.siswaDAO;
-import model.Classes;
 import model.Student;
 
 import java.io.IOException;
@@ -70,18 +69,10 @@ public class siswaServlet extends HttpServlet {
             String name = request.getParameter("name");
             LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
             int enrollmentYear = Integer.parseInt(request.getParameter("enrollmentYear"));
-
-            Classes classData = null;
-            String classIdStr = request.getParameter("classId");
-            if (classIdStr != null && !classIdStr.isEmpty()) {
-                classData = new Classes();
-                classData.setId(Integer.parseInt(classIdStr));
-            }
-
             String major = request.getParameter("major");
 
             siswaDAO dao = new siswaDAO();
-            boolean success = dao.addSiswa(0, userId, nis, name, dateOfBirth, enrollmentYear, classData, major);
+            boolean success = dao.addSiswa(0, userId, nis, name, dateOfBirth, enrollmentYear, major);
 
             if (success) {
                 response.sendRedirect("SiswaServlet?action=list");
@@ -101,18 +92,10 @@ public class siswaServlet extends HttpServlet {
             String name = request.getParameter("name");
             LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
             int enrollmentYear = Integer.parseInt(request.getParameter("enrollmentYear"));
-
-            Classes classData = null;
-            String classIdStr = request.getParameter("classId");
-            if (classIdStr != null && !classIdStr.isEmpty()) {
-                classData = new Classes();
-                classData.setId(Integer.parseInt(classIdStr));
-            }
-
             String major = request.getParameter("major");
 
             siswaDAO dao = new siswaDAO();
-            boolean success = dao.editSiswa(id, userId, nis, name, dateOfBirth, enrollmentYear, classData, major);
+            boolean success = dao.editSiswa(id, userId, nis, name, dateOfBirth, enrollmentYear, major);
 
             if (success) {
                 response.sendRedirect("SiswaServlet?action=list");

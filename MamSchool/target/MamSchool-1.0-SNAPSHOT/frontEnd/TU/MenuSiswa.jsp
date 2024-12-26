@@ -113,9 +113,7 @@
                         <th>Nama</th>
                         <th>Tanggal Lahir</th>
                         <th>Tahun Masuk</th>
-                        <th>Kelas</th>
                         <th>Jurusan</th>
-                        <th>Wali Kelas</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -135,7 +133,6 @@
                         <td><%= student.getName() %></td>
                         <td><%= student.getDateOfBirth() %></td>
                         <td><%= student.getEnrollmentYear() %></td>
-                        <td><%= (student.getClassId() != null ? student.getClassId() : "Tidak Ada") %></td>
                         <td><%= (student.getMajor() != null ? student.getMajor() : "Tidak Ada") %></td>
                         <td class="action-buttons">
                             <!-- Edit dan Hapus -->

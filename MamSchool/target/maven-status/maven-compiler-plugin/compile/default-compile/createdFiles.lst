@@ -1,6 +1,9 @@
+dao\ClassesDAO.class
+dao\StudentDAO.class
 com\mycompany\mamschool\resources\JakartaEE11Resource.class
 dao\gradeDao.class
 model\Student.class
+servlets\StudentServlet.class
 servlets\nilaiServlet.class
 model\Classes.class
 model\nilai.class
@@ -9,9 +12,9 @@ servlets\JadwalServlet.class
 model\Jadwal.class
 servlets\LoginServlet.class
 dao\LoginDAO.class
+servlets\ClassesServlet.class
 servlets\DashboardKepsekServlet.class
 classes\JDBC.class
-dao\BagiKelasDAO.class
 servlets\PresensiServlet.class
 dao\siswaDAO.class
 dao\teacherDAO.class
@@ -22,4 +25,3 @@ dao\PresensiDao.class
 servlets\LogoutServlet.class
 com\mycompany\mamschool\JakartaRestConfiguration.class
 model\gradeStudent.class
-servlets\BagiKelasServlet.class
