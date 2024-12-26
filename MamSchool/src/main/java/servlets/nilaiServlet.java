@@ -51,19 +51,21 @@ public class nilaiServlet extends HttpServlet {
         try {
             List<nilai> grades = gradeDao.viewAllGradesByClass(className);
             request.getSession().setAttribute("grades", grades);
+            request.getSession().setAttribute("kelas", className);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/frontEnd/Guru/nilaiMapel.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");
         }
+        
     }
 
     private void deleteGrade(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id_nilai"));
+        int id = Integer.parseInt(request.getParameter("id"));
         boolean isDeleted = gradeDao.deleteNilaiSiswa(id);
         if (isDeleted) {
-            response.sendRedirect("nilaiServlet?action=view&className=");
+            response.sendRedirect("/MamSchool/nilaiServlet?action=view");
         } else {
             response.sendRedirect("error.jsp");
         }
@@ -72,19 +74,15 @@ public class nilaiServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action == null) {
-            action = "add";
-        }
-
         switch (action) {
-            case "add":
-                addGrade(request, response);
-                break;
             case "update":
                 updateGrade(request, response);
                 break;
             case "delete":
-                updateGrade(request, response);
+                deleteGrade(request, response);
+                break;
+            case "add":
+                addGrade(request, response);
                 break;
             default:
                 response.sendRedirect("error.jsp");
@@ -92,55 +90,14 @@ public class nilaiServlet extends HttpServlet {
         }
     }
 
-    private void addGrade(HttpServletRequest request, HttpServletResponse response) throws IOException {
-       try {
-           // Validasi input dari parameter request
-           String utsParam = request.getParameter("uts");
-           String uasParam = request.getParameter("uas");
-           String tugasParam = request.getParameter("tugas");
-
-           if (utsParam == null || uasParam == null || tugasParam == null ||
-               utsParam.isEmpty() || uasParam.isEmpty() || tugasParam.isEmpty()) {
-               response.sendRedirect("error.jsp?message=Invalid input");
-               return;
-           }
-
-           // Parsing input ke tipe double
-           double uts = Double.parseDouble(utsParam);
-           double uas = Double.parseDouble(uasParam);
-           double tugas = Double.parseDouble(tugasParam);
-
-           // Validasi nilai
-           if (uts < 0 || uts > 100 || uas < 0 || uas > 100 || tugas < 0 || tugas > 100) {
-               response.sendRedirect("error.jsp?message=Invalid grade range");
-               return;
-           }
-
-           // Panggil DAO untuk menyimpan nilai
-           boolean isAdded = gradeDao.setNilaiSiswa(uts, uas, tugas);
-
-           // Redirect sesuai hasil penyimpanan
-           if (isAdded) {
-               response.sendRedirect("/frontEnd/Guru/nilaiMapel.jsp");
-           } else {
-               response.sendRedirect("error.jsp?message=Failed to add grade");
-           }
-       } catch (NumberFormatException e) {
-           // Tangani error parsing
-           response.sendRedirect("error.jsp?message=Invalid number format");
-       } catch (Exception e) {
-           // Tangani error umum lainnya
-           response.sendRedirect("error.jsp?message=An unexpected error occurred");
-       }
-   }
-
     private void updateGrade(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             // Validasi input dari parameter request
+            String id_nilai = request.getParameter("id");
             String utsParam = request.getParameter("uts");
             String uasParam = request.getParameter("uas");
             String tugasParam = request.getParameter("tugas");
-
+            
             if (utsParam == null || uasParam == null || tugasParam == null ||
                 utsParam.isEmpty() || uasParam.isEmpty() || tugasParam.isEmpty()) {
                 response.sendRedirect("error.jsp?message=Invalid input");
@@ -158,12 +115,13 @@ public class nilaiServlet extends HttpServlet {
                 return;
             }
 
-            // Panggil DAO untuk update
-            boolean isUpdated = gradeDao.updateNilaiSiswa(uts, uas, tugas);
+            //DAO untuk update
+            boolean isUpdated = gradeDao.updateNilaiSiswa(Integer.parseInt(id_nilai),uts, uas, tugas);
 
             // Redirect sesuai hasil penyimpanan
             if (isUpdated) {
-                response.sendRedirect("/frontEnd/Guru/nilaiMapel.jsp");
+                //response.getWriter().print(id_nilai);
+                response.sendRedirect("/MamSchool/nilaiServlet?action=view");
             } else {
                 response.sendRedirect("error.jsp?message=Failed to update grade");
             }
@@ -173,5 +131,46 @@ public class nilaiServlet extends HttpServlet {
             response.sendRedirect("error.jsp?message=An unexpected error occurred");
         }
     }
+private void addGrade(HttpServletRequest request, HttpServletResponse response) throws IOException {
+       try {
+           // Validasi input dari parameter request
+           String nis = request.getParameter("siswa");
+           String kelas = request.getParameter("kelas");
+           String utsParam = request.getParameter("uts");
+           String uasParam = request.getParameter("uas");
+           String tugasParam = request.getParameter("tugas");
+
+           if (utsParam == null || uasParam == null || tugasParam == null ||
+               utsParam.isEmpty() || uasParam.isEmpty() || tugasParam.isEmpty()) {
+               response.sendRedirect("error.jsp?message=Invalid input");
+               return;
+           }
+           double uts = Double.parseDouble(utsParam);
+           double uas = Double.parseDouble(uasParam);
+           double tugas = Double.parseDouble(tugasParam);
+
+           // Validasi nilai
+           if (uts < 0 || uts > 100 || uas < 0 || uas > 100 || tugas < 0 || tugas > 100) {
+               response.sendRedirect("error.jsp?message=Invalid grade range");
+               return;
+           }
+
+           //DAO untuk menyimpan nilai
+           boolean isAdded = gradeDao.setNilaiSiswa(nis, kelas,uts, uas, tugas);
+
+           // Redirect sesuai hasil penyimpanan
+           if (isAdded) {
+               response.sendRedirect("/MamSchool/nilaiServlet?action=view");
+           } else {
+               response.sendRedirect("error.jsp?message=Failed to add grade");
+           }
+       } catch (NumberFormatException e) {
+           //error parsing
+           response.sendRedirect("error.jsp?message=Invalid number format");
+       } catch (Exception e) {
+           //error umum lainnya
+           response.sendRedirect("error.jsp?message=An unexpected error occurred");
+       }
+   }
 
 }
