@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="model.Classes"%>
-<%@page import="dao.BagiKelasDAO"%>
+<%@page import="dao.ClassesDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="model.nilai"%>
@@ -141,8 +141,8 @@
                         <div class="col-md-6">
                             <label for="kelas" class="form-label">Pilih Kelas</label>
                             <%
-                                BagiKelasDAO BagiKelasDao = new BagiKelasDAO();
-                                List<Classes> Kelas = BagiKelasDao.getAllClasses();
+                                ClassesDAO KelasDao = new ClassesDAO();
+                                List<Classes> Kelas = KelasDao.getAllClasses();
                             %>
 
                             <select class="form-select" id="kelas" name="kelas">
@@ -171,7 +171,11 @@
                     </div>
                 </form>
             </div>
-
+            <div class="mb-3">
+                <a href="<%= request.getContextPath() %>/frontEnd/Guru/addNilaiSiswa.jsp" class="btn btn-success">
+                    <i class="bi bi-plus-circle me-2"></i> Tambah Nilai Siswa
+                </a>
+            </div>
 
             <!-- Tabel Data -->
             <div class="table-container">
@@ -192,8 +196,6 @@
                         // Ambil atribut dari session
                         List<nilai> grades = (List<nilai>) request.getSession().getAttribute("grades");
                     %>
-
-                    <table class="table">
                         
                         <tbody>
                             <% if (grades != null && !grades.isEmpty()) {
@@ -209,9 +211,8 @@
                                 <td><%= grade.getTugas()%></td>
                                 <td><%= grade.getKategori()%></td>
                                 <td class="action-icons">
-                                    <a href="/frontEnd/Guru/editNilaiSiswa.jsp"><i class="bi bi-pencil-square" title="Edit"></i></a>
-                                    <a href="editNilaiSiswa.jsp?id=<%= grade.getIdNilai() %>"><i class="bi bi-trash"></i></a>
-                                    <a href="/frontEnd/Guru/addNilaiSiswa.jsp">  <i class="bi bi-plus-circle" title="Tambah"></i></a>
+                                    <a href="<%= request.getContextPath() %>/frontEnd/Guru/editNilaiSiswa.jsp?id=<%= grade.getIdNilai() %>"><i class="bi bi-pencil-square" title="Edit"></i></a>
+                                    <a href="<%= request.getContextPath() %>/frontEnd/Guru/deleteNilaiSiswa.jsp?id=<%= grade.getIdNilai() %>"><i class="bi bi-trash"></i></a>
                                 </td>
                             </tr>
                             <%  }

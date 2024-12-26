@@ -1,9 +1,6 @@
-<%-- 
-    Document   : addNilaiSiswa
-    Created on : 9 Dec 2024, 08.17.12
-    Author     : putri
---%>
-
+<%@page import="java.util.List"%>
+<%@page import="model.Student"%>
+<%@page import="dao.gradeDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="id">
@@ -21,7 +18,6 @@
             font-family: Arial, sans-serif;
         }
 
-        /* Sidebar */
         .sidebar {
             width: 250px;
             background-color: #34495e;
@@ -57,7 +53,6 @@
             margin-right: 10px;
         }
 
-        /* Konten */
         .content {
             margin-left: 260px;
             padding: 20px;
@@ -66,7 +61,6 @@
             overflow-y: auto;
         }
 
-        /* Form Styling */
         .form-container {
             background: white;
             padding: 20px;
@@ -101,88 +95,69 @@
     <!-- Konten Utama -->
     <div class="content">
         <h3>Tambah Nilai Siswa</h3>
-
-        <!-- Form Input Nilai Siswa -->
         <div class="form-container">
-            <form id="addNilaiForm" action="${pageContext.request.contextPath}/nilaiServlet"" method="post">
+            <% 
+                String className = (String) request.getSession().getAttribute("kelas");
+                gradeDao dao = new gradeDao();
+                List<Student> siswaList = dao.getSiswaByKelas(className); 
+            %>
+            <form id="addNilaiForm" action="${pageContext.request.contextPath}/nilaiServlet" method="post">
+                <!-- Input Action -->
+                <input type="hidden" name="kelas" value="<%= className %>">
+                <input type="hidden" name="action" value="add">
 
-            <form id="addNilaiForm" action="/nilaiServlet" method="post">
-               <!-- Input UTS -->
-               <div class="mb-3">
-                   <label for="uts" class="form-label">Nilai UTS</label>
-                   <input type="number" name="uts" id="uts" class="form-control" placeholder="Masukkan nilai UTS siswa" min="0" max="100" required>
-               </div>
+                <!-- Dropdown Nama Siswa -->
+                <div class="mb-3">
+                    <label for="siswa" class="form-label">Nama Siswa</label>
+                    <select name="siswa" id="siswa" class="form-select" required>
+                        <option value="">Pilih Nama Siswa</option>
+                        <% 
+                            if (siswaList != null && !siswaList.isEmpty()) {
+                                for (Student siswa : siswaList) {
+                        %>
+                        <option value="<%= siswa.getNis() %>"><%= siswa.getName() %></option>
+                        <% 
+                                }
+                            } else {
+                        %>
+                        <option value="">Tidak ada siswa dalam kelas ini</option>
+                        <% 
+                            }
+                        %>
+                    </select>
+                </div>
 
-               <!-- Input UAS -->
-               <div class="mb-3">
-                   <label for="uas" class="form-label">Nilai UAS</label>
-                   <input type="number" name="uas" id="uas" class="form-control" placeholder="Masukkan nilai UAS siswa" min="0" max="100" required>
-               </div>
+                <!-- Input UTS -->
+                <div class="mb-3">
+                    <label for="uts" class="form-label">Nilai UTS</label>
+                    <input type="number" name="uts" id="uts" class="form-control" placeholder="Masukkan nilai UTS" required>
+                </div>
 
-               <!-- Input Tugas -->
-               <div class="mb-3">
-                   <label for="tugas" class="form-label">Nilai Tugas</label>
-                   <input type="number" name="tugas" id="tugas" class="form-control" placeholder="Masukkan nilai tugas siswa" min="0" max="100" required>
-               </div>
+                <!-- Input UAS -->
+                <div class="mb-3">
+                    <label for="uas" class="form-label">Nilai UAS</label>
+                    <input type="number" name="uas" id="uas" class="form-control" placeholder="Masukkan nilai UAS" required>
+                </div>
 
-               <!-- Tombol Submit -->
-               <div class="text-end">
-                   <button type="button" class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#confirmModal">
-                       <i class="bi bi-save me-2"></i> Simpan
-                   </button>
-                   <a href="nilaiMapel.jsp" class="btn btn-secondary btn-custom">
-                       <i class="bi bi-arrow-left me-2"></i> Kembali
-                   </a>
-               </div>
-           </form>
-        </div>
-    </div>
+                <!-- Input Tugas -->
+                <div class="mb-3">
+                    <label for="tugas" class="form-label">Nilai Tugas</label>
+                    <input type="number" name="tugas" id="tugas" class="form-control" placeholder="Masukkan nilai tugas" required>
+                </div>
 
-    <!-- Modal Konfirmasi -->
-    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Penyimpanan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- Tombol Submit -->
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary btn-custom">
+                        <i class="bi bi-save me-2"></i> Simpan
+                    </button>
+                    <a href="nilaiMapel.jsp" class="btn btn-secondary btn-custom">
+                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                    </a>
                 </div>
-                <div class="modal-body">
-                    Apakah Anda yakin ingin menyimpan data ini?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="confirmSaveBtn">Ya, Simpan</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Konfirmasi Sukses -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel">Data Tersimpan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Data berhasil disimpan.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="window.location.href='nilaiGuruMatkul.jsp'">OK</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Ketika tombol konfirmasi "Simpan" diklik
-        document.getElementById('confirmSaveBtn').addEventListener('click', function() {
-            // Setelah simpan, tampilkan modal sukses
-            new bootstrap.Modal(document.getElementById('successModal')).show();
-        });
-    </script>
 </body>
 </html>
-

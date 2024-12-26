@@ -4,6 +4,8 @@
     Author     : putri
 --%>
 
+<%@page import="model.nilai"%>
+<%@page import="dao.gradeDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="id">
@@ -12,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hapus Nilai Siswa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -104,74 +105,77 @@
         <h3>Informasi Nilai Siswa</h3>
 
         <!-- Tampilkan Informasi Nilai Siswa -->
-        <div class="info-container" action="${pageContext.request.contextPath}/nilaiServlet"" method="post">
+        <div class="info-container">">
+            <% 
+                String id = request.getParameter("id");
+                gradeDao gd = new gradeDao();
+                nilai grade = null;
+
+                try {
+                    if (id != null) {
+                        grade = gd.getGradeById(Integer.parseInt(id));
+                    }
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+
+                if (grade == null) {
+            %>
+                <p>Data tidak ditemukan atau ID tidak valid.</p>
+                <a href="nilaiMapel.jsp" class="btn btn-secondary btn-custom">
+                    <i class="bi bi-arrow-left me-2"></i> Kembali
+                </a>
+            <% return; } %>
+ 
             <div class="mb-3">
                 <div class="info-label">ID Nilai:</div>
-                <div>${grade.id_nilai}</div>
+                <div><%= grade.getIdNilai() %></div>
             </div>
             <div class="mb-3">
                 <div class="info-label">Nama:</div>
-                <div>${grade.nama_siswa}</div>
+                <div><%= grade.getName() %></div>
             </div>
             <div class="mb-3">
                 <div class="info-label">NISN:</div>
-                <div>${grade.nis}</div>
+                <div><%= grade.getNis() %></div>
             </div>
             <div class="mb-3">
-                <div class="info-label">kelas:</div>
-                <div>${grade.kelas}</div>
+                <div class="info-label">Kelas:</div>
+                <div><%= grade.getKelas() %></div>
             </div>
             <div class="mb-3">
-                <div class="info-label">uts:</div>
-                <div>${grade.uts}</div>
+                <div class="info-label">Nilai UTS:</div>
+                <div><%= grade.getUts() %></div>
             </div>
             <div class="mb-3">
-                <div class="info-label">uas:</div>
-                <div>${grade.uas}</div>
+                <div class="info-label">Nilai UAS:</div>
+                <div><%= grade.getUas() %></div>
             </div>
             <div class="mb-3">
-                <div class="info-label">tugas:</div>
-                <div>${grade.tugas}</div>
+                <div class="info-label">Nilai Tugas:</div>
+                <div><%= grade.getTugas() %></div>
             </div>
             <div class="mb-3">
-                <div class="info-label">total :</div>
-                <div>${grade.grade}</div>
+                <div class="info-label">Total Nilai:</div>
+                <div><%= grade.getGrade() %></div>
             </div>
             <div class="mb-3">
-                <div class="info-label">kategori:</div>
-                <div>${grade.kategori}</div>
+                <div class="info-label">Kategori:</div>
+                <div><%= grade.getKategori() %></div>
             </div>
 
             <!-- Tombol Hapus -->
             <div class="text-end">
-                <button type="button" class="btn btn-danger btn-custom" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                    <i class="bi bi-trash me-2"></i> Hapus
-                </button>
+                <form action="${pageContext.request.contextPath}/nilaiServlet" method="post" style="display: inline;">
+                    <input type="hidden" name="id" value="<%= grade.getIdNilai() %>">
+                    <input type="hidden" name="action" value="delete">
+                    <button type="submit" class="btn btn-danger btn-custom">
+                        <i class="bi bi-trash me-2"></i> Hapus
+                    </button>
+                </form>
                 <a href="nilaiMapel.jsp" class="btn btn-secondary btn-custom">
                     <i class="bi bi-arrow-left me-2"></i> Kembali
                 </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Konfirmasi Hapus -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Apakah Anda yakin ingin menghapus data nilai siswa ini?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <form action="${pageContext.request.contextPath}/nilaiServlet" method="post">
-                        <input type="hidden" name="idNilai" value="${grade.idNilai}">
-                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
-                    </form>
-                </div>
             </div>
         </div>
     </div>

@@ -4,6 +4,8 @@
     Author     : putri
 --%>
 
+<%@page import="model.nilai"%>
+<%@page import="dao.gradeDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="id">
@@ -104,32 +106,39 @@
 
         <!-- Form Input Nilai Siswa -->
         <div class="form-container">
-
-            <form id="editNilaiForm" action="${pageContext.request.contextPath}/nilaiServlet"" method="post">
-               <!-- Input UTS -->
-
+            <%String id = request.getParameter("id");
+                gradeDao gd = new gradeDao();
+                nilai grade = gd.getGradeById(Integer.parseInt(id));
+                
+            %>
+            <%=grade.getIdNilai()%>
+            <form id="editNilaiForm" action="${pageContext.request.contextPath}/nilaiServlet" method="post">
+               <!-- Input id -->
+               <input type="hidden" name ="id" value ="<%=grade.getIdNilai()%>">
+                <input type="hidden" name="action" value ="update">
+                <!-- Input UTS -->
                <div class="mb-3">
                    <label for="uts" class="form-label">Nilai UTS</label>
-                   <input type="number" name="uts" id="uts" class="form-control" value="${grade.getUts()}" required><br><br>
+                   <input type="number" name="uts" id="uts" class="form-control" value="<%=grade.getUts()%>" required><br><br>
                </div>
 
                <!-- Input UAS -->
                <div class="mb-3">
                    <label for="uas" class="form-label">Nilai UAS</label>
-                   <input type="number" name="uas" id="uas" class="form-control" value="${grade.getUas()}" required><br><br>
+                   <input type="number" name="uas" id="uas" class="form-control" value="<%=grade.getUas()%>" required><br><br>
                </div>
 
                <!-- Input Tugas -->
                <div class="mb-3">
                    <label for="tugas" class="form-label">Nilai Tugas</label>
-                   <input type="number" name="tugas" id="tugas" class="form-control" value="${grade.getTugas()}" required><br><br>
+                   <input type="number" name="tugas" id="tugas" class="form-control" value="<%=grade.getTugas()%>" required><br><br>
                </div>
 
                <!-- Tombol Submit -->
                <div class="text-end">
-                   <button type="button" class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#confirmModal">
-                       <i class="bi bi-save me-2"></i> Simpan
-                   </button>
+                   <button type="submit" class="btn btn-primary btn-custom">
+                        <i class="bi bi-save me-2"></i> Simpan
+                    </button>
                    <a href="nilaiMapel.jsp" class="btn btn-secondary btn-custom">
                        <i class="bi bi-arrow-left me-2"></i> Kembali
                    </a>
@@ -138,51 +147,8 @@
         </div>
     </div>
 
-    <!-- Modal Konfirmasi -->
-    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Penyimpanan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Apakah Anda yakin ingin menyimpan data ini?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="confirmSaveBtn">Ya, Simpan</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Konfirmasi Sukses -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel">Data Tersimpan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Data berhasil disimpan.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="window.location.href='nilaiGuruMatkul.jsp'">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Ketika tombol konfirmasi "Simpan" diklik
-        document.getElementById('confirmSaveBtn').addEventListener('click', function() {
-            // Setelah simpan, tampilkan modal sukses
-            new bootstrap.Modal(document.getElementById('successModal')).show();
-        });
-    </script>
+    
 </body>
 </html>
 
