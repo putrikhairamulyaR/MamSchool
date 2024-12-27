@@ -178,7 +178,7 @@
                 
                 
                 <p>Tambah Presensi</p>
-                 <a href="/MamSchool/frontEnd/Guru/Presensi.jsp"><i class="bi bi-list-check"></i> Tambah Presensi</a>
+                 <a href="/MamSchool/frontEnd/Guru/viewJadwalGuru.jsp"><i class="bi bi-list-check"></i> Tambah Presensi</a>
                   <p>Lihat nilai</p>
                  <a href="/MamSchool/nilaiServlet?action=view">Lihat nilai</a>
             </div>
