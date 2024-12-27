@@ -14,6 +14,8 @@
         <title>Daftar Siswa</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <!-- Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
         <style>
             body {
                 display: flex;
@@ -21,6 +23,7 @@
                 margin: 0;
                 font-family: Arial, sans-serif;
             }
+            /* Sidebar */
             #sidebar {
                 width: 250px;
                 transition: transform 0.3s ease, visibility 0.3s ease;
@@ -63,12 +66,6 @@
                 border-left: 3px solid #ffffff;
                 background-color: #628ab1;
                 font-weight: bold;
-            }
-            .content {
-                margin-left: 260px;
-                padding: 20px;
-                flex: 1;
-                background-color: #f5f5f5;
             }
 
             .table-container {
@@ -123,7 +120,7 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  " href="#">
+                        <a class="nav-link active " href="#">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -141,7 +138,7 @@
                         <span class=" text-white fw-bold">Siswa</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/StudentServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/StudentServlet">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">Nama Siswa</span>
                         </a>
@@ -192,6 +189,16 @@
                 </ul>
             </div>
         </nav>
+
+        <!-- Main Content -->
+        <div id="content" class="flex-grow-1">
+            <!-- Navbar -->
+            <nav class="navbar navbar-light bg-light px-3 border-bottom">
+                <button class="navbar-toggler border-0 outline-0" id="toggleSidebar" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <span class="navbar-brand mb-0 h1">Dashboard</span>
+            </nav>
 
         <!-- Main Content -->
         <div class="content">
@@ -281,6 +288,24 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            feather.replace({color: '#ffffff'});
+
+            const toggleButton = document.getElementById("toggleSidebar");
+            const sidebar = document.getElementById("sidebar");
+            const content = document.getElementById("content");
+
+            toggleButton.addEventListener("click", () => {
+                // Toggle Sidebar
+                if (sidebar.classList.contains("hidden")) {
+                    sidebar.classList.remove("hidden");
+                    content.classList.remove("expanded");
+                } else {
+                    sidebar.classList.add("hidden");
+                    content.classList.add("expanded");
+                }
+            });
+        </script>
     </body>
 </html>
 
