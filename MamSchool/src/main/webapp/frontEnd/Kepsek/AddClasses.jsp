@@ -6,133 +6,92 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Kelas</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tambah Kelas</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <style>
+            body {
+                display: flex;
+                height: 100vh;
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
 
-        .sidebar {
-            width: 250px;
-            background-color: #34495e;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            padding: 15px;
-            position: fixed;
-            height: 100%;
-        }
+            .content {
+                padding: 20px;
+                flex: 1;
+                background-color: #f5f5f5;
+            }
 
-        .sidebar h4 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+            .form-container {
+                background: white;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
 
-        .sidebar a {
-            text-decoration: none;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-        }
+            .form-container h3 {
+                margin-bottom: 20px;
+            }
 
-        .sidebar a:hover {
-            background-color: #628ab1;
-        }
+            .form-control {
+                margin-bottom: 15px;
+            }
 
-        .sidebar a i {
-            margin-right: 10px;
-        }
+            .btn-primary {
+                background-color: #4682b4;
+                border: none;
+            }
 
-        .content {
-            margin-left: 260px;
-            padding: 20px;
-            flex: 1;
-            background-color: #f5f5f5;
-        }
+            .btn-primary:hover {
+                background-color: #3e75a2;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Main Content -->
+        <div class="content">
+            <a class="nav-link" href="${pageContext.request.contextPath}/ClassesServlet">
+                <i data-feather="arrow-left" class="align-middle"></i>
+                <span class="align-middle fs-4 fw-bold">Kembali</span>
+            </a>
+            <div class="form-container">
+                <h3>Tambah Kelas Baru</h3>
+                <form action="${pageContext.request.contextPath}/ClassesServlet" method="post">
+                    <input type="hidden" name="action" value="add">
 
-        .form-container {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nama Kelas:</label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Masukkan nama kelas" required>
+                    </div>
 
-        .form-container h3 {
-            margin-bottom: 20px;
-        }
+                    <div class="mb-3">
+                        <label for="major" class="form-label">Jurusan:</label>
+                        <input type="text" name="major" class="form-control" id="major" placeholder="Masukkan jurusan" required>
+                    </div>
 
-        .form-control {
-            margin-bottom: 15px;
-        }
+                    <div class="mb-3">
+                        <label for="teacher_id" class="form-label">ID Guru:</label>
+                        <input type="number" name="teacher_id" class="form-control" id="teacher_id" placeholder="Masukkan ID guru" required>
+                    </div>
 
-        .btn-primary {
-            background-color: #4682b4;
-            border: none;
-        }
+                    <div class="mb-3">
+                        <label for="tingkat" class="form-label">Tingkat:</label>
+                        <input type="number" name="tingkat" class="form-control" id="tingkat" placeholder="Masukkan tingkat" required>
+                    </div>
 
-        .btn-primary:hover {
-            background-color: #3e75a2;
-        }
-    </style>
-</head>
-<body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h4 class="mb-4 mt-2 px-2">Dashboard Kepsek</h4>
-        <a href="#"><i class="bi bi-person-circle"></i> Profile</a>
-        <a href="#"><i class="bi bi-house-door-fill"></i> Beranda</a>
-        <a href="#"><i class="bi bi-list-check"></i> Pembagian Kelas</a>
-        <a href="#"><i class="bi bi-clipboard2-check"></i> Nilai Siswa</a>
-        <a href="#"><i class="bi bi-book"></i> Pembagian Mapel</a>
-        <hr>
-        <a href="#setting"><i class="bi bi-gear"></i> Setting</a>
-        <a href="#bantuan"><i class="bi bi-question-circle"></i> Bantuan</a>
-        <a href="tampilanAwal.jsp" style="margin-top: auto;"><i class="bi bi-box-arrow-left"></i> Logout</a>
-    </div>
-
-    <!-- Main Content -->
-    <div class="content">
-        <div class="form-container">
-            <h3>Tambah Kelas Baru</h3>
-            <form action="${pageContext.request.contextPath}/ClassesServlet" method="post">
-                <input type="hidden" name="action" value="add">
-
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nama Kelas:</label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Masukkan nama kelas" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="major" class="form-label">Jurusan:</label>
-                    <input type="text" name="major" class="form-control" id="major" placeholder="Masukkan jurusan" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="teacher_id" class="form-label">ID Guru:</label>
-                    <input type="number" name="teacher_id" class="form-control" id="teacher_id" placeholder="Masukkan ID guru" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="tingkat" class="form-label">Tingkat:</label>
-                    <input type="number" name="tingkat" class="form-control" id="tingkat" placeholder="Masukkan tingkat" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Tambah Kelas</button>
-            </form>
+                    <button type="submit" class="btn btn-primary">Tambah Kelas</button>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/feather-icons"></script>
+        <script>
+            feather.replace({color: '#000000'});
+        </script>
+    </body>
 </html>

@@ -111,15 +111,21 @@
                         <span class=" text-white fw-bold">Siswa</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/StudentServlet">
+                        <a class="nav-link" href="#">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">Nama Siswa</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ClassesServlet">
                             <i data-feather="shuffle" class="align-middle"></i>
                             <span class="align-middle">Bagi Kelas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/StudentServlet">
+                            <i data-feather="user-check" class="align-middle"></i>
+                            <span class="align-middle">Siswa dan Kelas</span>
                         </a>
                     </li>
                     <li class="nav-item">
