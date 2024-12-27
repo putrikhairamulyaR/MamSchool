@@ -4,6 +4,7 @@
     Author     : putri
 --%>
 
+<%@page import="model.User"%>
 <%@page import="model.Classes"%>
 <%@page import="dao.ClassesDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -143,6 +144,7 @@
                             <%
                                 ClassesDAO KelasDao = new ClassesDAO();
                                 List<Classes> Kelas = KelasDao.getAllClasses();
+                                User user= (User) request.getSession().getAttribute("user");
                             %>
 
                             <select class="form-select" id="kelas" name="kelas">
@@ -175,6 +177,7 @@
                 <a href="<%= request.getContextPath() %>/frontEnd/Guru/addNilaiSiswa.jsp" class="btn btn-success">
                     <i class="bi bi-plus-circle me-2"></i> Tambah Nilai Siswa
                 </a>
+                   <%= user.getId() %>
             </div>
 
             <!-- Tabel Data -->

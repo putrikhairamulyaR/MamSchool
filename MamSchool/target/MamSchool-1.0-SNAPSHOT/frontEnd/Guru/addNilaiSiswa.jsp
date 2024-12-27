@@ -1,3 +1,4 @@
+<%@page import="model.User"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Student"%>
 <%@page import="dao.gradeDao"%>
@@ -100,11 +101,15 @@
                 String className = (String) request.getSession().getAttribute("kelas");
                 gradeDao dao = new gradeDao();
                 List<Student> siswaList = dao.getSiswaByKelas(className); 
+                User user = (User) request.getSession().getAttribute("user"); 
+                
+               
             %>
             <form id="addNilaiForm" action="${pageContext.request.contextPath}/nilaiServlet" method="post">
                 <!-- Input Action -->
                 <input type="hidden" name="kelas" value="<%= className %>">
                 <input type="hidden" name="action" value="add">
+                <input type="hidden" name="idGuru" value="<%= user.getId()   %>">
 
                 <!-- Dropdown Nama Siswa -->
                 <div class="mb-3">
@@ -126,7 +131,7 @@
                         %>
                     </select>
                 </div>
-
+                
                 <!-- Input UTS -->
                 <div class="mb-3">
                     <label for="uts" class="form-label">Nilai UTS</label>

@@ -129,6 +129,10 @@ public class nilai {
         grade = (uts * 0.3) + (uas * 0.4) + (tugas * 0.3);
         return grade;
     }
+    
+    public double calculateRata2(Double uts, Double uas, Double tugas){
+        return (uts+uas+tugas)/3;
+    }
 
     public void setName(String nama) {
         this.nama=nama;

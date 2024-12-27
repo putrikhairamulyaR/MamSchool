@@ -50,6 +50,7 @@ public class nilaiServlet extends HttpServlet {
 
         try {
             List<nilai> grades = gradeDao.viewAllGradesByClass(className);
+            
             request.getSession().setAttribute("grades", grades);
             request.getSession().setAttribute("kelas", className);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/frontEnd/Guru/nilaiMapel.jsp");
@@ -139,6 +140,7 @@ private void addGrade(HttpServletRequest request, HttpServletResponse response) 
            String utsParam = request.getParameter("uts");
            String uasParam = request.getParameter("uas");
            String tugasParam = request.getParameter("tugas");
+           String idGuru = request.getParameter("idGuru");
 
            if (utsParam == null || uasParam == null || tugasParam == null ||
                utsParam.isEmpty() || uasParam.isEmpty() || tugasParam.isEmpty()) {
@@ -154,10 +156,10 @@ private void addGrade(HttpServletRequest request, HttpServletResponse response) 
                response.sendRedirect("error.jsp?message=Invalid grade range");
                return;
            }
-
+           
            //DAO untuk menyimpan nilai
-           boolean isAdded = gradeDao.setNilaiSiswa(nis, kelas,uts, uas, tugas);
-
+           boolean isAdded = gradeDao.setNilaiSiswa(nis, kelas,uts, uas, tugas,Integer.parseInt(idGuru));
+           
            // Redirect sesuai hasil penyimpanan
            if (isAdded) {
                response.sendRedirect("/MamSchool/nilaiServlet?action=view");

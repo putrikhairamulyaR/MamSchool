@@ -19,7 +19,6 @@ public class gradeDao {
 
     private Connection connection;
 
-
         //view seluruh nilai siswa berdasarkan kelas 
         public List<nilai> viewAllGradesByClass(String className) throws SQLException {
         List<nilai> gradeList = new ArrayList<>();
@@ -217,10 +216,10 @@ public class gradeDao {
         }
     }
 
-    public boolean setNilaiSiswa(String nis, String c_name, double uts, double uas, double tugas) {
+    public boolean setNilaiSiswa(String nis, String c_name, double uts, double uas, double tugas,int idGuru) {
             // Query untuk memasukkan nilai ke tabel grades
-            String query = "INSERT INTO grades (nis, nama_siswa, kelas, uts, uas, tugas, grade, kategori) " +
-                           "SELECT s.nis, s.name, c.name, ?, ?, ?, ?, ? " +
+            String query = "INSERT INTO grades (nis, nama_siswa, kelas, uts, uas, tugas, grade, kategori,idGuru,rata2) " +
+                           "SELECT s.nis, s.name, c.name, ?, ?, ?, ?, ?, ?, ? " +
                            "FROM students s " +
                            "JOIN classes c ON s.class_id = c.id " +
                            "WHERE s.nis = ? AND c.name = ?";
@@ -239,6 +238,7 @@ public class gradeDao {
                 // Hitung grade dan tentukan kategori
                     nilai grade = new nilai(); 
                     double total = grade.calculateTotal(uts, uas, tugas);
+                    double rata2 = grade.calculateRata2(uts, uas, tugas);
                     String kategori = total > 50 ? "lulus" : "tidak lulus";
                     grade.setIdNilai(grade.getIdNilai());
                     grade.setNis(nis);
@@ -249,7 +249,7 @@ public class gradeDao {
                     grade.setGrade(total);
                     grade.setKategori(kategori);
 
-
+                   
                 // Persiapkan query
                 preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setDouble(1, uts);
@@ -257,8 +257,10 @@ public class gradeDao {
                 preparedStatement.setDouble(3, tugas);
                 preparedStatement.setDouble(4, total);
                 preparedStatement.setString(5, kategori);
-                preparedStatement.setString(6, nis);
-                preparedStatement.setString(7, c_name);
+                preparedStatement.setInt(6, idGuru);
+                preparedStatement.setDouble(7, rata2);
+                preparedStatement.setString(8, nis);
+                preparedStatement.setString(9, c_name);
                
 
                 // Eksekusi query
