@@ -243,10 +243,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>User ID</th>
-                                <th>NIS</th>
                                 <th>Nama</th>
-                                <th>Tanggal Lahir</th>
-                                <th>Tahun Masuk</th>
                                 <th>ID Kelas</th>
                                 <th>Jurusan</th>
                                 <th>Tingkat</th>
@@ -258,10 +255,7 @@
                                 <tr>
                                     <td>${student.id}</td>
                                     <td>${student.userId}</td>
-                                    <td>${student.nis}</td>
                                     <td>${student.name}</td>
-                                    <td>${student.dateOfBirth}</td>
-                                    <td>${student.enrollmentYear}</td>
                                     <td>${student.classId != null ? student.classId : 'Belum Ada'}</td>
                                     <td>${student.major}</td>
                                     <td>${2024 - student.enrollmentYear + 1}</td>

@@ -70,23 +70,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="nis" class="form-label">NIS:</label>
-                        <input type="text" name="nis" class="form-control" id="nis" value="${student.nis}" placeholder="Masukkan NIS" disabled>
-                    </div>
-
-                    <div class="mb-3">
                         <label for="name" class="form-label">Nama Siswa:</label>
                         <input type="text" name="name" class="form-control" id="name" value="${student.name}" placeholder="Masukkan nama siswa" disabled>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="date_of_birth" class="form-label">Tanggal Lahir:</label>
-                        <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" value="${student.dateOfBirth}" disabled>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="enrollment_year" class="form-label">Tahun Masuk:</label>
-                        <input type="number" name="enrollment_year" class="form-control" id="enrollment_year" value="${student.enrollmentYear}" placeholder="Masukkan tahun masuk" disabled>
                     </div>
 
                     <div class="mb-3">
@@ -94,6 +79,11 @@
                         <input type="number" name="class_id" class="form-control" id="class_id" value="${student.classId}" placeholder="Masukkan ID kelas">
                     </div>
 
+                    <div class="mb-3">
+                        <label for="major" class="form-label">Tingkat:</label>
+                        <input type="text" name="major" class="form-control" id="major" value="${2024 - student.enrollmentYear + 1}" placeholder="Masukkan jurusan" disabled>
+                    </div>
+                    
                     <div class="mb-3">
                         <label for="major" class="form-label">Jurusan:</label>
                         <input type="text" name="major" class="form-control" id="major" value="${student.major}" placeholder="Masukkan jurusan" disabled>
