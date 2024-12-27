@@ -69,7 +69,7 @@
             #sidebar .nav-link {
                 color: #ffffff;
                 border-radius: 5px;
-                
+
             }
             #sidebar .nav-link:hover{
                 background-color: #628ab1;
@@ -186,7 +186,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Activate Feather Icons -->
         <script>
-            feather.replace({ color: '#ffffff' });
+            feather.replace({color: '#ffffff'});
 
             const toggleButton = document.getElementById("toggleSidebar");
             const sidebar = document.getElementById("sidebar");
