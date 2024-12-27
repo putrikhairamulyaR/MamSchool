@@ -164,7 +164,12 @@
                             <span class="align-middle">Log Out</span>
                         </a>
                     </li>
-
+                    <!--<li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/Jadwal">
+                            <i data-feather="file-text" class="align-middle"></i>
+                            <span class="align-middle">Jadwal Mengajar</span>
+                        </a>
+                    </li>-->
                 </ul>
             </div>
         </nav>
@@ -185,6 +190,7 @@
             <div class="p-3">
                 <h1>Welcome to AdminKit</h1>
                 <p>This is the main content area.</p>
+                 <!-- <a href="addJadwal.jsp">Tambah Jadwal</a>-->
             </div>
         </div>
 

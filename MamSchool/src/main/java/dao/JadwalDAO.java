@@ -21,6 +21,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import model.Jadwal;
+import model.Teacher;
 
 public class JadwalDAO {
 
@@ -37,7 +38,7 @@ public class JadwalDAO {
              int classId=getKelasId(jadwal.getKelas());
           
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, classId); 
+                statement.setInt(1, jadwal.getIdKelas()); 
                 statement.setInt(2, jadwal.getSubjectId()); 
                 statement.setInt(3, jadwal.getTeacherId()); 
                 statement.setString(4, jadwal.getDay()); 
@@ -143,9 +144,7 @@ public class JadwalDAO {
     }
 }
 
-
-  
-    public boolean deleteJadwal(int id) {
+public boolean deleteJadwal(int id) {
     String sql = "DELETE FROM class_schedule WHERE id = ?";
     
   
@@ -176,7 +175,7 @@ public class JadwalDAO {
         return new Jadwal(id, kelas, subjectId, teacherId, day, startTime.toLocalTime(), endTime.toLocalTime());
     }
     
-    public int getTeacherId(String nip) throws SQLException {
+public int getTeacherId(String nip) throws SQLException {
     String sql = "SELECT id FROM teachers WHERE nip = ?";
 
    
@@ -193,8 +192,54 @@ public class JadwalDAO {
             }
         }
     }
-}
+    }
+        public Teacher getSubjectByNip(String nip) throws SQLException {
+        String sql = "SELECT name, subject FROM teachers WHERE nip = ?";
+        Teacher teacher = null;
 
 
+        try (Connection connection = JDBC.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, nip);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    teacher = new Teacher();
+                    teacher.setNip(nip);
+                    teacher.setName(rs.getString("name"));
+                    teacher.setSubject(rs.getString("subject"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error retrieving teacher with NIP: " + nip, e);
+        }
+        return teacher; // Return the Teacher object or null if not found
+    }
+        
+    public List<Teacher> getAllTeachers() {
+    List<Teacher> teachers = new ArrayList<>();
+    String sql = "SELECT nip,name FROM teachers";
+
+    try (Connection connection = JDBC.getConnection();
+         Statement statement = connection.createStatement();
+         ResultSet resultSet = statement.executeQuery(sql)) {
+
+        while (resultSet.next()) {
+            Teacher teacher = new Teacher();
+            teacher.setId(resultSet.getInt("id"));
+            teacher.setNip(resultSet.getString("nip"));
+            teacher.setName(resultSet.getString("name"));
+            teacher.setSubject(resultSet.getString("subject"));
+            teachers.add(teacher);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return teachers;
 }
+
+}
+
 

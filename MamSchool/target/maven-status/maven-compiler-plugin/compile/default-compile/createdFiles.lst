@@ -11,6 +11,7 @@ model\Classes.class
 model\nilai.class
 model\User.class
 servlets\JadwalServlet.class
+dao\TeacherDAO.class
 model\Jadwal.class
 servlets\LoginServlet.class
 dao\LoginDAO.class

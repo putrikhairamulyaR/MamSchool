@@ -10,7 +10,8 @@ package model;
 import java.time.LocalTime;
 
 public class Jadwal {
-    private int id;                // ID jadwal
+    private int id;   
+    private int idKelas;// ID jadwal
     private String kelas;          // Kelas (contoh: X-IPA-1)
     private int subjectId;         // ID mata pelajaran (FK ke tabel subjects)
     private int teacherId;         // ID guru (FK ke tabel teachers)
@@ -32,6 +33,15 @@ public class Jadwal {
     public Jadwal( String kelas, int subjectId, int teacherId, String day, LocalTime startTime, LocalTime endTime) {
         
         this.kelas = kelas;
+        this.subjectId = subjectId;
+        this.teacherId = teacherId;
+        this.day = day;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+    public Jadwal( int idkelas, int subjectId, int teacherId, String day, LocalTime startTime, LocalTime endTime) {
+        
+        this.idKelas = idkelas;
         this.subjectId = subjectId;
         this.teacherId = teacherId;
         this.day = day;
@@ -78,6 +88,9 @@ public class Jadwal {
         return day;
     }
 
+    public int getIdKelas() {
+        return idKelas;
+    }
     public void setDay(String day) {
         this.day = day;
     }
