@@ -35,13 +35,15 @@ public class LoginServlet extends HttpServlet {
         }
 
         LoginDAO loginDAO = new LoginDAO();
-        User user = loginDAO.getUser(username, password); 
+        User user = loginDAO.getUser(username, password);
 
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             session.setAttribute("username", user.getUsername());
             session.setAttribute("role", user.getRole());
+
+            // Redirect berdasarkan role
             switch (user.getRole()) {
                 case "kepsek":
                     response.sendRedirect("frontEnd/Kepsek/DashboardKepsek.jsp");
@@ -62,6 +64,7 @@ public class LoginServlet extends HttpServlet {
                     break;
             }
         } else {
+            // Username atau password salah
             request.setAttribute("errorMessage", "Username atau password salah.");
             request.getRequestDispatcher("/frontEnd/Login.jsp").forward(request, response);
         }
@@ -69,6 +72,8 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "GET method is not supported for this endpoint.");
+        // Redirect ke halaman login jika menggunakan metode GET
+        request.getRequestDispatcher("/frontEnd/Login.jsp").forward(request, response);
     }
+
 }

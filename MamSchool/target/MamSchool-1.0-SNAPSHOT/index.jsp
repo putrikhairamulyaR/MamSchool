@@ -44,7 +44,7 @@
                         </li>
                     </ul>
                     <div class="d-flex ms-auto"> <!-- ms-auto untuk menggeser tombol login ke kanan -->
-                        <a class="nav-link btn btn-light text-white px-4 p-2" href="frontEnd/Login.jsp" style="background-color: #8D5CF6;">Login</a>
+                        <a class="nav-link btn btn-light text-white px-4 p-2" href="LoginServlet" style="background-color: #8D5CF6;">Login</a>
                     </div>
                 </div>
             </div>
