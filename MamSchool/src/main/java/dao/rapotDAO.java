@@ -95,47 +95,72 @@ public class rapotDAO {
     }
     
     // Set rapot siswa
-    public boolean setRapotSiswa(String nis, double biologi, double kimia, double matematika, double fisika, double inggris,
-                                 double ekonomi, double sejarah, double geografi) {
-        String query = "INSERT INTO rapot (nis, biologi, kimia, matematika, fisika, inggris, ekonomi, sejarah, geografi, rata_rata, kategori) " +
-                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public rapot getRapot(String nis) {
+    String query = """
+        SELECT 
+            students.name AS nama_siswa,
+            students.class_id AS kelas,
+            students.nis,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Matematika' THEN grades.rata2 ELSE 0 END), 0) AS matematika,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Geografi' THEN grades.rata2 ELSE 0 END), 0) AS geografi,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Biologi' THEN grades.rata2 ELSE 0 END), 0) AS biologi,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Fisika' THEN grades.rata2 ELSE 0 END), 0) AS fisika,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Kimia' THEN grades.rata2 ELSE 0 END), 0) AS kimia,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Ekonomi' THEN grades.rata2 ELSE 0 END), 0) AS ekonomi,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Sejarah' THEN grades.rata2 ELSE 0 END), 0) AS sejarah,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Inggris' THEN grades.rata2 ELSE 0 END), 0) AS inggris
+        FROM 
+            students
+        LEFT JOIN 
+            grades ON grades.nis = students.nis
+        LEFT JOIN 
+            teachers ON grades.idGuru = teachers.id
+        WHERE 
+            students.nis = ?
+        GROUP BY 
+            students.name, students.class_id, students.nis;
+    """;
 
-        try (Connection connection = JDBC.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
+    try (Connection connection = JDBC.getConnection();
+         PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            // Hitung rata-rata dan tentukan kategori
-            rapot rapot = new rapot();
-            rapot.setNis(nis);
-            rapot.setBiologi(biologi);
-            rapot.setKimia(kimia);
-            rapot.setMatematika(matematika);
-            rapot.setFisika(fisika);
-            rapot.setInggris(inggris);
-            rapot.setEkonomi(ekonomi);
-            rapot.setSejarah(sejarah);
-            rapot.setGeografi(geografi);
-            rapot.hitungRataRata();
-            rapot.tentukanKategori();
+        // Set parameter query
+        stmt.setString(1, nis);
 
-            // Isi parameter query
-            stmt.setString(1, nis);
-            stmt.setDouble(2, biologi);
-            stmt.setDouble(3, kimia);
-            stmt.setDouble(4, matematika);
-            stmt.setDouble(5, fisika);
-            stmt.setDouble(6, inggris);
-            stmt.setDouble(7, ekonomi);
-            stmt.setDouble(8, sejarah);
-            stmt.setDouble(9, geografi);
-            stmt.setDouble(10, rapot.getRataRata());
-            stmt.setString(11, rapot.getKategori());
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                // Buat objek rapot
+                rapot rapot = new rapot();
+                rapot.setNama(rs.getString("nama_siswa"));
+                rapot.setKelas(rs.getString("kelas"));
+                rapot.setNis(rs.getString("nis"));
+                rapot.setMatematika(rs.getDouble("matematika"));
+                rapot.setGeografi(rs.getDouble("geografi"));
+                rapot.setBiologi(rs.getDouble("biologi"));
+                rapot.setFisika(rs.getDouble("fisika"));
+                rapot.setKimia(rs.getDouble("kimia"));
+                rapot.setEkonomi(rs.getDouble("ekonomi"));
+                rapot.setSejarah(rs.getDouble("sejarah"));
+                rapot.setInggris(rs.getDouble("inggris"));
 
-            // Eksekusi query
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+                // Hitung rata-rata dari semua nilai
+                double rataRata = (rapot.getMatematika() + rapot.getGeografi() + rapot.getBiologi() +
+                                   rapot.getFisika() + rapot.getKimia() + rapot.getEkonomi() +
+                                   rapot.getSejarah() + rapot.getInggris()) / 8.0;
+                rapot.setRataRata(rataRata);
+
+                // Return objek rapot
+                return rapot;
+            } else {
+                System.out.println("Data tidak ditemukan untuk NIS: " + nis);
+                return null; // Tidak ditemukan
+            }
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return null; // Error terjadi
     }
+}
+
+
 }

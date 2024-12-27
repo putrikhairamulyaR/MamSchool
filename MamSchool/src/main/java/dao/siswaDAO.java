@@ -113,4 +113,27 @@ public class siswaDAO {
         return null;
     }
     
+    public List<Student> getSiswaByClassId(int class_id) {
+         String query = "SELECT * FROM students where class_id=?";
+        List<Student> allSiswa = new ArrayList<>();
+        try (Connection connection = JDBC.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, class_id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Student student = new Student();
+                student.setId(rs.getInt("id"));
+                student.setUserId(rs.getInt("user_id"));
+                student.setNis(rs.getString("nis"));
+                student.setName(rs.getString("name"));
+                student.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
+                student.setEnrollmentYear(rs.getInt("enrollment_year"));
+                student.setMajor(rs.getString("major"));
+                allSiswa.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allSiswa;
+    }
+    
 }
