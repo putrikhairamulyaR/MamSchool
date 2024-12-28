@@ -19,7 +19,23 @@ import model.Teacher;
 
 public class TeacherDAO {
     // Add new teacher
-    
+    public boolean addTeacher(int userId, String nip, String name, LocalDate dateOfBirth, String subject, int hireDate){
+        String query = "INSERT INTO teachers (user_id, nip, name, date_of_birth, subject, hire_date) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setString(2, nip);
+            preparedStatement.setString(3, name);
+            preparedStatement.setDate(4, Date.valueOf(dateOfBirth));
+            preparedStatement.setString(5, subject);
+            preparedStatement.setInt(6, hireDate);
+
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     // Edit teacher subject only
     public boolean editTeacherSubject(int id, String subject) {
         String query = "UPDATE teachers SET subject = ? WHERE id = ?";
@@ -55,7 +71,16 @@ public class TeacherDAO {
     }
     
     // Delete teacher
-    
+    public boolean delTeacher(int id) {
+        String query = "DELETE FROM teachers WHERE id = ?";
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     // Get all teachers
     public List<Teacher> getAllTeachers() {
         String query = "SELECT * FROM teachers";
