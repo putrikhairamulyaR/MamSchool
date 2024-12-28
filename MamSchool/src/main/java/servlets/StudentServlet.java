@@ -144,7 +144,8 @@ public class StudentServlet extends HttpServlet {
         String major = request.getParameter("major");
 
         Integer classId = classIdStr != null && !classIdStr.trim().isEmpty() ? Integer.parseInt(classIdStr) : null;
-
+        Integer angkatan = 2024-enrollmentYear+1;
+        studentDAO.getFilteredClasses(major, angkatan);
         Student updatedStudent = new Student(id, userId, nis, name, dateOfBirth, enrollmentYear, classId, major);
         studentDAO.updateStudent(updatedStudent);
 

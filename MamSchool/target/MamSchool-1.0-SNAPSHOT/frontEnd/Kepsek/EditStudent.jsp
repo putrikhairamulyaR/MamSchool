@@ -90,25 +90,50 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="class_id" class="form-label">ID Kelas:</label>
-                        <input type="number" name="class_id" class="form-control" id="class_id" value="${student.classId}" placeholder="Masukkan ID kelas">
-                    </div>
-
-                    <div class="mb-3">
                         <label for="major" class="form-label">Jurusan:</label>
                         <input type="text" name="major" class="form-control" id="major" value="${student.major}" placeholder="Masukkan jurusan" readonly required>
                     </div>
 
-
-                    <button type="submit" class="btn btn-primary">Update Siswa</button>
-                </form>
+                    <div class="mb-3">
+                        <label for="class_id" class="form-label">ID Kelas:</label>
+                        <input type="number" name="class_id" class="form-control" id="class_id" value="${student.classId}" placeholder="Masukkan ID kelas">
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama Kelas</th>
+                                <th>Jurusan</th>
+                                <th>ID Guru</th>
+                                <th>Tingkat</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="classes" items="${classesList}">
+                            <tr>
+                                <td>${classes.id}</td>
+                                <td>${classes.name}</td>
+                                <td>${classes.major}</td>
+                                <td>${classes.teacher_id != null ? classes.teacher_id : 'Belum Ada'}</td>
+                                <td>${classes.tingkat}</td>
+                                <td>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
             </div>
-        </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://unpkg.com/feather-icons"></script>
-        <script>
-            feather.replace({color: '#000000'});
-        </script>
-    </body>
+            <button type="submit" class="btn btn-primary">Update Siswa</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+                                    feather.replace({color: '#000000'});
+</script>
+</body>
 </html>

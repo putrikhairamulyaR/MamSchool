@@ -12,6 +12,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import model.Classes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -241,5 +242,59 @@ public class StudentDAO {
         }
 
         return student;
+    }
+    
+    public List<Classes> getFilteredClasses(String major, Integer tingkat) {
+        List<Classes> classesList = new ArrayList<>();
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM classes");
+
+        if (major != null || tingkat != null) {
+            queryBuilder.append(" WHERE");
+            if (major != null) {
+                queryBuilder.append(" major = ?");
+            }
+            if (tingkat != null) {
+                if (major != null) queryBuilder.append(" AND");
+                queryBuilder.append(" tingkat = ?");
+            }
+        }
+
+        try (Connection connection = JDBC.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder.toString())) {
+
+            if (connection == null) {
+                logger.warn("Failed to establish database connection.");
+                return classesList;
+            }
+
+            int parameterIndex = 1;
+            if (major != null) {
+                preparedStatement.setString(parameterIndex++, major);
+            }
+            if (tingkat != null) {
+                preparedStatement.setInt(parameterIndex++, tingkat);
+            }
+
+            logger.debug("Query executed: {}", queryBuilder);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Classes classes = new Classes(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("major"),
+                            resultSet.getInt("teacher_id"),
+                            resultSet.getInt("tingkat")
+                    );
+                    classesList.add(classes);
+                }
+            }
+
+        } catch (SQLException e) {
+            logger.error("SQL Error: {}", e.getMessage());
+            e.printStackTrace();
+        }
+
+        return classesList;
     }
 }
