@@ -1,10 +1,29 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+
+    if (session == null || session.getAttribute("username") == null) {
+        response.sendRedirect("../Login.jsp");
+        return;
+    }
+
+    String username = (String) session.getAttribute("username");
+    String role = (String) session.getAttribute("role");
+
+    if (!"guru".equals(role)) {
+        response.sendRedirect("../Login.jsp");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dashboard guru</title>
+        <title>Dashboard Guru</title>
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Feather Icons -->
@@ -20,7 +39,8 @@
                 left: 0;
                 bottom: 0;
                 z-index: 1030; /* Tetap di atas konten utama */
-                background-color: #f8f9fa; /* Warna latar sidebar */
+                background-color: #34495e;
+                color: #ffffff;
             }
 
             #sidebar.hidden {
@@ -40,26 +60,45 @@
             }
 
             /* Nav Link */
-            #sidebar .nav-link span {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+            #sidebar .nav-link {
+                color: #ffffff;
+                border-radius: 5px;
+
+            }
+            #sidebar .nav-link:hover{
+                background-color: #628ab1;
+            }
+            #sidebar .active{
+                border-left: 3px solid #ffffff;
+                background-color: #628ab1;
+                font-weight: bold;
+            }
+
+            .username-display {
+                display: inline-block;
+                padding: 5px 15px; 
+                background-color: #f0f0f0;
+                border-radius: 20px; 
+                color: #333; 
+                font-weight: bold; 
+                font-size: 14px; 
+                border: 1px solid #ccc; 
             }
         </style>
     </head>
     <body class="d-flex">
         <!-- Sidebar -->
-        <nav id="sidebar" class="bg-light border-end vh-100">
+        <nav id="sidebar" class="border-end vh-100 shadow">
             <div class="p-3">
                 <a class="navbar-brand d-flex align-items-center mb-3" href="#">
                     <span class="align-middle">Mam School</span>
                 </a>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <span class="nav-link text-sm text-muted">Pages</span>
+                        <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link active " href="${pageContext.request.contextPath}/DashboardKepsek">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -70,83 +109,42 @@
                             <span class="align-middle">Profile</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="log-in" class="align-middle"></i>
-                            <span class="align-middle">Sign In</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="user-plus" class="align-middle"></i>
-                            <span class="align-middle">Sign Up</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="book" class="align-middle"></i>
-                            <span class="align-middle">Blank</span>
-                        </a>
-                    </li>
                 </ul>
                 <hr>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <span class="nav-link text-muted">Tools & Components</span>
+                        <span class=" text-white fw-bold">Menu</span>
                     </li>
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="square" class="align-middle"></i>
-                            <span class="align-middle">Buttons</span>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
+                            <i data-feather="calendar" class="align-middle"></i>
+                            <span class="align-middle">Jadwal Mengajar</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="check-square" class="align-middle"></i>
-                            <span class="align-middle">Forms</span>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
+                            <i data-feather="user-check" class="align-middle"></i>
+                            <span class="align-middle">Presensi Siswa</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="grid" class="align-middle"></i>
-                            <span class="align-middle">Cards</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="align-left" class="align-middle"></i>
-                            <span class="align-middle">Typography</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="coffee" class="align-middle"></i>
-                            <span class="align-middle">Icons</span>
-                        </a>
-                    </li>
-                </ul>
-                <hr>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <span class="nav-link text-muted">Plugins & Addons</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/nilaiServlet">
                             <i data-feather="bar-chart-2" class="align-middle"></i>
-                            <span class="align-middle">Charts</span>
+                            <span class="align-middle">Nilai Siswa</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="map" class="align-middle"></i>
-                            <span class="align-middle">Maps</span>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/rapotServlet">
+                            <i data-feather="file-text" class="align-middle"></i>
+                            <span class="align-middle">Rapot Siswa</span>
                         </a>
                     </li>
                 </ul>
                 <hr>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <span class="nav-link text-muted">Accounts</span>
+                        <span class="  text-white fw-bold">Accounts</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
@@ -154,7 +152,6 @@
                             <span class="align-middle">Log Out</span>
                         </a>
                     </li>
-
                 </ul>
             </div>
         </nav>
@@ -166,22 +163,24 @@
                 <button class="navbar-toggler border-0 outline-0" id="toggleSidebar" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <span class="navbar-brand mb-0 h1">Dashboard</span>
+                <span class="navbar-brand mb-0 h1">
+                    <%
+                        if (username != null) {
+                            out.print("<span class='username-display'>" + username + "</span>");
+                        } else {
+                            out.print("<span class='username-display'>Dashboard</span>");
+                        }
+                    %>
+                </span>
             </nav>
+
+
 
             <!-- Page Content -->
             <div class="p-3">
                 <h1>Welcome to AdminKit</h1>
                 <p>This is the main content area.</p>
-                
-                
-                <p>Tambah Presensi</p>
-                 <a href="/MamSchool/frontEnd/Presensi.jsp"><i class="bi bi-list-check"></i> Tambah Presensi</a>
-                  <p>Lihat nilai</p>
-                 <a href="/MamSchool/nilaiServlet?action=view">Lihat nilai</a>
-                
-                 <p>Menu Rapot</p>
-                 <a href="/MamSchool/rapotServlet?action=viewByClass">Menu Rapot</a>
+                <!-- <a href="addJadwal.jsp">Tambah Jadwal</a>-->
             </div>
         </div>
 
@@ -189,7 +188,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Activate Feather Icons -->
         <script>
-            feather.replace();
+            feather.replace({color: '#ffffff'});
 
             const toggleButton = document.getElementById("toggleSidebar");
             const sidebar = document.getElementById("sidebar");

@@ -79,6 +79,17 @@
                 background-color: #628ab1;
                 font-weight: bold;
             }
+
+            .username-display {
+                display: inline-block;
+                padding: 5px 15px; 
+                background-color: #f0f0f0;
+                border-radius: 20px; 
+                color: #333; 
+                font-weight: bold; 
+                font-size: 14px; 
+                border: 1px solid #ccc; 
+            }
         </style>
     </head>
     <body class="d-flex">
@@ -181,7 +192,15 @@
                 <button class="navbar-toggler border-0 outline-0" id="toggleSidebar" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <span class="navbar-brand mb-0 h1">Dashboard</span>
+                <span class="navbar-brand mb-0 h1">
+                    <%
+                        if (username != null) {
+                            out.print("<span class='username-display'>" + username + "</span>");
+                        } else {
+                            out.print("<span class='username-display'>Dashboard</span>");
+                        }
+                    %>
+                </span>
             </nav>
 
 
@@ -190,7 +209,7 @@
             <div class="p-3">
                 <h1>Welcome to AdminKit</h1>
                 <p>This is the main content area.</p>
-                 <!-- <a href="addJadwal.jsp">Tambah Jadwal</a>-->
+                <!-- <a href="addJadwal.jsp">Tambah Jadwal</a>-->
             </div>
         </div>
 
