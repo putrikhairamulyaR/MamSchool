@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package servlets;
 
 import dao.StudentDAO;
@@ -16,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Classes;
 
 /**
  *
@@ -83,7 +83,17 @@ public class StudentServlet extends HttpServlet {
             return;
         }
 
+        int tingkat = 2024 - student.getEnrollmentYear() + 1;
+
+        List<Classes> classesList = studentDAO.getFilteredClasses(student.getMajor(), tingkat);
+        System.out.println("Classes List Size: " + classesList.size());
+        for (Classes cls : classesList) {
+            System.out.println("Class: " + cls.getId() + ", Name: " + cls.getName());
+        }
+
         request.setAttribute("student", student);
+        request.setAttribute("classesList", classesList);
+
         request.getRequestDispatcher("/frontEnd/Kepsek/EditStudent.jsp").forward(request, response);
     }
 
@@ -140,15 +150,28 @@ public class StudentServlet extends HttpServlet {
         String name = request.getParameter("name");
         LocalDate dateOfBirth = LocalDate.parse(request.getParameter("date_of_birth"));
         int enrollmentYear = Integer.parseInt(request.getParameter("enrollment_year"));
-        String classIdStr = request.getParameter("class_id");
         String major = request.getParameter("major");
+        int tingkat = 2024 - enrollmentYear + 1; // Hitung tingkat siswa
 
-        Integer classId = classIdStr != null && !classIdStr.trim().isEmpty() ? Integer.parseInt(classIdStr) : null;
-        Integer angkatan = 2024-enrollmentYear+1;
-        studentDAO.getFilteredClasses(major, angkatan);
+        // Cari kelas yang sesuai berdasarkan jurusan dan tingkat
+        List<Classes> filteredClasses = studentDAO.getFilteredClasses(major, tingkat);
+        Integer classId = null;
+        if (!filteredClasses.isEmpty()) {
+            classId = filteredClasses.get(0).getId(); // Ambil kelas pertama yang sesuai
+        }
+
+        // Buat objek siswa baru
         Student updatedStudent = new Student(id, userId, nis, name, dateOfBirth, enrollmentYear, classId, major);
-        studentDAO.updateStudent(updatedStudent);
 
+        // Update data siswa
+        boolean isUpdated = studentDAO.updateStudent(updatedStudent);
+        if (!isUpdated) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to update student.");
+            return;
+        }
+
+        // Redirect kembali ke daftar siswa
         response.sendRedirect("StudentServlet?action=list");
     }
+
 }
