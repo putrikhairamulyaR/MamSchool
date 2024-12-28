@@ -29,7 +29,11 @@ public class StudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("StudentServlet doGet called");
-
+        String role = (String) request.getSession().getAttribute("role");
+        if (role == null || !role.equals("kepsek")) {
+            response.sendRedirect(request.getContextPath() + "/frontEnd/Login.jsp");
+            return;
+        }
         String action = request.getParameter("action");
         if (action == null) {
             action = "list";

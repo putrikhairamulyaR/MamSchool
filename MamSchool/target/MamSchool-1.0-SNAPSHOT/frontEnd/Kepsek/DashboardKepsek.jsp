@@ -11,7 +11,7 @@
     response.setDateHeader("Expires", 0); // Proxies
 
     if (session == null || session.getAttribute("username") == null) {
-        response.sendRedirect("../Login.jsp");
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
         return;
     }
 
@@ -19,7 +19,7 @@
     String role = (String) session.getAttribute("role");
 
     if (!"kepsek".equals(role)) {
-        response.sendRedirect("../Login.jsp");
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
         return;
     }
 %>

@@ -23,7 +23,7 @@ public class DashboardKepsekServlet extends HttpServlet {
             throws ServletException, IOException {
         String role = (String) request.getSession().getAttribute("role");
         if (role == null || !role.equals("kepsek")) {
-            response.sendRedirect(request.getContextPath() + "/Login.jsp");
+            response.sendRedirect(request.getContextPath() + "/frontEnd/Login.jsp");
             return;
         }
 

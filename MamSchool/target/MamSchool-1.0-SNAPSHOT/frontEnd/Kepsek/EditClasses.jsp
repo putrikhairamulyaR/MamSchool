@@ -71,7 +71,7 @@
 
                     <div class="mb-3">
                         <label for="major" class="form-label">Jurusan:</label>
-                        <input type="text" name="major" class="form-control" id="major" value="${classes.major}" placeholder="Masukkan jurusan" required>
+                        <input type="text" name="major" class="form-control" id="major" value="${classes.major}" placeholder="Masukkan jurusan" reqred>
                     </div>
 
                     <div class="mb-3">

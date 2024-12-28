@@ -1,10 +1,12 @@
 model\rapot.class
+dao\GradesDAO.class
 dao\ClassesDAO.class
 dao\StudentDAO.class
 com\mycompany\mamschool\resources\JakartaEE11Resource.class
 dao\rapotDAO.class
 dao\gradeDao.class
 model\Student.class
+servlets\GradesServlet.class
 servlets\StudentServlet.class
 servlets\nilaiServlet.class
 model\Classes.class
