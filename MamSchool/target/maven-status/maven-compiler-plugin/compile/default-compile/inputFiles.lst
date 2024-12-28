@@ -1,30 +1,30 @@
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\classes\JDBC.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\dao\ClassesDAO.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\dao\gradeDao.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\dao\JadwalDAO.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\dao\LoginDAO.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\dao\PresensiDao.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\dao\rapotDAO.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\dao\siswaDAO.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\dao\StudentDAO.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\dao\TeacherDAO.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\model\Classes.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\model\gradeStudent.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\model\Jadwal.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\model\nilai.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\model\rapot.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\model\Student.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\model\Teacher.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\model\User.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\servlets\ClassesServlet.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\servlets\JadwalServlet.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\servlets\LoginServlet.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\servlets\LogoutServlet.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\servlets\nilaiServlet.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\servlets\PresensiServlet.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\servlets\rapotServlet.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\servlets\siswaServlet.java
-C:\Users\luthfiah\Documents\semester 5\TUBESSS PBO\MamSchool\MamSchool\src\main\java\servlets\StudentServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\classes\JDBC.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\ClassesDAO.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\gradeDao.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\JadwalDAO.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\LoginDAO.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\PresensiDao.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\rapotDAO.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\siswaDAO.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\StudentDAO.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\TeacherDAO.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\model\Classes.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\model\gradeStudent.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\model\Jadwal.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\model\nilai.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\model\rapot.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\model\Student.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\model\Teacher.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\model\User.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\ClassesServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\JadwalServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\LoginServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\LogoutServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\nilaiServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\PresensiServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\rapotServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\siswaServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\StudentServlet.java

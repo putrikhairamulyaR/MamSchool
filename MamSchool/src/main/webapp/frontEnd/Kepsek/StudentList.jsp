@@ -67,7 +67,6 @@
                 background-color: #628ab1;
                 font-weight: bold;
             }
-
             .table-container {
                 background: white;
                 padding: 20px;
@@ -120,7 +119,7 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link " href="${pageContext.request.contextPath}/DashboardKepsek">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -138,7 +137,7 @@
                         <span class=" text-white fw-bold">Siswa</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/StudentServlet">
+                        <a class="nav-link" href="#">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">Nama Siswa</span>
                         </a>
@@ -149,8 +148,8 @@
                             <span class="align-middle">Bagi Kelas</span>
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/StudentServlet">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/StudentServlet">
                             <i data-feather="user-check" class="align-middle"></i>
                             <span class="align-middle">Siswa dan Kelas</span>
                         </a>
@@ -191,7 +190,12 @@
                             <span class="align-middle">Log Out</span>
                         </a>
                     </li>
-
+                    <!--<li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/Jadwal">
+                            <i data-feather="file-text" class="align-middle"></i>
+                            <span class="align-middle">Jadwal Mengajar</span>
+                        </a>
+                    </li>-->
                 </ul>
             </div>
         </nav>
@@ -210,7 +214,7 @@
             <div class="content">
                 <div class="table-container">
                     <h3>Daftar Siswa</h3>
-                    
+
                     <!-- Filter Form -->
                     <form action="${pageContext.request.contextPath}/StudentServlet" method="get" class="mb-4">
                         <div class="row">
