@@ -1,3 +1,9 @@
+<%-- 
+    Document   : GradesList
+    Created on : 28 Dec 2024, 17.04.29
+    Author     : Dafi Utomo
+--%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -137,7 +143,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/G">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/GradesServlet">
                             <i data-feather="bar-chart-2" class="align-middle"></i>
                             <span class="align-middle">Nilai Siswa</span>
                         </a>
@@ -195,9 +201,9 @@
             <!-- Page Content -->
             <div class="p-3">
                 <div class="table-container">
-                    <h3>Daftar Nilai</h3>
+                    <h3 class="mb-4">Daftar Nilai</h3>
                     <form action="${pageContext.request.contextPath}/GradesServlet" method="get" class="mb-4">
-                        <div class="row">
+                        <div class="row g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="kelas" class="form-label">Pilih Kelas:</label>
                                 <select name="kelas" id="kelas" class="form-select" onchange="this.form.submit()">
@@ -214,12 +220,13 @@
                         <thead>
                             <tr>
                                 <th>ID Nilai</th>
-                                <th>Nama Siswa</th>
                                 <th>NIS</th>
+                                <th>Nama Siswa</th>
+                                <th>Kelas</th>
                                 <th>UTS</th>
                                 <th>UAS</th>
                                 <th>Tugas</th>
-                                <th>Grade</th>
+                                <th>Total</th>
                                 <th>Kategori</th>
                             </tr>
                         </thead>
@@ -227,8 +234,9 @@
                             <c:forEach var="grade" items="${grades}">
                                 <tr>
                                     <td>${grade.idNilai}</td>
-                                    <td>${grade.name}</td>
                                     <td>${grade.nis}</td>
+                                    <td>${grade.name}</td>
+                                    <td>${grade.kelas.name}</td>
                                     <td>${grade.uts}</td>
                                     <td>${grade.uas}</td>
                                     <td>${grade.tugas}</td>
@@ -246,16 +254,16 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://unpkg.com/feather-icons"></script>
         <script>
-            feather.replace();
+                feather.replace();
 
-            const toggleButton = document.getElementById("toggleSidebar");
-            const sidebar = document.getElementById("sidebar");
-            const content = document.getElementById("content");
+                const toggleButton = document.getElementById("toggleSidebar");
+                const sidebar = document.getElementById("sidebar");
+                const content = document.getElementById("content");
 
-            toggleButton.addEventListener("click", () => {
-                sidebar.classList.toggle("hidden");
-                content.classList.toggle("expanded");
-            });
+                toggleButton.addEventListener("click", () => {
+                    sidebar.classList.toggle("hidden");
+                    content.classList.toggle("expanded");
+                });
         </script>
     </body>
 </html>

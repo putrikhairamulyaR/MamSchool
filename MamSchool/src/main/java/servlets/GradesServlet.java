@@ -7,15 +7,14 @@ package servlets;
 import dao.GradesDAO;
 import model.nilai;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -30,10 +29,12 @@ public class GradesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         String role = (String) request.getSession().getAttribute("role");
+
         if (role == null || !role.equals("kepsek")) {
             response.sendRedirect(request.getContextPath() + "/frontEnd/Login.jsp");
             return;
         }
+
         if (action == null || action.isEmpty()) {
             action = "list";
         }
@@ -56,7 +57,7 @@ public class GradesServlet extends HttpServlet {
 
         // Ambil nilai berdasarkan kelas yang dipilih (jika ada)
         List<nilai> grades = (className == null || className.isEmpty())
-                ? new ArrayList<>()
+                ? gradesDAO.getGradesByClass(null) // Kirim null untuk semua kelas
                 : gradesDAO.getGradesByClass(className);
 
         // Kirim data ke JSP
