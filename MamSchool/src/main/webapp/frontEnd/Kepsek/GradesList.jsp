@@ -241,29 +241,39 @@
                                     <td>${grade.uas}</td>
                                     <td>${grade.tugas}</td>
                                     <td>${grade.grade}</td>
-                                    <td>${grade.kategori}</td>
+                                    <td>
+                                        <span class="badge 
+                                              <c:choose>
+                                                  <c:when test="${grade.kategori == 'lulus'}">bg-success</c:when>
+                                                  <c:otherwise>bg-warning text-dark</c:otherwise>
+                                              </c:choose>
+                                              ">
+                                            ${grade.kategori}
+                                        </span>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
                 </div>
             </div>
+
         </div>
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://unpkg.com/feather-icons"></script>
         <script>
-                feather.replace();
+                        feather.replace();
 
-                const toggleButton = document.getElementById("toggleSidebar");
-                const sidebar = document.getElementById("sidebar");
-                const content = document.getElementById("content");
+                        const toggleButton = document.getElementById("toggleSidebar");
+                        const sidebar = document.getElementById("sidebar");
+                        const content = document.getElementById("content");
 
-                toggleButton.addEventListener("click", () => {
-                    sidebar.classList.toggle("hidden");
-                    content.classList.toggle("expanded");
-                });
+                        toggleButton.addEventListener("click", () => {
+                            sidebar.classList.toggle("hidden");
+                            content.classList.toggle("expanded");
+                        });
         </script>
     </body>
 </html>
