@@ -26,7 +26,7 @@ public class nilai {
     private double uts;      // Nilai UTS
     private double uas;      // Nilai UAS
     private double tugas;    // Nilai tugas
-    private String kategori; // Kategori (misalnya A, B, C, dll.)
+    private String kategori; // Kategori (misalnya lulus tidak)
     private double grade;    // Total nilai
     private String nama;
 

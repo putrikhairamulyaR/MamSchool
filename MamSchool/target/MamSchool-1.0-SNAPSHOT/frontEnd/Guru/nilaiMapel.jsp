@@ -177,7 +177,8 @@
                 <a href="<%= request.getContextPath() %>/frontEnd/Guru/addNilaiSiswa.jsp" class="btn btn-success">
                     <i class="bi bi-plus-circle me-2"></i> Tambah Nilai Siswa
                 </a>
-                   <%= user.getId() %>
+                    <%= user.getId() %>
+                  
             </div>
 
             <!-- Tabel Data -->

@@ -105,7 +105,7 @@
         <h3>Informasi Nilai Siswa</h3>
 
         <!-- Tampilkan Informasi Nilai Siswa -->
-        <div class="info-container">">
+        <div class="info-container">
             <% 
                 String id = request.getParameter("id");
                 gradeDao gd = new gradeDao();

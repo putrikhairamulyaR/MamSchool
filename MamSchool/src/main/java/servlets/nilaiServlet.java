@@ -164,15 +164,16 @@ private void addGrade(HttpServletRequest request, HttpServletResponse response) 
            if (isAdded) {
                response.sendRedirect("/MamSchool/nilaiServlet?action=view");
            } else {
-               response.sendRedirect("error.jsp?message=Failed to add grade");
+               response.sendRedirect("/MamSchool/frontEnd/Guru/cek.jsp?message=Failed to add");
            }
        } catch (NumberFormatException e) {
            //error parsing
-           response.sendRedirect("error.jsp?message=Invalid number format");
+           response.sendRedirect("/MamSchool/frontEnd/Guru/cek.jsp?message=Invalid");
        } catch (Exception e) {
            //error umum lainnya
-           response.sendRedirect("error.jsp?message=An unexpected error occurred");
+           response.sendRedirect("/MamSchool/frontEnd/Guru/cek.jsp?message=An Unexpected");
        }
    }
+
 
 }
