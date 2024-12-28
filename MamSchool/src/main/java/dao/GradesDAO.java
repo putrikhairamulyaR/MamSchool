@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dao;
+
 import classes.JDBC;
 import model.nilai;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author Royal
@@ -18,11 +20,10 @@ public class GradesDAO {
     // Ambil semua nilai berdasarkan kelas
     public List<nilai> getGradesByClass(String className) {
         List<nilai> gradeList = new ArrayList<>();
-        String query = "SELECT g.id_nilai, g.nis, g.nama_siswa, g.kelas, g.uts, g.uas, g.tugas, g.grade, g.kategori " +
-                       "FROM grades g WHERE g.kelas = ?";
+        String query = "SELECT g.id_nilai, g.nis, g.nama_siswa, g.kelas, g.uts, g.uas, g.tugas, g.grade, g.kategori "
+                + "FROM grades g WHERE g.kelas = ?";
 
-        try (Connection connection = JDBC.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
+        try (Connection connection = JDBC.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
 
             stmt.setString(1, className); // Set parameter untuk kelas
             ResultSet rs = stmt.executeQuery();
@@ -47,24 +48,22 @@ public class GradesDAO {
 
         return gradeList;
     }
-    
+
     public List<String> getAllClasses() {
-    List<String> classList = new ArrayList<>();
-    String query = "SELECT name FROM classes";
+        List<String> classList = new ArrayList<>();
+        String query = "SELECT name FROM classes";
 
-    try (Connection connection = JDBC.getConnection();
-         PreparedStatement stmt = connection.prepareStatement(query);
-         ResultSet rs = stmt.executeQuery()) {
+        try (Connection connection = JDBC.getConnection(); PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
 
-        while (rs.next()) {
-            classList.add(rs.getString("name"));
+            while (rs.next()) {
+                classList.add(rs.getString("name"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return classList;
     }
-
-    return classList;
-}
 
 }

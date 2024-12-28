@@ -51,7 +51,7 @@ public class GradesServlet extends HttpServlet {
     private void handleList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String className = request.getParameter("kelas");
 
-        // Ambil semua kelas untuk filter
+        // Ambil daftar semua kelas untuk filter
         List<String> classList = gradesDAO.getAllClasses();
 
         // Ambil nilai berdasarkan kelas yang dipilih (jika ada)
@@ -59,8 +59,9 @@ public class GradesServlet extends HttpServlet {
                 ? new ArrayList<>()
                 : gradesDAO.getGradesByClass(className);
 
-        request.setAttribute("grades", grades);
+        // Kirim data ke JSP
         request.setAttribute("classList", classList);
+        request.setAttribute("grades", grades);
         request.setAttribute("selectedClass", className);
         request.getRequestDispatcher("/frontEnd/Kepsek/GradesList.jsp").forward(request, response);
     }
