@@ -53,10 +53,10 @@ public class SigninServlet extends HttpServlet {
 
             System.out.println("Validation error: Missing required fields.");
             request.setAttribute("error", "Semua kolom wajib diisi!");
-            request.getRequestDispatcher("/frontEnd/Kepsek/AddUser.jsp").forward(request, response);
+            request.getRequestDispatcher("/frontEnd/TU/addUser.jsp").forward(request, response);
             return;
         }
-        System.out.println("Adding new class: Username=" + username + ", Password=" + password + ", Role=" + role);
+        System.out.println("Adding new class: username=" + username + ", password=" + password + ", role=" + role);
         
         User newUser = new User(username, password, role);
         boolean isSuccess = SigninDAO.addUser(newUser);

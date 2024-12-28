@@ -4,6 +4,7 @@ dao\SigninDAO.class
 dao\ClassesDAO.class
 dao\StudentDAO.class
 com\mycompany\mamschool\resources\JakartaEE11Resource.class
+servlets\TeacherServlet.class
 dao\rapotDAO.class
 dao\gradeDao.class
 model\Student.class
