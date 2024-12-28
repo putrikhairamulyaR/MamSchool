@@ -1,7 +1,8 @@
 package servlets;
 
 import dao.ClassesDAO;
-import model.Classes;
+import dao.TeacherDAO;
+import model.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author Raisa Lukman Hakim
@@ -18,6 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ClassesServlet extends HttpServlet {
 
     private final ClassesDAO classesDAO = new ClassesDAO();
+    private final TeacherDAO teacherDAO = new TeacherDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -75,7 +78,12 @@ public class ClassesServlet extends HttpServlet {
             return;
         }
 
+        // Ambil daftar semua guru
+        List<Teacher> teachersList = teacherDAO.getAllTeachers();
+
+        // Kirim data kelas dan guru ke JSP
         request.setAttribute("classes", classes);
+        request.setAttribute("teachersList", teachersList);
         request.getRequestDispatcher("/frontEnd/Kepsek/EditClasses.jsp").forward(request, response);
     }
 
@@ -122,10 +130,10 @@ public class ClassesServlet extends HttpServlet {
         System.out.println("Tingkat: " + tingkatStr);
 
         // Server-side validation
-        if (name == null || name.trim().isEmpty() ||
-                major == null || major.trim().isEmpty() ||
-                teacherIdStr == null || teacherIdStr.trim().isEmpty() ||
-                tingkatStr == null || tingkatStr.trim().isEmpty()) {
+        if (name == null || name.trim().isEmpty()
+                || major == null || major.trim().isEmpty()
+                || teacherIdStr == null || teacherIdStr.trim().isEmpty()
+                || tingkatStr == null || tingkatStr.trim().isEmpty()) {
 
             System.out.println("Validation error: Missing required fields.");
             request.setAttribute("error", "Semua kolom wajib diisi!");

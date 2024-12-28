@@ -9,18 +9,23 @@ package model;
  * @author Dafi Utomo
  */
 public class Classes {
+
     private int id;         // ID kelas
     private String name;    // Nama kelas
     private String major;   // Jurusan
     private int teacher_id; // ID guru
     private int tingkat;    // Tingkat kelas
+    private String teacherNip;
+    private String teacherName;
+    private String teacherSubject;
 
-    public Classes() { } // Konstruktor default
+    public Classes() {
+    } // Konstruktor default
 
-    public Classes(int id) { 
-        this.id = id; 
+    public Classes(int id) {
+        this.id = id;
     }
-    
+
     // Constructor dengan ID (untuk operasi update atau retrieval)
     public Classes(int id, String name, String major, int teacher_id, int tingkat) {
         this.id = id;
@@ -82,14 +87,38 @@ public class Classes {
         this.tingkat = tingkat;
     }
 
+    public String getTeacherNip() {
+        return teacherNip;
+    }
+
+    public void setTeacherNip(String teacherNip) {
+        this.teacherNip = teacherNip;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
+    public String getTeacherSubject() {
+        return teacherSubject;
+    }
+
+    public void setTeacherSubject(String teacherSubject) {
+        this.teacherSubject = teacherSubject;
+    }
+
     @Override
     public String toString() {
-        return "Classes{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", major='" + major + '\'' +
-                ", teacher_id=" + teacher_id +
-                ", tingkat=" + tingkat +
-                '}';
+        return "Classes{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", major='" + major + '\''
+                + ", teacher_id=" + teacher_id
+                + ", tingkat=" + tingkat
+                + '}';
     }
 }

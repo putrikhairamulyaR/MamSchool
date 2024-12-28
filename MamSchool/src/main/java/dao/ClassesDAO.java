@@ -2,6 +2,7 @@ package dao;
 
 import classes.JDBC;
 import model.Classes;
+import model.Teacher;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

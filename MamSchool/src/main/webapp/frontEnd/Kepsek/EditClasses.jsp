@@ -4,6 +4,7 @@
     Author     : Raisa Lukman Hakim
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="id">
     <head>
@@ -74,10 +75,15 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="teacher_id" class="form-label">ID Guru:</label>
-                        <input type="number" name="teacher_id" class="form-control" id="teacher_id" value="${classes.teacher_id}" placeholder="Masukkan ID guru" required>
+                        <label for="teacher_id" class="form-label">Guru:</label>
+                        <select name="teacher_id" class="form-select" id="teacher_id">
+                            <c:forEach var="teacher" items="${teachersList}">
+                                <option value="${teacher.id}" ${teacher.id == classes.teacher_id ? 'selected' : ''}>
+                                    ${teacher.nip} - ${teacher.name} - ${teacher.subject}
+                                </option>
+                            </c:forEach>
+                        </select>
                     </div>
-
                     <div class="mb-3">
                         <label for="tingkat" class="form-label">Tingkat:</label>
                         <input type="number" name="tingkat" class="form-control" id="tingkat" value="${classes.tingkat}" placeholder="Masukkan tingkat" required>
