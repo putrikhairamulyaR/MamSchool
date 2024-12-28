@@ -5,6 +5,24 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+
+    if (session == null || session.getAttribute("username") == null) {
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        return;
+    }
+
+    String username = (String) session.getAttribute("username");
+    String role = (String) session.getAttribute("role");
+
+    if (!"kepsek".equals(role)) {
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="id">
     <head>
@@ -90,6 +108,16 @@
 
             th {
                 background-color: #f2f2f2;
+            }
+            .username-display {
+                display: inline-block;
+                padding: 5px 15px; 
+                background-color: #f0f0f0;
+                border-radius: 20px; 
+                color: #333; 
+                font-weight: bold; 
+                font-size: 14px; 
+                border: 1px solid #ccc; 
             }
         </style>
     </head>
@@ -189,7 +217,15 @@
                 <button class="navbar-toggler border-0 outline-0" id="toggleSidebar" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <span class="navbar-brand mb-0 h1">Dashboard</span>
+                <span class="navbar-brand mb-0 h1">
+                    <%
+                        if (username != null) {
+                            out.print("<span class='username-display'>" + username + "</span>");
+                        } else {
+                            out.print("<span class='username-display'>Dashboard</span>");
+                        }
+                    %>
+                </span>
             </nav>
 
             <!-- Page Content -->
