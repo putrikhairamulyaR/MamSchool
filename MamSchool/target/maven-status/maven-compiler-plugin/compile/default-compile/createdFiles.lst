@@ -1,5 +1,6 @@
 model\rapot.class
 dao\GradesDAO.class
+dao\SigninDAO.class
 dao\ClassesDAO.class
 dao\StudentDAO.class
 com\mycompany\mamschool\resources\JakartaEE11Resource.class
@@ -20,6 +21,7 @@ dao\LoginDAO.class
 servlets\ClassesServlet.class
 servlets\DashboardKepsekServlet.class
 classes\JDBC.class
+servlets\SigninServlet.class
 servlets\PresensiServlet.class
 servlets\rapotServlet.class
 dao\siswaDAO.class
