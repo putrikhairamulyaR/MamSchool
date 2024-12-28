@@ -17,7 +17,6 @@
                 display: flex;
                 height: 100vh;
                 margin: 0;
-                font-family: Arial, sans-serif;
             }
 
             .content {

@@ -66,12 +66,27 @@
 
                     <div class="mb-3">
                         <label for="user_id" class="form-label">User ID:</label>
-                        <input type="number" name="user_id" class="form-control" id="user_id" value="${student.userId}" placeholder="Masukkan User ID" disabled>
+                        <input type="number" name="user_id" class="form-control" id="user_id" value="${student.userId}" placeholder="Masukkan User ID" readonly required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nis" class="form-label">NIS:</label>
+                        <input type="text" name="nis" class="form-control" id="nis" value="${student.nis}" placeholder="Masukkan NIS" readonly required>
                     </div>
 
                     <div class="mb-3">
                         <label for="name" class="form-label">Nama Siswa:</label>
-                        <input type="text" name="name" class="form-control" id="name" value="${student.name}" placeholder="Masukkan nama siswa" disabled>
+                        <input type="text" name="name" class="form-control" id="name" value="${student.name}" placeholder="Masukkan nama siswa"  required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="date_of_birth" class="form-label">Tanggal Lahir:</label>
+                        <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" value="${student.dateOfBirth}" readonly required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="enrollment_year" class="form-label">Tahun Masuk:</label>
+                        <input type="number" name="enrollment_year" class="form-control" id="enrollment_year" value="${student.enrollmentYear}" placeholder="Masukkan tahun masuk" readonly required>
                     </div>
 
                     <div class="mb-3">
@@ -80,13 +95,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="major" class="form-label">Tingkat:</label>
-                        <input type="text" name="major" class="form-control" id="major" value="${2024 - student.enrollmentYear + 1}" placeholder="Masukkan jurusan" disabled>
-                    </div>
-                    
-                    <div class="mb-3">
                         <label for="major" class="form-label">Jurusan:</label>
-                        <input type="text" name="major" class="form-control" id="major" value="${student.major}" placeholder="Masukkan jurusan" disabled>
+                        <input type="text" name="major" class="form-control" id="major" value="${student.major}" placeholder="Masukkan jurusan" readonly required>
                     </div>
 
 
