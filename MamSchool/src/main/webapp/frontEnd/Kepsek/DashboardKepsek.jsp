@@ -152,7 +152,7 @@
                         <span class="  text-white fw-bold">Guru</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/TeacherServlet">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">Nama Guru</span>
                         </a>

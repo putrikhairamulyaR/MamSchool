@@ -35,15 +35,20 @@ public class TeacherServlet extends HttpServlet {
      */
     
     private void addTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
-            int userId = Integer.parseInt(request.getParameter("userId"));
-            String nip = request.getParameter("nip");
-            String name = request.getParameter("name");
-            LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
-            String subject = request.getParameter("subject");
-            int hireDate = Integer.parseInt(request.getParameter("hireDate"));
+    try {
+        // Data yang diterima dari form
+        String nip = request.getParameter("nip");
+        String name = request.getParameter("name");
+        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
+        String subject = request.getParameter("subject");
+        int hireDate = Integer.parseInt(request.getParameter("hireDate"));
 
-            TeacherDAO dao = new TeacherDAO();
+        TeacherDAO dao = new TeacherDAO();
+
+        // Mendapatkan userId dari tabel user berdasarkan email
+        int userId = dao.getUserIdByName(name);
+
+        if (userId > 0) { // Jika userId ditemukan
             boolean success = dao.addTeacher(userId, nip, name, dateOfBirth, subject, hireDate);
 
             if (success) {
@@ -51,10 +56,14 @@ public class TeacherServlet extends HttpServlet {
             } else {
                 response.getWriter().println("Error adding teacher.");
             }
-        } catch (NumberFormatException | DateTimeParseException e) {
-            response.getWriter().println("Invalid input: " + e.getMessage());
+        } else {
+            response.getWriter().println("User with the provided email does not exist.");
         }
+    } catch (NumberFormatException | DateTimeParseException e) {
+        response.getWriter().println("Invalid input: " + e.getMessage());
     }
+}
+
     
     private void editTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {

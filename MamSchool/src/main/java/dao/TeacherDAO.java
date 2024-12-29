@@ -154,4 +154,20 @@ public class TeacherDAO {
         }
         return teacher; // Return the Teacher object or null if not found
     }
+    
+    public int getUserIdByName(String name) {
+        String query = "SELECT id FROM users WHERE name = ?";
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Mengembalikan -1 jika userId tidak ditemukan
+    }
+
 }
