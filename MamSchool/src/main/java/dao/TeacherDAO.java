@@ -36,6 +36,23 @@ public class TeacherDAO {
             return false;
         }
     }
+    
+     public boolean editTeacher(int id, int userId, String nip, String name, LocalDate dateOfBirth, String subject) {
+        String query = "UPDATE teacher SET user_id = ?, nis = ?, name = ?, date_of_birth = ?, enrollment_year = ?, major = ? WHERE id = ?";
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setString(2, nip);
+            preparedStatement.setString(3, name);
+            preparedStatement.setDate(4, Date.valueOf(dateOfBirth));
+            preparedStatement.setString(5, subject);
+            preparedStatement.setInt(6, id);
+
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     // Edit teacher subject only
     public boolean editTeacherSubject(int id, String subject) {
         String query = "UPDATE teachers SET subject = ? WHERE id = ?";

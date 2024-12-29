@@ -37,40 +37,45 @@ public class TeacherServlet extends HttpServlet {
      */
     
     private void addTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    try {
-        // Data yang diterima dari form
-        String role = request.getParameter("role");
-        String nip = request.getParameter("nip");
-        String name = request.getParameter("name");
-        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
-        String subject = request.getParameter("subject");
-        int hireDate = Integer.parseInt(request.getParameter("hireDate"));
+        try {
+            // Data yang diterima dari form
+            String role = request.getParameter("role");
+            String nip = request.getParameter("nip");
+            String name = request.getParameter("name");
+            LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
+            String subject = request.getParameter("subject");
+            int hireDate = Integer.parseInt(request.getParameter("hireDate"));
 
-        User user = new User(name, nip, role);
-        SigninDAO SigninDao = new SigninDAO();
-        boolean cekUser = SigninDao.addUser(user);
-        int user_id = SigninDao.getUserIdByUsername(name, nip);
-        TeacherDAO dao = new TeacherDAO();
-        boolean success = dao.addTeacher(user_id, nip, name, dateOfBirth, subject, hireDate);
+            User user = new User(name, nip, role);
+            SigninDAO SigninDao = new SigninDAO();
+            boolean cekUser = SigninDao.addUser(user);
+            int user_id = SigninDao.getUserIdByUsername(name, nip);
+            TeacherDAO dao = new TeacherDAO();
+            boolean success = dao.addTeacher(user_id, nip, name, dateOfBirth, subject, hireDate);
 
-        if (success) {
-                response.sendRedirect("SiswaServlet?action=list");
-            } else {
-                response.getWriter().println("Error adding student.");
-            }
-    } catch (NumberFormatException | DateTimeParseException e) {
-        response.getWriter().println("Invalid input: " + e.getMessage());
+            if (success) {
+                    response.sendRedirect("SiswaServlet?action=list");
+                } else {
+                    response.getWriter().println("Error adding student.");
+                }
+        } catch (NumberFormatException | DateTimeParseException e) {
+            response.getWriter().println("Invalid input: " + e.getMessage());
+        }
     }
-}
 
     
     private void editTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
+            int userId = Integer.parseInt(request.getParameter("userId"));
+            String nip = request.getParameter("nip");
+            String name = request.getParameter("name");
+            LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
             String subject = request.getParameter("subject");
+            
 
             TeacherDAO dao = new TeacherDAO();
-            boolean success = dao.editTeacherSubject(id, subject);
+            boolean success = dao.editTeacher(id, userId, nip, name, dateOfBirth, subject);
 
             if (success) {
                 response.sendRedirect("TeacherServlet?action=list");
