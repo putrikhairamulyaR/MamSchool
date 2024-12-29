@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect("frontEnd/TU/DashboardTU.jsp");
                     break;
                 case "siswa":
-                    response.sendRedirect("frontEnd/Murid/DashboardSiswa.jsp");
+                    response.sendRedirect("frontEnd/Murid/DasboardSiswa.jsp");
                     break;
                 default:
                     session.invalidate();
