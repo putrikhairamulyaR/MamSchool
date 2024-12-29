@@ -24,7 +24,7 @@
 
     <%
         User user = (User) request.getSession().getAttribute("user");
-        int idGuru = 0;
+        
 
         // Get the current date and time
         LocalDate currentDate = LocalDate.now();
@@ -32,51 +32,12 @@
         // Format the date using Indonesian locale
         String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", Locale.forLanguageTag("id")));
         LocalTime currentTime = LocalTime.now();
-
-        try (Connection conn = JDBC.getConnection()) {
-            String query = "SELECT teachers.id AS teacher_id FROM teachers JOIN users ON teachers.user_id = users.id ";
-            try (Statement stmt = conn.createStatement()) {
-                ResultSet rs = stmt.executeQuery(query);
-                if (rs.next()) {
-                    idGuru = rs.getInt("teacher_id");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        List<Classes> classes = new ArrayList<>();
-        List<Jadwal> jadwal = new ArrayList<>();
-        try (Connection conn = JDBC.getConnection()) {
-            String query = "SELECT classes.id, classes.name, classes.major, "
-                    + "class_schedule.day, class_schedule.start_time, class_schedule.end_time FROM classes "
-                    + "JOIN class_schedule ON classes.id = class_schedule.class_id "
-                    + "WHERE class_schedule.teacher_id = ?";
-            PreparedStatement preparedStatement = conn.prepareStatement(query);
-            preparedStatement.setInt(1, idGuru);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                Classes kelas = new Classes();
-                Jadwal sched = new Jadwal();
-                kelas.setId(resultSet.getInt("id"));
-                kelas.setMajor(resultSet.getString("major"));
-                kelas.setName(resultSet.getString("name"));
-                sched.setId(resultSet.getInt("id"));
-                sched.setDay(resultSet.getString("day"));
-                sched.setStartTime(LocalTime.parse(resultSet.getTime("start_time").toString()));
-                sched.setEndTime(LocalTime.parse(resultSet.getTime("end_time").toString()));
-                classes.add(kelas);
-                jadwal.add(sched);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp");
-        }
-
-        String selectedClassId = request.getParameter("classId");
-    %>
+        PresensiDao dao = new PresensiDao();
+        int idGuru = dao.getTeacherIdByUserId(user.getId());
+        List<Classes>classes= dao.getClassByTeacherId(idGuru);
+        List<Jadwal>jadwal=dao.getAllJadwalByTeacherId(idGuru);
+   %>
+   
 
     <body class="bg-light">
         <div class="container my-5">
@@ -104,30 +65,26 @@
                         <%
                             // Iterate through the classes list to display the class data and schedule info
                             // Filter to display only today's classes
-                            for (int i = 0; i < classes.size(); i++) {
-                                Classes kelas = classes.get(i);
-                                Jadwal sched = jadwal.get(i);
-                                String classId = String.valueOf(kelas.getId());
+                            for(Jadwal jad:jadwal) {
 
                                 // Check if the class day is today (in lower case for comparison)
                                 //ini lagi hardcode dulu buat nampilin senin
-                                if (sched.getDay().equalsIgnoreCase("Senin")) {
                         %>
                         <tr>
-                            <td><%= classId%></td>
-                            <td><%= kelas.getName()%></td>
-                            <td><%= kelas.getMajor()%></td>
-                            <td><%= sched.getDay()%></td>
-                            <td><%= sched.getStartTime()%></td>
-                            <td><%= sched.getEndTime()%></td>
+                            <td><%= jad.getIdKelas()%></td>
+                            <td><%= jad.getKelas() %></td>
+                            <td><%= jad.getSubjectName() %></td>
+                            <td><%= jad.getDay() %></td>
+                            <td><%= jad.getStartTime()%></td>
+                            <td><%= jad.getEndTime()%></td>
                             <td>
                                 
-                                <button type="submit" name="classId" value="<%= classId%>" class="btn btn-primary">Add Attendance</button>
-                                <button type="submit" name="classId" value="<%= classId%>" class="btn btn-primary">Edit Attendance</button>
+                                <button type="submit" name="classId" value="<%= jad.getIdKelas() %>" class="btn btn-primary">Add Attendance</button>
+                                <button type="submit" name="classId" value="<%= jad.getIdKelas() %>" class="btn btn-primary">Edit Attendance</button>
                             </td>
                         </tr>
                         <%
-                                }
+                                
                             }
                         %>
                     </tbody>

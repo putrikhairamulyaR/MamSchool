@@ -44,7 +44,7 @@ public class TeacherServlet extends HttpServlet {
             String name = request.getParameter("name");
             LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
             String subject = request.getParameter("subject");
-            int hireDate = Integer.parseInt(request.getParameter("hireDate"));
+            LocalDate hireDate = LocalDate.parse(request.getParameter("hireDate"));
 
             User user = new User(name, nip, role);
             SigninDAO SigninDao = new SigninDAO();
@@ -54,9 +54,9 @@ public class TeacherServlet extends HttpServlet {
             boolean success = dao.addTeacher(user_id, nip, name, dateOfBirth, subject, hireDate);
 
             if (success) {
-                    response.sendRedirect("SiswaServlet?action=list");
+                    response.sendRedirect("TeacherServlet?action=list");
                 } else {
-                    response.getWriter().println("Error adding student.");
+                    response.getWriter().println("Error adding teacher.");
                 }
         } catch (NumberFormatException | DateTimeParseException e) {
             response.getWriter().println("Invalid input: " + e.getMessage());

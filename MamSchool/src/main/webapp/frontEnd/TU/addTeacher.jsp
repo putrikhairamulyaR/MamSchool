@@ -88,7 +88,7 @@
                 <!-- Parameter untuk menentukan aksi -->
                 <input type="hidden" name="action" value="add">
 
-                <input type="hidden" name="role" value="siswa">
+                <input type="hidden" name="role" value="guru">
                 
                 <label for="nip">NIP:</label>
                 <input type="text" name="nip" required>
@@ -113,7 +113,7 @@
                 </select>
                 
                 <label for="hireDate">Tahun Masuk:</label>
-                <input type="number" name="hireDate" required>
+                <input type="date" name="hireDate" required>
 
                 <button type="submit">Tambah Guru</button>
             </form>

@@ -20,8 +20,6 @@
 
     <%
        List<Student>students=(List<Student>) request.getSession().getAttribute("listSiswa");
-
-
     %>
 
 

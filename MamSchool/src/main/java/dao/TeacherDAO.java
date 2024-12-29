@@ -19,7 +19,7 @@ import model.Teacher;
 
 public class TeacherDAO {
     // Add new teacher
-    public boolean addTeacher(int userId, String nip, String name, LocalDate dateOfBirth, String subject, int hireDate){
+    public boolean addTeacher(int userId, String nip, String name, LocalDate dateOfBirth, String subject, LocalDate hireDate){
         String query = "INSERT INTO teachers (user_id, nip, name, date_of_birth, subject, hire_date) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -28,7 +28,7 @@ public class TeacherDAO {
             preparedStatement.setString(3, name);
             preparedStatement.setDate(4, Date.valueOf(dateOfBirth));
             preparedStatement.setString(5, subject);
-            preparedStatement.setInt(6, hireDate);
+            preparedStatement.setDate(6, Date.valueOf(hireDate));
 
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {

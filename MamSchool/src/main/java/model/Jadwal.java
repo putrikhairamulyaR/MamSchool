@@ -7,6 +7,7 @@ package model;
  */
 
 
+import java.sql.Time;
 import java.time.LocalTime;
 
 public class Jadwal {
@@ -18,6 +19,15 @@ public class Jadwal {
     private String day;            // Hari (ENUM: Senin, Selasa, dll)
     private LocalTime startTime;   // Waktu mulai mapel
     private LocalTime endTime;     // Waktu selesai mapel
+    private String subjectName;
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
 
   
     public Jadwal(int id, String kelas, int subjectId, int teacherId, String day, LocalTime startTime, LocalTime endTime) {
@@ -50,6 +60,18 @@ public class Jadwal {
     }
 
     public Jadwal() {}
+
+    public Jadwal(int id, int classId, String className, int subjectId, String subjectName, int teacherId, String day, LocalTime startTime, LocalTime endTime) {
+        this.id = id;
+        this.idKelas = classId;
+        this.kelas = className;
+        this.subjectId = subjectId;
+        this.subjectName = subjectName;
+        this.teacherId = teacherId;
+        this.day = day;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 
     
     public int getId() {
