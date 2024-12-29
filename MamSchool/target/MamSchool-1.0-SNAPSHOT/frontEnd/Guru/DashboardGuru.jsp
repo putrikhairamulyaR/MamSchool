@@ -98,7 +98,7 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active " href="${pageContext.request.contextPath}/DashboardKepsek">
+                        <a class="nav-link active " href="${pageContext.request.contextPath}/DashboardGuru">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
