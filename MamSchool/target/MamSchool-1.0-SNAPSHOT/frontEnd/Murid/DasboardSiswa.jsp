@@ -5,6 +5,25 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+
+    if (session == null || session.getAttribute("username") == null) {
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        return;
+    }
+
+    String username = (String) session.getAttribute("username");
+    String role = (String) session.getAttribute("role");
+
+    if (!"siswa".equals(role)) {
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,153 +32,159 @@
         <title>Dashboard Siswa</title>
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <!-- Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                margin: 0;
-                padding: 0;
-            }
-
-            /* Sidebar styling */
-            .sidebar {
+            /* Sidebar */
+            #sidebar {
+                width: 250px;
+                transition: transform 0.3s ease, visibility 0.3s ease;
+                overflow: auto;
                 position: fixed;
                 top: 0;
                 left: 0;
-                width: 250px;
-                height: 100%;
+                bottom: 0;
+                z-index: 1030; /* Tetap di atas konten utama */
                 background-color: #34495e;
-                color: #fff;
-                display: flex;
-                flex-direction: column;
-                padding: 20px;
-                transition: transform 0.3s ease;
-                z-index: 1000;
+                color: #ffffff;
             }
 
-            .sidebar.hidden {
-                transform: translateX(-250px);
+            #sidebar.hidden {
+                transform: translateX(-100%);
+                visibility: hidden;
             }
 
-            .sidebar h2 {
-                font-size: 18px;
-                text-align: center;
-            }
-
-            .sidebar a {
-                color: #fff;
-                text-decoration: none;
-                margin: 10px 0;
-                font-size: 16px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .sidebar a:hover {
-                text-decoration: underline;
-            }
-
-            /* Content styling */
-            .content {
-                margin-left: 250px;
-                padding: 30px;
+            /* Content */
+            #content {
+                flex-grow: 1;
+                margin-left: 250px; /* Ruang default sidebar */
                 transition: margin-left 0.3s ease;
             }
 
-            .content.expanded {
-                margin-left: 0;
+            #content.expanded {
+                margin-left: 0; /* Konten memenuhi layar */
             }
 
-            /* Toggle Button styling */
-            .toggle-btn {
-                position: fixed;
-                top: 20px;
-                left: 250px;
-                width: 30px;
-                height: 30px;
-                background-color: #4682b4;
-                color: #fff;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                z-index: 1100;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-                transition: left 0.3s ease;
-            }
-
-            .toggle-btn.hidden {
-                left: 0;
-            }
-
-            .stat-card {
-                background: #fff;
-                padding: 15px;
-                border-radius: 10px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                text-align: center;
-                margin-bottom: 20px;
-            }
-
-            .calendar-box {
-                background: #fff;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            }
-
-            .calendar {
-                display: grid;
-                grid-template-columns: repeat(7, 1fr);
-                gap: 5px;
-                margin-top: 10px;
-            }
-
-            .calendar div {
-                padding: 8px;
+            /* Nav Link */
+            #sidebar .nav-link {
+                color: #ffffff;
                 border-radius: 5px;
-                background-color: #f9f9f9;
-                color: #333;
+
+            }
+            #sidebar .nav-link:hover{
+                background-color: #628ab1;
+            }
+            #sidebar .active{
+                border-left: 3px solid #ffffff;
+                background-color: #628ab1;
+                font-weight: bold;
             }
 
-            .calendar .day-header {
+            .username-display {
+                display: inline-block;
+                padding: 5px 15px;
+                background-color: #f0f0f0;
+                border-radius: 20px;
+                color: #333;
                 font-weight: bold;
-                background-color: #4682b4;
-                color: #fff;
-            }
-           
-            .custom-image {
-                width: 100px; 
-                height: auto; 
-                display: block; 
-                margin: 0 auto; 
+                font-size: 14px;
+                border: 1px solid #ccc;
             }
         </style>
     </head>
-    <body>
+    <body class="d-flex">
         <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <h2>Dashboard Siswa</h2>
-            <a href="profileSiswa.jsp"><i class="bi bi-person-circle"></i> Profile</a>
-            <a href="DasboardSiswa.jsp#beranda><i class="bi bi-house-door-fill"></i> Beranda</a>
-            <a href="#kelas"><i class="bi bi-list-check"></i> Kelas</a>
-            <a href="#nilai"><i class="bi bi-clipboard2-check"></i> Nilai</a>
-            <a href="#mapel"><i class="bi bi-book"></i> Mapel</a>
-            <a href="#setting"><i class="bi bi-gear"></i> Setting</a>
-            <a href="#bantuan"><i class="bi bi-question-circle"></i> Bantuan</a>
-            <a href="tampilanAwal.jsp" style="margin-top: auto;"><i class="bi bi-box-arrow-left"></i> Logout</a>
-        </div>
+        <nav id="sidebar" class="border-end vh-100 shadow">
+            <div class="p-3">
+                <a class="navbar-brand d-flex align-items-center mb-3" href="#">
+                    <span class="align-middle">Mam School</span>
+                </a>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class=" text-sm text-white fw-bold">Pages</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/DasboardSiswa">
+                            <i data-feather="sliders" class="align-middle"></i>
+                            <span class="align-middle">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/DasboardSiswa">
+                            <i data-feather="user" class="align-middle"></i>
+                            <span class="align-middle">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class=" text-white fw-bold">Siswa</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/siswaServlet">
+                            <i data-feather="users" class="align-middle"></i>
+                            <span class="align-middle">List Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
+                            <i data-feather="pie-chart" class="align-middle"></i>
+                            <span class="align-middle">Presensi Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
+                            <i data-feather="file-text" class="align-middle"></i>
+                            <span class="align-middle">Jadwal Mata Pelajaran</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/GradesServlet">
+                            <i data-feather="bar-chart-2" class="align-middle"></i>
+                            <span class="align-middle">Nilai Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/GradesServlet">
+                            <i data-feather="file-text" class="align-middle"></i>
+                            <span class="align-middle">Raport Siswa</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class="  text-white fw-bold">Accounts</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
+                            <i data-feather="log-out" class="align-middle"></i>
+                            <span class="align-middle">Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-        <!-- Toggle Button -->
-        <div class="toggle-btn" id="toggle-btn">
-            <i class="bi bi-chevron-left"></i>
-        </div>
+        <!-- Main Content -->
+        <div id="content" class="flex-grow-1">
+            <!-- Navbar -->
+            <nav class="navbar navbar-light bg-light px-3 border-bottom">
+                <button class="navbar-toggler border-0 outline-0" id="toggleSidebar" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <span class="navbar-brand mb-0 h1">
+                    <%
+                        if (username != null) {
+                            out.print("<span class='username-display'>" + username + "</span>");
+                        } else {
+                            out.print("<span class='username-display'>Dashboard</span>");
+                        }
+                    %>
+                </span>
+            </nav>
 
-        <!-- Content -->
-        <div class="content" id="content">
             <h1>Hi, Nama User</h1>
             <p>Semangat untuk hari ini!</p>
 
@@ -239,26 +264,26 @@
         </div>
 
         <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Activate Feather Icons -->
         <script>
-            const sidebar = document.getElementById('sidebar');
-            const content = document.getElementById('content');
-            const toggleBtn = document.getElementById('toggle-btn');
-            const icon = toggleBtn.querySelector('i');
+            feather.replace({color: '#ffffff'});
 
-            toggleBtn.addEventListener('click', () => {
-                sidebar.classList.toggle('hidden');
-                content.classList.toggle('expanded');
-                toggleBtn.classList.toggle('hidden');
+            const toggleButton = document.getElementById("toggleSidebar");
+            const sidebar = document.getElementById("sidebar");
+            const content = document.getElementById("content");
 
-                // Ganti ikon
-                if (sidebar.classList.contains('hidden')) {
-                    icon.classList.remove('bi-chevron-left');
-                    icon.classList.add('bi-chevron-right');
+            toggleButton.addEventListener("click", () => {
+                // Toggle Sidebar
+                if (sidebar.classList.contains("hidden")) {
+                    sidebar.classList.remove("hidden");
+                    content.classList.remove("expanded");
                 } else {
-                    icon.classList.remove('bi-chevron-right');
-                    icon.classList.add('bi-chevron-left');
+                    sidebar.classList.add("hidden");
+                    content.classList.add("expanded");
                 }
             });
         </script>
+
     </body>
 </html>

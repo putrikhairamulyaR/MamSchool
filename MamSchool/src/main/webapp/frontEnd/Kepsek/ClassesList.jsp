@@ -31,13 +31,8 @@
         <title>Daftar Kelas</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <script src="https://unpkg.com/feather-icons"></script>
         <style>
-            body {
-                display: flex;
-                height: 100vh;
-                margin: 0;
-            }
-
             /* Sidebar */
             #sidebar {
                 width: 250px;
@@ -57,17 +52,26 @@
                 visibility: hidden;
             }
 
+            /* Content */
+            #content {
+                flex-grow: 1;
+                margin-left: 250px; /* Ruang default sidebar */
+                transition: margin-left 0.3s ease;
+            }
+
+            #content.expanded {
+                margin-left: 0; /* Konten memenuhi layar */
+            }
+
             /* Nav Link */
             #sidebar .nav-link {
                 color: #ffffff;
                 border-radius: 5px;
 
             }
-
             #sidebar .nav-link:hover{
                 background-color: #628ab1;
             }
-
             #sidebar .active{
                 border-left: 3px solid #ffffff;
                 background-color: #628ab1;

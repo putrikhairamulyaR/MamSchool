@@ -30,16 +30,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Daftar Siswa</title>
+        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         <!-- Feather Icons -->
         <script src="https://unpkg.com/feather-icons"></script>
         <style>
-            body {
-                display: flex;
-                height: 100vh;
-                margin: 0;
-            }
             /* Sidebar */
             #sidebar {
                 width: 250px;
@@ -169,14 +165,14 @@
                             <span class="align-middle">Bagi Kelas</span>
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/StudentServlet">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/StudentServlet">
                             <i data-feather="user-check" class="align-middle"></i>
                             <span class="align-middle">Siswa dan Kelas</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/GradesServlet">
+                        <a class="nav-link " href="${pageContext.request.contextPath}/GradesServlet">
                             <i data-feather="bar-chart-2" class="align-middle"></i>
                             <span class="align-middle">Nilai Siswa</span>
                         </a>
