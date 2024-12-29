@@ -82,13 +82,15 @@
         </style>
     </head>
     <body>
-        <h2>Tambah Data Siswa</h2>
+        <h2>Tambah Data Guru</h2>
         <div class="container">
             <form action="${pageContext.request.contextPath}/TeacherServlet" method="post">
                 <!-- Parameter untuk menentukan aksi -->
                 <input type="hidden" name="action" value="add">
 
-                <label for="nis">NIP:</label>
+                <input type="hidden" name="role" value="siswa">
+                
+                <label for="nip">NIP:</label>
                 <input type="text" name="nip" required>
 
                 <label for="name">Nama:</label>
@@ -96,14 +98,24 @@
 
                 <label for="dateOfBirth">Tanggal Lahir:</label>
                 <input type="date" name="dateOfBirth" required>
-                
-                <label for="enrollmentYear">Subjek:</label>
-                <input type="text" name="subject" required>
 
-                <label for="enrollmentYear">Tahun Masuk:</label>
+                <label for="subject">Subyek</label>
+                <select name="subject" id="subject" required>
+                    <option value="" disabled selected>Pilih Subyek</option>
+                    <option value="Biologi">Biologi</option>
+                    <option value="Fisika">Fisika</option>
+                    <option value="Kimia">Kimia</option>
+                    <option value="Matematika">Matematika</option>
+                    <option value="Sejarah">Sejarah</option>
+                    <option value="Geografi">Geografi</option>
+                    <option value="Ekonomi">Ekonomi</option>
+                    <option value="Bahasa Inggris">Bahasa Inggris</option>
+                </select>
+                
+                <label for="hireDate">Tahun Masuk:</label>
                 <input type="number" name="hireDate" required>
 
-                <button type="submit">Tambah Siswa</button>
+                <button type="submit">Tambah Guru</button>
             </form>
         </div>
     </body>

@@ -4,6 +4,7 @@
  */
 package servlets;
 import classes.JDBC;
+import dao.SigninDAO;
 import dao.TeacherDAO;
 import model.Teacher;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import model.User;
 
 /**
  *
@@ -37,28 +39,25 @@ public class TeacherServlet extends HttpServlet {
     private void addTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
     try {
         // Data yang diterima dari form
+        String role = request.getParameter("role");
         String nip = request.getParameter("nip");
         String name = request.getParameter("name");
         LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
         String subject = request.getParameter("subject");
         int hireDate = Integer.parseInt(request.getParameter("hireDate"));
 
+        User user = new User(name, nip, role);
+        SigninDAO SigninDao = new SigninDAO();
+        boolean cekUser = SigninDao.addUser(user);
+        int user_id = SigninDao.getUserIdByUsername(name, nip);
         TeacherDAO dao = new TeacherDAO();
+        boolean success = dao.addTeacher(user_id, nip, name, dateOfBirth, subject, hireDate);
 
-        // Mendapatkan userId dari tabel user berdasarkan email
-        int userId = dao.getUserIdByName(name);
-
-        if (userId > 0) { // Jika userId ditemukan
-            boolean success = dao.addTeacher(userId, nip, name, dateOfBirth, subject, hireDate);
-
-            if (success) {
-                response.sendRedirect("TeacherServlet?action=list");
+        if (success) {
+                response.sendRedirect("SiswaServlet?action=list");
             } else {
-                response.getWriter().println("Error adding teacher.");
+                response.getWriter().println("Error adding student.");
             }
-        } else {
-            response.getWriter().println("User with the provided email does not exist.");
-        }
     } catch (NumberFormatException | DateTimeParseException e) {
         response.getWriter().println("Invalid input: " + e.getMessage());
     }

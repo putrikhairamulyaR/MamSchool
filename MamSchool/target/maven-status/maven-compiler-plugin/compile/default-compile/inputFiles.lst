@@ -1,35 +1,35 @@
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\classes\JDBC.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\dao\ClassesDAO.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\dao\gradeDao.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\dao\GradesDAO.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\dao\JadwalDAO.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\dao\LoginDAO.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\dao\PresensiDao.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\dao\rapotDAO.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\dao\SigninDAO.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\dao\siswaDAO.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\dao\StudentDAO.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\dao\TeacherDAO.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\model\Classes.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\model\gradeStudent.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\model\Jadwal.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\model\nilai.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\model\rapot.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\model\Student.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\model\Teacher.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\model\User.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\ClassesServlet.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\GradesServlet.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\JadwalServlet.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\LoginServlet.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\LogoutServlet.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\nilaiServlet.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\PresensiServlet.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\rapotServlet.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\SigninServlet.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\siswaServlet.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\StudentServlet.java
-C:\Users\luthfiah\Documents\semester 5\pbo TUBES\MamSchool\MamSchool\src\main\java\servlets\TeacherServlet.java
+D:\MamSchool\MamSchool\src\main\java\classes\JDBC.java
+D:\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
+D:\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
+D:\MamSchool\MamSchool\src\main\java\dao\ClassesDAO.java
+D:\MamSchool\MamSchool\src\main\java\dao\gradeDao.java
+D:\MamSchool\MamSchool\src\main\java\dao\GradesDAO.java
+D:\MamSchool\MamSchool\src\main\java\dao\JadwalDAO.java
+D:\MamSchool\MamSchool\src\main\java\dao\LoginDAO.java
+D:\MamSchool\MamSchool\src\main\java\dao\PresensiDao.java
+D:\MamSchool\MamSchool\src\main\java\dao\rapotDAO.java
+D:\MamSchool\MamSchool\src\main\java\dao\SigninDAO.java
+D:\MamSchool\MamSchool\src\main\java\dao\siswaDAO.java
+D:\MamSchool\MamSchool\src\main\java\dao\StudentDAO.java
+D:\MamSchool\MamSchool\src\main\java\dao\TeacherDAO.java
+D:\MamSchool\MamSchool\src\main\java\model\Classes.java
+D:\MamSchool\MamSchool\src\main\java\model\gradeStudent.java
+D:\MamSchool\MamSchool\src\main\java\model\Jadwal.java
+D:\MamSchool\MamSchool\src\main\java\model\nilai.java
+D:\MamSchool\MamSchool\src\main\java\model\rapot.java
+D:\MamSchool\MamSchool\src\main\java\model\Student.java
+D:\MamSchool\MamSchool\src\main\java\model\Teacher.java
+D:\MamSchool\MamSchool\src\main\java\model\User.java
+D:\MamSchool\MamSchool\src\main\java\servlets\ClassesServlet.java
+D:\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
+D:\MamSchool\MamSchool\src\main\java\servlets\GradesServlet.java
+D:\MamSchool\MamSchool\src\main\java\servlets\JadwalServlet.java
+D:\MamSchool\MamSchool\src\main\java\servlets\LoginServlet.java
+D:\MamSchool\MamSchool\src\main\java\servlets\LogoutServlet.java
+D:\MamSchool\MamSchool\src\main\java\servlets\nilaiServlet.java
+D:\MamSchool\MamSchool\src\main\java\servlets\PresensiServlet.java
+D:\MamSchool\MamSchool\src\main\java\servlets\rapotServlet.java
+D:\MamSchool\MamSchool\src\main\java\servlets\SigninServlet.java
+D:\MamSchool\MamSchool\src\main\java\servlets\siswaServlet.java
+D:\MamSchool\MamSchool\src\main\java\servlets\StudentServlet.java
+D:\MamSchool\MamSchool\src\main\java\servlets\TeacherServlet.java
