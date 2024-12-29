@@ -1,6 +1,7 @@
 package servlets;
 
 import dao.PresensiDao;
+import dao.siswaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,7 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
+import java.util.List;
+import model.Student;
 import model.User;
 
 @WebServlet(name = "PresensiServlet", urlPatterns = {"/PresensiServlet"})
@@ -37,7 +39,13 @@ public class PresensiServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String action = request.getParameter("action");
+        if ("view".equals(action)) {
+           listKehadiran(request,response);
+        } 
+        
+       
     }
 
     /**
@@ -70,7 +78,7 @@ public class PresensiServlet extends HttpServlet {
             throws ServletException, IOException, ParseException {
 
         User user = (User) request.getSession().getAttribute("user");
-
+        
         PresensiDao PresensiDao = new PresensiDao();
         String Id = request.getParameter("id");
         int id = Integer.parseInt(Id);
@@ -83,7 +91,7 @@ public class PresensiServlet extends HttpServlet {
         boolean cekPresensi = PresensiDao.addKehadiran(id, releaseDate, attendanceParam);
 
         if (cekPresensi) {
-            response.getWriter().print("Berhasil Masuk");
+            response.sendRedirect(request.getContextPath() + "/frontEnd/Guru/DashboardGuru.jsp");
         } else {
             response.getWriter().print(releaseDate);
         }
@@ -92,6 +100,19 @@ public class PresensiServlet extends HttpServlet {
 
     protected void editKehadiran(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+    }
+    
+    protected void listKehadiran(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        siswaDAO siswaDao= new siswaDAO();
+        String class_id=request.getParameter("classId");
+        List<Student>listSiswa= siswaDao.getSiswaByClassId(Integer.parseInt(class_id));
+        
+        request.getSession().setAttribute("listSiswa", listSiswa);
+        
+        response.sendRedirect("/MamSchool/frontEnd/Guru/presensi.jsp");
 
     }
 

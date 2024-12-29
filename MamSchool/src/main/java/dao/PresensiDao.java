@@ -10,7 +10,7 @@ public class PresensiDao {
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, id_siswa);
-             java.sql.Date releaseDateSql = new java.sql.Date(tanggal.getTime());
+            java.sql.Date releaseDateSql = new java.sql.Date(tanggal.getTime());
             preparedStatement.setDate(2,  releaseDateSql); // Ensure 'tanggal' is java.sql.Date
             preparedStatement.setString(3, kehadiran);
 

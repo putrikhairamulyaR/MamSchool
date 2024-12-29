@@ -123,10 +123,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Guru/viewJadwalGuru.jsp">
                             <i data-feather="user-check" class="align-middle"></i>
                             <span class="align-middle">Presensi Siswa</span>
                         </a>
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/nilaiServlet">

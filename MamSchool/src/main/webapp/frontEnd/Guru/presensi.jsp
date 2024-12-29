@@ -19,44 +19,7 @@
 
 
     <%
-        User user = (User) request.getSession().getAttribute("user");
-        int idGuru = 0;
-        try (Connection conn = JDBC.getConnection()) {
-            String query = "SELECT teachers.id AS teacher_id FROM teachers JOIN users ON teachers.user_id = users.id ";
-            try (Statement stmt = conn.createStatement()) {
-                ResultSet rs = stmt.executeQuery(query);
-                if (rs.next()) {
-                    idGuru = rs.getInt("teacher_id");
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-
-        List<Student> students = new ArrayList<>();
-        try (Connection conn = JDBC.getConnection()) {
-            String query = "SELECT user_id, name FROM students WHERE teacher_id = ?";
-            PreparedStatement preparedStatement = conn.prepareStatement(query);
-            preparedStatement.setInt(1, idGuru);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-
-                Student student = new Student();
-                student.setUserId(resultSet.getInt("user_id"));
-               
-                student.setName(resultSet.getString("name"));
-
-                students.add(student);
-
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp");
-        }
+       List<Student>students=(List<Student>) request.getSession().getAttribute("listSiswa");
 
 
     %>

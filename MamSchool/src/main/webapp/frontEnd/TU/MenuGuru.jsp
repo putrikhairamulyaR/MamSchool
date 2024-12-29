@@ -1,9 +1,3 @@
-<%-- 
-    Document   : MenuGuru
-    Created on : 15 Dec 2024, 21.36.23
-    Author     : luthfiah
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

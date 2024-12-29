@@ -25,14 +25,14 @@
     <%
         User user = (User) request.getSession().getAttribute("user");
         int idGuru = 0;
-        
+
         // Get the current date and time
         LocalDate currentDate = LocalDate.now();
-        
+
         // Format the date using Indonesian locale
         String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", Locale.forLanguageTag("id")));
         LocalTime currentTime = LocalTime.now();
-        
+
         try (Connection conn = JDBC.getConnection()) {
             String query = "SELECT teachers.id AS teacher_id FROM teachers JOIN users ON teachers.user_id = users.id ";
             try (Statement stmt = conn.createStatement()) {
@@ -44,14 +44,14 @@
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         List<Classes> classes = new ArrayList<>();
         List<Jadwal> jadwal = new ArrayList<>();
         try (Connection conn = JDBC.getConnection()) {
             String query = "SELECT classes.id, classes.name, classes.major, "
-                           + "class_schedule.day, class_schedule.start_time, class_schedule.end_time FROM classes "
-                           + "JOIN class_schedule ON classes.id = class_schedule.class_id "
-                           + "WHERE class_schedule.teacher_id = ?";
+                    + "class_schedule.day, class_schedule.start_time, class_schedule.end_time FROM classes "
+                    + "JOIN class_schedule ON classes.id = class_schedule.class_id "
+                    + "WHERE class_schedule.teacher_id = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setInt(1, idGuru);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -81,57 +81,59 @@
     <body class="bg-light">
         <div class="container my-5">
             <!-- Display current date and time -->
-            <h3 class="text-center text-primary">Hari: <%= formattedDate %> - Waktu : <%= currentTime %></h3>
+            <h3 class="text-center text-primary">Hari: <%= formattedDate%> - Waktu : <%= currentTime%></h3>
 
             <h1 class="text-center text-primary">Jadwal</h1>
 
-            <form action="${pageContext.request.contextPath}/PresensiServlet" method="POST">
-                <input type="hidden" name="action" value="add">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Class ID</th>
-                                <th>Class Name</th>
-                                <th>Major</th>
-                                <th>Day</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% 
-                                // Iterate through the classes list to display the class data and schedule info
-                                // Filter to display only today's classes
-                                for (int i = 0; i < classes.size(); i++) {
-                                    Classes kelas = classes.get(i);
-                                    Jadwal sched = jadwal.get(i);
-                                    String classId = String.valueOf(kelas.getId());
-                                    
-                                    // Check if the class day is today (in lower case for comparison)
-                                    //ini lagi hardcode dulu buat nampilin senin
-                                    if (sched.getDay().equalsIgnoreCase("Senin")) {
-                            %>
-                            <tr>
-                                <td><%= classId %></td>
-                                <td><%= kelas.getName() %></td>
-                                <td><%= kelas.getMajor() %></td>
-                                <td><%= sched.getDay() %></td>
-                                <td><%= sched.getStartTime() %></td>
-                                <td><%= sched.getEndTime() %></td>
-                                <td>
-                                    <button type="submit" class="btn btn-primary">Add Attendance</button>
-                                    <button type="submit" class="btn btn-primary">Edit Attendance</button>
-                                </td>
-                            </tr>
-                            <% 
-                                    }
-                                } 
-                            %>
-                        </tbody>
-                    </table>
+            <form action="${pageContext.request.contextPath}/PresensiServlet" method="get">
+                <input type="hidden" name="action" value="view">
+                
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Class ID</th>
+                            <th>Class Name</th>
+                            <th>Major</th>
+                            <th>Day</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            // Iterate through the classes list to display the class data and schedule info
+                            // Filter to display only today's classes
+                            for (int i = 0; i < classes.size(); i++) {
+                                Classes kelas = classes.get(i);
+                                Jadwal sched = jadwal.get(i);
+                                String classId = String.valueOf(kelas.getId());
 
+                                // Check if the class day is today (in lower case for comparison)
+                                //ini lagi hardcode dulu buat nampilin senin
+                                if (sched.getDay().equalsIgnoreCase("Senin")) {
+                        %>
+                        <tr>
+                            <td><%= classId%></td>
+                            <td><%= kelas.getName()%></td>
+                            <td><%= kelas.getMajor()%></td>
+                            <td><%= sched.getDay()%></td>
+                            <td><%= sched.getStartTime()%></td>
+                            <td><%= sched.getEndTime()%></td>
+                            <td>
+                                
+                                <button type="submit" name="classId" value="<%= classId%>" class="btn btn-primary">Add Attendance</button>
+                                <button type="submit" name="classId" value="<%= classId%>" class="btn btn-primary">Edit Attendance</button>
+                            </td>
+                        </tr>
+                        <%
+                                }
+                            }
+                        %>
+                    </tbody>
+                </table>
             </form>
+
         </div>
     </body>
 </html>

@@ -1,3 +1,9 @@
+<%-- 
+    Document   : addTeacher
+    Created on : Dec 29, 2024, 12:13:36 PM
+    Author     : ASUS
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
