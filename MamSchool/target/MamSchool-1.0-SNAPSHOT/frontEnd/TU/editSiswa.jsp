@@ -106,9 +106,6 @@
                 <input type="hidden" name="action" value="edit">
                 <input type="hidden" name="id" value="<%= student.getId() %>">
 
-                <label for="userId">User ID:</label>
-                <input type="number" name="userId" value="<%= student.getUserId() %>" required>
-
                 <label for="nis">NIS:</label>
                 <input type="text" name="nis" value="<%= student.getNis() %>" required>
 

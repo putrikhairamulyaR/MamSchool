@@ -93,6 +93,7 @@ public class SigninDAO {
 
         return user;
     }
+    
 
     public boolean deleteClass(int id) {
         String query = "DELETE FROM users WHERE id = ?";
@@ -179,5 +180,37 @@ public class SigninDAO {
         }
 
         return false;
+    }
+    
+    public int getUserIdByUsername(String  username, String password) {
+        String query = "SELECT id FROM users WHERE username = ? AND password = ?";
+        User user = null;
+        int user_id  = 0;
+        
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            if (connection == null) {
+                logger.warn("Failed to establish database connection.");
+                return 0;
+            }
+
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            logger.debug("Query executed: {}", query);
+
+            if (resultSet.next()) {
+                logger.debug("Processing row with ID: {}", resultSet.getInt("id"));
+                user_id = resultSet.getInt("id");
+                logger.debug("User retrieved: {}", user);
+            }
+
+        } catch (SQLException e) {
+            logger.error("SQL Error: {}", e.getMessage());
+            e.printStackTrace();
+        }
+
+        return user_id;
     }
 }

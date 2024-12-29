@@ -94,9 +94,8 @@
                 <!-- Parameter untuk menentukan aksi -->
                 <input type="hidden" name="action" value="add">
 
-                <label for="userId">User ID:</label>
-                <input type="number" name="userId" required>
-
+                <input type="hidden" name="role" value="siswa">
+                
                 <label for="nis">NIS:</label>
                 <input type="text" name="nis" required>
 

@@ -136,7 +136,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/rapotServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Guru/menuRapot.jsp">
                             <i data-feather="file-text" class="align-middle"></i>
                             <span class="align-middle">Rapot Siswa</span>
                         </a>

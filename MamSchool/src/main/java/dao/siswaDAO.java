@@ -19,7 +19,7 @@ import java.util.List;
 public class siswaDAO {
 
      // Add new student
-    public boolean addSiswa(int id, int userId, String nis, String name, LocalDate dateOfBirth, int enrollmentYear, String major) {
+    public boolean addSiswa(int userId, String nis, String name, LocalDate dateOfBirth, int enrollmentYear, String major) {
         String query = "INSERT INTO students (user_id, nis, name, date_of_birth, enrollment_year, major) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, userId);

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package servlets;
+import dao.SigninDAO;
 import dao.siswaDAO;
 import model.Student;
 
@@ -15,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.User;
 
 /**
  *
@@ -64,15 +66,19 @@ public class siswaServlet extends HttpServlet {
 
     private void addSiswa(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            int userId = Integer.parseInt(request.getParameter("userId"));
+            String role = request.getParameter("role");
             String nis = request.getParameter("nis");
             String name = request.getParameter("name");
             LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
             int enrollmentYear = Integer.parseInt(request.getParameter("enrollmentYear"));
             String major = request.getParameter("major");
-
+            
+            User user = new User(name, nis, role);
+            SigninDAO SigninDao = new SigninDAO();
+            boolean cekUser = SigninDao.addUser(user);
+            int user_id = SigninDao.getUserIdByUsername(name, nis);
             siswaDAO dao = new siswaDAO();
-            boolean success = dao.addSiswa(0, userId, nis, name, dateOfBirth, enrollmentYear, major);
+            boolean success = dao.addSiswa(user_id, nis, name, dateOfBirth, enrollmentYear, major);
 
             if (success) {
                 response.sendRedirect("SiswaServlet?action=list");
