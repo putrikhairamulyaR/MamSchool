@@ -139,12 +139,6 @@
                             <span class="align-middle">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="user" class="align-middle"></i>
-                            <span class="align-middle">Profile</span>
-                        </a>
-                    </li>
                 </ul>
                 <hr>
                 <ul class="nav flex-column">
@@ -154,7 +148,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">Nama Siswa</span>
+                            <span class="align-middle">List Siswa</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -184,7 +178,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">Nama Guru</span>
+                            <span class="align-middle">List Guru</span>
                         </a>
                     </li>
                     <li class="nav-item">

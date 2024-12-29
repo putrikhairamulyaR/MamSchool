@@ -140,12 +140,6 @@
                             <span class="align-middle">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="user" class="align-middle"></i>
-                            <span class="align-middle">Profile</span>
-                        </a>
-                    </li>
                 </ul>
                 <hr>
                 <ul class="nav flex-column">
@@ -155,7 +149,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">Nama Siswa</span>
+                            <span class="align-middle">List Siswa</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -183,9 +177,9 @@
                         <span class="  text-white fw-bold">Guru</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link active" href="#">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">Nama Guru</span>
+                            <span class="align-middle">List Guru</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -206,12 +200,6 @@
                             <span class="align-middle">Log Out</span>
                         </a>
                     </li>
-                    <!--<li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/Jadwal">
-                            <i data-feather="file-text" class="align-middle"></i>
-                            <span class="align-middle">Jadwal Mengajar</span>
-                        </a>
-                    </li>-->
                 </ul>
             </div>
         </nav>
