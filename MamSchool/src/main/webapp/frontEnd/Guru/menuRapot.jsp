@@ -102,6 +102,8 @@
                 text-transform: uppercase;
                 padding: 10px;
                 text-align: left;
+                text-align: center;
+                vertical-align: middle;
                 text-transform: none;
             }
 

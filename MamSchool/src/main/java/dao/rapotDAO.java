@@ -69,12 +69,15 @@ public class rapotDAO {
                                    rapot.getFisika() + rapot.getKimia() + rapot.getEkonomi() +
                                    rapot.getSejarah() + rapot.getInggris()) / 8.0;
                 rapot.setRataRata(rataRata);
+                
+                // Tentukan kategori berdasarkan rata-rata
+                rapot.tentukanKategori();
 
                 // Return objek rapot
                 return rapot;
             } else {
                 System.out.println("Data tidak ditemukan untuk NIS: " + nis);
-                return null; // Tidak ditemukan
+                return null;
             }
         }
     } catch (SQLException e) {
