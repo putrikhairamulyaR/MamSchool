@@ -57,38 +57,33 @@
     <body>
         <!-- Main Content -->
         <div class="content">
-            <a class="nav-link" href="${pageContext.request.contextPath}/SigninServlet">
-                <i data-feather="arrow-left" class="align-middle"></i>
-                <span class="align-middle fs-4 fw-bold">Kembali</span>
-            </a>
             <div class="form-container">
-                <h3>Edit User</h3>
+                <h3>Edit Pengguna</h3>
                 <form action="SigninServlet" method="post">
                     <input type="hidden" name="action" value="update">
-                    <input type="hidden" name="id" value="${users.id}">
+                    <input type="hidden" name="id" value="${user.id}">
 
                     <div class="mb-3">
                         <label for="username" class="form-label">Username:</label>
-                        <input type="text" name="username" class="form-control" id="username" value="${iusers.username}" required>
+                        <input type="text" name="username" class="form-control" id="username" value="${user.username}" placeholder="Masukkan username" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="password" class="form-label">Password:</label>
-                        <input type="text" name="password" class="form-control" id="password" value="${users.password}" required>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan password" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="role" class="form-label">Role:</label>
-                        <select name="role" class="form-select" id="role" required>
-                            <option value="" disabled ${empty users.role ? 'selected' : ''}>Pilih Role</option>
-                            <option value="kepsek" ${users.role == 'kepsek' ? 'selected' : ''}>Kepala Sekolah</option>
-                            <option value="guru" ${users.role == 'guru' ? 'selected' : ''}>Guru</option>
-                            <option value="siswa" ${users.role == 'siswa' ? 'selected' : ''}>Siswa</option>
-                            <option value="tu" ${users.role == 'tu' ? 'selected' : ''}>Tata Usaha</option>
+                        <select name="role" class="form-select" id="role">
+                            <option value="kepsek" ${user.role == 'kepsek' ? 'selected' : ''}>Kepsek</option>
+                            <option value="tu" ${user.role == 'tu' ? 'selected' : ''}>TU</option>
+                            <option value="guru" ${user.role == 'guru' ? 'selected' : ''}>Guru</option>
+                            <option value="siswa" ${user.role == 'siswa' ? 'selected' : ''}>Siswa</option>
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Update Siswa</button>
+                    <button type="submit" class="btn btn-primary">Update Pengguna</button>
                 </form>
             </div>
         </div>

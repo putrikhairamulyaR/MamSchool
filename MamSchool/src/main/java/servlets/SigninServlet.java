@@ -45,7 +45,7 @@ public class SigninServlet extends HttpServlet {
                     System.out.println("User: " + user);
                 }
                 request.setAttribute("userList", userList);
-                request.getRequestDispatcher("frontEnd/Kepsek/UserList.jsp").forward(request, response);
+                request.getRequestDispatcher("frontEnd/TU/UserList.jsp").forward(request, response);
                 break;
 
             case "edit":
@@ -54,7 +54,7 @@ public class SigninServlet extends HttpServlet {
                 User user = SigninDAO.getUserById(id);
                 System.out.println("User fetched for edit: " + user);
                 request.setAttribute("user", user);
-                request.getRequestDispatcher("frontEnd/Kepsek/EditUser.jsp").forward(request, response);
+                request.getRequestDispatcher("frontEnd/TU/editUser.jsp").forward(request, response);
                 break;
 
             case "delete":
