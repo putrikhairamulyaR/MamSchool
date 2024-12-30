@@ -311,6 +311,16 @@
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const toggleButton = document.getElementById("toggleSidebar");
+        const sidebar = document.getElementById("sidebar");
+
+        toggleButton.addEventListener("click", () => {
+            sidebar.classList.toggle("hidden");
+            document.getElementById("content").classList.toggle("expanded");
+        });
+    </script>
 </body>
 </html>
