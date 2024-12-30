@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0
@@ -82,13 +83,13 @@
 
             .username-display {
                 display: inline-block;
-                padding: 5px 15px; 
+                padding: 5px 15px;
                 background-color: #f0f0f0;
-                border-radius: 20px; 
-                color: #333; 
-                font-weight: bold; 
-                font-size: 14px; 
-                border: 1px solid #ccc; 
+                border-radius: 20px;
+                color: #333;
+                font-weight: bold;
+                font-size: 14px;
+                border: 1px solid #ccc;
             }
         </style>
     </head>
@@ -200,15 +201,139 @@
 
 
             <!-- Page Content -->
-            <div class="p-3">
-                <h1>Welcome to AdminKit</h1>
-                <p>This is the main content area.</p>
-                <!-- <a href="addJadwal.jsp">Tambah Jadwal</a>-->
-            </div>
+            <main class="mx-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard Kepala Sekolah</h1>
+                </div>
+
+                <!-- Statistik Ringkas -->
+                <div class="row text-center mb-4">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Siswa</h5>
+                                <p class="card-text">${totalSiswa}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Guru</h5>
+                                <p class="card-text">${totalGuru}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Kelas</h5>
+                                <p class="card-text">${totalKelas}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Pengguna</h5>
+                                <p class="card-text">${totalUsers}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grafik dan Diagram -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Distribusi Siswa per Kelas</h5>
+                                <canvas id="chartSiswaPerKelas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Rata-rata Kehadiran Bulanan</h5>
+                                <canvas id="chartKehadiran"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daftar Ringkasan -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Jadwal Kegiatan</h5>
+                                <ul class="list-group">
+                                    <c:forEach var="kegiatan" items="${jadwalKegiatan}">
+                                        <li class="list-group-item">${kegiatan}</li>
+                                        </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Jadwal Pelajaran Hari Ini</h5>
+                                <ul class="list-group">
+                                    <c:forEach var="jadwal" items="${jadwalPelajaranHariIni}">
+                                        <li class="list-group-item">${jadwal}</li>
+                                        </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // Grafik Distribusi Siswa per Kelas
+            const ctxSiswaPerKelas = document.getElementById('chartSiswaPerKelas').getContext('2d');
+            const chartSiswaPerKelas = new Chart(ctxSiswaPerKelas, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(${siswaPerKelas}),
+                    datasets: [{
+                            label: 'Jumlah Siswa',
+                            data: Object.values(${siswaPerKelas}),
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+
+            // Grafik Rata-rata Kehadiran
+            const ctxKehadiran = document.getElementById('chartKehadiran').getContext('2d');
+            const chartKehadiran = new Chart(ctxKehadiran, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: ${rataRataKehadiran.size()}}, (_, i) => `Bulan ${i + 1}`),
+                    datasets: [{
+                            label: 'Rata-rata Kehadiran',
+                            data: ${rataRataKehadiran},
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        </script>
         <!-- Activate Feather Icons -->
         <script>
             feather.replace({color: '#ffffff'});

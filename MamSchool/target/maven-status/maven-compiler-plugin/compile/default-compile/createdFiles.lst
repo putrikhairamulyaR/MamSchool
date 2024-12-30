@@ -28,6 +28,7 @@ servlets\rapotServlet.class
 dao\siswaDAO.class
 dao\JadwalDAO.class
 model\Teacher.class
+dao\DashboardKepsekDAO.class
 servlets\siswaServlet.class
 dao\PresensiDao.class
 servlets\LogoutServlet.class

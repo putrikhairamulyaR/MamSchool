@@ -12,7 +12,7 @@ import java.sql.*;
  */
 public class JDBC {
     
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/mam_schoo1_management"; 
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/mam_school_management"; 
     private static final String USER = "root";  
     private static final String PASSWORD = "";  
 
