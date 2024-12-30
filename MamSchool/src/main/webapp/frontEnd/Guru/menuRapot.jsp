@@ -95,27 +95,38 @@
                 border: 1px solid #dee2e6;
             }
 
-            th, td {
-                padding: 8px;
+            th {
+                background-color: #34495e;
+                color: white;
+                font-weight: bold;
+                text-transform: uppercase;
+                padding: 10px;
+                text-align: left;
+                text-transform: none;
+            }
+
+            td {
+                padding: 10px;
                 text-align: center;
             }
 
-            th {
-                background-color: #e9ecef;
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            tr:hover {
+                background-color: #d1e7ff;
             }
         </style>
     </head>
     <body>
         <div class="sidebar">
             <h4>Dashboard Siswa</h4>
-            <a href="#"><i class="bi bi-house-door-fill"></i> Beranda</a>
-            <a href="#"><i class="bi bi-list-check"></i> Kelas</a>
-            <a href="#"><i class="bi bi-clipboard2-check"></i> Nilai</a>
-            <a href="#"><i class="bi bi-book"></i> Rapot</a>
+            <a href="DashboardGuru.jsp"><i class="bi bi-house-door-fill"></i> Beranda</a>
             <hr>
             <a href="#"><i class="bi bi-gear"></i> Setting</a>
             <a href="#"><i class="bi bi-question-circle"></i> Bantuan</a>
-            <a href="#"><i class="bi bi-box-arrow-left"></i> Logout</a>
+            <a href="${pageContext.request.contextPath}/LogoutServlet"><i class="bi bi-box-arrow-left"></i> Logout</a>
         </div>
 
         <div class="content">
@@ -168,7 +179,6 @@
                                     if (i == 0) {
                         %>
                         <tr>
-                            <th>ID Rapot</th>
                             <th>Nama</th>
                             <th>Kelas</th>
                             <th>NIS</th>
@@ -206,7 +216,6 @@
                                     rapot rapot = rapotDao.getRapot(student.getNis());
                         %>
                         <tr>
-                            <td><%= rapot.getIdRapot()%></td>
                             <td><%= rapot.getNama()%></td>
                             <td><%= rapot.getKelas()%></td>
                             <td><%= rapot.getNis()%></td>
