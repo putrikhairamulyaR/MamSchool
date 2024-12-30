@@ -1,4 +1,5 @@
 model\rapot.class
+dao\ListClassDAO.class
 dao\GradesDAO.class
 dao\SigninDAO.class
 dao\ClassesDAO.class
@@ -22,6 +23,7 @@ servlets\LoginServlet.class
 dao\LoginDAO.class
 servlets\ClassesServlet.class
 servlets\DashboardKepsekServlet.class
+servlets\ListClassServlet.class
 classes\JDBC.class
 servlets\SigninServlet.class
 servlets\PresensiServlet.class

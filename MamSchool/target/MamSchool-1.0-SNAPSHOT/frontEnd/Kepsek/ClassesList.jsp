@@ -144,15 +144,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="${pageContext.request.contextPath}/DashboardKepsek">
+                        <a class="nav-link " href="${pageContext.request.contextPath}/ListClassServlet">
                             <i data-feather="table" class="align-middle"></i>
                             <span class="align-middle">Daftar Kelas</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ProfileUser">
-                            <i data-feather="user" class="align-middle"></i>
-                            <span class="align-middle">Profile</span>
                         </a>
                     </li>
                 </ul>

@@ -46,7 +46,7 @@ public class DashboardKepsekServlet extends HttpServlet {
         // Daftar Ringkasan
         List<String> jadwalKegiatan = dashboardDAO.getJadwalKegiatan();
         List<String> jadwalPelajaranHariIni = dashboardDAO.getJadwalPelajaranHariIni();
-
+        
         // Distribusi Pengguna
         Map<String, Integer> distribusiPengguna = dashboardDAO.getDistribusiPengguna();
 
