@@ -104,7 +104,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ProfileUser">
                             <i data-feather="user" class="align-middle"></i>
                             <span class="align-middle">Profile</span>
                         </a>
