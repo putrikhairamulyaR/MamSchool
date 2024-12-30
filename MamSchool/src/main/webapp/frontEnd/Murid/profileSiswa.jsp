@@ -5,268 +5,256 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+
+    if (session == null || session.getAttribute("username") == null) {
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        return;
+    }
+
+    String username = (String) session.getAttribute("username");
+    String role = (String) session.getAttribute("role");
+
+    if (!"siswa".equals(role)) {
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Siswa</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .sidebar {
-            width: 250px;
-            background-color: #34495e;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            padding: 15px;
-            position: fixed;
-            height: 100%;
-        }
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profile Siswa</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
+        <style>
+            /* Sidebar */
+            #sidebar {
+                width: 250px;
+                transition: transform 0.3s ease, visibility 0.3s ease;
+                overflow: auto;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 1030; /* Tetap di atas konten utama */
+                background-color: #34495e;
+                color: #ffffff;
+            }
 
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+            #sidebar.hidden {
+                transform: translateX(-100%);
+                visibility: hidden;
+            }
 
-        .sidebar a {
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-        }
+            /* Content */
+            #content {
+                flex-grow: 1;
+                margin-left: 250px; /* Ruang default sidebar */
+                transition: margin-left 0.3s ease;
+            }
 
-        .sidebar a:hover {
-            background-color: #628ab1;
-        }
+            #content.expanded {
+                margin-left: 0; /* Konten memenuhi layar */
+            }
 
-        .sidebar a i {
-            margin-right: 10px;
-        }
-        
-        .content {
-            margin-left: 260px;
-            padding: 20px;
-            flex: 1;
-            background-color: #f5f5f5;
-        }
-        .profile-card {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .profile-card h4 {
-            margin-bottom: 20px;
-        }
-        .profile-card p {
-            margin: 10px 0;
-            font-size: 16px;
-            display: flex;
-        }
-        .profile-card strong {
-            width: 150px;
-            display: inline-block;
-            margin-left: 50px;
-        }
-        .profile-card span,
-        .profile-card input {
-            flex: 1;
-        }
-        .edit-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: gray;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .edit-icon:hover {
-            color: #3366cc;
-        }
-        .save-btn {
-            display: none;
-            margin-top: 20px;
-        }
-        .profile-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .profile-header i {
-            font-size: 5rem; 
-            color: grey;
-        }
-        .row-cols-2 > * {
-            flex: 0 0 auto;
-            width: 50%;
-        }
-        .btn{
-            background-color: #4682b4;
-            color: white;
-        }
-        .btn:hover{
-            background-color: #3e75a2;
-            color: white;
-        }
-        .d-flex-center {
-            display: flex;
-            justify-content: center;
-        }
-    </style>
-</head>
-<body>
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <h4 class="mb-4 mt-2 px-2">Dashboard Siswa</h4>
-        <a href="profileSiswa.jsp"><i class="bi bi-person-circle"></i> Profile</a>
-        <a href="DasboardSiswa.jsp#beranda"><i class="bi bi-house-door-fill"></i> Beranda</a>
-        <a href="kelasSiswa.jsp"><i class="bi bi-list-check"></i> Kelas</a>
-        <a href="nilai.jsp"><i class="bi bi-clipboard2-check"></i> Nilai</a>
-        <a href="mapelSiswa.jsp"><i class="bi bi-book"></i> Mapel</a>
-        <hr>
-        <a href="#setting"><i class="bi bi-gear"></i> Setting</a>
-        <a href="#bantuan"><i class="bi bi-question-circle"></i> Bantuan</a>
-        <a href="tampilanAwal.jsp" style="margin-top: auto;"><i class="bi bi-box-arrow-left"></i> Logout</a>
-    </div>
+            /* Nav Link */
+            #sidebar .nav-link {
+                color: #ffffff;
+                border-radius: 5px;
 
-    <div class="content">
-        <div class="profile-header">
-            <i class="bi bi-person-circle"></i>
-            <h2 class="text-center">Profile Siswa</h2>
+            }
+            #sidebar .nav-link:hover{
+                background-color: #628ab1;
+            }
+            #sidebar .active{
+                border-left: 3px solid #ffffff;
+                background-color: #628ab1;
+                font-weight: bold;
+            }
+
+            .username-display {
+                display: inline-block;
+                padding: 5px 15px;
+                background-color: #f0f0f0;
+                border-radius: 20px;
+                color: #333;
+                font-weight: bold;
+                font-size: 14px;
+                border: 1px solid #ccc;
+            }
+
+            .grid-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem; /* jarak antar kolom */
+            }
+        </style>
+    </head>
+    <body class="d-flex">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="border-end vh-100 shadow">
+            <div class="p-3">
+                <a class="navbar-brand d-flex align-items-center mb-3" href="#">
+                    <span class="align-middle">Mam School</span>
+                </a>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class=" text-sm text-white fw-bold">Pages</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/DasboardSiswa">
+                            <i data-feather="sliders" class="align-middle"></i>
+                            <span class="align-middle">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/profileSiswa">
+                            <i data-feather="user" class="align-middle"></i>
+                            <span class="align-middle">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class=" text-white fw-bold">Siswa</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/siswaServlet">
+                            <i data-feather="users" class="align-middle"></i>
+                            <span class="align-middle">List Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
+                            <i data-feather="pie-chart" class="align-middle"></i>
+                            <span class="align-middle">Presensi Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
+                            <i data-feather="file-text" class="align-middle"></i>
+                            <span class="align-middle">Jadwal Mata Pelajaran</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/GradesServlet">
+                            <i data-feather="bar-chart-2" class="align-middle"></i>
+                            <span class="align-middle">Nilai Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/GradesServlet">
+                            <i data-feather="file-text" class="align-middle"></i>
+                            <span class="align-middle">Raport Siswa</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class="  text-white fw-bold">Accounts</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
+                            <i data-feather="log-out" class="align-middle"></i>
+                            <span class="align-middle">Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="content" class="flex-grow-1">
+            <!-- Navbar -->
+            <nav class="navbar navbar-light bg-light px-3 border-bottom">
+                <button class="navbar-toggler border-0 outline-0" id="toggleSidebar" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <span class="navbar-brand mb-0 h1">
+                    <%
+                        if (username != null) {
+                            out.print("<span class='username-display'>" + username + "</span>");
+                        } else {
+                            out.print("<span class='username-display'>Dashboard</span>");
+                        }
+                    %>
+                </span>
+            </nav>
+
+            <main class="mx-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Profile Siswa</h1>
+                </div>
+
+                <div class="col text-center mb-2">
+                    <div class="row-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">ACCOUNT</h5>
+                                <p class="card-text">Username:</p>
+                                <p class="card-text">${users.username}</p>
+                                <p class="card-text">Password:</p>
+                                <p class="card-text">${users.password}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-md-3 mt-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">DATA SISWA</h5>
+                                <div class="grid-container">
+                                    <div>
+                                        <p class="card-text">Nama:</p>
+                                        <p class="card-text">${student.name}</p>
+                                        <p class="card-text">NIS:</p>
+                                        <p class="card-text">${student.nis}</p>
+                                        <p class="card-text">Tanggal Lahir:</p>
+                                        <p class="card-text">${student.date_of_birth}</p>
+                                    </div>
+                                    <div>
+                                        <p class="card-text">Angkatan:</p>
+                                        <p class="card-text">${student.enrollment_year}</p>
+                                        <p class="card-text">Jurusan:</p>
+                                        <p class="card-text">${student.major}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
 
-        <div class="profile-card">
-            <h4 class="text-center">Data Akun Siswa/Siswi</h4>
-            <i class="bi bi-pencil-square edit-icon" title="Edit Profile" id="editIconAkun"></i>
-            <form id="profileFormAkun">
-                <div class="row row-cols-2">
-                    <div>
-                        <p>
-                            <strong>Username:</strong>
-                            <span id="username">xxx</span>
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            <strong>Password:</strong>
-                            <span id="password">xxx</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="d-flex-center">
-                    <button type="button" class="btn save-btn" id="saveBtnAkun">Save</button>
-                </div>
-            </form>
-        </div>
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Activate Feather Icons -->
+        <script>
+            feather.replace({color: '#ffffff'});
 
-        <div class="profile-card">
-            <h4 class="text-center">Data Siswa/Siswi</h4>
-            <i class="bi bi-pencil-square edit-icon" title="Edit Profile" id="editIconSiswa"></i>
-            <form id="profileFormSiswa">
-                <div class="row row-cols-2">
-                    <div>
-                        <p>
-                            <strong>Nama:</strong>
-                            <span id="nama">xxx</span>
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            <strong>NIS:</strong>
-                            <span id="nis">1234567</span>
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            <strong>Email:</strong>
-                            <span id="email">xxx@gmail.com</span>
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            <strong>Tanggal Lahir:</strong>
-                            <span id="dob">2000-01-01</span>
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            <strong>Jenis Kelamin:</strong>
-                            <span id="gender">Perempuan</span>
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            <strong>Posisi:</strong>
-                            <span id="position">Siswa/Siswi</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary save-btn" id="saveBtnSiswa">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
+            const toggleButton = document.getElementById("toggleSidebar");
+            const sidebar = document.getElementById("sidebar");
+            const content = document.getElementById("content");
 
-    <script>
-        const formFieldsAkun = ['password'];
-        const formFieldsSiswa = ['email'];
-
-        function toggleEditMode(editIconId, saveBtnId, formFields) {
-            const editIcon = document.getElementById(editIconId);
-            const saveBtn = document.getElementById(saveBtnId);
-
-            editIcon.addEventListener('click', () => {
-                formFields.forEach(id => {
-                    const span = document.getElementById(id);
-                    const value = span.innerText;
-                    const input = document.createElement('input');
-                    if (id === 'dob') {
-                        input.type = 'date'; // Input for date selection
-                    } else if (id === 'password') {
-                        input.type = 'password';
-                    } else {
-                        input.type = 'text';
-                    }
-                    input.value = value;
-                    input.id = id;
-                    input.classList.add('form-control');
-                    span.replaceWith(input);
-                });
-                saveBtn.style.display = 'block'; // Show save button
+            toggleButton.addEventListener("click", () => {
+                // Toggle Sidebar
+                if (sidebar.classList.contains("hidden")) {
+                    sidebar.classList.remove("hidden");
+                    content.classList.remove("expanded");
+                } else {
+                    sidebar.classList.add("hidden");
+                    content.classList.add("expanded");
+                }
             });
+        </script>
 
-            saveBtn.addEventListener('click', () => {
-                formFields.forEach(id => {
-                    const input = document.getElementById(id);
-                    const value = input.value;
-                    const span = document.createElement('span');
-                    span.id = id;
-                    span.innerText = value;
-                    input.replaceWith(span);
-                });
-                saveBtn.style.display = 'none'; // Hide save button
-                alert('Changes saved successfully!');
-            });
-        }
-
-        toggleEditMode('editIconAkun', 'saveBtnAkun', formFieldsAkun);
-        toggleEditMode('editIconSiswa', 'saveBtnSiswa', formFieldsSiswa);
-    </script>
-</body>
+    </body>
 </html>
