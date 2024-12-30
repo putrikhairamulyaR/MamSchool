@@ -8,6 +8,7 @@ servlets\TeacherServlet.class
 dao\rapotDAO.class
 dao\gradeDao.class
 model\Student.class
+servlets\ProfileUserServlet.class
 servlets\GradesServlet.class
 servlets\StudentServlet.class
 servlets\nilaiServlet.class
@@ -32,5 +33,6 @@ dao\DashboardKepsekDAO.class
 servlets\siswaServlet.class
 dao\PresensiDao.class
 servlets\LogoutServlet.class
+dao\ProfileUserDAO.class
 com\mycompany\mamschool\JakartaRestConfiguration.class
 model\gradeStudent.class
