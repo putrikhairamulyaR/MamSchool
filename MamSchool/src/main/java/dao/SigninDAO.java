@@ -27,32 +27,27 @@ public class SigninDAO {
         List<User> usersList = new ArrayList<>();
         String query = "SELECT * FROM users";
 
-        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
+        try (Connection connection = JDBC.getConnection(); PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
 
             if (connection == null) {
-                logger.warn("Failed to establish database connection.");
+                System.out.println("Koneksi ke database gagal.");
                 return usersList;
             }
 
-            logger.debug("Fetching all classes...");
-            logger.debug("Query executed: {}", query);
+            System.out.println("Query dijalankan: " + query);
 
-            while (resultSet.next()) {
-                logger.debug("Processing row with ID: {}", resultSet.getInt("id"));
+            while (rs.next()) {
                 User user = new User(
-                        resultSet.getInt("id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("role")
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role")
                 );
                 usersList.add(user);
-                logger.debug("User added to list: {}", user);
+                System.out.println("User ditemukan: " + user.getUsername());
             }
 
-            logger.info("Total user retrieved: {}", usersList.size());
-
         } catch (SQLException e) {
-            logger.error("SQL Error: {}", e.getMessage());
             e.printStackTrace();
         }
 
@@ -93,7 +88,6 @@ public class SigninDAO {
 
         return user;
     }
-    
 
     public boolean deleteClass(int id) {
         String query = "DELETE FROM users WHERE id = ?";
@@ -181,12 +175,12 @@ public class SigninDAO {
 
         return false;
     }
-    
-    public int getUserIdByUsername(String  username, String password) {
+
+    public int getUserIdByUsername(String username, String password) {
         String query = "SELECT id FROM users WHERE username = ? AND password = ?";
         User user = null;
-        int user_id  = 0;
-        
+        int user_id = 0;
+
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             if (connection == null) {

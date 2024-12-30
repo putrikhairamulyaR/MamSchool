@@ -112,13 +112,13 @@
             }
             .username-display {
                 display: inline-block;
-                padding: 5px 15px; 
+                padding: 5px 15px;
                 background-color: #f0f0f0;
-                border-radius: 20px; 
-                color: #333; 
-                font-weight: bold; 
-                font-size: 14px; 
-                border: 1px solid #ccc; 
+                border-radius: 20px;
+                color: #333;
+                font-weight: bold;
+                font-size: 14px;
+                border: 1px solid #ccc;
             }
         </style>
     </head>
@@ -135,15 +135,9 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/DashboardTU">
+                        <a class="nav-link  " href="${pageContext.request.contextPath}/DashboardTU">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i data-feather="user" class="align-middle"></i>
-                            <span class="align-middle">Profile</span>
                         </a>
                     </li>
                 </ul>
@@ -153,15 +147,9 @@
                         <span class=" text-white fw-bold">Siswa</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/siswaServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">Nama Siswa</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/ClassesServlet">
-                            <i data-feather="shuffle" class="align-middle"></i>
-                            <span class="align-middle">Bagi Kelas</span>
+                            <span class="align-middle">List Siswa</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -176,6 +164,12 @@
                             <span class="align-middle">Nilai Siswa</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
+                            <i data-feather="pie-chart" class="align-middle"></i>
+                            <span class="align-middle">Presensi Siswa</span>
+                        </a>
+                    </li>
                 </ul>
                 <hr>
                 <ul class="nav flex-column">
@@ -183,19 +177,32 @@
                         <span class="  text-white fw-bold">Guru</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/TeacherServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">Nama Guru</span>
+                            <span class="align-middle">List Guru</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
                             <i data-feather="file-text" class="align-middle"></i>
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>
                     </li>
                 </ul>
                 <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class="  text-white fw-bold">User</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/SigninServlet">
+                            <i data-feather="users" class="align-middle"></i>
+                            <span class="align-middle">List User</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <span class="  text-white fw-bold">Accounts</span>
@@ -206,7 +213,6 @@
                             <span class="align-middle">Log Out</span>
                         </a>
                     </li>
-
                 </ul>
             </div>
         </nav>
@@ -233,7 +239,7 @@
             <div class="p-3">
                 <div class="table-container">
                     <h3>Daftar User</h3>
-                    <a href="frontEnd/Kepsek/addUser.jsp" class="btn btn-success btn-sm mb-3">
+                    <a href="frontEnd/TU/addUser.jsp" class="btn btn-success btn-sm mb-3">
                         <i class="bi bi-plus"></i> Tambah User
                     </a>
 
@@ -248,24 +254,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="users" items="${usersList}">
-                                <tr>
-                                    <td>${users.id}</td>
-                                    <td>${users.username}</td>
-                                    <td>${users.password}</td>
-                                    <td>${users.role}</td>
-                                    <td>
-                                        <a href="SigninServlet?action=edit&id=${users.id}" class="btn btn-warning btn-sm">
-                                            <i class="bi bi-pencil"></i> Edit
-                                        </a>
-                                        <a href="SigninServlet?action=delete&id=${users.id}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?');">
-                                            <i class="bi bi-trash"></i> Hapus
-                                        </a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                            <c:choose>
+                                <c:when test="${not empty userList}">
+                                    <c:forEach var="user" items="${userList}">
+                                        <tr>
+                                            <td>${user.id}</td>
+                                            <td>${user.username}</td>
+                                            <td>${user.password}</td>
+                                            <td>${user.role}</td>
+                                            <td>
+                                                <a href="SigninServlet?action=edit&id=${user.id}" class="btn btn-warning btn-sm">
+                                                    <i class="bi bi-pencil"></i> Edit
+                                                </a>
+                                                <a href="SigninServlet?action=delete&id=${user.id}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?');">
+                                                    <i class="bi bi-trash"></i> Hapus
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <tr>
+                                        <td colspan="5" class="text-center">Tidak ada data pengguna yang ditemukan.</td>
+                                    </tr>
+                                </c:otherwise>
+                            </c:choose>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
@@ -275,22 +291,22 @@
         <script src="https://unpkg.com/feather-icons"></script>
         <!-- Activate Feather Icons -->
         <script>
-                                        feather.replace({color: '#ffffff'});
+                                    feather.replace({color: '#ffffff'});
 
-                                        const toggleButton = document.getElementById("toggleSidebar");
-                                        const sidebar = document.getElementById("sidebar");
-                                        const content = document.getElementById("content");
+                                    const toggleButton = document.getElementById("toggleSidebar");
+                                    const sidebar = document.getElementById("sidebar");
+                                    const content = document.getElementById("content");
 
-                                        toggleButton.addEventListener("click", () => {
-                                            // Toggle Sidebar
-                                            if (sidebar.classList.contains("hidden")) {
-                                                sidebar.classList.remove("hidden");
-                                                content.classList.remove("expanded");
-                                            } else {
-                                                sidebar.classList.add("hidden");
-                                                content.classList.add("expanded");
-                                            }
-                                        });
+                                    toggleButton.addEventListener("click", () => {
+                                        // Toggle Sidebar
+                                        if (sidebar.classList.contains("hidden")) {
+                                            sidebar.classList.remove("hidden");
+                                            content.classList.remove("expanded");
+                                        } else {
+                                            sidebar.classList.add("hidden");
+                                            content.classList.add("expanded");
+                                        }
+                                    });
         </script>
 
     </body>
