@@ -110,7 +110,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/DasboardSiswa">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Murid/profileSiswa.jsp">
                             <i data-feather="user" class="align-middle"></i>
                             <span class="align-middle">Profile</span>
                         </a>

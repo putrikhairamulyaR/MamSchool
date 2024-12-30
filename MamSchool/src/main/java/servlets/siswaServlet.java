@@ -35,6 +35,9 @@ public class siswaServlet extends HttpServlet {
             case "delete":
                 deleteSiswa(request, response);
                 break;
+            case "profile":
+                profileSiswa(request, response);
+                break;
             default:
                 showSiswaList(request, response);
                 break;
@@ -57,6 +60,9 @@ public class siswaServlet extends HttpServlet {
                 break;
             case "delete":
                 deleteSiswa(request, response);
+                break;
+            case "profile":
+                profileSiswa(request, response);
                 break;
             default:
                 showSiswaList(request, response);
@@ -135,5 +141,25 @@ public class siswaServlet extends HttpServlet {
         List<Student> siswa = dao.getAllSiswa();
         request.getSession().setAttribute("siswa", siswa);
         request.getRequestDispatcher("frontEnd/TU/MenuSiswa.jsp").forward(request, response);
+    }
+    
+    private void profileSiswa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int siswa_id = Integer.parseInt(request.getParameter("id"));
+        siswaDAO siswadao = new siswaDAO();
+        Student siswa = siswadao.getSiswaById(siswa_id);
+        
+        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        SigninDAO signdao = new SigninDAO();
+        User user = signdao.getUserById(user_id);
+
+        if (siswa == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Student not found with ID: " + siswa_id);
+            return;
+        }
+
+        // Kirim data kelas dan guru ke JSP
+        request.setAttribute("siswa", siswa);
+        request.setAttribute("user", user);
+        request.getRequestDispatcher("/frontEnd/Murid/profileSiswa.jsp").forward(request, response);
     }
 }
