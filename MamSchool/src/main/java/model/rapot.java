@@ -10,7 +10,6 @@ package model;
  */
 public class rapot {
     
-    private int idRapot;
     private String nama;
     private String kelas;
     private String nis;
@@ -26,9 +25,8 @@ public class rapot {
     private String kategori;
 
     // Constructor
-    public rapot(int idRapot, String nama, String kelas, String nis, double biologi, double kimia, double matematika, 
+    public rapot(String nama, String kelas, String nis, double biologi, double kimia, double matematika, 
                  double fisika, double inggris, double ekonomi, double sejarah, double geografi, double rataRata, String kategori) {
-        this.idRapot = idRapot;
         this.nama = nama;
         this.kelas = kelas;
         this.nis = nis;
@@ -48,13 +46,6 @@ public class rapot {
     public rapot() {}
 
     // Getters and Setters
-    public int getIdRapot() {
-        return idRapot;
-    }
-
-    public void setIdRapot(int idRapot) {
-        this.idRapot = idRapot;
-    }
 
     public String getNama() {
         return nama;
@@ -163,6 +154,7 @@ public class rapot {
     // Method untuk menghitung rata-rata nilai
     public void hitungRataRata() {
         this.rataRata = (biologi + kimia + matematika + fisika + inggris + ekonomi + sejarah + geografi) / 8;
+        tentukanKategori();
     }
 
     // Method untuk menentukan kategori
@@ -173,8 +165,10 @@ public class rapot {
             this.kategori = "B";
         } else if (rataRata >= 50) {
             this.kategori = "C";
-        } else {
+        } else if (rataRata >= 40){
             this.kategori = "D";
+        } else {
+            this.kategori = "E";
         }
     }
 }
