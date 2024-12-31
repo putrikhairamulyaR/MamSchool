@@ -190,7 +190,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ClassScheduleServlet">
                             <i data-feather="file-text" class="align-middle"></i>
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>

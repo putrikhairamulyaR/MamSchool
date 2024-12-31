@@ -115,13 +115,13 @@
             }
             .username-display {
                 display: inline-block;
-                padding: 5px 15px; 
+                padding: 5px 15px;
                 background-color: #f0f0f0;
-                border-radius: 20px; 
-                color: #333; 
-                font-weight: bold; 
-                font-size: 14px; 
-                border: 1px solid #ccc; 
+                border-radius: 20px;
+                color: #333;
+                font-weight: bold;
+                font-size: 14px;
+                border: 1px solid #ccc;
             }
         </style>
     </head>
@@ -186,7 +186,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ClassScheduleServlet">
                             <i data-feather="file-text" class="align-middle"></i>
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>
@@ -298,22 +298,22 @@
         <script src="https://unpkg.com/feather-icons"></script>
         <!-- Activate Feather Icons -->
         <script>
-                                        feather.replace({color: '#ffffff'});
+            feather.replace({color: '#ffffff'});
 
-                                        const toggleButton = document.getElementById("toggleSidebar");
-                                        const sidebar = document.getElementById("sidebar");
-                                        const content = document.getElementById("content");
+            const toggleButton = document.getElementById("toggleSidebar");
+            const sidebar = document.getElementById("sidebar");
+            const content = document.getElementById("content");
 
-                                        toggleButton.addEventListener("click", () => {
-                                            // Toggle Sidebar
-                                            if (sidebar.classList.contains("hidden")) {
-                                                sidebar.classList.remove("hidden");
-                                                content.classList.remove("expanded");
-                                            } else {
-                                                sidebar.classList.add("hidden");
-                                                content.classList.add("expanded");
-                                            }
-                                        });
+            toggleButton.addEventListener("click", () => {
+                // Toggle Sidebar
+                if (sidebar.classList.contains("hidden")) {
+                    sidebar.classList.remove("hidden");
+                    content.classList.remove("expanded");
+                } else {
+                    sidebar.classList.add("hidden");
+                    content.classList.add("expanded");
+                }
+            });
         </script>
 
     </body>

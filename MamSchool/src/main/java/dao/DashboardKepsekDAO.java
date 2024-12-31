@@ -95,7 +95,7 @@ public class DashboardKepsekDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        
         return rataRata;
     }
 

@@ -13,6 +13,7 @@ C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\s
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\dao\PresensiDao.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\dao\ProfileUserDAO.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\dao\rapotDAO.java
+C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\dao\rapotSiswaDao.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\dao\SigninDAO.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\dao\siswaDAO.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\dao\StudentDAO.java
@@ -21,6 +22,7 @@ C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\s
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\model\gradeStudent.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\model\Jadwal.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\model\nilai.java
+C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\model\Presensi.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\model\rapot.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\model\Student.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\model\Teacher.java
@@ -37,6 +39,7 @@ C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\s
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\servlets\nilaiServlet.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\servlets\PresensiServlet.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\servlets\ProfileUserServlet.java
+C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\servlets\rapotDiSiswa.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\servlets\rapotServlet.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\servlets\SigninServlet.java
 C:\Users\Royal\OneDrive\Dokumen\NetBeansProjects\mamSchool\MamSchool\MamSchool\src\main\java\servlets\siswaServlet.java
