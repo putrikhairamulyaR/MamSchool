@@ -26,7 +26,7 @@ public class SigninServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("UserServlet doGet called with action: " + request.getParameter("action"));
+        System.out.println("SigninServlet doGet called with action: " + request.getParameter("action"));
 
         String action = request.getParameter("action");
 
@@ -61,7 +61,7 @@ public class SigninServlet extends HttpServlet {
                 id = Integer.parseInt(request.getParameter("id"));
                 System.out.println("Deleting user with ID: " + id);
                 SigninDAO.deleteClass(id);
-                response.sendRedirect("/UserServlet?action=list");
+                response.sendRedirect("/SigninServlet?action=list");
                 break;
         }
     }
@@ -69,7 +69,7 @@ public class SigninServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        System.out.println("UserServlet doPost called with action: " + action);
+        System.out.println("SigninServlet doPost called with action: " + action);
 
         switch (action) {
             case "add":
@@ -80,7 +80,7 @@ public class SigninServlet extends HttpServlet {
                 System.out.println("Adding new user: " + username + ", role: " + role);
                 User newUser = new User(username, password, role);
                 SigninDAO.addUser(newUser);
-                response.sendRedirect("UserServlet?action=list");
+                response.sendRedirect("SigninServlet?action=list");
                 break;
 
             case "update":
@@ -92,7 +92,7 @@ public class SigninServlet extends HttpServlet {
                 System.out.println("Updating user with ID: " + id);
                 User updatedUser = new User(id, username, password, role, null);
                 SigninDAO.updateUser(updatedUser);
-                response.sendRedirect("UserServlet?action=list");
+                response.sendRedirect("SigninServlet?action=list");
                 break;
         }
     }
