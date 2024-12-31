@@ -89,7 +89,7 @@ public class SigninDAO {
         return user;
     }
 
-    public boolean deleteClass(int id) {
+    public boolean deleteUser(int id) {
         String query = "DELETE FROM users WHERE id = ?";
 
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {

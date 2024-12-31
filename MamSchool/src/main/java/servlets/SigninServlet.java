@@ -22,78 +22,102 @@ import java.util.List;
 @WebServlet(name = "SigninServlet", urlPatterns = {"/SigninServlet"})
 public class SigninServlet extends HttpServlet {
 
-     private final SigninDAO SigninDAO = new SigninDAO();
-
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("SigninServlet doGet called with action: " + request.getParameter("action"));
-
         String action = request.getParameter("action");
 
         if (action == null) {
-            action = "list";
+            action = "list"; // Default action
         }
 
-        System.out.println("Action to perform: " + action);
-
         switch (action) {
-            case "list":
-                System.out.println("Fetching user list...");
-                List<User> userList = SigninDAO.getAllUser();
-                System.out.println("Number of users fetched: " + userList.size());
-                for (User user : userList) {
-                    System.out.println("User: " + user);
-                }
-                request.setAttribute("userList", userList);
-                request.getRequestDispatcher("frontEnd/TU/UserList.jsp").forward(request, response);
-                break;
-
-            case "edit":
-                int id = Integer.parseInt(request.getParameter("id"));
-                System.out.println("Editing user with ID: " + id);
-                User user = SigninDAO.getUserById(id);
-                System.out.println("User fetched for edit: " + user);
-                request.setAttribute("user", user);
-                request.getRequestDispatcher("frontEnd/TU/editUser.jsp").forward(request, response);
-                break;
-
             case "delete":
-                id = Integer.parseInt(request.getParameter("id"));
-                System.out.println("Deleting user with ID: " + id);
-                SigninDAO.deleteClass(id);
-                response.sendRedirect("/SigninServlet?action=list");
+                deleteUser(request, response);
                 break;
+            case "list":
+                showUser(request, response);
+                break;
+            default:
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Unknown action: " + action);
         }
     }
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        System.out.println("SigninServlet doPost called with action: " + action);
+
+        if (action == null) {
+            action = "list"; // Default action
+        }
 
         switch (action) {
             case "add":
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
-                String role = request.getParameter("role");
-
-                System.out.println("Adding new user: " + username + ", role: " + role);
-                User newUser = new User(username, password, role);
-                SigninDAO.addUser(newUser);
-                response.sendRedirect("SigninServlet?action=list");
+                addUser(request, response);
                 break;
-
-            case "update":
-                int id = Integer.parseInt(request.getParameter("id"));
-                username = request.getParameter("username");
-                password = request.getParameter("password");
-                role = request.getParameter("role");
-
-                System.out.println("Updating user with ID: " + id);
-                User updatedUser = new User(id, username, password, role, null);
-                SigninDAO.updateUser(updatedUser);
-                response.sendRedirect("SigninServlet?action=list");
+            case "edit":
+                editUser(request, response);
                 break;
+            case "delete":
+                showUser(request, response);
+                break;
+            default:
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Unknown action: " + action);
         }
+    }
+
+    private void addUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
+
+        SigninDAO dao = new SigninDAO();
+        User User = new User(username, password, role);
+        boolean success = dao.addUser(User);
+
+        if (success) {
+            response.sendRedirect("SigninServlet?action=list");
+        } else {
+            response.getWriter().println("Error adding student.");
+        }
+
+    }
+
+    private void editUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+            String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
+
+        SigninDAO dao = new SigninDAO();
+        User User = new User(username, password, role);
+        boolean success = dao.updateUser(User);
+
+            if (success) {
+                response.sendRedirect("SigninServlet?action=list");
+            } else {
+                response.getWriter().println("Error editing student.");
+            }
+        
+    }
+
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+            int id = Integer.parseInt(request.getParameter("id"));
+
+            SigninDAO dao = new SigninDAO();
+            boolean success = dao.deleteUser(id);
+
+            if (success) {
+                response.sendRedirect("SigninServlet?action=list");
+            } else {
+                response.getWriter().println("Error deleting student.");
+            }
+        
+    }
+
+    private void showUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        SigninDAO dao = new SigninDAO();
+        List<User> user = dao.getAllUser();
+        request.getSession().setAttribute("user", user);
+        request.getRequestDispatcher("frontEnd/TU/UserList.jsp").forward(request, response);
     }
 }
