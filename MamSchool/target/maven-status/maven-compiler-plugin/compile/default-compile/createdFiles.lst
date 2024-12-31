@@ -1,6 +1,7 @@
 model\rapot.class
 dao\ListClassDAO.class
 dao\GradesDAO.class
+servlets\rapotDiSiswa.class
 dao\SigninDAO.class
 dao\ClassesDAO.class
 dao\StudentDAO.class
@@ -22,6 +23,7 @@ dao\TeacherDAO.class
 servlets\ListTeacherServlet.class
 model\Jadwal.class
 servlets\LoginServlet.class
+dao\rapotSiswaDao.class
 dao\LoginDAO.class
 servlets\ClassesServlet.class
 servlets\DashboardKepsekServlet.class
@@ -29,6 +31,7 @@ servlets\ListClassServlet.class
 classes\JDBC.class
 servlets\SigninServlet.class
 servlets\PresensiServlet.class
+model\Presensi.class
 dao\ListStudentDAO.class
 servlets\rapotServlet.class
 dao\siswaDAO.class

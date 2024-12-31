@@ -57,6 +57,10 @@
     <body>
         <!-- Main Content -->
         <div class="content">
+            <a class="nav-link" href="${pageContext.request.contextPath}/SigninServlet">
+                <i data-feather="arrow-left" class="align-middle"></i>
+                <span class="align-middle fs-4 fw-bold">Kembali</span>
+            </a>
             <div class="form-container">
                 <h3>Edit Pengguna</h3>
                 <form action="SigninServlet" method="post">

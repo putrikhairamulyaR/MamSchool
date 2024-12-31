@@ -23,35 +23,41 @@ public class SigninDAO {
 
     private static final Logger logger = LoggerFactory.getLogger(SigninDAO.class);
 
-    public List<User> getAllUser() {
-        List<User> usersList = new ArrayList<>();
+    public List<User> getAllUsers() {
+        List<User> userList = new ArrayList<>();
         String query = "SELECT * FROM users";
 
-        try (Connection connection = JDBC.getConnection(); PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
 
             if (connection == null) {
-                System.out.println("Koneksi ke database gagal.");
-                return usersList;
+                logger.warn("Failed to establish database connection.");
+                return userList;
             }
 
-            System.out.println("Query dijalankan: " + query);
+            logger.debug("Fetching all users...");
+            logger.debug("Query executed: {}", query);
 
-            while (rs.next()) {
+            while (resultSet.next()) {
+                logger.debug("Processing row with ID: {}", resultSet.getInt("id"));
                 User user = new User(
-                        rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("role")
+                        resultSet.getInt("id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password"),
+                        resultSet.getString("role"),
+                        resultSet.getTimestamp("created_at")
                 );
-                usersList.add(user);
-                System.out.println("User ditemukan: " + user.getUsername());
+                userList.add(user);
+                logger.debug("User added to list: {}", user);
             }
+
+            logger.info("Total users retrieved: {}", userList.size());
 
         } catch (SQLException e) {
+            logger.error("SQL Error: {}", e.getMessage());
             e.printStackTrace();
         }
 
-        return usersList;
+        return userList;
     }
 
     public User getUserById(int id) {
@@ -61,58 +67,32 @@ public class SigninDAO {
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             if (connection == null) {
-                logger.warn("Failed to establish database connection.");
+                System.out.println("Failed to establish database connection.");
                 return null;
             }
 
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            logger.debug("Query executed: {}", query);
-
+            System.out.println("Query executed: " + query);
             if (resultSet.next()) {
-                logger.debug("Processing row with ID: {}", resultSet.getInt("id"));
+                System.out.println("Processing row with ID: " + resultSet.getInt("id"));
                 user = new User(
                         resultSet.getInt("id"),
                         resultSet.getString("username"),
                         resultSet.getString("password"),
-                        resultSet.getString("role")
+                        resultSet.getString("role"),
+                        resultSet.getTimestamp("created_at")
                 );
-                logger.debug("User retrieved: {}", user);
+                System.out.println("User retrieved: " + user);
             }
 
         } catch (SQLException e) {
-            logger.error("SQL Error: {}", e.getMessage());
+            System.out.println("SQL Error: " + e.getMessage());
             e.printStackTrace();
         }
 
         return user;
-    }
-
-    public boolean deleteUser(int id) {
-        String query = "DELETE FROM users WHERE id = ?";
-
-        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            if (connection == null) {
-                logger.warn("Failed to establish database connection.");
-                return false;
-            }
-
-            preparedStatement.setInt(1, id);
-
-            logger.debug("Executing query: {}", query);
-            int rowsAffected = preparedStatement.executeUpdate();
-            logger.info("Rows affected: {}", rowsAffected);
-
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            logger.error("SQL Error: {}", e.getMessage());
-            e.printStackTrace();
-        }
-
-        return false;
     }
 
     public boolean addUser(User user) {
@@ -121,26 +101,22 @@ public class SigninDAO {
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             if (connection == null) {
-                logger.warn("Failed to establish database connection.");
+                System.out.println("Failed to establish database connection.");
                 return false;
             }
-
-            // Log values before setting parameters
-            logger.debug("PreparedStatement values - Username: {}, Password: {}, Role: {}",
-                    user.getUsername(), user.getPassword(), user.getRole());
 
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getRole());
 
-            logger.debug("Executing query: {}", query);
+            System.out.println("Executing query: " + query);
             int rowsAffected = preparedStatement.executeUpdate();
-            logger.info("Rows affected: {}", rowsAffected);
+            System.out.println("Rows affected: " + rowsAffected);
 
             return rowsAffected > 0;
 
         } catch (SQLException e) {
-            logger.error("SQL Error: {}", e.getMessage());
+            System.out.println("SQL Error: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -148,12 +124,12 @@ public class SigninDAO {
     }
 
     public boolean updateUser(User user) {
-        String query = "UPDATE users SET username = ?, password = ?, role = ?";
+        String query = "UPDATE users SET username = ?, password = ?, role = ? WHERE id = ?";
 
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             if (connection == null) {
-                logger.warn("Failed to establish database connection.");
+                System.out.println("Failed to establish database connection.");
                 return false;
             }
 
@@ -162,14 +138,40 @@ public class SigninDAO {
             preparedStatement.setString(3, user.getRole());
             preparedStatement.setInt(4, user.getId());
 
-            logger.debug("Executing query: {}", query);
+            System.out.println("Executing query: " + query);
             int rowsAffected = preparedStatement.executeUpdate();
-            logger.info("Rows affected: {}", rowsAffected);
+            System.out.println("Rows affected: " + rowsAffected);
 
             return rowsAffected > 0;
 
         } catch (SQLException e) {
-            logger.error("SQL Error: {}", e.getMessage());
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public boolean deleteUser(int id) {
+        String query = "DELETE FROM users WHERE id = ?";
+
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            if (connection == null) {
+                System.out.println("Failed to establish database connection.");
+                return false;
+            }
+
+            preparedStatement.setInt(1, id);
+
+            System.out.println("Executing query: " + query);
+            int rowsAffected = preparedStatement.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);
+
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
             e.printStackTrace();
         }
 
