@@ -4,122 +4,186 @@
     Author     : putri
 --%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+
+    if (session == null || session.getAttribute("username") == null) {
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        return;
+    }
+
+    String username = (String) session.getAttribute("username");
+    String role = (String) session.getAttribute("role");
+
+    if (!"siswa".equals(role)) {
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nilai Mata Pelajaran</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard Siswa</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
+        <style>
+            /* Sidebar */
+            #sidebar {
+                width: 250px;
+                transition: transform 0.3s ease, visibility 0.3s ease;
+                overflow: auto;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 1030; /* Tetap di atas konten utama */
+                background-color: #34495e;
+                color: #ffffff;
+            }
 
-        .sidebar {
-            width: 250px;
-            background-color: #34495e;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            padding: 15px;
-            position: fixed;
-            height: 100%;
-        }
+            #sidebar.hidden {
+                transform: translateX(-100%);
+                visibility: hidden;
+            }
 
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+            /* Content */
+            #content {
+                flex-grow: 1;
+                margin-left: 250px; /* Ruang default sidebar */
+                transition: margin-left 0.3s ease;
+            }
 
-        .sidebar a {
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-        }
+            #content.expanded {
+                margin-left: 0; /* Konten memenuhi layar */
+            }
 
-        .sidebar a:hover {
-            background-color: #628ab1;
-        }
+            /* Nav Link */
+            #sidebar .nav-link {
+                color: #ffffff;
+                border-radius: 5px;
 
-        .sidebar a i {
-            margin-right: 10px;
-        }
+            }
+            #sidebar .nav-link:hover{
+                background-color: #628ab1;
+            }
+            #sidebar .active{
+                border-left: 3px solid #ffffff;
+                background-color: #628ab1;
+                font-weight: bold;
+            }
 
-        .content {
-            margin-left: 260px;
-            padding: 20px;
-            flex: 1;
-            background-color: #f5f5f5;
-            overflow-y: auto;
-        }
+            .username-display {
+                display: inline-block;
+                padding: 5px 15px;
+                background-color: #f0f0f0;
+                border-radius: 20px;
+                color: #333;
+                font-weight: bold;
+                font-size: 14px;
+                border: 1px solid #ccc;
+            }
+        </style>
+    </head>
+    <body class="d-flex">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="border-end vh-100 shadow">
+            <div class="p-3">
+                <a class="navbar-brand d-flex align-items-center mb-3" href="#">
+                    <span class="align-middle">Mam School</span>
+                </a>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class=" text-sm text-white fw-bold">Pages</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/DasboardSiswa">
+                            <i data-feather="sliders" class="align-middle"></i>
+                            <span class="align-middle">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ProfileUser">
+                            <i data-feather="user" class="align-middle"></i>
+                            <span class="align-middle">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class=" text-white fw-bold">Siswa</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/siswaServlet">
+                            <i data-feather="users" class="align-middle"></i>
+                            <span class="align-middle">List Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
+                            <i data-feather="pie-chart" class="align-middle"></i>
+                            <span class="align-middle">Presensi Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
+                            <i data-feather="file-text" class="align-middle"></i>
+                            <span class="align-middle">Jadwal Mata Pelajaran</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/GradesServlet">
+                            <i data-feather="bar-chart-2" class="align-middle"></i>
+                            <span class="align-middle">Nilai Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/GradesServlet">
+                            <i data-feather="file-text" class="align-middle"></i>
+                            <span class="align-middle">Raport Siswa</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class="  text-white fw-bold">Accounts</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
+                            <i data-feather="log-out" class="align-middle"></i>
+                            <span class="align-middle">Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-        .info-container {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .info-container p {
-            margin: 10px 0;
-            font-size: 16px;
-        }
-
-        .info-container p strong {
-            color: #3366cc;
-        }
-
-        .table-container {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <h4 class="mb-4 mt-2 px-2">Dashboard Siswa</h4>
-        <a href="profileSiswa.jsp"><i class="bi bi-person-circle"></i> Profile</a>
-        <a href="DasboardSiswa.jsp#beranda"><i class="bi bi-house-door-fill"></i> Beranda</a>
-        <a href="kelasSiswa.jsp"><i class="bi bi-list-check"></i> Kelas</a>
-        <a href="nilai.jsp"><i class="bi bi-clipboard2-check"></i> Nilai</a>
-        <a href="mapelSiswa.jsp"><i class="bi bi-book"></i> Mapel</a>
-        <hr>
-        <a href="#setting"><i class="bi bi-gear"></i> Setting</a>
-        <a href="#bantuan"><i class="bi bi-question-circle"></i> Bantuan</a>
-        <a href="tampilanAwal.jsp" style="margin-top: auto;"><i class="bi bi-box-arrow-left"></i> Logout</a>
-    </div>
+        <!-- Main Content -->
+        <div id="content" class="flex-grow-1">
+            <!-- Navbar -->
+            <nav class="navbar navbar-light bg-light px-3 border-bottom">
+                <button class="navbar-toggler border-0 outline-0" id="toggleSidebar" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <span class="navbar-brand mb-0 h1">
+                    <%
+                        if (username != null) {
+                            out.print("<span class='username-display'>" + username + "</span>");
+                        } else {
+                            out.print("<span class='username-display'>Dashboard</span>");
+                        }
+                    %>
+                </span>
+            </nav>
 
     <!-- Main Content -->
     <div class="content">
