@@ -70,9 +70,6 @@
                            minlength="6" title="Password minimal 6 karakter" required>
                 </div>
                 <button type="submit" class="btn btn-mam-1 w-100">Login</button>
-                <div class="text-center mt-3">
-                    <p>Belum punya akun? <a href="SignIn.jsp" class="text-primary">Daftar di sini!</a></p>
-                </div>
             </form>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
