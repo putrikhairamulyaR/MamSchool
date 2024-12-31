@@ -61,7 +61,7 @@ public class SigninServlet extends HttpServlet {
                 id = Integer.parseInt(request.getParameter("id"));
                 System.out.println("Deleting user with ID: " + id);
                 userDAO.deleteUser(id);
-                response.sendRedirect("/SigninServlet?action=list");
+                response.sendRedirect("SigninServlet");
                 break;
         }
     }
@@ -69,7 +69,7 @@ public class SigninServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        System.out.println("UserServlet doPost called with action: " + action);
+        System.out.println("SigninServlet doPost called with action: " + action);
 
         switch (action) {
             case "add":
