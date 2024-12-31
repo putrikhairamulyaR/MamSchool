@@ -35,9 +35,11 @@ public class siswaServlet extends HttpServlet {
             case "delete":
                 deleteSiswa(request, response);
                 break;
-            default:
+            case "list":
                 showSiswaList(request, response);
                 break;
+            default:
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Unknown action: " + action);
         }
     }
 
@@ -59,8 +61,7 @@ public class siswaServlet extends HttpServlet {
                 deleteSiswa(request, response);
                 break;
             default:
-                showSiswaList(request, response);
-                break;
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Unknown action: " + action);
         }
     }
 
