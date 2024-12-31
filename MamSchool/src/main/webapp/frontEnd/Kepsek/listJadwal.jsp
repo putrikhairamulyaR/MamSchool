@@ -1,8 +1,9 @@
 <%-- 
     Document   : listJadwal
-    Created on : Dec 16, 2024, 3:36:20 AM
+    Created on : Dec 29, 2024, 3:36:20 AM
     Author     : Necha
 --%>
+
 
 <%@page import="model.Jadwal"%>
 <%@page import="java.util.List"%>
@@ -46,6 +47,7 @@
                         <th>Hari</th>
                         <th>Jam Mulai</th>
                         <th>Jam Selesai</th>
+                         <th>Aksi</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -57,20 +59,40 @@
                     %>
                     <tr>
                         <td><%= jadwal.getId() %></td>
-                        <td><%= jadwal.getKelas() %></td>
+                        <td><%= jadwal.getidKelas() %></td>
                         <td><%= jadwal.getSubjectId() %></td>
                         <td><%= jadwal.getTeacherId() %></td>
                         <td><%= jadwal.getDay() %></td>
                         <td><%= jadwal.getStartTime() %></td>
                         <td><%= jadwal.getEndTime() %></td>
+                        <td>
+
+                               <a href="editJadwal.jsp?id=<%= jadwal.getId() %>" class="btn btn-warning btn-sm">Edit</a>
+
+                               <a href="deleteJadwal.jsp?id=<%= jadwal.getId() %>" class="btn btn-danger btn-sm">Delete</a>
+
+                               <a href="viewJadwal.jsp?id=<%= jadwal.getId() %>" class="btn btn-info btn-sm">View</a>
+
+                           </td>
                     </tr>
                     <%
                             }
+                        } else {
+                    %>
+                    <tr>
+                        <td colspan="8" class="text-center">Tidak ada jadwal yang tersedia.</td>
+
+                    </tr>
+
+                    <%
+
                         }
+
                     %>
                 </tbody>
             </table>
             <a href="addJadwal.jsp" class="btn btn-primary">Tambah Jadwal</a>
+           
         </div>
     </div>
 </body>

@@ -66,12 +66,12 @@
 
                     <div class="mb-3">
                         <label for="username" class="form-label">Username:</label>
-                        <input type="text" name="name" class="form-control" id="username" placeholder="Masukkan Username" required>
+                        <input type="text" name="username" class="form-control" id="username" placeholder="Masukkan Username" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="password" class="form-label">Password:</label>
-                        <input type="text" name="password" class="form-control" id="major" placeholder="Masukkan Password" required>
+                        <input type="text" name="password" class="form-control" id="password" placeholder="Masukkan Password" required>
                     </div>
 
                     <div class="mb-3">

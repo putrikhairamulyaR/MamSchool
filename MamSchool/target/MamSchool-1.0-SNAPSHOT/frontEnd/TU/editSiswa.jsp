@@ -105,12 +105,14 @@
                 <!-- Parameter untuk menentukan aksi -->
                 <input type="hidden" name="action" value="edit">
                 <input type="hidden" name="id" value="<%= student.getId() %>">
+                
+                <input type="hidden" name="userId" value="<%= student.getUserId() %>"
 
                 <label for="nis">NIS:</label>
-                <input type="text" name="nis" value="<%= student.getNis() %>" required>
+                <input type="text" name="nis" value="<%= student.getNis() %>" readonly>
 
                 <label for="name">Nama:</label>
-                <input type="text" name="name" value="<%= student.getName() %>" required>
+                <input type="text" name="name" value="<%= student.getName() %>" readonly>
 
                 <label for="dateOfBirth">Tanggal Lahir:</label>
                 <input type="date" name="dateOfBirth" value="<%= student.getDateOfBirth() %>" required>
