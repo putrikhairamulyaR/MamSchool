@@ -269,29 +269,28 @@
                                 <th>Nama</th>
                                 <th>NIS</th>
                                 <th>Jurusan</th>
+                                <th>Kelas</th>
+                                <th>Wali Kelas</th>
                                 <th>Tingkat</th>
                                 <th>Tanggal Lahir</th>
-                                <th>Detail</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="student" items="${students}">
                                 <tr>
-                                    <td>${student.id}</td>
-                                    <td>${student.name}</td>
-                                    <td>${student.nis}</td>
-                                    <td>${student.major}</td>
-                                    <td>${student.enrollmentYear != null ? (2024 - student.enrollmentYear + 1) : 'N/A'}</td>
-                                    <td>${student.dateOfBirth}</td>
-                                    <td>
-                                        <a href="StudentDetailServlet?id=${student.id}" class="btn btn-info btn-sm">
-                                            <i class="bi bi-eye"></i> View
-                                        </a>
-                                    </td>
+                                    <td>${student["id"]}</td>
+                                    <td>${student["name"]}</td>
+                                    <td>${student["nis"]}</td>
+                                    <td>${student["major"]}</td>
+                                    <td>${student["className"] != null ? student["className"] : 'N/A'}</td>
+                                    <td>${student["teacherName"] != null ? student["teacherName"] : 'N/A'}</td>
+                                    <td>${student["enrollmentYear"] != null ? (2024 - student["enrollmentYear"] + 1) : 'N/A'}</td>
+                                    <td>${student["dateOfBirth"]}</td>
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>

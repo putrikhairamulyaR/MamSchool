@@ -4,30 +4,35 @@
  */
 package dao;
 import classes.JDBC;
-import model.Student;
+import model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 /**
  *
  * @author Royal
  */
 public class ListStudentDAO {
 
-    public List<Student> getAllStudents(String major, Integer tingkat) {
-        List<Student> students = new ArrayList<>();
-        StringBuilder query = new StringBuilder("SELECT *, YEAR(CURDATE()) - enrollment_year AS tingkat FROM students WHERE 1=1");
+    public List<Map<String, Object>> getAllStudents(String major, Integer tingkat) {
+        List<Map<String, Object>> students = new ArrayList<>();
+        StringBuilder query = new StringBuilder(
+                "SELECT s.*, c.name AS class_name, t.name AS teacher_name FROM students s " +
+                "LEFT JOIN classes c ON s.class_id = c.id " +
+                "LEFT JOIN teachers t ON c.teacher_id = t.id WHERE 1=1"
+        );
 
         if (major != null && !major.isEmpty()) {
-            query.append(" AND major = ?");
+            query.append(" AND s.major = ?");
         }
         if (tingkat != null) {
-            query.append(" AND (YEAR(CURDATE()) - enrollment_year) + 1 = ?");
+            query.append(" AND (YEAR(CURDATE()) - s.enrollment_year) + 1 = ?");
         }
 
         try (Connection connection = JDBC.getConnection();
@@ -44,16 +49,21 @@ public class ListStudentDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Student student = new Student();
-                student.setId(rs.getInt("id"));
-                student.setUserId(rs.getInt("user_id"));
-                student.setNis(rs.getString("nis"));
-                student.setName(rs.getString("name"));
-                student.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
-                student.setEnrollmentYear(rs.getInt("enrollment_year"));
-                student.setClassId(rs.getObject("class_id", Integer.class));
-                student.setMajor(rs.getString("major"));
-                students.add(student);
+                Map<String, Object> studentData = new HashMap<>();
+                studentData.put("id", rs.getInt("id"));
+                studentData.put("userId", rs.getInt("user_id"));
+                studentData.put("nis", rs.getString("nis"));
+                studentData.put("name", rs.getString("name"));
+                studentData.put("dateOfBirth", rs.getDate("date_of_birth"));
+                studentData.put("enrollmentYear", rs.getInt("enrollment_year"));
+                studentData.put("classId", rs.getObject("class_id", Integer.class));
+                studentData.put("major", rs.getString("major"));
+
+                // Additional fields from joins
+                studentData.put("className", rs.getString("class_name"));
+                studentData.put("teacherName", rs.getString("teacher_name"));
+
+                students.add(studentData);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,4 +72,3 @@ public class ListStudentDAO {
         return students;
     }
 }
-

@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  *
@@ -37,7 +38,7 @@ public class ListStudentServlet extends HttpServlet {
         }
 
         ListStudentDAO listStudentDAO = new ListStudentDAO();
-        List<Student> students = listStudentDAO.getAllStudents(major, tingkat);
+        List<Map<String, Object>> students = listStudentDAO.getAllStudents(major, tingkat);
 
         request.setAttribute("students", students);
         request.getRequestDispatcher("/frontEnd/Kepsek/ListStudent.jsp").forward(request, response);
