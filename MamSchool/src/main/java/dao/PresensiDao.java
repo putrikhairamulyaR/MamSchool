@@ -91,9 +91,9 @@ public class PresensiDao {
             Jadwal jadwal = new Jadwal(
                 resultSet.getInt("id"),
                 resultSet.getInt("class_id"),
-                resultSet.getString("class_name"),
+                //resultSet.getString("class_name"),
                 resultSet.getInt("subject_id"),
-                resultSet.getString("subject_name"),
+                //resultSet.getString("subject_name"),
                 resultSet.getInt("teacher_id"),
                 resultSet.getString("day"),
                 LocalTime.parse(resultSet.getTime("start_time").toString()),

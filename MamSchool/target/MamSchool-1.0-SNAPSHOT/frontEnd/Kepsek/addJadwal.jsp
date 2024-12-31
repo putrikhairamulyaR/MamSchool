@@ -1,11 +1,4 @@
-<%-- 
-    Document   : addJadwal
-    Created on : Dec 15, 2024, 8:13:13 PM
-    Author     : Necha
---%>
-
-
-
+<%@page import="dao.ListTeacherDAO"%>
 <%@page import="model.Classes"%>
 <%@page import="dao.ClassesDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,22 +8,27 @@
 
 <%
     ClassesDAO classesDao = new ClassesDAO();
-    TeacherDAO teacherDAO = new TeacherDAO();
-    List<Teacher> teachers = teacherDAO.getAllTeachers(); // Fetch all teachers from the database
+    TeacherDAO  TeacherDAO = new TeacherDAO();
+    List<Teacher> teachers = TeacherDAO.getAllTeachers(); 
     List<Classes> classes = classesDao.getAllClasses();
 
     String selectedNip = request.getParameter("nip");
+     String selectedClass = request.getParameter("name");
     String subject = null;
+    
+    
 
-    // If a NIP is selected, get the corresponding subject
     if (selectedNip != null) {
         for (Teacher teacher : teachers) {
             if (teacher.getNip().equals(selectedNip)) {
-                subject = teacher.getSubject(); // Get the subject for the selected teacher
+                subject = teacher.getSubject();
                 break;
             }
         }
     }
+       
+    
+
 %>
 
 <!DOCTYPE html>
@@ -117,6 +115,10 @@
         <!-- Konten Utama -->
         <div class="content">
             <h3>Tambah Jadwal</h3>
+            <!-- Menampilkan Pesan Error jika ada bentrok -->
+        <div class="alert alert-danger" style="<%= request.getAttribute("errorMessage") == null ? "display: none;" : "" %>" role="alert">
+            <%= request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : "" %>
+        </div>
             <div class="form-container">
                 <form id="addJadwalForm" action="${pageContext.request.contextPath}/Jadwal" method="post">
                       <input type="hidden" name="action" value="add">
@@ -124,39 +126,26 @@
                     <div class="mb- 3">
                         <label for="nip" class="form-label">NIP Guru</label>
                          <select name="nip" id="class" class="form-select" required onchange="fetchTeacherDetails()">
-   
-
-
-
                             <%  for (Teacher teacher : teachers) {%>
-
-
-                           
-                            <option value="<%= teacher.getNip()%> "><%= teacher.getNip()%>  <%= teacher.getName()%>  <%= teacher.getSubject()%> </option>
-                                                       
+                            <option value="<%= teacher.getNip()%> "><%= teacher.getNip()%>  <%= teacher.getName()%>  <%= teacher.getSubject()%> </option>                        
                             <%  }%>
-                            
                          </select>
+                     </div>
 
- 
-
-                    </div>
-
-                    <!-- Pilihan Mapel (Subject) -->
                     
-                    
-                   
                     <!-- Input Kelas -->
                     <div class="mb-3">
                         <label for="class" class="form-label">Kelas</label>
-                        <select name="kelas" id="kelas" class="form-select" required onchange="fetchTeacherDetails()">
+                        <select name="kelas" id="kelas" class="form-select" required>
                             <%
                                 for (Classes cls : classes) {
+                                  
                             %>
                             <option value="<%= cls.getId() %>">
                                 <%= cls.getName()%>
                             </option>
                             <%
+                                
                                 }
                             %>
                         </select>

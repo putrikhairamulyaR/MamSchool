@@ -1,142 +1,81 @@
 <%-- 
-    Document   : viewJadwal
-    Created on : Dec 15, 2024, 8:40:05 PM
+    Document   : deleteJadwal
+    Created on : Dec 31, 2024, 9:26:30 AM
     Author     : Necha
 --%>
 
+
+
+<%@page import="model.Jadwal"%>
+<%@page import="dao.JadwalDAO"%>
+<%@page import="model.Teacher"%>
+<%@page import="dao.TeacherDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    JadwalDAO jadwalDAO = new JadwalDAO();
+    Teacher teacher = null;
+    int id = Integer.parseInt(request.getParameter("id"));
+    Jadwal jadwal = jadwalDAO.getJadwalById(id);
+    
+    if (jadwal != null) {
+        teacher = jadwalDAO.getTeacherId(jadwal.getTeacherId());
+    }
+%>
 
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Jadwal</title>
+    <title>Informasi Jadwal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 250px;
-            background-color: #34495e;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            padding: 15px;
-            position: fixed;
-            height: 100%;
-        }
-
-        .sidebar h4 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .sidebar a {
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-        }
-
-        .sidebar a:hover {
-            background-color: #2980b9;
-        }
-
-        .sidebar a i {
-            margin-right: 10px;
-        }
-
-        /* Konten */
-        .content {
-            margin-left: 260px;
-            padding: 20px;
-            flex: 1;
-            background-color: #f8f9fa;
-            overflow-y: auto;
-        }
-
-        /* Table Styling */
-        .table-container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .table th, .table td {
-            text-align: center;
-        }
-    </style>
 </head>
-
 <body>
+    <div class="container mt-5">
+        <h2>Informasi Jadwal</h2>
+        <form action="${pageContext.request.contextPath}/Jadwal?action=delete" method="post">
+            <input type="hidden" name="id" value="<%= jadwal.getId() %>">
+            
+            <!-- Informasi Guru -->
+            <div class="mb-3">
+                <label for="nip" class="form-label">NIP Guru</label>
+                <input type="text" class="form-control" id="nip" name="nip" value="<%= teacher.getNip() %>" disabled>
+            </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h4>Dashboard Siswa</h4>
-        <a href="#"><i class="bi bi-house-door-fill"></i> Beranda</a>
-        <a href="#"><i class="bi bi-list-check"></i> Kelas</a>
-        <a href="#"><i class="bi bi-clipboard2-check"></i> Nilai</a>
-        <a href="#"><i class="bi bi-book"></i> Mapel</a>
-        <hr>
-        <a href="#"><i class="bi bi-gear"></i> Setting</a>
-        <a href="#"><i class="bi bi-question-circle"></i> Bantuan</a>
-        <a href="#"><i class="bi bi-box-arrow-left"></i> Logout</a>
+            <div class="mb-3">
+                <label for="teacherName" class="form-label">Nama Guru</label>
+                <input type="text" class="form-control" id="teacherName" name="teacherName" value="<%= teacher.getName() %>" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="subject" class="form-label">Mapel</label>
+                <input type="text" class="form-control" id="subject" name="subject" value="<%= teacher.getSubject() %>" disabled>
+            </div>
+
+            <!-- Informasi Jadwal -->
+            <div class="mb-3">
+                <label for="kelas" class="form-label">Kelas</label>
+                <input type="text" class="form-control" id="kelas" name="kelas" value="<%= jadwal.getidKelas() %>" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="hari" class="form-label">Hari</label>
+                <input type="text" class="form-control" id="hari" name="hari" value="<%= jadwal.getDay() %>" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="jamMulai" class="form-label">Jam Mulai</label>
+                <input type="time" name="jam" id="jamMulai" class="form-control" value="<%= jadwal.getStartTime() %>" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="jamSelesai" class="form-label">Jam Selesai</label>
+                <input type="time" name="jamSelesai" id="jamSelesai" class="form-control" value="<%= jadwal.getEndTime() %>" disabled>
+            </div>
+
+           
+            <a href="listJadwal.jsp" class="btn btn-secondary">Kembali</a>
+        </form>
     </div>
-
-    <!-- Konten Utama -->
-    <div class="content">
-        <h3>View Jadwal</h3>
-        <!-- Table for Jadwal -->
-        <div class="table-container">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Kelas</th>
-                        <th>Mata Pelajaran</th>
-                        <th>Guru</th>
-                        <th>Hari</th>
-                        <th>Jam</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="Jadwal" items="${JadwalList}">
-                        <tr>
-                            <td>${Jadwal.index + 1}</td>
-                            <td>${Jadwal.kelas}</td>
-                            <td>${Jadwal.mapel}</td>
-                            <td>${Jadwal.nipGuru}</td>
-                            <td>${Jadwal.hari}</td>
-                            <td>${Jadwal.jam}</td>
-                            <td>
-                                <a href="editJadwal.jsp?id=${Jadwal.id}" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil"></i> Edit
-                                </a>
-                                <a href="deleteJadwal?id=${Jadwal.id}" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash"></i> Hapus
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3. 0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
