@@ -139,6 +139,12 @@
                             <span class="align-middle">Presensi Siswa</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/ListClassServlet">
+                            <i data-feather="table" class="align-middle"></i>
+                            <span class="align-middle">Daftar Kelas</span>
+                        </a>
+                    </li>
                 </ul>
                 <hr>
                 <ul class="nav flex-column">

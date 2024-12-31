@@ -19,7 +19,7 @@
     String username = (String) session.getAttribute("username");
     String role = (String) session.getAttribute("role");
 
-    if (!"kepsek".equals(role)) {
+    if (!"tu".equals(role)) {
         response.sendRedirect(request.getContextPath() + "/LoginServlet");
         return;
     }
@@ -144,13 +144,6 @@
                             <span class="align-middle">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/DashboardKepsek">
-                            <i data-feather="table" class="align-middle"></i>
-                            <span class="align-middle">Daftar Kelas</span>
-                        </a>
-                    </li>
-                </ul>
                 <hr>
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -178,6 +171,12 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/GradesServlet">
                             <i data-feather="bar-chart-2" class="align-middle"></i>
                             <span class="align-middle">Nilai Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/ListClassServlet">
+                            <i data-feather="table" class="align-middle"></i>
+                            <span class="align-middle">Daftar Kelas</span>
                         </a>
                     </li>
                 </ul>
