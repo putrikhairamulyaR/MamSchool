@@ -160,7 +160,7 @@
                         <span class=" text-white fw-bold">Siswa</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ListStudentServlet">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">List Siswa</span>
                         </a>

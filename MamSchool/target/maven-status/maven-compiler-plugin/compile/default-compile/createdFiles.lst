@@ -27,6 +27,7 @@ servlets\ListClassServlet.class
 classes\JDBC.class
 servlets\SigninServlet.class
 servlets\PresensiServlet.class
+dao\ListStudentDAO.class
 servlets\rapotServlet.class
 dao\siswaDAO.class
 dao\JadwalDAO.class
@@ -38,3 +39,4 @@ servlets\LogoutServlet.class
 dao\ProfileUserDAO.class
 com\mycompany\mamschool\JakartaRestConfiguration.class
 model\gradeStudent.class
+servlets\ListStudentServlet.class
