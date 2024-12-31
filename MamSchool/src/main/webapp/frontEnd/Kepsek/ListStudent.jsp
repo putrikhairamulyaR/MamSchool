@@ -144,12 +144,6 @@
                             <span class="align-middle">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="${pageContext.request.contextPath}/ListClassServlet">
-                            <i data-feather="table" class="align-middle"></i>
-                            <span class="align-middle">Daftar Kelas</span>
-                        </a>
-                    </li>
                 </ul>
                 <hr>
                 <ul class="nav flex-column">
@@ -187,7 +181,7 @@
                         <span class="  text-white fw-bold">Guru</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/TeacherServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ListTeacherServlet">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">List Guru</span>
                         </a>

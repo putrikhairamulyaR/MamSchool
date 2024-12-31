@@ -8,6 +8,7 @@ com\mycompany\mamschool\resources\JakartaEE11Resource.class
 servlets\TeacherServlet.class
 dao\rapotDAO.class
 dao\gradeDao.class
+dao\ListTeacherDAO.class
 model\Student.class
 servlets\ProfileUserServlet.class
 servlets\GradesServlet.class
@@ -18,6 +19,7 @@ model\nilai.class
 model\User.class
 servlets\JadwalServlet.class
 dao\TeacherDAO.class
+servlets\ListTeacherServlet.class
 model\Jadwal.class
 servlets\LoginServlet.class
 dao\LoginDAO.class
