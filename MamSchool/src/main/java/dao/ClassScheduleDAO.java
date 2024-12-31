@@ -23,30 +23,32 @@ import java.util.Map;
  */
 public class ClassScheduleDAO {
 
-    public List<Map<String, Object>> getAllSchedules(Integer classId, String day) {
+    public List<Map<String, Object>> getAllSchedules(String className, String day) {
         List<Map<String, Object>> schedules = new ArrayList<>();
         StringBuilder query = new StringBuilder(
-                "SELECT cs.id, cs.class_id, c.name AS class_name, cs.subject_id, s.name AS subject_name, " +
-                "cs.teacher_id, t.name AS teacher_name, cs.day, cs.start_time, cs.end_time " +
-                "FROM class_schedule cs " +
-                "LEFT JOIN classes c ON cs.class_id = c.id " +
-                "LEFT JOIN subjects s ON cs.subject_id = s.id " +
-                "LEFT JOIN teachers t ON cs.teacher_id = t.id WHERE 1=1"
+            "SELECT cs.id, cs.class_id, c.name AS class_name, cs.subject_id, s.name AS subject_name, " +
+            "cs.teacher_id, t.name AS teacher_name, cs.day, cs.start_time, cs.end_time " +
+            "FROM class_schedule cs " +
+            "LEFT JOIN classes c ON cs.class_id = c.id " +
+            "LEFT JOIN subjects s ON cs.subject_id = s.id " +
+            "LEFT JOIN teachers t ON cs.teacher_id = t.id WHERE 1=1"
         );
 
-        if (classId != null) {
-            query.append(" AND cs.class_id = ?");
+        if (className != null && !className.isEmpty()) {
+            query.append(" AND c.name = ?");
         }
         if (day != null && !day.isEmpty()) {
             query.append(" AND cs.day = ?");
         }
 
+        query.append(" ORDER BY FIELD(cs.day, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'), cs.start_time");
+
         try (Connection connection = JDBC.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query.toString())) {
 
             int paramIndex = 1;
-            if (classId != null) {
-                stmt.setInt(paramIndex++, classId);
+            if (className != null && !className.isEmpty()) {
+                stmt.setString(paramIndex++, className);
             }
             if (day != null && !day.isEmpty()) {
                 stmt.setString(paramIndex++, day);
@@ -77,7 +79,7 @@ public class ClassScheduleDAO {
 
     public List<String> getAvailableDays() {
         List<String> days = new ArrayList<>();
-        String query = "SELECT DISTINCT day FROM class_schedule ORDER BY FIELD(day, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat')";
+        String query = "SELECT DISTINCT day FROM class_schedule ORDER BY FIELD(day, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu')";
 
         try (Connection connection = JDBC.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query);
@@ -92,6 +94,7 @@ public class ClassScheduleDAO {
 
         return days;
     }
+
 
     public List<String> getAvailableClasses() {
         List<String> classes = new ArrayList<>();

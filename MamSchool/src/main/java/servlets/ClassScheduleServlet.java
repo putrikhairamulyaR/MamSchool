@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
 /**
  *
  * @author Royal
@@ -24,20 +25,12 @@ public class ClassScheduleServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String classIdParam = request.getParameter("classId");
+        String className = request.getParameter("classId");
         String day = request.getParameter("day");
 
-        Integer classId = null;
-        if (classIdParam != null && !classIdParam.isEmpty()) {
-            try {
-                classId = Integer.parseInt(classIdParam);
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-        }
-
         ClassScheduleDAO classScheduleDAO = new ClassScheduleDAO();
-        List<Map<String, Object>> schedules = classScheduleDAO.getAllSchedules(classId, day);
+        List<Map<String, Object>> schedules = classScheduleDAO.getAllSchedules(className, day);
+
         List<String> availableDays = classScheduleDAO.getAvailableDays();
         List<String> availableClasses = classScheduleDAO.getAvailableClasses();
 
@@ -47,4 +40,5 @@ public class ClassScheduleServlet extends HttpServlet {
 
         request.getRequestDispatcher("/frontEnd/Kepsek/ClassSchedule.jsp").forward(request, response);
     }
+
 }
