@@ -147,12 +147,6 @@
                             <span class="align-middle">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="${pageContext.request.contextPath}/ListClassServlet">
-                            <i data-feather="table" class="align-middle"></i>
-                            <span class="align-middle">Daftar Kelas</span>
-                        </a>
-                    </li>
                 </ul>
                 <hr>
                 <ul class="nav flex-column">
