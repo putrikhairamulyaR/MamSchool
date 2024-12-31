@@ -25,16 +25,6 @@ import model.User;
  */
 @WebServlet(name = "TeacherServlet", urlPatterns = {"/TeacherServlet"})
 public class TeacherServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     
     private void addTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
@@ -133,9 +123,11 @@ public class TeacherServlet extends HttpServlet {
             case "delete":
                 deleteTeacher(request, response);
                 break;
-            default:
+            case "list":
                 showTeacherList(request, response);
                 break;
+            default:
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Unknown action: " + action);
         }
     }
 
@@ -167,8 +159,7 @@ public class TeacherServlet extends HttpServlet {
                 deleteTeacher(request, response);
                 break;
             default:
-                showTeacherList(request, response);
-                break;
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Unknown action: " + action);
         }
     }
 

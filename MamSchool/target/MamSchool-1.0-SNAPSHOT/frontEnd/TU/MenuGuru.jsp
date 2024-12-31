@@ -17,7 +17,7 @@
     String username = (String) session.getAttribute("username");
     String role = (String) session.getAttribute("role");
 
-    if (!"kepsek".equals(role)) {
+    if (!"tu".equals(role)) {
         response.sendRedirect(request.getContextPath() + "/LoginServlet");
         return;
     }
