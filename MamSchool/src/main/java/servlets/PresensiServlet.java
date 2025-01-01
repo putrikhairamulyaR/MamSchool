@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import model.Presensi;
 import model.Student;
 import model.User;
 
@@ -88,6 +89,7 @@ public class PresensiServlet extends HttpServlet {
         Date releaseDate = null;
         releaseDate = formatter.parse(dateString);
         
+        Presensi presen = new Presensi(id, releaseDate, attendanceParam);
         boolean cekPresensi = PresensiDao.addKehadiran(id, releaseDate, attendanceParam);
 
         if (cekPresensi) {

@@ -34,7 +34,7 @@
             <!-- Form to submit attendance -->
             <form action="${pageContext.request.contextPath}/PresensiServlet" method="POST">
                 <input type="hidden" name="action" value="add">
-                
+                <input type="date" name="Date" class="form-control">
                 <table class="table table-bordered table-striped">
                     <thead class="table-dark text-center">
                         <tr>
@@ -43,8 +43,6 @@
                             <th>Hadir</th>
                             <th>Sakit</th>
                             <th>Alpa</th>
-                            <th>Izin</th>
-                            <th>Tanggal</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,9 +63,6 @@
                             </td>
                             <td>
                                 <input type="radio" name="attendance" value="Izin" class="form-check-input">
-                            </td>
-                            <td>
-                                <input type="date" name="Date" class="form-control">
                             </td>
 
                         </tr>

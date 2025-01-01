@@ -54,7 +54,7 @@
                         <tr>
                             <th>Class ID</th>
                             <th>Class Name</th>
-                            <th>Major</th>
+                            <th>Subject</th>
                             <th>Day</th>
                             <th>Start Time</th>
                             <th>End Time</th>

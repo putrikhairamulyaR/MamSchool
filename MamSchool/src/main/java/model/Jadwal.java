@@ -12,12 +12,13 @@ import java.time.LocalTime;
 public class Jadwal {
     private int id;   
     private int idKelas;// ID jadwal
-        // Kelas (contoh: X-IPA-1)
+    private String kelas;          // Marsha butuh ini
     private int subjectId;         // ID mata pelajaran (FK ke tabel subjects)
     private int teacherId;         // ID guru (FK ke tabel teachers)
     private String day;            // Hari (ENUM: Senin, Selasa, dll)
     private LocalTime startTime;   // Waktu mulai mapel
     private LocalTime endTime;     // Waktu selesai mapel
+    private String subjectName;    // Marsha butuh ini
 
   
     public Jadwal(int id, int kelas, int subjectId, int teacherId, String day, LocalTime startTime, LocalTime endTime) {
@@ -34,6 +35,19 @@ public class Jadwal {
         
         this.idKelas = kelas;
         this.subjectId = subjectId;
+        this.teacherId = teacherId;
+        this.day = day;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+    
+    //Marsha butuh ini
+    public Jadwal(int id, int classId, String className, int subjectId, String subjectName, int teacherId, String day, LocalTime startTime, LocalTime endTime) {
+        this.id = id;
+        this.idKelas = classId;
+        this.kelas = className;
+        this.subjectId = subjectId;
+        this.subjectName = subjectName;
         this.teacherId = teacherId;
         this.day = day;
         this.startTime = startTime;
@@ -99,6 +113,34 @@ public class Jadwal {
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
+    
+    // Marsha butuh ini
+    public String getKelas() {
+        return kelas;
+    }
+
+    public void setKelas(String kelas) {
+        this.kelas = kelas;
+    }
+
+    public int getIdKelas() {
+        return idKelas;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setIdKelas(int idKelas) {
+        this.idKelas = idKelas;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+    // jangan dihapus
+    
+    
 
     @Override
     public String toString() {

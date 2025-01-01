@@ -4,7 +4,7 @@
  */
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Presensi {
     // Fields (Attributes)
@@ -20,6 +20,12 @@ public class Presensi {
     // Constructor (parameterized)
     public Presensi(int id, int studentId, Date date, String status) {
         this.id = id;
+        this.studentId = studentId;
+        this.date = date;
+        this.status = status;
+    }
+    
+    public Presensi(int studentId, Date date, String status) {
         this.studentId = studentId;
         this.date = date;
         this.status = status;
