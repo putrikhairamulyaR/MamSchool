@@ -7,6 +7,24 @@
 <%@page import="dao.siswaDAO"%>
 <%@page import="model.Student"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0); // Proxies
+
+    if (session == null || session.getAttribute("username") == null) {
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        return;
+    }
+
+    String username = (String) session.getAttribute("username");
+    String role = (String) session.getAttribute("role");
+
+    if (!"tu".equals(role)) {
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,32 +34,34 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
                 margin: 0;
                 padding: 0;
-                background: #f8f9fa;
-                color: #333;
-            }
-
-            h2 {
-                text-align: center;
-                margin-top: 20px;
-                color: #007bff;
-            }
+                display: flex;
+                height: 100vh;
+            } 
 
             .container {
-                width: 90%;
-                max-width: 600px;
-                margin: 30px auto;
+                width: 100%;
+                height: 100%;
                 padding: 20px;
-                background-color: #fff;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                background-color: white;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
                 border-radius: 10px;
+                box-sizing: border-box;
             }
 
             label {
                 display: block;
-                margin: 10px 0 5px;
                 font-weight: bold;
+                margin-bottom: 5px;
+            }
+           
+            .table-container {
+                background: white;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             }
 
             input[type="text"],
@@ -56,28 +76,38 @@
             }
 
             button {
-                display: block;
-                width: 100%;
-                padding: 10px;
-                background-color: #28a745;
+               width: auto;
+                padding: 10px 20px;
+                background-color: #2E8B57;
                 color: white;
                 border: none;
                 border-radius: 5px;
                 font-size: 16px;
                 cursor: pointer;
+                margin-top: 15px;
+            }
+            
+            button:hover {
+                background-color: #006400;
+            }
+            /*
+            .btn-back {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #d9534f;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 16px;
+                 text-align: center;
+                cursor: pointer;
                 transition: background-color 0.3s ease;
             }
-
-            button:hover {
-                background-color: #218838;
-            }
-
-            /* Responsif */
-            @media (max-width: 768px) {
-                .container {
-                    width: 95%;
-                }
-            }
+            
+            .btn-back:hover {
+                background-color: #c9302c;
+            }*/
+            
             select {
                 width: 100%;
                 padding: 10px;
@@ -86,12 +116,12 @@
                 border-radius: 5px;
                 font-size: 16px;
                 color: #333;
-            }
+           }
         </style>
     </head>
-    <body>
-        <h2>Edit Data Siswa</h2>
+    <body> 
         <div class="container">
+        <h2>Edit Data Siswa</h2>
             <%
                 siswaDAO siswaDao = new siswaDAO();
                 Student student = siswaDao.getSiswaById(Integer.parseInt(request.getParameter("id")));
@@ -130,5 +160,28 @@
             </form>
             <% } %>
         </div>
+        
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Activate Feather Icons -->
+        <script>
+            feather.replace({color: '#ffffff'});
+
+            const toggleButton = document.getElementById("toggleSidebar");
+            const sidebar = document.getElementById("sidebar");
+            const content = document.getElementById("content");
+
+            toggleButton.addEventListener("click", () => {
+                // Toggle Sidebar
+                if (sidebar.classList.contains("hidden")) {
+                    sidebar.classList.remove("hidden");
+                    content.classList.remove("expanded");
+                } else {
+                    sidebar.classList.add("hidden");
+                    content.classList.add("expanded");
+                }
+            });
+        </script>
+        
     </body>
 </html>

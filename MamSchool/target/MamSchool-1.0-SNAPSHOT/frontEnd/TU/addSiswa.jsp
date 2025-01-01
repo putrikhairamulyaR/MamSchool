@@ -84,11 +84,28 @@
                 cursor: pointer;
                 margin-top: 15px;
             }
-
+            
             button:hover {
                 background-color: #006400;
             }
-
+            /*
+            .btn-back {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #d9534f;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 16px;
+                 text-align: center;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            
+            .btn-back:hover {
+                background-color: #c9302c;
+            }*/
+            
             select {
                 width: 100%;
                 padding: 10px;
@@ -98,7 +115,6 @@
                 font-size: 16px;
                 color: #333;
            }
-           
         </style>
     </head>
     <body>
@@ -132,8 +148,9 @@
                     <option value="IPS">IPS</option>
                 </select>
 
-                <button type="submit">Tambah Siswa</button>
+                <button type="submit">Tambah Siswa</button>                
             </form>
+                
         </div>
                 
         <!-- Bootstrap JS -->
@@ -157,5 +174,6 @@
                 }
             });
         </script> 
+        
     </body>
 </html>
