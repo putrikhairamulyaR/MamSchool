@@ -132,7 +132,7 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/DashboardKepsek">
+                        <a class="nav-link  " href="${pageContext.request.contextPath}/DashboardTU">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -144,15 +144,9 @@
                         <span class=" text-white fw-bold">Siswa</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/SiswaServlet">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">List Siswa</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ClassesServlet">
-                            <i data-feather="shuffle" class="align-middle"></i>
-                            <span class="align-middle">Bagi Kelas</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -165,6 +159,18 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/GradesServlet">
                             <i data-feather="bar-chart-2" class="align-middle"></i>
                             <span class="align-middle">Nilai Siswa</span>
+                        </a>
+                    </li>
+		   <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
+                            <i data-feather="pie-chart" class="align-middle"></i>
+                            <span class="align-middle">Presensi Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="${pageContext.request.contextPath}/ListClassServlet">
+                            <i data-feather="table" class="align-middle"></i>
+                            <span class="align-middle">Daftar Kelas</span>
                         </a>
                     </li>
                 </ul>
@@ -180,13 +186,26 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
                             <i data-feather="file-text" class="align-middle"></i>
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>
                     </li>
                 </ul>
                 <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class="  text-white fw-bold">User</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/SigninServlet">
+                            <i data-feather="users" class="align-middle"></i>
+                            <span class="align-middle">List User</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <span class="  text-white fw-bold">Accounts</span>
@@ -197,7 +216,6 @@
                             <span class="align-middle">Log Out</span>
                         </a>
                     </li>
-
                 </ul>
             </div>
         </nav>
@@ -222,7 +240,7 @@
                 <div class="table-container">                    
                     <h1>Daftar Guru</h1>
                     <div class="container">
-                        <!-- Tombol Add Siswa -->
+                        <!-- Tombol Add Guru -->
                         <a href="frontEnd/TU/addTeacher.jsp" class="btn btn-success btn-sm mb-3">
                         <i class="bi bi-plus"></i> Tambah Guru
                         </a>
@@ -230,18 +248,17 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>User ID</th>
-                                    <th>NIS</th>
+                                    <th>NIP</th>
                                     <th>Nama</th>
                                     <th>Tanggal Lahir</th>
+                                    <th>Subyek</th>
                                     <th>Tahun Masuk</th>
-                                    <th>Jurusan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <%
-                                    // Ambil data siswa dari DAO
+                                    // Ambil data guru dari DAO
                                     TeacherDAO dao = new TeacherDAO();
                                     List<Teacher> teachers = dao.getAllTeachers();
 
@@ -250,7 +267,6 @@
                                 %>
                                 <tr>
                                     <td><%= teacher.getId() %></td>
-                                    <td><%= teacher.getUserId() %></td>
                                     <td><%= teacher.getNip() %></td>
                                     <td><%= teacher.getName() %></td>
                                     <td><%= teacher.getDateOfBirth() %></td>
@@ -284,6 +300,29 @@
                         </table>
                     </div>
             </div>
+            </div>
         </div>
+                            
+         <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Activate Feather Icons -->
+        <script>
+            feather.replace({color: '#ffffff'});
+
+            const toggleButton = document.getElementById("toggleSidebar");
+            const sidebar = document.getElementById("sidebar");
+            const content = document.getElementById("content");
+
+            toggleButton.addEventListener("click", () => {
+                // Toggle Sidebar
+                if (sidebar.classList.contains("hidden")) {
+                    sidebar.classList.remove("hidden");
+                    content.classList.remove("expanded");
+                } else {
+                    sidebar.classList.add("hidden");
+                    content.classList.add("expanded");
+                }
+            });
+        </script>                    
     </body>
 </html>

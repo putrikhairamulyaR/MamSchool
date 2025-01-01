@@ -16,11 +16,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import model.User;
 
@@ -30,7 +25,6 @@ import model.User;
  */
 @WebServlet(name = "TeacherServlet", urlPatterns = {"/TeacherServlet"})
 public class TeacherServlet extends HttpServlet {
-    
     
     private void addTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
@@ -63,7 +57,6 @@ public class TeacherServlet extends HttpServlet {
     private void editTeacher(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            int userId = Integer.parseInt(request.getParameter("userId"));
             String nip = request.getParameter("nip");
             String name = request.getParameter("name");
             LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
@@ -71,8 +64,7 @@ public class TeacherServlet extends HttpServlet {
             
 
             TeacherDAO dao = new TeacherDAO();
-            boolean success = dao.editTeacher(id, userId, nip, name, dateOfBirth, subject);
-
+            boolean success = dao.editTeacherSubject(id, subject);
             if (success) {
                 response.sendRedirect("TeacherServlet?action=list");
             } else {
@@ -106,9 +98,77 @@ public class TeacherServlet extends HttpServlet {
         request.getSession().setAttribute("teacher", teacher);
         request.getRequestDispatcher("frontEnd/TU/MenuGuru.jsp").forward(request, response);
     }
-    
- 
-    
-   
-  
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        if (action == null) {
+            action = "list"; // Default action
+        }
+
+        switch (action) {
+            case "delete":
+                deleteTeacher(request, response);
+                break;
+            case "list":
+                showTeacherList(request, response);
+                break;
+            default:
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Unknown action: " + action);
+        }
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        if (action == null) {
+            action = "list"; // Default action
+        }
+
+        switch (action) {
+            case "add":
+                addTeacher(request, response);
+                break;
+            case "edit":
+                editTeacher(request, response);
+                break;
+            case "delete":
+                deleteTeacher(request, response);
+                break;
+            default:
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Unknown action: " + action);
+        }
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
 }

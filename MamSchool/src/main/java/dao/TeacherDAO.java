@@ -109,7 +109,7 @@ public class TeacherDAO {
             while (rs.next()) {
                 Teacher teacher = new Teacher();
                 teacher.setId(rs.getInt("id"));
-                //teacher.setUserId(rs.getInt("user_id"));
+                teacher.setUserId(rs.getInt("user_id"));
                 teacher.setNip(rs.getString("nip"));
                 teacher.setName(rs.getString("name"));
                 teacher.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
@@ -134,7 +134,7 @@ public class TeacherDAO {
             if (rs.next()) {
                 Teacher teacher = new Teacher();
                 teacher.setId(rs.getInt("id"));
-                teacher.setUserId(rs.getInt("user_id"));
+                //teacher.setUserId(rs.getInt("user_id"));
                 teacher.setNip(rs.getString("nip"));
                 teacher.setName(rs.getString("name"));
                 teacher.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
