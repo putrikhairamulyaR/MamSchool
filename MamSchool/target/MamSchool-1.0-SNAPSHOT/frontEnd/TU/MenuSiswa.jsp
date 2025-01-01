@@ -187,7 +187,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/siswaServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List Siswa</span>
+                            <span class="align-middle">Daftar Siswa</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -223,7 +223,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/TeacherServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List Guru</span>
+                            <span class="align-middle">Daftar Guru</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -241,7 +241,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/SigninServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List User</span>
+                            <span class="align-middle">Daftar User</span>
                         </a>
                     </li>
                 </ul>
