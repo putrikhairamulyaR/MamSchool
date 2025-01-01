@@ -47,7 +47,7 @@
                 top: 0;
                 left: 0;
                 bottom: 0;
-                z-index: 1030; /* Tetap di atas konten utama */
+                z-index: 1030;
                 background-color: #34495e;
                 color: #ffffff;
             }
@@ -56,27 +56,29 @@
                 transform: translateX(-100%);
                 visibility: hidden;
             }
+            
+            #sidebar .nav-link {
+                color: #ffffff;
+                padding: 10px;
+                text-decoration: none;
+                display: block;
+            }
+
+            #sidebar .nav-link:hover {
+                background-color: #628ab1;
+            }
 
             /* Content */
             #content {
-                flex-grow: 1;
-                margin-left: 250px; /* Ruang default sidebar */
-                transition: margin-left 0.3s ease;
+                margin-left: 250px;
+                padding: 20px;
             }
 
             #content.expanded {
-                margin-left: 0; /* Konten memenuhi layar */
+                margin-left: 0;
             }
 
             /* Nav Link */
-            #sidebar .nav-link {
-                color: #ffffff;
-                border-radius: 5px;
-
-            }
-            #sidebar .nav-link:hover{
-                background-color: #628ab1;
-            }
             #sidebar .active{
                 border-left: 3px solid #ffffff;
                 background-color: #628ab1;
@@ -99,29 +101,22 @@
                 background-color: #f9f9f9;
                 margin: 0;
                 padding: 0;
-                color: #333;
             }
 
             h1 {
-                text-align: center;
-                color: #007bff;
-                margin-top: 20px;
+                text-align: left;
+                margin-top: 10px;
+                color: #34495e;
             }
 
             .container {
                 width: 80%;
                 margin: 0 auto;
-                background: white;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
-                padding: 20px;
-                margin-top: 20px;
             }
 
             table {
                 width: 100%;
                 border-collapse: collapse;
-                margin-top: 20px;
             }
 
             table, th, td {
@@ -129,21 +124,14 @@
             }
 
             th, td {
-                padding: 10px;
+                padding: 8px;
                 text-align: center;
             }
-
+            
+            
             th {
-                background-color: #007bff;
+                background-color: #34495e;
                 color: white;
-            }
-
-            tr:nth-child(even) {
-                background-color: #f2f2f2;
-            }
-
-            tr:hover {
-                background-color: #e9ecef;
             }
 
             .action-buttons a {
@@ -154,7 +142,7 @@
             }
 
             .action-buttons a.edit {
-                background-color: #28a745;
+                background-color:#FFD700;
             }
 
             .action-buttons a.delete {
@@ -165,14 +153,11 @@
                 display: inline-block;
                 padding: 8px 15px;
                 color: white;
-                background-color: #17a2b8;
+                background-color: #2E8B57;
                 text-decoration: none;
                 border-radius: 5px;
                 font-weight: bold;
-            }
-
-            .btn-add:hover {
-                background-color: #138496;
+                margin-bottom: 20px;
             }
         </style>
     </head>
@@ -188,7 +173,7 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active " href="${pageContext.request.contextPath}/DashboardTU">
+                        <a class="nav-link active " href="${pageContext.request.contextPath}/frontEnd/TU/DashboardTU.jsp">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -349,26 +334,28 @@
                     </tbody>
                 </table>
             </div>
+            
             <!-- Bootstrap JS -->
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-            <!-- Activate Feather Icons -->
-            <script>
-                                        feather.replace({color: '#ffffff'});
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Activate Feather Icons -->
+        <script>
+            feather.replace({color: '#ffffff'});
 
-                                        const toggleButton = document.getElementById("toggleSidebar");
-                                        const sidebar = document.getElementById("sidebar");
-                                        const content = document.getElementById("content");
+            const toggleButton = document.getElementById("toggleSidebar");
+            const sidebar = document.getElementById("sidebar");
+            const content = document.getElementById("content");
 
-                                        toggleButton.addEventListener("click", () => {
-                                            // Toggle Sidebar
-                                            if (sidebar.classList.contains("hidden")) {
-                                                sidebar.classList.remove("hidden");
-                                                content.classList.remove("expanded");
-                                            } else {
-                                                sidebar.classList.add("hidden");
-                                                content.classList.add("expanded");
-                                            }
-                                        });
-            </script>
+            toggleButton.addEventListener("click", () => {
+                // Toggle Sidebar
+                if (sidebar.classList.contains("hidden")) {
+                    sidebar.classList.remove("hidden");
+                    content.classList.remove("expanded");
+                } else {
+                    sidebar.classList.add("hidden");
+                    content.classList.add("expanded");
+                }
+            });
+        </script> 
+        
         </body>
 </html>
