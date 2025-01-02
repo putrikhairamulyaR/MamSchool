@@ -138,7 +138,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Guru/viewJadwalGuru.jsp">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/frontEnd/Guru/viewJadwalGuru.jsp">
                             <i data-feather="user-check" class="align-middle"></i>
                             <span class="align-middle">Presensi Siswa</span>
                         </a>
@@ -151,7 +151,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/frontEnd/Guru/menuRapot.jsp">
+                        <a class="nav-link " href="${pageContext.request.contextPath}/frontEnd/Guru/menuRapot.jsp">
                             <i data-feather="file-text" class="align-middle"></i>
                             <span class="align-middle">Rapot Siswa</span>
                         </a>
@@ -214,10 +214,10 @@
                     <tbody>
                         <% for (Student student : students) {%>
                         <tr class="text-center">
-                            <td><%= student.getUserId()%></td>
+                            <td><%= student.getId() %></td>
                             <td><%= student.getName()%></td>
                             <!-- Radio inputs for attendance -->
-                            <input type="hidden" name="id" value="<%= student.getUserId()%>">
+                            <input type="hidden" name="id" value="<%= student.getId()%>">
                             <td>
                                 <input type="radio" name="attendance" value="Hadir" class="form-check-input">
                             </td>

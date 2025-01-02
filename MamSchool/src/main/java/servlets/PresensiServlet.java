@@ -44,7 +44,9 @@ public class PresensiServlet extends HttpServlet {
         String action = request.getParameter("action");
         if ("view".equals(action)) {
            listKehadiran(request,response);
-        } 
+        } else if ("filter".equals(action)) {
+        filterAttendance(request, response);
+    }
         
        
     }
@@ -70,7 +72,11 @@ public class PresensiServlet extends HttpServlet {
                 Logger.getLogger(PresensiServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if ("edit".equals(action)) {
-            editKehadiran(request, response);
+            try {
+                editKehadiran(request, response);
+            } catch (ParseException ex) {
+                Logger.getLogger(PresensiServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
@@ -93,7 +99,7 @@ public class PresensiServlet extends HttpServlet {
         boolean cekPresensi = PresensiDao.addKehadiran(id, releaseDate, attendanceParam);
 
         if (cekPresensi) {
-            response.sendRedirect(request.getContextPath() + "/frontEnd/Guru/DashboardGuru.jsp");
+            response.sendRedirect(request.getContextPath() + "/frontEnd/Guru/viewJadwalGuru.jsp");
         } else {
             response.getWriter().print(releaseDate);
         }
@@ -101,9 +107,31 @@ public class PresensiServlet extends HttpServlet {
     }
 
     protected void editKehadiran(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException, ParseException {
 
+        User user = (User) request.getSession().getAttribute("user");
+
+        PresensiDao presensiDao = new PresensiDao();
+        String idParam = request.getParameter("id");
+        int id = Integer.parseInt(idParam);
+        String attendanceParam = request.getParameter("attendance");
+        String dateString = request.getParameter("date");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // Match HTML date format
+        java.util.Date utilDate = formatter.parse(dateString);
+
+        // Convert java.util.Date to java.sql.Date
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+        boolean isUpdated = presensiDao.editKehadiran(id, sqlDate, attendanceParam);
+
+        if (isUpdated) {
+            response.sendRedirect(request.getContextPath() + "/frontEnd/Guru/viewJadwalGuru.jsp");
+        } else {
+            response.getWriter().print("Failed to update attendance");
+        }
     }
+
+
     
     protected void listKehadiran(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -117,5 +145,34 @@ public class PresensiServlet extends HttpServlet {
         response.sendRedirect("/MamSchool/frontEnd/Guru/presensi.jsp");
 
     }
+    
+    protected void filterAttendance(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        PresensiDao presensiDao = new PresensiDao();
+        String className = request.getParameter("className");
+        String dateString = request.getParameter("filterDate");
+        java.util.Date filterDate = null;
+
+        try {
+            if (dateString != null && !dateString.isEmpty()) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                filterDate = formatter.parse(dateString);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        List<String> classNames = presensiDao.getAllClassNames();
+        List<Student> students = presensiDao.getStudentsByFilter(className, filterDate);
+
+        request.setAttribute("classNames", classNames);
+        request.setAttribute("filteredStudents", students);
+        request.setAttribute("selectedClass", className);
+        request.setAttribute("filterDate", dateString);
+
+        request.getRequestDispatcher("/frontEnd/Guru/presensi.jsp").forward(request, response);
+    }
+
 
 }
+

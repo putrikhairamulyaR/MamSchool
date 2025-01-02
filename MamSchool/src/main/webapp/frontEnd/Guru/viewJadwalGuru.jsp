@@ -210,8 +210,8 @@
 
             <h1 class="text-center text-primary">Jadwal</h1>
             <!-- Tombol Lihat Presensi -->
-            <a href="frontEnd/Guru/viewPresensi.jsp" class="btn btn-success btn-sm mb-3">
-                <i class="bi bi-plus"></i> View
+            <a href="editPresensi.jsp" class="btn btn-success btn-sm mb-3">
+                <i class="bi bi-plus"></i> Edit
             </a>
             <form action="${pageContext.request.contextPath}/PresensiServlet" method="get">
                 <input type="hidden" name="action" value="view">
@@ -230,12 +230,7 @@
                     </thead>
                     <tbody>
                         <%
-                            // Iterate through the classes list to display the class data and schedule info
-                            // Filter to display only today's classes
                             for(Jadwal jad:jadwal) {
-
-                                // Check if the class day is today (in lower case for comparison)
-                                //ini lagi hardcode dulu buat nampilin senin
                         %>
                         <tr>
                             <td><%= jad.getIdKelas()%></td>

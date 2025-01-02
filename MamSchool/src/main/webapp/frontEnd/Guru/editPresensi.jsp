@@ -1,3 +1,6 @@
+<%@page import="model.Presensi"%>
+<%@page import="dao.PresensiDao"%>
+<%@page import="model.Jadwal"%>
 <%@page import="model.User"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Student"%>
@@ -21,23 +24,25 @@
         return;
     }
 %>
+<%
+    User user = (User) request.getSession().getAttribute("user");
+    PresensiDao dao = new PresensiDao();
+    int idGuru = dao.getTeacherIdByUserId(user.getId());
+    List<Student> students = (List<Student>) request.getAttribute("students");
+    List<Jadwal> jadwalList = dao.getAllJadwalByTeacherId(idGuru);
+%>
 
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nilai Mata Pelajaran</title>
+    <title>Dashboard Guru</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
     <style>
-        body {
-            display: flex;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
         /* Sidebar */
         #sidebar {
             width: 250px;
@@ -47,7 +52,7 @@
             top: 0;
             left: 0;
             bottom: 0;
-            z-index: 1030;
+            z-index: 1030; /* Tetap di atas konten utama */
             background-color: #34495e;
             color: #ffffff;
         }
@@ -60,12 +65,12 @@
         /* Content */
         #content {
             flex-grow: 1;
-            margin-left: 250px;
+            margin-left: 250px; /* Ruang default sidebar */
             transition: margin-left 0.3s ease;
         }
 
         #content.expanded {
-            margin-left: 0;
+            margin-left: 0; /* Konten memenuhi layar */
         }
 
         /* Nav Link */
@@ -73,87 +78,24 @@
             color: #ffffff;
             border-radius: 5px;
         }
-
         #sidebar .nav-link:hover {
             background-color: #628ab1;
         }
-
         #sidebar .active {
             border-left: 3px solid #ffffff;
             background-color: #628ab1;
             font-weight: bold;
         }
 
-        /* Filter */
-        .filter-container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .form-select, .btn {
-            border-radius: 5px;
-        }
-
-        .filter-container .row {
-            margin-bottom: 10px;
-        }
-
-        /* Table */
-        .table-container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #dee2e6;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f8f9fa;
-        }
-
-        .action-icons i {
-            cursor: pointer;
-            margin: 0 5px;
-            color: #495057;
-        }
-
-        .action-icons i:hover {
-            color: #007bff;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            #sidebar {
-                width: 200px;
-            }
-
-            #content {
-                margin-left: 0;
-            }
-
-            #toggleSidebar {
-                display: block;
-            }
-
-            .table-container table {
-                font-size: 12px;
-            }
+        .username-display {
+            display: inline-block;
+            padding: 5px 15px; 
+            background-color: #f0f0f0;
+            border-radius: 20px; 
+            color: #333; 
+            font-weight: bold; 
+            font-size: 14px; 
+            border: 1px solid #ccc; 
         }
     </style>
 </head>
@@ -169,14 +111,14 @@
                     <span class="text-sm text-white fw-bold">Pages</span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="${pageContext.request.contextPath}/DashboardKepsek">
-                        <i class="bi bi-house-door"></i>
+                    <a class="nav-link  " href="${pageContext.request.contextPath}/DashboardGuru">
+                        <i data-feather="sliders" class="align-middle"></i>
                         <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-person"></i>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/ProfileUser">
+                        <i data-feather="user" class="align-middle"></i>
                         <span class="align-middle">Profile</span>
                     </a>
                 </li>
@@ -184,29 +126,31 @@
             <hr>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <span class="text-white fw-bold">Menu</span>
+                    <span class=" text-white fw-bold">Menu</span>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
-                        <i class="bi bi-calendar-check"></i>
+                        <i data-feather="calendar" class="align-middle"></i>
                         <span class="align-middle">Jadwal Mengajar</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
-                        <i class="bi bi-person-check"></i>
+                    <a class="nav-link active" href="${pageContext.request.contextPath}/frontEnd/Guru/viewJadwalGuru.jsp">
+                        <i data-feather="user-check" class="align-middle"></i>
                         <span class="align-middle">Presensi Siswa</span>
                     </a>
+
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/nilaiServlet">
-                        <i class="bi bi-bar-chart"></i>
+                        <i data-feather="bar-chart-2" class="align-middle"></i>
                         <span class="align-middle">Nilai Siswa</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/rapotServlet">
-                        <i class="bi bi-file-earmark"></i>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Guru/menuRapot.jsp">
+                        <i data-feather="file-text" class="align-middle"></i>
                         <span class="align-middle">Rapot Siswa</span>
                     </a>
                 </li>
@@ -214,8 +158,11 @@
             <hr>
             <ul class="nav flex-column">
                 <li class="nav-item">
+                    <span class="  text-white fw-bold">Accounts</span>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
-                        <i class="bi bi-box-arrow-right"></i>
+                        <i data-feather="log-out" class="align-middle"></i>
                         <span class="align-middle">Log Out</span>
                     </a>
                 </li>
@@ -239,50 +186,122 @@
             </span>
         </nav>
 
-        <!-- Content -->
-        <div class="container mt-4">
-            <h3>Presensi Siswa</h3>
+        <div class="p-3">
+            <h1 class="text-center text-primary">Edit Attendance Form</h1>
 
-            <%
-                List<Student> students = (List<Student>) request.getSession().getAttribute("listSiswa");
-            %>
-            <% if (students == null || students.isEmpty()) { %>
-                <div class="alert alert-warning text-center">Tidak ada siswa untuk guru ini.</div>
-            <% } else { %>
-                <form action="${pageContext.request.contextPath}/PresensiServlet" method="POST">
-                    <input type="hidden" name="action" value="add">
-
-                    <div class="table-container">
-                        <table class="table table-bordered table-striped">
-                            <thead class="table-dark text-center">
-                                <tr>
-                                    <th>ID Siswa</th>
-                                    <th>Nama</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for (Student student : students) { %>
-                                    <tr>
-                                        <td><%= student.getId()%></td>
-                                        <td><%= student.getName() %></td>
-                                        <td>
-                                            <select name="status_<%= student.getId()%>" class="form-select">
-                                                <option value="Hadir">Hadir</option>
-                                                <option value="Izin">Izin</option>
-                                                <option value="Sakit">Sakit</option>
-                                                <option value="Alpa">Alpa</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                <% } %>
-                            </tbody>
-                        </table>
-                        <button type="submit" class="btn btn-success">Submit Presensi</button>
+            <!-- Filter Section -->
+            <form action="${pageContext.request.contextPath}/PresensiServlet" method="GET" class="mb-4">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-4">
+                        <label for="className" class="form-label">Filter by Class:</label>
+                        <select name="className" id="className" class="form-select">
+                            <option value="">Select Class</option>
+                            <% 
+                                    for (Jadwal jad : jadwalList) { 
+                            %>
+                            <option value="<%= jad.getKelas() %>" <%= jad.getKelas().equals(request.getParameter("className")) ? "selected" : "" %>>
+                                <%= jad.getKelas() %>
+                            </option>
+                            <% 
+                                    } 
+                            %>
+                        </select>
                     </div>
-                </form>
-            <% } %>
+                    <div class="col-md-4">
+                        <label for="filterDate" class="form-label">Filter by Date:</label>
+                        <input type="date" name="filterDate" id="filterDate" class="form-control" 
+                               value="<%= request.getParameter("filterDate") %>">
+                    </div>
+                    <div class="col-md-4 align-self-end">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Attendance Form -->
+            <!-- Form to edit attendance -->
+            <form action="${pageContext.request.contextPath}/PresensiServlet" method="POST">
+                <input type="hidden" name="action" value="edit">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Hadir</th>
+                            <th>Sakit</th>
+                            <th>Alpa</th>
+                            <th>Izin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% 
+                            List<Student> siswa = (List<Student>) request.getSession().getAttribute("listSiswa"); 
+                            if (students != null) {
+                                for (int i = 0; i < siswa.size(); i++) { 
+                                    Student student = siswa.get(i); 
+                        %>
+                            <tr class="text-center">
+                                <td><%= student.getId() %></td>
+                                <td><%= student.getName() %></td>
+                                <input type="hidden" name="id" value="<%= student.getId() %>">
+                                <td>
+                                    <input type="radio" name="attendance_<%= student.getId() %>" value="Hadir" class="form-check-input"
+                                           <% 
+                                               Presensi presensi = dao.getPresensiByStudentId(student.getId());
+                                               if (presensi != null && "Hadir".equals(presensi.getStatus())) { 
+                                           %> checked <% 
+                                               } 
+                                           %>>
+                                </td>
+                                <td>
+                                    <input type="radio" name="attendance_<%= student.getId() %>" value="Sakit" class="form-check-input"
+                                           <% 
+                                               if (presensi != null && "Sakit".equals(presensi.getStatus())) { 
+                                           %> checked <% 
+                                               } 
+                                           %>>
+                                </td>
+                                <td>
+                                    <input type="radio" name="attendance_<%= student.getId() %>" value="Alpa" class="form-check-input"
+                                           <% 
+                                               if (presensi != null && "Alpa".equals(presensi.getStatus())) { 
+                                           %> checked <% 
+                                               } 
+                                           %>>
+                                </td>
+                                <td>
+                                    <input type="radio" name="attendance_<%= student.getId() %>" value="Izin" class="form-check-input"
+                                           <% 
+                                               if (presensi != null && "Izin".equals(presensi.getStatus())) { 
+                                           %> checked <% 
+                                               } 
+                                           %>>
+                                </td>
+                            </tr>
+                        <% 
+                                } 
+                            } 
+                        %>
+                    </tbody>
+                </table>
+
+                <!-- Submit button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit Attendance</button>
+                </div>
+            </form>
+
         </div>
     </div>
+
+    <script>
+        document.getElementById("toggleSidebar").addEventListener("click", function() {
+            document.getElementById("sidebar").classList.toggle("hidden");
+            document.getElementById("content").classList.toggle("expanded");
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

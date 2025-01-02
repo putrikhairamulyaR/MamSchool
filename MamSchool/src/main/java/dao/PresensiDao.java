@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Classes;
 import model.Jadwal;
+import model.Presensi;
+import model.Student;
 
 public class PresensiDao {
 
@@ -27,19 +29,21 @@ public class PresensiDao {
     }
 
     public boolean editKehadiran(int id_siswa, Date tanggal, String kehadiran) {
-        String query = "UPDATE attendance SET status = '" + kehadiran + "' WHERE student_id = " + id_siswa + " AND date = '" + tanggal + "'";
-        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        String query = "UPDATE attendance SET status = ? WHERE student_id = ? AND date = ?";
+        try (Connection connection = JDBC.getConnection(); 
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, id_siswa);
-            preparedStatement.setDate(2, tanggal);
+            java.sql.Date releaseDateSql = new java.sql.Date(tanggal.getTime());
+            preparedStatement.setDate(2, releaseDateSql);
             preparedStatement.setString(3, kehadiran);
-
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
+
     
     public List<Classes> getClassByTeacherId(int id) {
         String query = "SELECT * FROM classes WHERE teacher_id = ?";
@@ -110,28 +114,89 @@ public class PresensiDao {
 }
     
     public int getTeacherIdByUserId(int userId) {
-    int teacherId = -1; // Default value jika tidak ditemukan
-    String query = "SELECT teachers.id AS teacher_id FROM teachers "
-            + "JOIN users ON teachers.user_id = users.id WHERE users.id = ?";
+        int teacherId = -1; // Default value jika tidak ditemukan
+        String query = "SELECT teachers.id AS teacher_id FROM teachers "
+                + "JOIN users ON teachers.user_id = users.id WHERE users.id = ?";
 
-    try (Connection conn = JDBC.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection conn = JDBC.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-        // Set parameter userId
-        pstmt.setInt(1, userId);
+            // Set parameter userId
+            pstmt.setInt(1, userId);
 
-        // Eksekusi query
-        ResultSet rs = pstmt.executeQuery();
-        if (rs.next()) {
-            teacherId = rs.getInt("teacher_id");
+            // Eksekusi query
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                teacherId = rs.getInt("teacher_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+        return teacherId;
     }
 
-    return teacherId;
-}
+    public List<Student> getStudentsByFilter(String className, java.util.Date filterDate) {
+        List<Student> students = new ArrayList<>();
+        String query = "SELECT s.id, s.name, a.date, a.status " +
+                       "FROM students s " +
+                       "JOIN classes c ON s.class_id = c.id " +
+                       "LEFT JOIN attendance a ON s.id = a.student_id " +
+                       "WHERE c.name = ? AND (?::DATE IS NULL OR a.date = ?)";
+        try (Connection connection = JDBC.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, className);
+            preparedStatement.setDate(2, filterDate != null ? new java.sql.Date(filterDate.getTime()) : null);
+            preparedStatement.setDate(3, filterDate != null ? new java.sql.Date(filterDate.getTime()) : null);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Student student = new Student();
+                student.setUserId(resultSet.getInt("id"));
+                student.setName(resultSet.getString("name"));
+                students.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return students;
+    }
+    
+    public List<String> getAllClassNames() {
+        List<String> classNames = new ArrayList<>();
+        String query = "SELECT DISTINCT name FROM classes";
+        try (Connection connection = JDBC.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                classNames.add(resultSet.getString("name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return classNames;
+    }
 
+    public Presensi getPresensiByStudentId(int studentId) {
+        Presensi presensi = null;
+        String sql = "SELECT * FROM presensi WHERE student_id = ?";
+
+        try (Connection connection = JDBC.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, studentId);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                Date date = rs.getDate("date");
+                String status = rs.getString("status");
+                presensi = new Presensi(id, studentId, date, status);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return presensi;
+    }
     
 
 }
