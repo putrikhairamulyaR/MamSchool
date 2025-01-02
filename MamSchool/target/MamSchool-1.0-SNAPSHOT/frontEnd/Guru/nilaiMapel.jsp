@@ -4,6 +4,8 @@
     Author     : putri
 --%>
 
+<%@page import="model.Teacher"%>
+<%@page import="dao.gradeDao"%>
 <%@page import="model.User"%>
 <%@page import="model.Classes"%>
 <%@page import="dao.ClassesDAO"%>
@@ -142,9 +144,10 @@
                         <div class="col-md-6">
                             <label for="kelas" class="form-label">Pilih Kelas</label>
                             <%
-                                ClassesDAO KelasDao = new ClassesDAO();
-                                List<Classes> Kelas = KelasDao.getAllClasses();
+                                gradeDao KelasDao = new gradeDao();
                                 User user= (User) request.getSession().getAttribute("user");
+                                Teacher guru =  KelasDao.getTeacherByUserId(user.getId());
+                                List<Classes> Kelas = KelasDao.getAllClassesByTeacherID(guru.getId());
                             %>
 
                             <select class="form-select" id="kelas" name="kelas">
@@ -177,7 +180,6 @@
                 <a href="<%= request.getContextPath() %>/frontEnd/Guru/addNilaiSiswa.jsp" class="btn btn-success">
                     <i class="bi bi-plus-circle me-2"></i> Tambah Nilai Siswa
                 </a>
-                    <%= user.getId() %>
                   
             </div>
 
@@ -200,6 +202,7 @@
                         // Ambil atribut dari session
                         List<nilai> grades = (List<nilai>) request.getSession().getAttribute("grades");
                     %>
+                    
                         
                         <tbody>
                             <% if (grades != null && !grades.isEmpty()) {
