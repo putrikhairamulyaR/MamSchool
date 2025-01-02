@@ -211,7 +211,7 @@
             <h1 class="text-center text-primary">Jadwal</h1>
             <!-- Tombol Lihat Presensi -->
             <a href="editPresensi.jsp" class="btn btn-success btn-sm mb-3">
-                <i class="bi bi-plus"></i> Edit
+                <i class="bi bi-plus"></i> view
             </a>
             <form action="${pageContext.request.contextPath}/PresensiServlet" method="get">
                 <input type="hidden" name="action" value="view">

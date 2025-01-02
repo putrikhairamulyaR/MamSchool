@@ -137,29 +137,36 @@ public class PresensiDao {
     }
 
     public List<Student> getStudentsByFilter(String className, java.util.Date filterDate) {
-        List<Student> students = new ArrayList<>();
-        String query = "SELECT s.id, s.name, a.date, a.status " +
-                       "FROM students s " +
-                       "JOIN classes c ON s.class_id = c.id " +
-                       "LEFT JOIN attendance a ON s.id = a.student_id " +
-                       "WHERE c.name = ? AND (?::DATE IS NULL OR a.date = ?)";
-        try (Connection connection = JDBC.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, className);
-            preparedStatement.setDate(2, filterDate != null ? new java.sql.Date(filterDate.getTime()) : null);
-            preparedStatement.setDate(3, filterDate != null ? new java.sql.Date(filterDate.getTime()) : null);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Student student = new Student();
-                student.setUserId(resultSet.getInt("id"));
-                student.setName(resultSet.getString("name"));
-                students.add(student);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    List<Student> students = new ArrayList<>();
+    String query = "SELECT s.id, s.name, a.date, a.status " +
+                   "FROM students s " +
+                   "JOIN classes c ON s.class_id = c.id " +
+                   "LEFT JOIN attendance a ON s.id = a.student_id " +
+                   "WHERE c.name = ? AND (a.date = ? OR ? IS NULL)";
+    try (Connection connection = JDBC.getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+        preparedStatement.setString(1, className);
+        java.sql.Date sqlDate = (filterDate != null) ? new java.sql.Date(filterDate.getTime()) : null;
+        preparedStatement.setDate(2, sqlDate);
+        preparedStatement.setDate(3, sqlDate);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            Presensi presen = new Presensi();
+            Student student = new Student();
+            presen.setStudentId(resultSet.getInt("id"));
+            student.setName(resultSet.getString("name"));
+            // Tambahkan informasi presensi
+            presen.setStatus(resultSet.getString("status"));
+            students.add(student);
         }
-        return students;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return students;
+}
+
     
     public List<String> getAllClassNames() {
         List<String> classNames = new ArrayList<>();
@@ -197,27 +204,27 @@ public class PresensiDao {
 
         return presensi;
     }
-        public int getTotalKehadiranByStudent(int id, String status) {
-        String query = "SELECT COUNT(status) AS total_kehadiran FROM attendance WHERE student_id = ? AND status = ?";
-        int totalKehadiran = 0; // untuk menyimpan total kehadiran
-
+    
+    public Presensi getPresensiByStudentIdAndDate(int studentId, Date date) {
+        Presensi presensi = null;
+        String sql = "SELECT * FROM attendance WHERE student_id = ? AND date = ?";
         try (Connection conn = JDBC.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-            // Set parameter untuk query
-            pstmt.setInt(1, id);
-            pstmt.setString(2, status);
-
-            // Eksekusi query
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                totalKehadiran = rs.getInt("total_kehadiran"); // ngambil nilai total kehadiran
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, studentId);
+            stmt.setDate(2, date);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    presensi = new Presensi();
+                    presensi.setId(rs.getInt("id"));
+                    presensi.setStudentId(rs.getInt("student_id"));
+                    presensi.setDate(rs.getDate("date"));
+                    presensi.setStatus(rs.getString("status"));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return totalKehadiran; // buat dapat  total kehadiran
+        return presensi;
     }
 
 }
