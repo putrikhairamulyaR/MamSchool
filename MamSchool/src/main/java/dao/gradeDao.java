@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Classes;
 import model.Student;
+import model.Teacher;
 import model.nilai;
 
 /**
@@ -372,5 +373,45 @@ public class gradeDao {
 
         return classesList;
     }
+        
+      public Teacher getTeacherByUserId(int id) {
+    String query = "SELECT " +
+                   "    t.id, t.user_id, t.nip, t.name, t.date_of_birth, t.subject, t.hire_date " +
+                   "FROM " +
+                   "    teachers t " +
+                   "JOIN " +
+                   "    users u " +
+                   "ON " +
+                   "    t.user_id = u.id " +
+                   "WHERE " +
+                   "    u.id = ?";
+
+    try (Connection connection = JDBC.getConnection();
+         PreparedStatement stmt = connection.prepareStatement(query)) {
+        // Set parameter
+        stmt.setInt(1, id);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                Teacher teacher = new Teacher();
+                teacher.setId(rs.getInt("id"));
+                teacher.setUserId(rs.getInt("user_id"));
+                teacher.setNip(rs.getString("nip"));
+                teacher.setName(rs.getString("name"));
+                teacher.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
+                teacher.setSubject(rs.getString("subject"));
+                teacher.setHireDate(rs.getDate("hire_date").toLocalDate());
+                return teacher;
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    // kalo guru tidak ada atau nulll
+    return null;
+}
+
+
 
 }
