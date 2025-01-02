@@ -4,30 +4,12 @@
     Author     : putri
 --%>
 
+<%@page import="model.Teacher"%>
 <%@page import="model.User"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Student"%>
 <%@page import="dao.gradeDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
-    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
-    response.setDateHeader("Expires", 0); // Proxies
-
-    if (session == null || session.getAttribute("username") == null) {
-        response.sendRedirect("../Login.jsp");
-        return;
-    }
-
-    String username = (String) session.getAttribute("username");
-    String role = (String) session.getAttribute("role");
-
-    if (!"guru".equals(role)) {
-        response.sendRedirect("../Login.jsp");
-        return;
-    }
-%>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -228,19 +210,8 @@
             </ul>
         </div>
     </nav>
-
-    <!-- Main Content -->
+        <!-- Main Content -->
     <div id="content" class="flex-grow-1">
-        <!-- Navbar -->
-        <nav class="navbar navbar-light bg-light px-3 border-bottom">
-            <button class="navbar-toggler border-0 outline-0" id="toggleSidebar" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <span class="navbar-brand mb-0 h1">
-                <% if (username != null) { out.print("<span class='username-display'>" + username + "</span>"); } else { out.print("<span class='username-display'>Dashboard</span>"); } %>
-            </span>
-        </nav>
-
         <!-- Konten -->
         <div class="content">
         <h3>Tambah Nilai Siswa</h3>
@@ -250,6 +221,7 @@
                 gradeDao dao = new gradeDao();
                 List<Student> siswaList = dao.getSiswaByKelas(className); 
                 User user = (User) request.getSession().getAttribute("user"); 
+                Teacher guru = dao.getTeacherByUserId(user.getId());
                 
                
             %>
@@ -257,7 +229,7 @@
                 <!-- Input Action -->
                 <input type="hidden" name="kelas" value="<%= className %>">
                 <input type="hidden" name="action" value="add">
-                <input type="hidden" name="idGuru" value="<%= user.getId()   %>">
+                <input type="hidden" name="idGuru" value="<%= guru.getId()   %>">
 
                 <!-- Dropdown Nama Siswa -->
                 <div class="mb-3">
@@ -310,6 +282,7 @@
             </form>
         </div>
     </div>
+</div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
