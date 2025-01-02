@@ -94,16 +94,16 @@ public class rapotDiSiswa extends HttpServlet {
 
         // Ambil data presensi
         PresensiDao presensiDao = new PresensiDao();
-        int kehadiranHadir = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Hadir");
-        int totalSakit = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Sakit");
-        int totalIzin = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Izin");
-        int totalAlpa = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Alpa");
-
+      //  int kehadiranHadir = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Hadir");
+      //  int totalSakit = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Sakit");
+      //  int totalIzin = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Izin");
+      //  int totalAlpa = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Alpa");
+//
         // Simpan presensi ke session
-        request.getSession().setAttribute("kehadiranHadir", kehadiranHadir);
-        request.getSession().setAttribute("totalSakit", totalSakit);
-        request.getSession().setAttribute("totalIzin", totalIzin);
-        request.getSession().setAttribute("totalAlpa", totalAlpa);
+      //  request.getSession().setAttribute("kehadiranHadir", kehadiranHadir);
+      //  request.getSession().setAttribute("totalSakit", totalSakit);
+      //  request.getSession().setAttribute("totalIzin", totalIzin);
+      //  request.getSession().setAttribute("totalAlpa", totalAlpa);
 
         // Redirect ke JSP
         response.sendRedirect("frontEnd/Murid/NilaiSiswa.jsp");

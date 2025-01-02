@@ -192,6 +192,12 @@
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/MamSchool/frontEnd/Kepsek/listJadwal.jsp">
+                            <i data-feather="users" class="align-middle"></i>
+                            <span class="align-middle">Informasi Jadwal</span>
+                        </a>
+                    </li>
                 </ul>
                 <hr>
                 <ul class="nav flex-column">
@@ -231,6 +237,9 @@
             <div class="p-3">
                 <div class="table-container">
                     <h3>Daftar Jadwal Kelas</h3>
+                     <a href="frontEnd/Kepsek/addJadwal.jsp" class="btn btn-success btn-sm mb-3">
+                        <i class="bi bi-plus"></i> Tambah Jadwal
+                    </a>
                     <form action="${pageContext.request.contextPath}/ClassScheduleServlet" method="get" class="mb-4">
                         <div class="row">
                             <div class="col-md-4">

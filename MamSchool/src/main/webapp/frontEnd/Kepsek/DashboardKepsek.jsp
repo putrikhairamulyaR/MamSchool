@@ -158,6 +158,12 @@
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>
                     </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/MamSchool/frontEnd/Kepsek/listJadwal.jsp">
+                            <i data-feather="users" class="align-middle"></i>
+                            <span class="align-middle">Informasi Jadwal</span>
+                        </a>
+                    </li>
                 </ul>
                 <hr>
                 <ul class="nav flex-column">

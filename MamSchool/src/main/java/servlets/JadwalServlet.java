@@ -45,7 +45,7 @@ public class JadwalServlet extends HttpServlet {
             
            
             default:
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("/MamSchool/frontEnd/Kepsek/listJadwal.jsp");
                 break;
         }
     }
@@ -65,7 +65,7 @@ public class JadwalServlet extends HttpServlet {
                 deleteJadwal(request, response);
                 break;
             default:
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("/MamSchool/frontEnd/Kepsek/listJadwal.jsp");
                 break;
         }
     }
@@ -138,10 +138,8 @@ private void addJadwal(HttpServletRequest request, HttpServletResponse response)
         boolean cek = jadwalDAO.addJadwal(jadwal);
         if (cek) {
             response.sendRedirect("Jadwal?action=list");  
-        } else {
-            request.setAttribute("errorMessage", "Jadwal bentrok dengan jadwal lain!");
-            request.getRequestDispatcher("addJadwal.jsp").forward(request, response);
-        
+         } else {
+            response.getWriter().print("Jadwal tidak dapat ditambahkan. Silahkan coba lagi");
         }
     } catch (SQLException e) {
         throw new ServletException("Error adding Jadwal", e);
@@ -150,7 +148,7 @@ private void addJadwal(HttpServletRequest request, HttpServletResponse response)
 }
 
     private void updateJadwal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    try {
+   
         
         String idParam = request.getParameter("id");
         String kelasParam = request.getParameter("kelas");
@@ -158,17 +156,7 @@ private void addJadwal(HttpServletRequest request, HttpServletResponse response)
         String startTime = request.getParameter("jam");
         String endTime = request.getParameter("jamSelesai");
 
-       
-        if (idParam == null || idParam.trim().isEmpty() || 
-            kelasParam == null || kelasParam.trim().isEmpty() || 
-            hari == null || hari.trim().isEmpty() || 
-            startTime == null || startTime.trim().isEmpty() || 
-            endTime == null || endTime.trim().isEmpty()) {
-            
-            request.setAttribute("errorMessage", "Semua kolom wajib diisi!");
-            request.getRequestDispatcher("editJadwal.jsp").forward(request, response);
-            return; 
-        }
+     
 
         
         int id = Integer.parseInt(idParam);
@@ -176,20 +164,10 @@ private void addJadwal(HttpServletRequest request, HttpServletResponse response)
         LocalTime start = LocalTime.parse(startTime);
         LocalTime end = LocalTime.parse(endTime);
 
-       
-        if (end.isBefore(start)) {
-            request.setAttribute("errorMessage", "Jam selesai tidak boleh lebih awal dari jam mulai!");
-            request.getRequestDispatcher("editJadwal.jsp").forward(request, response);
-            return; 
-        }
-
+      
+    try {
         
         Jadwal jadwal = jadwalDAO.getJadwalById(id);
-        if (jadwal == null) {
-            request.setAttribute("errorMessage", "Jadwal tidak ditemukan!");
-            request.getRequestDispatcher("editJadwal.jsp").forward(request, response);
-            return; 
-        }
 
         jadwal.setidKelas(kelas);
         jadwal.setDay(hari);
@@ -200,17 +178,15 @@ private void addJadwal(HttpServletRequest request, HttpServletResponse response)
         boolean updated = jadwalDAO.updateJadwal(jadwal);
         if (updated) {
             response.sendRedirect("Jadwal?action=list"); 
-        } else {
-            request.setAttribute("errorMessage", "Jadwal bentrok atau gagal diperbarui.");
-            request.getRequestDispatcher("editJadwal.jsp").forward(request, response);
+         } else {
+            response.getWriter().print("Jadwal tidak dapat ditambahkan. Silahkan coba lagi");
         }
     }catch (NumberFormatException e) {
-        request.setAttribute("errorMessage", "Format data tidak valid!");
-        request.getRequestDispatcher("editJadwal.jsp").forward(request, response);
+        throw new ServletException("Error adding Jadwal", e);
     }
         
 }
-
+    
 
     
 

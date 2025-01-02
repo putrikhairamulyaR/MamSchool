@@ -186,5 +186,27 @@ public class TeacherDAO {
         }
         return -1; // Mengembalikan -1 jika userId tidak ditemukan
     }
+    public List<Teacher> getTeachersSubject() {
+        String query = "SELECT * FROM teachers";
+        List<Teacher> allTeachers = new ArrayList<>();
 
+        try (Connection connection = JDBC.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Teacher teacher = new Teacher();
+                teacher.setId(rs.getInt("id"));
+                //teacher.setUserId(rs.getInt("user_id"));
+                teacher.setNip(rs.getString("nip"));
+                teacher.setName(rs.getString("name"));
+               // teacher.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
+                teacher.setSubject(rs.getString("subject"));
+               // teacher.setHireDate(rs.getDate("hire_date").toLocalDate());
+                allTeachers.add(teacher);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allTeachers;
+    }
 }

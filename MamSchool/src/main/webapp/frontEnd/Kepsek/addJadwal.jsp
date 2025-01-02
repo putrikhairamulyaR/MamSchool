@@ -1,4 +1,9 @@
-<%@page import="dao.ListTeacherDAO"%>
+<%-- 
+    Document   : addJadwal
+    Created on : Dec 31, 2024, 6:59:01 PM
+    Author     : Necha
+--%>
+
 <%@page import="model.Classes"%>
 <%@page import="dao.ClassesDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,7 +14,7 @@
 <%
     ClassesDAO classesDao = new ClassesDAO();
     TeacherDAO  TeacherDAO = new TeacherDAO();
-    List<Teacher> teachers = TeacherDAO.getAllTeachers(); 
+    List<Teacher> teachers = TeacherDAO.getTeachersSubject(); 
     List<Classes> classes = classesDao.getAllClasses();
 
     String selectedNip = request.getParameter("nip");
@@ -39,98 +44,186 @@
         <title>Tambah Jadwal</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+           <!-- Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
         <style>
-            body {
-                display: flex;
-                height: 100vh;
-                margin: 0;
-                font-family: Arial, sans-serif;
-            }
             /* Sidebar */
-            .sidebar {
+            #sidebar {
                 width: 250px;
-                background-color: #34495e;
-                color: white;
-                display: flex;
-                flex-direction: column;
-                padding: 15px;
+                transition: transform 0.3s ease, visibility 0.3s ease;
+                overflow: auto;
                 position: fixed;
-                height: 100%;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 1030; /* Tetap di atas konten utama */
+                background-color: #34495e;
+                color: #ffffff;
             }
-            .sidebar h4 {
-                text-align: center;
-                margin-bottom: 20px;
+
+            #sidebar.hidden {
+                transform: translateX(-100%);
+                visibility: hidden;
             }
-            .sidebar a {
-                text-decoration: none;
-                color: white;
-                font-size: 16px;
-                padding: 10px 15px;
+
+            /* Content */
+            #content {
+                flex-grow: 1;
+                margin-left: 250px; /* Ruang default sidebar */
+                transition: margin-left 0.3s ease;
+            }
+
+            #content.expanded {
+                margin-left: 0; /* Konten memenuhi layar */
+            }
+
+            /* Nav Link */
+            #sidebar .nav-link {
+                color: #ffffff;
                 border-radius: 5px;
-                margin-bottom: 5px;
-                display: flex;
-                align-items: center;
+
             }
-            .sidebar a:hover {
-                background-color: #2980b9;
+            #sidebar .nav-link:hover{
+                background-color: #628ab1;
             }
-            /* Konten */
-            .content {
-                margin-left: 260px;
-                padding: 20px;
-                flex: 1;
-                background-color: #f8f9fa;
-                overflow-y: auto;
-            }
-            /* Form Styling */
-            .form-container {
-                background: white;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-            .form-label {
+            #sidebar .active{
+                border-left: 3px solid #ffffff;
+                background-color: #628ab1;
                 font-weight: bold;
             }
-            .btn-custom {
+
+            .username-display {
                 display: inline-block;
-                margin-top: 10px;
+                padding: 5px 15px;
+                background-color: #f0f0f0;
+                border-radius: 20px;
+                color: #333;
+                font-weight: bold;
+                font-size: 14px;
+                border: 1px solid #ccc;
             }
         </style>
     </head>
-    <body>
+    <body class="d-flex">
         <!-- Sidebar -->
-        <div class="sidebar">
-            <h4>Dashboard Siswa</h4>
-            <a href="#"><i class="bi bi-house-door-fill"></i> Beranda</a>
-            <a href="#"><i class="bi bi-list-check"></i> Kelas</a>
-            <a href="#"><i class="bi bi-clipboard2-check"></i> Nilai</a>
-            <a href="#"><i class="bi bi-book"></i> Mapel</a>
-            <hr>
-            <a href="#"><i class="bi bi-gear"></i> Setting</a>
-            <a href="#"><i class="bi bi-question-circle"></i> Bantuan</a>
-            <a href="#"><i class="bi bi-box-arrow-left"></i> Logout</a>
-        </div>
+        <nav id="sidebar" class="border-end vh-100 shadow">
+            <div class="p-3">
+                <a class="navbar-brand d-flex align-items-center mb-3" href="#">
+                    <span class="align-middle">Mam School</span>
+                </a>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class=" text-sm text-white fw-bold">Pages</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active " href="${pageContext.request.contextPath}/DashboardKepsek">
+                            <i data-feather="sliders" class="align-middle"></i>
+                            <span class="align-middle">Dashboard</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class=" text-white fw-bold">Siswa</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ListStudentServlet">
+                            <i data-feather="users" class="align-middle"></i>
+                            <span class="align-middle">List Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ClassesServlet">
+                            <i data-feather="shuffle" class="align-middle"></i>
+                            <span class="align-middle">Bagi Kelas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/StudentServlet">
+                            <i data-feather="user-check" class="align-middle"></i>
+                            <span class="align-middle">Siswa dan Kelas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/GradesServlet">
+                            <i data-feather="bar-chart-2" class="align-middle"></i>
+                            <span class="align-middle">Nilai Siswa</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class="  text-white fw-bold">Guru</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ListTeacherServlet">
+                            <i data-feather="users" class="align-middle"></i>
+                            <span class="align-middle">List Guru</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i data-feather="users" class="align-middle"></i>
+                            <span class="align-middle">Jadwal Mengajar</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/MamSchool/frontEnd/Kepsek/listJadwal.jsp">
+                            <i data-feather="users" class="align-middle"></i>
+                            <span class="align-middle">Informasi Jadwal</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class="  text-white fw-bold">Accounts</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
+                            <i data-feather="log-out" class="align-middle"></i>
+                            <span class="align-middle">Log Out</span>
+                        </a>
+                    </li>
+                      
+                </ul>
+            </div>
+        </nav>
 
-        <!-- Konten Utama -->
-        <div class="content">
-            <h3>Tambah Jadwal</h3>
-            <!-- Menampilkan Pesan Error jika ada bentrok -->
-        <div class="alert alert-danger" style="<%= request.getAttribute("errorMessage") == null ? "display: none;" : "" %>" role="alert">
-            <%= request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : "" %>
-        </div>
-            <div class="form-container">
+    <!-- Main Content -->
+        <div id="content" class="flex-grow-1">
+            <!-- Navbar -->
+            <nav class="navbar navbar-light bg-light px-3 border-bottom">
+                <button class="navbar-toggler border-0 outline-0" id="toggleSidebar" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <span class="navbar-brand mb-0 h1">
+                   
+                </span>
+            </nav>
+
+
+        <!-- Page Content -->
+            <div class="p-3">
+                <div class="table-container">
+                    <h3>Tambah Jadwal</h3>
+            
+        
                 <form id="addJadwalForm" action="${pageContext.request.contextPath}/Jadwal" method="post">
                       <input type="hidden" name="action" value="add">
-                    <!-- Pilih NIP Guru -->
+                    
+                      <!-- Pilih NIP Guru -->
                     <div class="mb- 3">
-                        <label for="nip" class="form-label">NIP Guru</label>
+                        <label for="nip" class="form-label">NIP - Nama - Mapel Guru</label>
                          <select name="nip" id="class" class="form-select" required onchange="fetchTeacherDetails()">
                             <%  for (Teacher teacher : teachers) {%>
-                            <option value="<%= teacher.getNip()%> "><%= teacher.getNip()%>  <%= teacher.getName()%>  <%= teacher.getSubject()%> </option>                        
+                            <option value="<%= teacher.getNip()%> "><%= teacher.getNip()%> - <%= teacher.getName()%> - <%= teacher.getSubject()%> </option>                        
                             <%  }%>
                          </select>
                      </div>
+                         
 
                     
                     <!-- Input Kelas -->
@@ -181,11 +274,60 @@
                         <label for="jamSelesai" class="form-label">Jam Selesai</label>
                         <input type="time" name="jamSelesai" id="jamSelesai" class="form-control" required>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Simpan Jadwal</button>
-                </form>
+                    
+                    <div class="text-end">
+                    <button type="button" class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                        <i class="bi bi-save me-2"></i> Simpan
+                    </button>
+                    <a href="ClassSchedule.jsp" class="btn btn-secondary btn-custom">
+                        <i class="bi bi-arrow-left me-2"></i> Kembali
+                        
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+                    
+        <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Penyimpanan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah anda yakin ingin menyimpan jadwal ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary" form="addJadwalForm">Ya, Simpan</button>
+                </div>
             </div>
         </div>
+    </div>
+                   
+     <!-- Bootstrap JS -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://unpkg.com/feather-icons"></script>
+            <!-- Activate Feather Icons -->
+            <script>
+                feather.replace({color: '#ffffff'});
+
+                const toggleButton = document.getElementById("toggleSidebar");
+                const sidebar = document.getElementById("sidebar");
+                const content = document.getElementById("content");
+
+                toggleButton.addEventListener("click", () => {
+                    // Toggle Sidebar
+                    if (sidebar.classList.contains("hidden")) {
+                        sidebar.classList.remove("hidden");
+                        content.classList.remove("expanded");
+                    } else {
+                        sidebar.classList.add("hidden");
+                        content.classList.add("expanded");
+                    }
+                });
+            </script>
     </body>
 </html> 
 
