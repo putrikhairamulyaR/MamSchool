@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Classes;
 import model.Student;
 import model.nilai;
 
@@ -327,6 +328,49 @@ public class gradeDao {
         }
       return siswaList;
   }
+        public List<Classes> getAllClassesByTeacherID(int id) {
+        List<Classes> classesList = new ArrayList<>();
+        String query = "SELECT DISTINCT " +
+                       "    c.id AS class_id, " +
+                       "    c.name AS class_name, " +
+                       "    c.major, " +
+                       "    c.tingkat " +
+                       "FROM " +
+                       "    class_schedule s " +
+                       "JOIN " +
+                       "    classes c " +
+                       "ON " +
+                       "    s.class_id = c.id " +
+                       "WHERE " +
+                       "    s.teacher_id = ?;";
 
+        try (Connection connection = JDBC.getConnection()) {
+            if (connection == null) {
+                System.out.println("Failed to establish database connection.");
+                return classesList;
+            }
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setInt(1, id);
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        Classes classes = new Classes(
+                                resultSet.getInt("class_id"),      // untuk ngambil class_id
+                                resultSet.getString("class_name"), // untuk ngambil class_name
+                                resultSet.getString("major"),      // untuk ngambil major
+                                id,                                // untuk ngambil langsung dari parameter
+                                resultSet.getInt("tingkat")        // untuk ngambil tingkat
+                        );
+                        classesList.add(classes);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return classesList;
+    }
 
 }
