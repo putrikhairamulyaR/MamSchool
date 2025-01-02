@@ -1,6 +1,7 @@
 package dao;
 
 import classes.JDBC;
+import static com.mysql.cj.conf.PropertyKey.logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -72,10 +73,24 @@ public class gradeDao {
     }
         // untuk dapat nilai berdasarkan idnya
     public nilai getGradeById(int id) {
-        String query = "SELECT g.id_nilai, s.nis, s.name AS nama_siswa, g.uts, g.uas, g.tugas, g.grade, g.kategori " +
-                       "FROM grades g " +
-                       "JOIN students s ON g.nis = s.nis " +
-                       "WHERE g.id_nilai = ?";
+            String query = "SELECT " +
+                   "    g.id_nilai, " +
+                   "    s.nis, " +
+                   "    s.name AS nama_siswa, " +
+                   "    c.name AS kelas, " +
+                   "    g.uts, " +
+                   "    g.uas, " +
+                   "    g.tugas, " +
+                   "    g.grade, " +
+                   "    g.kategori " +
+                   "FROM " +
+                   "    grades g " +
+                   "JOIN " +
+                   "    students s ON g.nis = s.nis " +
+                   "JOIN " +
+                   "    classes c ON g.kelas = c.name " +
+                   "WHERE " +
+                   "    g.id_nilai = ?";
         nilai grade = null;
 
         try (Connection connection = JDBC.getConnection();
@@ -91,6 +106,7 @@ public class gradeDao {
                     int idNilai = rs.getInt("id_nilai");
                     String nis = rs.getString("nis");
                     String name = rs.getString("nama_siswa");
+                    String kelas = rs.getString("kelas");
                     double uts = rs.getDouble("uts");
                     double uas = rs.getDouble("uas");
                     double tugas = rs.getDouble("tugas");
@@ -101,6 +117,7 @@ public class gradeDao {
                     grade = new nilai();
                     grade.setIdNilai(idNilai);
                     grade.setNis(nis);
+                    grade.setNamaKelas(kelas);
                     grade.setName(name);
                     grade.setUts(uts);
                     grade.setUas(uas);
@@ -329,52 +346,53 @@ public class gradeDao {
         }
       return siswaList;
   }
-        public List<Classes> getAllClassesByTeacherID(int id) {
-        List<Classes> classesList = new ArrayList<>();
-        String query = "SELECT DISTINCT " +
-                       "    c.id AS class_id, " +
-                       "    c.name AS class_name, " +
-                       "    c.major, " +
-                       "    c.tingkat " +
-                       "FROM " +
-                       "    class_schedule s " +
-                       "JOIN " +
-                       "    classes c " +
-                       "ON " +
-                       "    s.class_id = c.id " +
-                       "WHERE " +
-                       "    s.teacher_id = ?;";
+ public List<Classes> getAllClassesByTeacherID(int id) {
+    List<Classes> classesList = new ArrayList<>();
+    String query = "SELECT DISTINCT " +
+                   "    c.id AS class_id, " +
+                   "    c.name AS class_name, " +
+                   "    c.major, " +
+                   "    c.tingkat " +
+                   "FROM " +
+                   "    class_schedule s " +
+                   "JOIN " +
+                   "    classes c " +
+                   "ON " +
+                   "    s.class_id = c.id " +
+                   "WHERE " +
+                   "    s.teacher_id = ?;";
 
-        try (Connection connection = JDBC.getConnection()) {
-            if (connection == null) {
-                System.out.println("Failed to establish database connection.");
-                return classesList;
-            }
-
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setInt(1, id);
-
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    while (resultSet.next()) {
-                        Classes classes = new Classes(
-                                resultSet.getInt("class_id"),      // untuk ngambil class_id
-                                resultSet.getString("class_name"), // untuk ngambil class_name
-                                resultSet.getString("major"),      // untuk ngambil major
-                                id,                                // untuk ngambil langsung dari parameter
-                                resultSet.getInt("tingkat")        // untuk ngambil tingkat
-                        );
-                        classesList.add(classes);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    try (Connection connection = JDBC.getConnection()) {
+        if (connection == null) {
+            System.out.println("Failed to establish database connection.");
+            return classesList;
         }
 
-        return classesList;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Classes classes = new Classes(
+                            resultSet.getInt("class_id"),      // untuk ngambil class_id
+                            resultSet.getString("class_name"), // untuk ngambil class_name
+                            resultSet.getString("major"),      // untuk ngambil major
+                            id,                                // untuk ngambil langsung dari parameter
+                            resultSet.getInt("tingkat")        // untuk ngambil tingkat
+                    );
+                    classesList.add(classes);
+                }
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
-        
-      public Teacher getTeacherByUserId(int id) {
+
+    return classesList;
+}
+
+ 
+  public Teacher getTeacherByUserId(int id) {
     String query = "SELECT " +
                    "    t.id, t.user_id, t.nip, t.name, t.date_of_birth, t.subject, t.hire_date " +
                    "FROM " +
@@ -388,7 +406,7 @@ public class gradeDao {
 
     try (Connection connection = JDBC.getConnection();
          PreparedStatement stmt = connection.prepareStatement(query)) {
-        // Set parameter
+        // Set parameter untu ID
         stmt.setInt(1, id);
 
         try (ResultSet rs = stmt.executeQuery()) {
@@ -408,10 +426,9 @@ public class gradeDao {
         e.printStackTrace();
     }
 
-    // kalo guru tidak ada atau nulll
+    // Return null if no teacher is found
     return null;
 }
-
 
 
 }

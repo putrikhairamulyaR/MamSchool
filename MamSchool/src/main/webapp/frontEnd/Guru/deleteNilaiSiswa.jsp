@@ -1,25 +1,12 @@
+<%-- 
+    Document   : deleteNilaiSiswa
+    Created on : 9 Dec 2024
+    Author     : putri
+--%>
+
 <%@page import="model.nilai"%>
 <%@page import="dao.gradeDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
-    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
-    response.setDateHeader("Expires", 0); // Proxies
-
-    if (session == null || session.getAttribute("username") == null) {
-        response.sendRedirect("../Login.jsp");
-        return;
-    }
-
-    String username = (String) session.getAttribute("username");
-    String role = (String) session.getAttribute("role");
-
-    if (!"guru".equals(role)) {
-        response.sendRedirect("../Login.jsp");
-        return;
-    }
-%>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -223,15 +210,6 @@
 
     <!-- Main Content -->
     <div id="content" class="flex-grow-1">
-        <!-- Navbar -->
-        <nav class="navbar navbar-light bg-light px-3 border-bottom">
-            <button class="navbar-toggler border-0 outline-0" id="toggleSidebar" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <span class="navbar-brand mb-0 h1">
-                <% if (username != null) { out.print("<span class='username-display'>" + username + "</span>"); } else { out.print("<span class='username-display'>Dashboard</span>"); } %>
-            </span>
-        </nav>
 
         <!-- Konten -->
         <div class="content">
@@ -274,7 +252,7 @@
                 </div>
                 <div class="mb-3">
                     <div class="info-label">Kelas:</div>
-                    <div><%= grade.getKelas() %></div>
+                    <div><%= grade.getNamaKelas() %></div>
                 </div>
                 <div class="mb-3">
                     <div class="info-label">Nilai UTS:</div>
