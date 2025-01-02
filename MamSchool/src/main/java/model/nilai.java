@@ -29,6 +29,7 @@ public class nilai {
     private String kategori; // Kategori (misalnya lulus tidak)
     private double grade;    // Total nilai
     private String nama;
+    private String subject;
 
     // Constructor
     public nilai(Student student,String nis, int idNilai, Classes kelas, double uts, double uas, double tugas, String kategori, double total) {
@@ -41,6 +42,7 @@ public class nilai {
         this.tugas = tugas;
         this.kategori = kategori;
         this.grade = grade;
+        
     }
 
     public nilai() {}
@@ -62,6 +64,14 @@ public class nilai {
         return nama;
     }
 
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
     public void setNis(String nis) {
         this.nis = nis;
     }
