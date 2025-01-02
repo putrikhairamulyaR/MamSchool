@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import model.Student;
 import model.nilai;
 
 /**
@@ -75,4 +76,38 @@ public class rapotSiswaDao {
          return null; // Return null in case of error
      }
  }
+        public Student getStudentUserId(int id) {
+         String query = "SELECT * FROM students WHERE user_id = ?";
+         Student student = null;
+
+         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+             if (connection == null) {
+                 return null;
+             }
+
+             preparedStatement.setInt(1, id);
+             ResultSet resultSet = preparedStatement.executeQuery();
+
+             if (resultSet.next()) {
+
+                 student = new Student(
+                         resultSet.getInt("id"),
+                         resultSet.getInt("user_id"),
+                         resultSet.getString("nis"),
+                         resultSet.getString("name"),
+                         resultSet.getDate("date_of_birth").toLocalDate(),
+                         resultSet.getInt("enrollment_year"),
+                         (Integer) resultSet.getObject("class_id"),
+                         resultSet.getString("major")
+                 );
+             }
+
+         } catch (SQLException e) {
+             e.printStackTrace();
+         }
+
+         return student;
+     }
+
 }
