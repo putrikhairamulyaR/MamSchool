@@ -88,7 +88,7 @@
             button:hover {
                 background-color: #006400;
             }
-            /*
+            
             .btn-back {
                 display: inline-block;
                 padding: 10px 20px;
@@ -104,7 +104,7 @@
             
             .btn-back:hover {
                 background-color: #c9302c;
-            }*/
+            }
             
             select {
                 width: 100%;
@@ -145,9 +145,12 @@
                     <option value="IPS">IPS</option>
                 </select>
 
-                <button type="submit">Tambah Siswa</button>                
-            </form>
+                <button type="submit">Tambah Siswa</button> 
                 
+            <a class="nav-link" href="${pageContext.request.contextPath}/SiswaServlet">
+                    <button href="MenuSiswa.jsp" class="btn-back">Kembali</button>
+            </a>
+            </form>
         </div>
                 
         <!-- Bootstrap JS -->
