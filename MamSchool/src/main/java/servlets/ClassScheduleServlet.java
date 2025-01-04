@@ -38,7 +38,7 @@ public class ClassScheduleServlet extends HttpServlet {
         request.setAttribute("availableDays", availableDays);
         request.setAttribute("availableClasses", availableClasses);
 
-        request.getRequestDispatcher("/frontEnd/Kepsek/ClassSchedule.jsp").forward(request, response);
+        request.getRequestDispatcher("/frontEnd/TU/ClassSchedule.jsp").forward(request, response);
     }
 
 }
