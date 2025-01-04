@@ -65,7 +65,7 @@ public class GradesDAO {
                 grade.setUas(rs.getDouble("uas"));
                 grade.setTugas(rs.getDouble("tugas"));
                 grade.setGrade(rs.getDouble("grade"));
-                grade.setKategori(rs.getString("kategori"));
+                grade.setKategori();
                 gradeList.add(grade);
             }
 

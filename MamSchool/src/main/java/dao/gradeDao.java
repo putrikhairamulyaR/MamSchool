@@ -1,7 +1,6 @@
 package dao;
 
 import classes.JDBC;
-import static com.mysql.cj.conf.PropertyKey.logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,13 +22,14 @@ public class gradeDao {
     private Connection connection;
 
         //view seluruh nilai siswa berdasarkan kelas 
-        public List<nilai> viewAllGradesByClass(String className) throws SQLException {
+        public List<nilai> viewAllGradesByClass(String className,int idGuru) throws SQLException {
         List<nilai> gradeList = new ArrayList<>();
         String query = "SELECT g.id_nilai,s.nis, s.name AS nama_siswa, g.uts, g.uas, g.tugas, g.grade, g.kategori " +
                        "FROM grades g " +
                        "JOIN students s ON g.nis = s.nis " +
                        "JOIN classes c ON g.kelas = c.name " +
-                       "WHERE c.name = ? " +
+                       "JOIN teachers t ON t.id = g.idGuru " +
+                       "WHERE c.name = ? AND  g.idGuru = ? " +
                        "ORDER BY s.name";
 
         try (Connection connection = JDBC.getConnection();
@@ -37,6 +37,7 @@ public class gradeDao {
 
             // Set parameter untuk kelas
             stmt.setString(1, className); 
+            stmt.setInt(2, idGuru); 
 
             // Eksekusi query
             try (ResultSet rs = stmt.executeQuery()) {
@@ -60,7 +61,7 @@ public class gradeDao {
                     grade.setUas(uas);
                     grade.setTugas(tugas);
                     grade.setGrade(total);
-                    grade.setKategori(kategori);
+                    grade.setKategori();
 
                     // Tambahkan ke daftar
                     gradeList.add(grade);
@@ -123,7 +124,7 @@ public class gradeDao {
                     grade.setUas(uas);
                     grade.setTugas(tugas);
                     grade.setGrade(total);
-                    grade.setKategori(kategori);
+                    grade.setKategori();
                 }
             }
         } catch (SQLException e) {
@@ -153,13 +154,12 @@ public class gradeDao {
             // Hitung grade dan tentukan kategori
                 nilai grade = new nilai(); 
                 double total = grade.calculateTotal(uts, uas, tugas);
-                String kategori = total > 50 ? "lulus" : "tidak lulus";
                 grade.setIdNilai(id_nilai);
                 grade.setUts(uts);
                 grade.setUas(uas);
                 grade.setTugas(tugas);
                 grade.setGrade(total);
-                grade.setKategori(kategori);
+                grade.setKategori();
 
      
             // Persiapkan query
@@ -168,7 +168,7 @@ public class gradeDao {
             preparedStatement.setDouble(2, uas);
             preparedStatement.setDouble(3, tugas); 
             preparedStatement.setDouble(4, total);
-            preparedStatement.setString(5, kategori);
+            preparedStatement.setString(5, grade.getKategori());
             preparedStatement.setInt(6, id_nilai); 
 
             // Eksekusi query
@@ -258,7 +258,6 @@ public class gradeDao {
                     nilai grade = new nilai(); 
                     double total = grade.calculateTotal(uts, uas, tugas);
                     double rata2 = grade.calculateRata2(uts, uas, tugas);
-                    String kategori = total > 50 ? "lulus" : "tidak lulus";
                     grade.setIdNilai(grade.getIdNilai());
                     grade.setNis(nis);
                     grade.setName(grade.getName());
@@ -266,7 +265,7 @@ public class gradeDao {
                     grade.setUas(uas);
                     grade.setTugas(tugas);
                     grade.setGrade(total);
-                    grade.setKategori(kategori);
+                    grade.setKategori();
 
                    
                 // Persiapkan query
@@ -275,7 +274,7 @@ public class gradeDao {
                 preparedStatement.setDouble(2, uas);
                 preparedStatement.setDouble(3, tugas);
                 preparedStatement.setDouble(4, total);
-                preparedStatement.setString(5, kategori);
+                preparedStatement.setString(5, grade.getKategori());
                 preparedStatement.setInt(6, idGuru);
                 preparedStatement.setDouble(7, rata2);
                 preparedStatement.setString(8, nis);
@@ -406,11 +405,12 @@ public class gradeDao {
 
     try (Connection connection = JDBC.getConnection();
          PreparedStatement stmt = connection.prepareStatement(query)) {
-        // Set parameter untu ID
+        // Set parameter for user ID
         stmt.setInt(1, id);
 
         try (ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
+                // Map result to Teacher object
                 Teacher teacher = new Teacher();
                 teacher.setId(rs.getInt("id"));
                 teacher.setUserId(rs.getInt("user_id"));

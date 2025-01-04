@@ -268,5 +268,26 @@ public class PresensiDao {
             return presensi;
         }
 
+            public int getTotalKehadiranByStudent(int id, String status) {
+        String query = "SELECT COUNT(status) AS total_kehadiran FROM attendance WHERE student_id = ? AND status = ?";
+        int totalKehadiran = 0; // untuk menyimpan total kehadiran
 
+        try (Connection conn = JDBC.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            // Set parameter untuk query
+            pstmt.setInt(1, id);
+            pstmt.setString(2, status);
+
+            // Eksekusi query
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                totalKehadiran = rs.getInt("total_kehadiran"); // ngambil nilai total kehadiran
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalKehadiran; // buat dapat  total kehadiran
+    }
 }

@@ -31,6 +31,15 @@ public class nilai {
     private String nama;
     private String namaKelas;
     private String subject;
+    private String idGuru;
+
+    public String getIdGuru() {
+        return idGuru;
+    }
+
+    public void setIdGuru(String idGuru) {
+        this.idGuru = idGuru;
+    }
 
     // Constructor
     public nilai(Student student,String nis, int idNilai, Classes kelas, double uts, double uas, double tugas, String kategori, double total) {
@@ -42,7 +51,7 @@ public class nilai {
         this.uas = uas;
         this.tugas = tugas;
         this.kategori = kategori;
-        this.grade = grade;
+       
     }
 
     public nilai() {}
@@ -133,8 +142,18 @@ public class nilai {
         return kategori;
     }
 
-    public void setKategori(String kategori) {
-        this.kategori = kategori;
+    public void setKategori() {
+          if (grade >= 85) {
+            this.kategori = "A";
+        } else if (grade >= 70) {
+            this.kategori = "B";
+        } else if (grade >= 50) {
+            this.kategori = "C";
+        } else if (grade >= 40){
+            this.kategori = "D";
+        } else {
+            this.kategori = "E";
+        }
     }
     
 
