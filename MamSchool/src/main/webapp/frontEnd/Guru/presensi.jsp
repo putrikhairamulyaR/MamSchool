@@ -191,7 +191,7 @@
             </nav>
                 
         <div class="p-3">
-            <h1 class="text-center text-primary">Students Attendance Form</h1>
+            <h1 class="text-center text-dark">Presensi Kehadiran Siswa</h1>
 
             <% if (students.isEmpty()) { %>
             <div class="alert alert-warning text-center">No students found for this teacher.</div>
@@ -203,8 +203,8 @@
                 <table class="table table-bordered table-striped">
                     <thead class="table-dark text-center">
                         <tr>
-                            <th>Student ID</th>
-                            <th>Name</th>
+                            <th>ID Siswa</th>
+                            <th>Nama</th>
                             <th>Hadir</th>
                             <th>Sakit</th>
                             <th>Alpa</th>

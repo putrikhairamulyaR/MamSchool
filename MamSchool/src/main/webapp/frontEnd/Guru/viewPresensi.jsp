@@ -1,14 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
 <%@page import="model.Jadwal"%>
 <%@page import="dao.PresensiDao"%>
 <%@page import="model.Presensi"%>
@@ -16,7 +6,6 @@
 <%@page import="java.util.Date"%>
 <%@page import="model.Student"%>
 <%@page import="model.Classes"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0
@@ -189,14 +178,17 @@
                     %>
                 </span>
             </nav> 
-            <div class="p-3">
-            <h1 class="text-center text-primary"> Attendance Records</h1>
+            
+    <div class="p-3">
+        <h1 class="text-center text-dark">Presensi</h1>
+
+
             
             <!-- Filter Form -->
             <form method="get" action="">
-                <div class="row mb-3">
+                <div class="row mb-3 ">
                     <div class="col-md-4">
-                        <label for="className" class="form-label">Filter by Class:</label>
+                        <label for="className" class="form-label">Kelas:</label>
                         <select name="className" id="className" class="form-control">
                             <option value="">Select Class</option>
                             <%
@@ -211,11 +203,8 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label for="filterDate" class="form-label">Filter by Date:</label>
+                        <label for="filterDate" class="form-label">Tanggal:</label>
                         <input type="date" name="filterDate" id="filterDate" class="form-control" value="<%= request.getParameter("filterDate") != null ? request.getParameter("filterDate") : "" %>">
-                    </div>
-                    <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary mt-4">Filter</button>
                     </div>
                 </div>
             </form>
@@ -237,8 +226,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Student Name</th>
-                            <th>Date</th>
+                            <th>Nama</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -248,14 +236,13 @@
                         %>
                             <tr>
                                 <td><%= student.getName() %></td>
-                                <td><%= presensi != null ? presensi.getDate() : "N/A" %></td>
                                 <td><%= presensi != null ? presensi.getStatus() : "N/A" %></td>
                             </tr>
                         <% } %>
                     </tbody>
                 </table>
             <% } else { %>
-                <p>No attendance records found for the selected filters.</p>
+                <p>Belum mengisi presensi.</p>
             <% } %>
         </div>
     </div>

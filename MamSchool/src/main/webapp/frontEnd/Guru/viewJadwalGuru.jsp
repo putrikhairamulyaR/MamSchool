@@ -222,11 +222,11 @@
             </nav>                    
         <div class="p-3">
             <!-- Display current date and time -->
-            <h3 class="text-center text-primary">Hari: <%= formattedDate%></h3>
+            <h3 class="text-center text-dark">Hari: <%= formattedDate%></h3>
 
-            <h1 class="text-center text-primary">Presensi</h1>
+            <h1 class="text-center text-dark">Presensi</h1>
             <!-- Tombol Lihat Presensi -->
-            <a href="editPresensi.jsp" class="btn btn-success btn-sm mb-3">
+            <a href="filterPresensi.jsp" class="btn btn-success btn-sm mb-3">
                 <i class="bi bi-plus"></i> Lihat
             </a>
             <form action="${pageContext.request.contextPath}/PresensiServlet" method="get">
@@ -257,7 +257,7 @@
                             <td><%= jad.getEndTime()%></td>
                             <td>
                                 
-                                <button type="submit" name="classId" value="<%= jad.getIdKelas() %>" class="btn btn-primary">Add</button>
+                                <button type="submit" name="classId" value="<%= jad.getIdKelas() %>" class="btn btn-primary">Isi</button>
                             </td>
                         </tr>
                         <%

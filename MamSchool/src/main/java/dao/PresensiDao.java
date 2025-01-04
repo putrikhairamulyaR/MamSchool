@@ -226,5 +226,47 @@ public class PresensiDao {
         }
         return presensi;
     }
+    
+        public Presensi getPresensiByStudentNameAndDate(String studentName, Date date) {
+            Presensi presensi = null;
+            String getStudentIdSql = "SELECT id FROM students WHERE name = ?";
+            String getAttendanceSql = "SELECT * FROM attendance WHERE student_id = ? AND date = ?";
+
+            try (Connection conn = JDBC.getConnection()) {
+                // Mendapatkan studentId berdasarkan nama
+                int studentId = -1;
+                try (PreparedStatement stmt = conn.prepareStatement(getStudentIdSql)) {
+                    stmt.setString(1, studentName);
+                    try (ResultSet rs = stmt.executeQuery()) {
+                        if (rs.next()) {
+                            studentId = rs.getInt("id");
+                        }
+                    }
+                }
+
+                // Jika studentId ditemukan, cari presensi
+                if (studentId != -1) {
+                    try (PreparedStatement stmt = conn.prepareStatement(getAttendanceSql)) {
+                        stmt.setInt(1, studentId);
+                        stmt.setDate(2, date);
+
+                        try (ResultSet rs = stmt.executeQuery()) {
+                            if (rs.next()) {
+                                presensi = new Presensi();
+                                presensi.setId(rs.getInt("id"));
+                                presensi.setStudentId(rs.getInt("student_id"));
+                                presensi.setDate(rs.getDate("date"));
+                                presensi.setStatus(rs.getString("status"));
+                            }
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return presensi;
+        }
+
 
 }
