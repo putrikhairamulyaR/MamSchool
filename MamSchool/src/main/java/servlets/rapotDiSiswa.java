@@ -80,30 +80,33 @@ public class rapotDiSiswa extends HttpServlet {
 
               nilai sejarah = rapotDao.getRapotBySubject(siswa.getNis(), "Sejarah");
               if (sejarah != null) listNilai.add(sejarah);
+              
+             nilai inggris = rapotDao.getRapotBySubject(siswa.getNis(), "inggris");
+              if (sejarah != null) listNilai.add(sejarah);
           }
 
 
         // Simpan listNilai ke session
         request.getSession().setAttribute("listNilai", listNilai);
 
-        // Hitung total kelulusan
-        long totalKelulusan = listNilai.stream().filter(n -> "Lulus".equalsIgnoreCase(n.getKategori())).count();
-
+        // Hitung total D dan E
+        long totD = listNilai.stream().filter(n -> "D".equalsIgnoreCase(n.getKategori())).count();
+        long totE = listNilai.stream().filter(n -> "E".equalsIgnoreCase(n.getKategori())).count();
         // Simpan total kelulusan ke session
-        request.getSession().setAttribute("totalKelulusan", totalKelulusan);
-
+        request.getSession().setAttribute("totD", totD);
+        request.getSession().setAttribute("totE", totE);
         // Ambil data presensi
         PresensiDao presensiDao = new PresensiDao();
-      //  int kehadiranHadir = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Hadir");
-      //  int totalSakit = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Sakit");
-      //  int totalIzin = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Izin");
-      //  int totalAlpa = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Alpa");
-//
+        int kehadiranHadir = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Hadir");
+        int totalSakit = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Sakit");
+        int totalIzin = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Izin");
+        int totalAlpa = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Alpa");
+
         // Simpan presensi ke session
-      //  request.getSession().setAttribute("kehadiranHadir", kehadiranHadir);
-      //  request.getSession().setAttribute("totalSakit", totalSakit);
-      //  request.getSession().setAttribute("totalIzin", totalIzin);
-      //  request.getSession().setAttribute("totalAlpa", totalAlpa);
+        request.getSession().setAttribute("kehadiranHadir", kehadiranHadir);
+        request.getSession().setAttribute("totalSakit", totalSakit);
+        request.getSession().setAttribute("totalIzin", totalIzin);
+        request.getSession().setAttribute("totalAlpa", totalAlpa);
 
         // Redirect ke JSP
         response.sendRedirect("frontEnd/Murid/NilaiSiswa.jsp");

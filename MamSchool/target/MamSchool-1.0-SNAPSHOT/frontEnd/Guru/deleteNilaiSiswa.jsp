@@ -1,12 +1,14 @@
 <%-- 
-    Document   : deleteNilaiSiswa
+    Document   : addNilaiSiswa
     Created on : 9 Dec 2024
     Author     : putri
 --%>
 
+
 <%@page import="model.nilai"%>
 <%@page import="dao.gradeDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -178,7 +180,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Guru/viewJadwalGuru.jsp">
                         <i class="bi bi-person-check" class="align-middle"></i>
                         <span class="align-middle">Presensi Siswa</span>
                     </a>
@@ -190,7 +192,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/rapotServlet">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Guru/menuRapot.jsp">
                         <i class="bi bi-file-earmark" class="align-middle"></i>
                         <span class="align-middle">Rapot Siswa</span>
                     </a>
@@ -210,7 +212,6 @@
 
     <!-- Main Content -->
     <div id="content" class="flex-grow-1">
-
         <!-- Konten -->
         <div class="content">
             <h3>Informasi Nilai Siswa</h3>

@@ -181,7 +181,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Guru/viewJadwalGuru.jsp">
                         <i class="bi bi-person-check" class="align-middle"></i>
                         <span class="align-middle">Presensi Siswa</span>
                     </a>
@@ -193,7 +193,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/rapotServlet">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Guru/menuRapot.jsp">
                         <i class="bi bi-file-earmark" class="align-middle"></i>
                         <span class="align-middle">Rapot Siswa</span>
                     </a>
@@ -210,8 +210,7 @@
             </ul>
         </div>
     </nav>
-        <!-- Main Content -->
-    <div id="content" class="flex-grow-1">
+    <div id="content" class="flex-grow-1">                
         <!-- Konten -->
         <div class="content">
         <h3>Tambah Nilai Siswa</h3>
@@ -283,7 +282,6 @@
         </div>
     </div>
 </div>
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
