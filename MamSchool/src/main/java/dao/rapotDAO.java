@@ -22,14 +22,14 @@ public class rapotDAO {
             students.name AS nama_siswa,
             students.class_id AS kelas,
             students.nis,
-            COALESCE(SUM(CASE WHEN teachers.subject = 'Matematika' THEN grades.rata2 ELSE 0 END), 0) AS matematika,
-            COALESCE(SUM(CASE WHEN teachers.subject = 'Geografi' THEN grades.rata2 ELSE 0 END), 0) AS geografi,
-            COALESCE(SUM(CASE WHEN teachers.subject = 'Biologi' THEN grades.rata2 ELSE 0 END), 0) AS biologi,
-            COALESCE(SUM(CASE WHEN teachers.subject = 'Fisika' THEN grades.rata2 ELSE 0 END), 0) AS fisika,
-            COALESCE(SUM(CASE WHEN teachers.subject = 'Kimia' THEN grades.rata2 ELSE 0 END), 0) AS kimia,
-            COALESCE(SUM(CASE WHEN teachers.subject = 'Ekonomi' THEN grades.rata2 ELSE 0 END), 0) AS ekonomi,
-            COALESCE(SUM(CASE WHEN teachers.subject = 'Sejarah' THEN grades.rata2 ELSE 0 END), 0) AS sejarah,
-            COALESCE(SUM(CASE WHEN teachers.subject = 'Inggris' THEN grades.rata2 ELSE 0 END), 0) AS inggris
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Matematika' THEN grades.grade ELSE 0 END), 0) AS matematika,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Geografi' THEN grades.grade ELSE 0 END), 0) AS geografi,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Biologi' THEN grades.grade ELSE 0 END), 0) AS biologi,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Fisika' THEN grades.grade ELSE 0 END), 0) AS fisika,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Kimia' THEN grades.grade ELSE 0 END), 0) AS kimia,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Ekonomi' THEN grades.grade ELSE 0 END), 0) AS ekonomi,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Sejarah' THEN grades.grade ELSE 0 END), 0) AS sejarah,
+            COALESCE(SUM(CASE WHEN teachers.subject = 'Inggris' THEN grades.grade ELSE 0 END), 0) AS inggris
         FROM 
             students
         LEFT JOIN 
