@@ -115,7 +115,7 @@ public class nilaiServlet extends HttpServlet {
 
             if (utsParam == null || uasParam == null || tugasParam == null
                     || utsParam.isEmpty() || uasParam.isEmpty() || tugasParam.isEmpty()) {
-                response.sendRedirect("error.jsp?message=Invalid input");
+                response.sendRedirect("/MamSchool/frontEnd/Guru/error.jsp?message=Invalid input");
                 return;
             }
 
@@ -126,7 +126,7 @@ public class nilaiServlet extends HttpServlet {
 
             // Validasi nilai
             if (uts < 0 || uts > 100 || uas < 0 || uas > 100 || tugas < 0 || tugas > 100) {
-                response.sendRedirect("error.jsp?message=Invalid grade range");
+                response.sendRedirect("/MamSchool/frontEnd/Guru/error.jsp?message=Invalid grade range");
                 return;
             }
 
@@ -138,12 +138,12 @@ public class nilaiServlet extends HttpServlet {
                 //response.getWriter().print(id_nilai);
                 response.sendRedirect("/MamSchool/nilaiServlet?action=view");
             } else {
-                response.sendRedirect("error.jsp?message=Failed to update grade");
+                response.sendRedirect("/MamSchool/frontEnd/Guru/error.jsp?message=Failed to update grade");
             }
         } catch (NumberFormatException e) {
-            response.sendRedirect("error.jsp?message=Invalid number format");
+            response.sendRedirect("/MamSchool/frontEnd/Guru/error.jsp?message=Invalid number format");
         } catch (Exception e) {
-            response.sendRedirect("error.jsp?message=An unexpected error occurred");
+            response.sendRedirect("/MamSchool/frontEnd/Guru/error.jsp?message=An unexpected error occurred");
         }
     }
 
@@ -168,7 +168,7 @@ public class nilaiServlet extends HttpServlet {
 
             // Validasi nilai
             if (uts < 0 || uts > 100 || uas < 0 || uas > 100 || tugas < 0 || tugas > 100) {
-                response.sendRedirect("error.jsp?message=Invalid grade range");
+                response.sendRedirect("/MamSchool/frontEnd/Guru/error.jsp?message=Invalid grade range");
                 return;
             }
 
@@ -179,14 +179,14 @@ public class nilaiServlet extends HttpServlet {
             if (isAdded) {
                 response.sendRedirect("/MamSchool/nilaiServlet?action=view");
             } else {
-                response.sendRedirect("/MamSchool/frontEnd/Guru/cek.jsp?message=Failed to add");
+                response.sendRedirect("/MamSchool/frontEnd/Guru/error.jsp?message=Failed to add");
             }
         } catch (NumberFormatException e) {
             //error parsing
-            response.sendRedirect("/MamSchool/frontEnd/Guru/cek.jsp?message=Invalid");
+            response.sendRedirect("/MamSchool/frontEnd/Guru/error.jsp?message=Invalid");
         } catch (Exception e) {
             //error umum lainnya
-            response.sendRedirect("/MamSchool/frontEnd/Guru/cek.jsp?message=An Unexpected");
+            response.sendRedirect("/MamSchool/frontEnd/Guru/error.jsp?message=An Unexpected");
         }
     }
 

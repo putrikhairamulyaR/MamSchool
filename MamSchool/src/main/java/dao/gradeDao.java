@@ -235,75 +235,65 @@ public class gradeDao {
         }
     }
 
-    public boolean setNilaiSiswa(String nis, String c_name, double uts, double uas, double tugas,int idGuru) {
-            // Query untuk memasukkan nilai ke tabel grades
-            String query = "INSERT INTO grades (nis, nama_siswa, kelas, uts, uas, tugas, grade, kategori,idGuru,rata2) " +
-                           "SELECT s.nis, s.name, c.name, ?, ?, ?, ?, ?, ?, ? " +
-                           "FROM students s " +
-                           "JOIN classes c ON s.class_id = c.id " +
-                           "WHERE s.nis = ? AND c.name = ?";
-           
-            Connection connection = null;
-            PreparedStatement preparedStatement = null;
+        public boolean setNilaiSiswa(String nis, String c_name, double uts, double uas, double tugas, int idGuru) {
+           //untuk memasukkan nilai ke tabel grades
+           String query = "INSERT INTO grades (nis, nama_siswa, kelas, uts, uas, tugas, grade, kategori, idGuru) " +
+                          "SELECT s.nis, s.name, c.name, ?, ?, ?, ?, ?, ? " +
+                          "FROM students s " +
+                          "JOIN classes c ON s.class_id = c.id " +
+                          "WHERE s.nis = ? AND c.name = ?";
 
-            try {
-                connection = JDBC.getConnection();
+           Connection connection = null;
+           PreparedStatement preparedStatement = null;
 
-                if (connection == null) {
-                    System.out.println("Koneksi database gagal.");
-                    return false;
-                }
+           try {
+               connection = JDBC.getConnection();
 
-                // Hitung grade dan tentukan kategori
-                    nilai grade = new nilai(); 
-                    double total = grade.calculateTotal(uts, uas, tugas);
-                    double rata2 = grade.calculateRata2(uts, uas, tugas);
-                    grade.setIdNilai(grade.getIdNilai());
-                    grade.setNis(nis);
-                    grade.setName(grade.getName());
-                    grade.setUts(uts);
-                    grade.setUas(uas);
-                    grade.setTugas(tugas);
-                    grade.setGrade(total);
-                    grade.setKategori();
+               if (connection == null) {
+                   System.out.println("Koneksi database gagal.");
+                   return false;
+               }
 
-                   
-                // Persiapkan query
-                preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setDouble(1, uts);
-                preparedStatement.setDouble(2, uas);
-                preparedStatement.setDouble(3, tugas);
-                preparedStatement.setDouble(4, total);
-                preparedStatement.setString(5, grade.getKategori());
-                preparedStatement.setInt(6, idGuru);
-                preparedStatement.setDouble(7, rata2);
-                preparedStatement.setString(8, nis);
-                preparedStatement.setString(9, c_name);
-               
+               // Hitung grade dan tentukan kategori
+               nilai grade = new nilai(); 
+               double total = grade.calculateTotal(uts, uas, tugas);
+               grade.setGrade(total);
+               grade.setKategori();
 
-                // Eksekusi query
-                int rowsAffected = preparedStatement.executeUpdate();
-                if (rowsAffected > 0) {
-                    System.out.println("Data berhasil ditambahkan.");
-                    return true;
-                } else {
-                    System.out.println("Gagal menambahkan data.");
-                    return false;
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return false;
-            } finally {
-                try {
-                    if (preparedStatement != null) {
-                        preparedStatement.close();
-                    }
-                    JDBC.closeConnection(connection);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+               // Persiapkan query
+               preparedStatement = connection.prepareStatement(query);
+               preparedStatement.setDouble(1, uts);
+               preparedStatement.setDouble(2, uas);
+               preparedStatement.setDouble(3, tugas);
+               preparedStatement.setDouble(4, total);
+               preparedStatement.setString(5, grade.getKategori());
+               preparedStatement.setInt(6, idGuru);
+               preparedStatement.setString(7, nis);
+               preparedStatement.setString(8, c_name);
+
+               // Eksekusi query
+               int rowsAffected = preparedStatement.executeUpdate();
+               if (rowsAffected > 0) {
+                   System.out.println("Data berhasil ditambahkan.");
+                   return true;
+               } else {
+                   System.out.println("Gagal menambahkan data.");
+                   return false;
+               }
+           } catch (SQLException e) {
+               e.printStackTrace();
+               return false;
+           } finally {
+               try {
+                   if (preparedStatement != null) {
+                       preparedStatement.close();
+                   }
+                   JDBC.closeConnection(connection);
+               } catch (SQLException e) {
+                   e.printStackTrace();
+               }
+           }
+       }
 
     //untuk mendapatkan siswa berdasarkan kelas
     public List<Student> getSiswaByKelas(String kelas) {

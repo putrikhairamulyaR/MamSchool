@@ -104,12 +104,7 @@ public class rapotSiswaDao {
                  Nilai.setTugas(rs.getDouble("tugas"));
                  Nilai.setGrade(Nilai.calculateTotal(rs.getDouble("uts"), rs.getDouble("uas"), rs.getDouble("tugas")));
                  Nilai.setKategori();
-
-                 // Calculate the average score
-                 double rataRata = Nilai.calculateRata2(rs.getDouble("uts"), rs.getDouble("uas"), rs.getDouble("tugas"));
-   
-
-                 
+               
              return Nilai;
              } else {
                  System.out.println("Data not found for NIS: " + nis + " and subject: " + subject);

@@ -289,7 +289,7 @@
                     <% 
                         } 
                     %>
-                    dan berhak lanjut ke semester berikutnya.
+                    pada semester ini.
                 </p>
             </div>
         </div>

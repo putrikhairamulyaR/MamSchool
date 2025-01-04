@@ -171,10 +171,6 @@ public class nilai {
         return grade;
     }
     
-    public double calculateRata2(Double uts, Double uas, Double tugas){
-        return (uts+uas+tugas)/3;
-    }
-
     public void setName(String nama) {
         this.nama=nama;
     }
