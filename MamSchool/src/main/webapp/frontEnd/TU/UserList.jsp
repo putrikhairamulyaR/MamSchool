@@ -120,6 +120,97 @@
                 font-size: 14px;
                 border: 1px solid #ccc;
             }
+        </style><style>
+            /* Sidebar */
+            #sidebar {
+                width: 250px;
+                transition: transform 0.3s ease, visibility 0.3s ease;
+                overflow: auto;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 1030; /* Tetap di atas konten utama */
+                background-color: #34495e;
+                color: #ffffff;
+            }
+
+            #sidebar.hidden {
+                transform: translateX(-100%);
+                visibility: hidden;
+            }
+
+            /* Content */
+            #content {
+                flex-grow: 1;
+                margin-left: 250px; /* Ruang default sidebar */
+                transition: margin-left 0.3s ease;
+            }
+
+            #content.expanded {
+                margin-left: 0; /* Konten memenuhi layar */
+            }
+
+            /* Nav Link */
+            #sidebar .nav-link {
+                color: #ffffff;
+                border-radius: 5px;
+
+            }
+            #sidebar .nav-link:hover{
+                background-color: #628ab1;
+            }
+            #sidebar .active{
+                border-left: 3px solid #ffffff;
+                background-color: #628ab1;
+                font-weight: bold;
+            }
+
+            /* Content */
+            #content {
+                flex-grow: 1;
+                margin-left: 250px; /* Ruang default sidebar */
+                transition: margin-left 0.3s ease;
+            }
+
+            #content.expanded {
+                margin-left: 0; /* Konten memenuhi layar */
+            }
+
+            .table-container {
+                background: white;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            table, th, td {
+                border: 1px solid #ccc;
+            }
+
+            th, td {
+                padding: 10px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+            .username-display {
+                display: inline-block;
+                padding: 5px 15px;
+                background-color: #f0f0f0;
+                border-radius: 20px;
+                color: #333;
+                font-weight: bold;
+                font-size: 14px;
+                border: 1px solid #ccc;
+            }
         </style>
     </head>
 
@@ -183,7 +274,7 @@
                         <span class="  text-white fw-bold">Guru</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/TeacherServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/TeacherServlet">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">Daftar Guru</span>
                         </a>

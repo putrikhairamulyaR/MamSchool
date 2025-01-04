@@ -25,20 +25,44 @@ public class ClassScheduleServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Ambil role dari session
+        String role = (String) request.getSession().getAttribute("role");
+
+        if (role == null) {
+            response.sendRedirect(request.getContextPath() + "/frontEnd/Login.jsp");
+            return;
+        }
+
+        // Ambil parameter filter
         String className = request.getParameter("classId");
         String day = request.getParameter("day");
 
         ClassScheduleDAO classScheduleDAO = new ClassScheduleDAO();
         List<Map<String, Object>> schedules = classScheduleDAO.getAllSchedules(className, day);
-
         List<String> availableDays = classScheduleDAO.getAvailableDays();
         List<String> availableClasses = classScheduleDAO.getAvailableClasses();
 
+        // Set atribut untuk JSP
         request.setAttribute("schedules", schedules);
         request.setAttribute("availableDays", availableDays);
         request.setAttribute("availableClasses", availableClasses);
 
-        request.getRequestDispatcher("/frontEnd/TU/ClassSchedule.jsp").forward(request, response);
-    }
+        // Tentukan target JSP berdasarkan role
+        String targetJSP;
+        switch (role) {
+            case "tu":
+                targetJSP = "/frontEnd/TU/ClassSchedule.jsp";
+                break;
+            case "kepsek":
+                targetJSP = "/frontEnd/Kepsek/ClassSchedule.jsp";
+                break;
+            default:
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "You don't have access to this page");
+                return;
+        }
 
+        // Arahkan ke JSP
+        request.getRequestDispatcher(targetJSP).forward(request, response);
+    }
 }
+

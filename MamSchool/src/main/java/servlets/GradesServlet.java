@@ -30,7 +30,7 @@ public class GradesServlet extends HttpServlet {
         String action = request.getParameter("action");
         String role = (String) request.getSession().getAttribute("role");
 
-        if (role == null || !role.equals("kepsek")) {
+        if (role == null) {
             response.sendRedirect(request.getContextPath() + "/frontEnd/Login.jsp");
             return;
         }
@@ -41,7 +41,7 @@ public class GradesServlet extends HttpServlet {
 
         switch (action) {
             case "list":
-                handleList(request, response);
+                handleListByRole(request, response, role);
                 break;
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Action not supported");
@@ -49,7 +49,21 @@ public class GradesServlet extends HttpServlet {
         }
     }
 
-    private void handleList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void handleListByRole(HttpServletRequest request, HttpServletResponse response, String role) throws ServletException, IOException {
+        switch (role) {
+            case "tu":
+                handleList(request, response, "/frontEnd/TU/GradesList.jsp");
+                break;
+            case "kepsek":
+                handleList(request, response, "/frontEnd/Kepsek/GradesList.jsp");
+                break;
+            default:
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "You don't have access to this page");
+                break;
+        }
+    }
+
+    private void handleList(HttpServletRequest request, HttpServletResponse response, String targetJSP) throws ServletException, IOException {
         String className = request.getParameter("kelas");
 
         // Ambil daftar semua kelas untuk filter
@@ -64,7 +78,9 @@ public class GradesServlet extends HttpServlet {
         request.setAttribute("classList", classList);
         request.setAttribute("grades", grades);
         request.setAttribute("selectedClass", className);
-        request.getRequestDispatcher("/frontEnd/Kepsek/GradesList.jsp").forward(request, response);
+
+        // Arahkan ke JSP yang sesuai dengan role
+        request.getRequestDispatcher(targetJSP).forward(request, response);
     }
 
 }

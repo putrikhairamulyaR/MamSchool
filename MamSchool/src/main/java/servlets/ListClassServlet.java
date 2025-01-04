@@ -23,6 +23,14 @@ public class ListClassServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Ambil role dari session
+        String role = (String) request.getSession().getAttribute("role");
+
+        if (role == null) {
+            response.sendRedirect(request.getContextPath() + "/frontEnd/Login.jsp");
+            return;
+        }
+
         ListClassDAO listClassDAO = new ListClassDAO();
 
         // Ambil parameter filter
@@ -33,7 +41,24 @@ public class ListClassServlet extends HttpServlet {
         // Dapatkan hasil filter
         List<Classes> classList = listClassDAO.getFilteredClasses(major, tingkat);
 
+        // Set atribut untuk JSP
         request.setAttribute("classList", classList);
-        request.getRequestDispatcher("/frontEnd/Kepsek/ListClass.jsp").forward(request, response);
+
+        // Tentukan target JSP berdasarkan role
+        String targetJSP;
+        switch (role) {
+            case "tu":
+                targetJSP = "/frontEnd/TU/ListClass.jsp";
+                break;
+            case "kepsek":
+                targetJSP = "/frontEnd/Kepsek/ListClass.jsp";
+                break;
+            default:
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "You don't have access to this page");
+                return;
+        }
+
+        // Arahkan ke JSP
+        request.getRequestDispatcher(targetJSP).forward(request, response);
     }
 }

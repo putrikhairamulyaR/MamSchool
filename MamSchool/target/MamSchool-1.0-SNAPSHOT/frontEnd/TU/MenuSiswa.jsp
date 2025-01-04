@@ -47,7 +47,7 @@
                 top: 0;
                 left: 0;
                 bottom: 0;
-                z-index: 1030;
+                z-index: 1030; /* Tetap di atas konten utama */
                 background-color: #34495e;
                 color: #ffffff;
             }
@@ -56,35 +56,68 @@
                 transform: translateX(-100%);
                 visibility: hidden;
             }
-            
-            #sidebar .nav-link {
-                color: #ffffff;
-                padding: 10px;
-                text-decoration: none;
-                display: block;
-            }
-
-            #sidebar .nav-link:hover {
-                background-color: #628ab1;
-            }
 
             /* Content */
             #content {
-                margin-left: 250px;
-                padding: 20px;
+                flex-grow: 1;
+                margin-left: 250px; /* Ruang default sidebar */
+                transition: margin-left 0.3s ease;
             }
 
             #content.expanded {
-                margin-left: 0;
+                margin-left: 0; /* Konten memenuhi layar */
             }
 
             /* Nav Link */
+            #sidebar .nav-link {
+                color: #ffffff;
+                border-radius: 5px;
+
+            }
+            #sidebar .nav-link:hover{
+                background-color: #628ab1;
+            }
             #sidebar .active{
                 border-left: 3px solid #ffffff;
                 background-color: #628ab1;
                 font-weight: bold;
             }
 
+            /* Content */
+            #content {
+                flex-grow: 1;
+                margin-left: 250px; /* Ruang default sidebar */
+                transition: margin-left 0.3s ease;
+            }
+
+            #content.expanded {
+                margin-left: 0; /* Konten memenuhi layar */
+            }
+
+            .table-container {
+                background: white;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            table, th, td {
+                border: 1px solid #ccc;
+            }
+
+            th, td {
+                padding: 10px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
             .username-display {
                 display: inline-block;
                 padding: 5px 15px;
@@ -94,70 +127,6 @@
                 font-weight: bold;
                 font-size: 14px;
                 border: 1px solid #ccc;
-            }
-
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f9f9f9;
-                margin: 0;
-                padding: 0;
-            }
-
-            h1 {
-                text-align: left;
-                margin-top: 10px;
-                color: #34495e;
-            }
-
-            .container {
-                width: 80%;
-                margin: 0 auto;
-            }
-
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            table, th, td {
-                border: 1px solid #ddd;
-            }
-
-            th, td {
-                padding: 8px;
-                text-align: center;
-            }
-            
-            
-            th {
-                background-color: #34495e;
-                color: white;
-            }
-
-            .action-buttons a {
-                text-decoration: none;
-                padding: 6px 12px;
-                color: white;
-                border-radius: 5px;
-            }
-
-            .action-buttons a.edit {
-                background-color:#FFD700;
-            }
-
-            .action-buttons a.delete {
-                background-color: #dc3545;
-            }
-
-            .btn-add {
-                display: inline-block;
-                padding: 8px 15px;
-                color: white;
-                background-color: #2E8B57;
-                text-decoration: none;
-                border-radius: 5px;
-                font-weight: bold;
-                margin-bottom: 20px;
             }
         </style>
     </head>
@@ -221,7 +190,7 @@
                         <span class="  text-white fw-bold">Guru</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/TeacherServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/TeacherServlet">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">Daftar Guru</span>
                         </a>

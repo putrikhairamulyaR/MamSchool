@@ -80,15 +80,50 @@
                 font-weight: bold;
             }
 
+            /* Content */
+            #content {
+                flex-grow: 1;
+                margin-left: 250px; /* Ruang default sidebar */
+                transition: margin-left 0.3s ease;
+            }
+
+            #content.expanded {
+                margin-left: 0; /* Konten memenuhi layar */
+            }
+
+            .table-container {
+                background: white;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            table, th, td {
+                border: 1px solid #ccc;
+            }
+
+            th, td {
+                padding: 10px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
             .username-display {
                 display: inline-block;
-                padding: 5px 15px; 
+                padding: 5px 15px;
                 background-color: #f0f0f0;
-                border-radius: 20px; 
-                color: #333; 
-                font-weight: bold; 
-                font-size: 14px; 
-                border: 1px solid #ccc; 
+                border-radius: 20px;
+                color: #333;
+                font-weight: bold;
+                font-size: 14px;
+                border: 1px solid #ccc;
             }
         </style>
     </head>

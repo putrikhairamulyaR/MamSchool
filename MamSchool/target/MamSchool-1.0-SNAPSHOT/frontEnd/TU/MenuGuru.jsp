@@ -33,12 +33,6 @@
         <!-- Feather Icons -->
         <script src="https://unpkg.com/feather-icons"></script>
         <style>
-           body {
-                display: flex;
-                height: 100vh;
-                margin: 0;
-            }
-
             /* Sidebar */
             #sidebar {
                 width: 250px;
@@ -58,17 +52,26 @@
                 visibility: hidden;
             }
 
+            /* Content */
+            #content {
+                flex-grow: 1;
+                margin-left: 250px; /* Ruang default sidebar */
+                transition: margin-left 0.3s ease;
+            }
+
+            #content.expanded {
+                margin-left: 0; /* Konten memenuhi layar */
+            }
+
             /* Nav Link */
             #sidebar .nav-link {
                 color: #ffffff;
                 border-radius: 5px;
 
             }
-
             #sidebar .nav-link:hover{
                 background-color: #628ab1;
             }
-
             #sidebar .active{
                 border-left: 3px solid #ffffff;
                 background-color: #628ab1;
@@ -112,13 +115,13 @@
             }
             .username-display {
                 display: inline-block;
-                padding: 5px 15px; 
+                padding: 5px 15px;
                 background-color: #f0f0f0;
-                border-radius: 20px; 
-                color: #333; 
-                font-weight: bold; 
-                font-size: 14px; 
-                border: 1px solid #ccc; 
+                border-radius: 20px;
+                color: #333;
+                font-weight: bold;
+                font-size: 14px;
+                border: 1px solid #ccc;
             }
         </style>
     </head>
