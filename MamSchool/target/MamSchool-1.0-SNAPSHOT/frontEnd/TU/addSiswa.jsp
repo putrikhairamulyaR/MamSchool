@@ -96,7 +96,7 @@
                 color: white;
                 text-decoration: none;
                 border-radius: 5px;
-                font-size: 16px;
+                font-size: 14px;
                  text-align: center;
                 cursor: pointer;
                 transition: background-color 0.3s ease;
@@ -145,12 +145,11 @@
                     <option value="IPS">IPS</option>
                 </select>
 
-                <button type="submit">Tambah Siswa</button> 
-                
-            <a class="nav-link" href="${pageContext.request.contextPath}/SiswaServlet">
-                    <button href="MenuSiswa.jsp" class="btn-back">Kembali</button>
-            </a>
+                <button type="submit">Tambah Siswa</button>   
             </form>
+                <a class="nav-link" href="${pageContext.request.contextPath}/SiswaServlet">
+                    <button href="MenuSiswa.jsp" class="btn-back">Kembali</button>
+                </a>
         </div>
                 
         <!-- Bootstrap JS -->
