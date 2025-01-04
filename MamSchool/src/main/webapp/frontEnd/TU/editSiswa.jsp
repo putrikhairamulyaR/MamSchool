@@ -117,8 +117,7 @@
            }
         </style>
     </head>
-    <body> 
-                
+    <body>         
         <div class="container">
         <h3>Edit Data Siswa</h3>
             <%

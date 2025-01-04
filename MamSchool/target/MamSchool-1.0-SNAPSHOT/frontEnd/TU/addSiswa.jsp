@@ -118,11 +118,8 @@
         </style>
     </head>
     <body>
-        
-        <!-- Sidebar -->
-     
         <div class="container">
-            <h2 class="mb-4">Tambah Data Siswa</h2>
+            <h3>Tambah Data Siswa</h3>
             <form action="${pageContext.request.contextPath}/SiswaServlet" method="post">
                 <!-- Parameter untuk menentukan aksi -->
                 <input type="hidden" name="action" value="add">
@@ -155,25 +152,10 @@
                 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Activate Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
         <script>
-            feather.replace({color: '#ffffff'});
-
-            const toggleButton = document.getElementById("toggleSidebar");
-            const sidebar = document.getElementById("sidebar");
-            const content = document.getElementById("content");
-
-            toggleButton.addEventListener("click", () => {
-                // Toggle Sidebar
-                if (sidebar.classList.contains("hidden")) {
-                    sidebar.classList.remove("hidden");
-                    content.classList.remove("expanded");
-                } else {
-                    sidebar.classList.add("hidden");
-                    content.classList.add("expanded");
-                }
-            });
-        </script> 
+            feather.replace({color: '#000000'});
+        </script>
         
     </body>
 </html>
