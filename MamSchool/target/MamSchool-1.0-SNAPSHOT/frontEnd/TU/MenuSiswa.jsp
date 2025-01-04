@@ -47,7 +47,7 @@
                 top: 0;
                 left: 0;
                 bottom: 0;
-                z-index: 1030; /* Tetap di atas konten utama */
+                z-index: 1030;
                 background-color: #34495e;
                 color: #ffffff;
             }
@@ -60,23 +60,24 @@
             /* Content */
             #content {
                 flex-grow: 1;
-                margin-left: 250px; /* Ruang default sidebar */
+                margin-left: 250px;
                 transition: margin-left 0.3s ease;
             }
-
+            
             #content.expanded {
-                margin-left: 0; /* Konten memenuhi layar */
+                margin-left: 0;
             }
 
             /* Nav Link */
             #sidebar .nav-link {
                 color: #ffffff;
                 border-radius: 5px;
-
             }
+            
             #sidebar .nav-link:hover{
                 background-color: #628ab1;
             }
+            
             #sidebar .active{
                 border-left: 3px solid #ffffff;
                 background-color: #628ab1;
@@ -86,12 +87,12 @@
             /* Content */
             #content {
                 flex-grow: 1;
-                margin-left: 250px; /* Ruang default sidebar */
+                margin-left: 250px;
                 transition: margin-left 0.3s ease;
             }
 
             #content.expanded {
-                margin-left: 0; /* Konten memenuhi layar */
+                margin-left: 0;
             }
 
             .table-container {
@@ -116,8 +117,36 @@
             }
 
             th {
-                background-color: #f2f2f2;
+                background-color: #34495e;
+                color: white;
             }
+            
+            .action-buttons a {
+                text-decoration: none;
+                padding: 6px 12px;
+                color: white;
+                border-radius: 5px;
+            }
+            
+            .action-buttons a.edit {
+                background-color:#FFD700;
+                
+            }
+            
+            .action-buttons a.delete {
+                background-color: #dc3545;
+            }
+            
+            .btn-add {
+                display: inline-block;
+                padding: 8px 15px;
+                color: white;
+                background-color: #218838;
+                text-decoration: none;
+                border-radius: 5px;
+                margin-bottom: 15px;
+            }
+
             .username-display {
                 display: inline-block;
                 padding: 5px 15px;
@@ -258,7 +287,6 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>User ID</th>
                             <th>NIS</th>
                             <th>Nama</th>
                             <th>Tanggal Lahir</th>
@@ -278,7 +306,6 @@
                         %>
                         <tr>
                             <td><%= student.getId()%></td>
-                            <td><%= student.getUserId()%></td>
                             <td><%= student.getNis()%></td>
                             <td><%= student.getName()%></td>
                             <td><%= student.getDateOfBirth()%></td>
