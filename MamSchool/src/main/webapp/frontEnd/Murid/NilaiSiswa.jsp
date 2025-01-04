@@ -111,7 +111,9 @@
             .info {
                 margin-bottom: 20px;
             }
-
+            .text-red {
+                color: red;
+            }
             .info p {
                 font-size: 1.1em;
                 font-weight: 500;
@@ -214,7 +216,7 @@
         <!-- Main Content -->
         <div id="content" class="flex-grow-1">
             <div class="container">
-                <h1>Rapot Siswa</h1>
+                <h1 class="text-center text-primary mb-4">Rapot Siswa</h1>
                 
                 <div class="info">
                     <%
@@ -281,11 +283,12 @@
                         long totalE = (Long) request.getSession().getAttribute("totE");
                         if (totalD <= 0 && totalE <= 0 ) { 
                     %>
-                        <b>Lulus</b>
+                        <b style="color: #006400;">Lulus</b>
+
                     <% 
                         } else { 
                     %>
-                        <b>Tidak Lulus</b>
+                        <b class="text-red">Tidak Lulus</b>
                     <% 
                         } 
                     %>
