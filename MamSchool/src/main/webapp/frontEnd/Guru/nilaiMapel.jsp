@@ -21,7 +21,9 @@
         <title>Nilai Mata Pelajaran</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
+        <!-- Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
+        <style>
         body {
             display: flex;
             height: 100vh;
@@ -148,71 +150,76 @@
         }
     </style>
 </head>
-<body>
-    <!-- Sidebar -->
-    <nav id="sidebar" class="border-end vh-100 shadow">
-        <div class="p-3">
-            <a class="navbar-brand d-flex align-items-center mb-3" href="#">
-                <span class="align-middle">Mam School</span>
-            </a>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <span class="text-sm text-white fw-bold">Pages</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="${pageContext.request.contextPath}/DashboardKepsek">
-                        <i class="bi bi-house-door" class="align-middle"></i>
-                        <span class="align-middle">Dashboard</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-person" class="align-middle"></i>
-                        <span class="align-middle">Profile</span>
-                    </a>
-                </li>
-            </ul>
-            <hr>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <span class="text-white fw-bold">Menu</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
-                        <i class="bi bi-calendar-check" class="align-middle"></i>
-                        <span class="align-middle">Jadwal Mengajar</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Guru/viewJadwalGuru.jsp">
-                        <i class="bi bi-person-check" class="align-middle"></i>
-                        <span class="align-middle">Presensi Siswa</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/nilaiServlet">
-                        <i class="bi bi-bar-chart" class="align-middle"></i>
-                        <span class="align-middle">Nilai Siswa</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Guru/menuRapot.jsp">
-                        <i class="bi bi-file-earmark" class="align-middle"></i>
-                        <span class="align-middle">Rapot Siswa</span>
-                    </a>
-                </li>
-            </ul>
-            <hr>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
-                        <i class="bi bi-box-arrow-right" class="align-middle"></i>
-                        <span class="align-middle">Log Out</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+ <body class="d-flex">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="border-end vh-100 shadow">
+            <div class="p-3">
+                <a class="navbar-brand d-flex align-items-center mb-3" href="#">
+                    <span class="align-middle">Mam School</span>
+                </a>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class=" text-sm text-white fw-bold">Pages</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active " href="${pageContext.request.contextPath}/DashboardGuru">
+                            <i data-feather="sliders" class="align-middle"></i>
+                            <span class="align-middle">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ProfileUser">
+                            <i data-feather="user" class="align-middle"></i>
+                            <span class="align-middle">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class=" text-white fw-bold">Menu</span>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
+                            <i data-feather="calendar" class="align-middle"></i>
+                            <span class="align-middle">Jadwal Mengajar</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Guru/viewJadwalGuru.jsp">
+                            <i data-feather="user-check" class="align-middle"></i>
+                            <span class="align-middle">Presensi Siswa</span>
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/nilaiServlet">
+                            <i data-feather="bar-chart-2" class="align-middle"></i>
+                            <span class="align-middle">Nilai Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/frontEnd/Guru/menuRapot.jsp">
+                            <i data-feather="file-text" class="align-middle"></i>
+                            <span class="align-middle">Rapot Siswa</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <span class="  text-white fw-bold">Accounts</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
+                            <i data-feather="log-out" class="align-middle"></i>
+                            <span class="align-middle">Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
     <div id="content" class="flex-grow-1">
 
