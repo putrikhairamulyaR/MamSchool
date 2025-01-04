@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.theme.default.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     </head>
-    <body class="text-light" style="background-color: #26335D">
+    <body class="text-light" style="background-color: #46537a">
 
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-dark shadow sticky-top" style="background-color: #26335D">
@@ -55,7 +55,7 @@
                 <div class="row justify-content-center text-center align-items-center g-3">
                     <div class="col-lg-6 col-12">
                         <!-- Hero Heading with New Text -->
-                        <h3 class=" mb-4 text-center text-md-start" style="color: #8D5CF6;">For Better Future</h3>
+                        <h3 class=" mb-4 text-center text-md-start" style="color: #ffffff;">For Better Future</h3>
                         <h1 class="text-white mb-4 fw-bold text-center text-md-start">MAM BOARDING SCHOOL</h1>
 
                         <!-- New Description / Lead Text -->
@@ -208,7 +208,7 @@
         </section>
 
         <!-- Footer Section -->
-        <footer class="bg-dark text-light py-5">
+        <footer class="text-light py-5" style="background-color: #26335D">
             <div class="container">
                 <div class="row">
                     <!-- About Us Section -->
