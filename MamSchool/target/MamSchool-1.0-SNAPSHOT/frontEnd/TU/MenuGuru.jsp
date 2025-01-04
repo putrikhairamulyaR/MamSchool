@@ -22,23 +22,17 @@
         return;
     }
 %>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Daftar Guru</title>
-        
+        <title>Dashboard TU</title>
+        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         <!-- Feather Icons -->
         <script src="https://unpkg.com/feather-icons"></script>
         <style>
-           body {
-                display: flex;
-                height: 100vh;
-                margin: 0;
-            }
-
             /* Sidebar */
             #sidebar {
                 width: 250px;
@@ -57,24 +51,23 @@
                 transform: translateX(-100%);
                 visibility: hidden;
             }
-
-            /* Nav Link */
-            #sidebar .nav-link {
-                color: #ffffff;
-                border-radius: 5px;
-
+            /* Table Styling */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 10px;
             }
 
-            #sidebar .nav-link:hover{
-                background-color: #628ab1;
+            table th, table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
             }
 
-            #sidebar .active{
-                border-left: 3px solid #ffffff;
-                background-color: #628ab1;
+            table th {
+                background-color: #f2f2f2;
                 font-weight: bold;
             }
-
             /* Content */
             #content {
                 flex-grow: 1;
@@ -86,30 +79,21 @@
                 margin-left: 0; /* Konten memenuhi layar */
             }
 
-            .table-container {
-                background: white;
-                padding: 20px;
+            /* Nav Link */
+            #sidebar .nav-link {
+                color: #ffffff;
                 border-radius: 5px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+            }
+            #sidebar .nav-link:hover{
+                background-color: #628ab1;
+            }
+            #sidebar .active{
+                border-left: 3px solid #ffffff;
+                background-color: #628ab1;
+                font-weight: bold;
             }
 
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            table, th, td {
-                border: 1px solid #ccc;
-            }
-
-            th, td {
-                padding: 10px;
-                text-align: left;
-            }
-
-            th {
-                background-color: #f2f2f2;
-            }
             .username-display {
                 display: inline-block;
                 padding: 5px 15px; 
@@ -134,7 +118,7 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="${pageContext.request.contextPath}/DashboardTU">
+                        <a class="nav-link  " href="${pageContext.request.contextPath}/DashboardTU">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -170,7 +154,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ListClassServlet">
+                        <a class="nav-link " href="${pageContext.request.contextPath}/ListClassServlet">
                             <i data-feather="table" class="align-middle"></i>
                             <span class="align-middle">Daftar Kelas</span>
                         </a>
@@ -188,7 +172,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ClassScheduleServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
                             <i data-feather="file-text" class="align-middle"></i>
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>
@@ -221,8 +205,7 @@
                 </ul>
             </div>
         </nav>
-                            
-        <!-- Main Content -->
+         <!-- Main Content -->
         <div id="content" class="flex-grow-1">
             <!-- Navbar -->
             <nav class="navbar navbar-light bg-light px-3 border-bottom">
@@ -239,7 +222,8 @@
                     %>
                 </span>
             </nav>
-        <div class="p-3">
+        <!-- Page Content -->
+            <div class="p-3">
                 <div class="table-container">                    
                     <h1>Daftar Guru</h1>
                     <div class="container">
@@ -302,7 +286,7 @@
                             </tbody>
                         </table>
                     </div>
-            </div>
+                </div>
             </div>
         </div>
                             

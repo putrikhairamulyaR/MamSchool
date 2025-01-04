@@ -26,17 +26,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Daftar Guru</title>
-        
+        <title>Dashboard TU</title>
+        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <!-- Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
         <style>
-            body {
-                display: flex;
-                height: 100vh;
-                margin: 0;
-            }
-
             /* Sidebar */
             #sidebar {
                 width: 250px;
@@ -56,22 +51,6 @@
                 visibility: hidden;
             }
 
-            /* Nav Link */
-            #sidebar .nav-link {
-                color: #ffffff;
-                border-radius: 5px;
-            }
-
-            #sidebar .nav-link:hover{
-                background-color: #628ab1;
-            }
-
-            #sidebar .active{
-                border-left: 3px solid #ffffff;
-                background-color: #628ab1;
-                font-weight: bold;
-            }
-
             /* Content */
             #content {
                 flex-grow: 1;
@@ -82,30 +61,20 @@
             #content.expanded {
                 margin-left: 0; /* Konten memenuhi layar */
             }
-
-            .table-container {
-                background: white;
-                padding: 20px;
+            
+            /* Nav Link */
+            #sidebar .nav-link {
+                color: #ffffff;
                 border-radius: 5px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            }
 
-            table {
-                width: 100%;
-                border-collapse: collapse;
             }
-
-            table, th, td {
-                border: 1px solid #ccc;
+            #sidebar .nav-link:hover{
+                background-color: #628ab1;
             }
-
-            th, td {
-                padding: 10px;
-                text-align: left;
-            }
-
-            th {
-                background-color: #f2f2f2;
+            #sidebar .active{
+                border-left: 3px solid #ffffff;
+                background-color: #628ab1;
+                font-weight: bold;
             }
 
             .username-display {
@@ -132,7 +101,7 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/DashboardTU">
+                        <a class="nav-link  " href="${pageContext.request.contextPath}/DashboardTU">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -146,7 +115,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/SiswaServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List Siswa</span>
+                            <span class="align-middle">Daftar Siswa</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -161,14 +130,14 @@
                             <span class="align-middle">Nilai Siswa</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+		   <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
                             <i data-feather="pie-chart" class="align-middle"></i>
                             <span class="align-middle">Presensi Siswa</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ListClassServlet">
+                        <a class="nav-link " href="${pageContext.request.contextPath}/ListClassServlet">
                             <i data-feather="table" class="align-middle"></i>
                             <span class="align-middle">Daftar Kelas</span>
                         </a>
@@ -177,12 +146,12 @@
                 <hr>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <span class=" text-white fw-bold">Guru</span>
+                        <span class="  text-white fw-bold">Guru</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="${pageContext.request.contextPath}/TeacherServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List Guru</span>
+                            <span class="align-middle">Daftar Guru</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -195,12 +164,12 @@
                 <hr>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <span class=" text-white fw-bold">User</span>
+                        <span class="  text-white fw-bold">User</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/SigninServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List User</span>
+                            <span class="align-middle">Daftar User</span>
                         </a>
                     </li>
                 </ul>
@@ -208,7 +177,7 @@
 
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <span class=" text-white fw-bold">Accounts</span>
+                        <span class="  text-white fw-bold">Accounts</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">

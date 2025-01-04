@@ -22,50 +22,70 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Daftar Guru</title>
-        
+        <title>Dashboard TU</title>
+        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
         <style>
-            body {
-                display: flex;
-                height: 100vh;
-                margin: 0;
-            }
+            /* Sidebar */
             #sidebar {
                 width: 250px;
-                background-color: #34495e;
-                color: #ffffff;
-                overflow-y: auto;
+                transition: transform 0.3s ease, visibility 0.3s ease;
+                overflow: auto;
                 position: fixed;
                 top: 0;
+                left: 0;
                 bottom: 0;
-                padding: 20px;
+                z-index: 1030; /* Tetap di atas konten utama */
+                background-color: #34495e;
+                color: #ffffff;
             }
+
+            #sidebar.hidden {
+                transform: translateX(-100%);
+                visibility: hidden;
+            }
+
+            /* Content */
+            #content {
+                flex-grow: 1;
+                margin-left: 250px; /* Ruang default sidebar */
+                transition: margin-left 0.3s ease;
+            }
+
+            #content.expanded {
+                margin-left: 0; /* Konten memenuhi layar */
+            }
+
+            /* Nav Link */
             #sidebar .nav-link {
                 color: #ffffff;
-                margin-bottom: 10px;
-            }
-            #sidebar .nav-link:hover, #sidebar .nav-link.active {
-                background-color: #628ab1;
                 border-radius: 5px;
+
+            }
+            #sidebar .nav-link:hover{
+                background-color: #628ab1;
+            }
+            #sidebar .active{
+                border-left: 3px solid #ffffff;
+                background-color: #628ab1;
                 font-weight: bold;
             }
-            #content {
-                margin-left: 250px;
-                flex-grow: 1;
-                padding: 20px;
-                background-color: #f8f9fa;
-            }
-            .table-container {
-                background: white;
-                padding: 20px;
-                border-radius: 5px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+            .username-display {
+                display: inline-block;
+                padding: 5px 15px; 
+                background-color: #f0f0f0;
+                border-radius: 20px; 
+                color: #333; 
+                font-weight: bold; 
+                font-size: 14px; 
+                border: 1px solid #ccc; 
             }
         </style>
     </head>
-    <body>
-        <!-- Sidebar -->
+    <body class="d-flex">
         <!-- Sidebar -->
         <nav id="sidebar" class="border-end vh-100 shadow">
             <div class="p-3">
@@ -91,7 +111,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/SiswaServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List Siswa</span>
+                            <span class="align-middle">Daftar Siswa</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -127,7 +147,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="${pageContext.request.contextPath}/TeacherServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List Guru</span>
+                            <span class="align-middle">Daftar Guru</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -145,7 +165,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/SigninServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List User</span>
+                            <span class="align-middle">Daftar User</span>
                         </a>
                     </li>
                 </ul>
@@ -166,7 +186,24 @@
         </nav>
         
         <!-- Main Content -->
-        <div id="content">
+        <div id="content" class="flex-grow-1">
+            <!-- Navbar -->
+            <nav class="navbar navbar-light bg-light px-3 border-bottom">
+                <button class="navbar-toggler border-0 outline-0" id="toggleSidebar" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <span class="navbar-brand mb-0 h1">
+                    <%
+                        if (username != null) {
+                            out.print("<span class='username-display'>" + username + "</span>");
+                        } else {
+                            out.print("<span class='username-display'>Dashboard</span>");
+                        }
+                    %>
+                </span>
+            </nav>
+                
+        <div class="p-3">
             <div class="table-container">
                 <h2 class="mb-4">Tambah Data Guru</h2>
                 <form action="${pageContext.request.contextPath}/TeacherServlet" method="post">
