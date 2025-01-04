@@ -139,7 +139,7 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/DashboardKepsek">
+                        <a class="nav-link " href="${pageContext.request.contextPath}/DashboardTU">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -151,15 +151,9 @@
                         <span class=" text-white fw-bold">Siswa</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ListStudentServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/SiswaServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List Siswa</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ClassesServlet">
-                            <i data-feather="shuffle" class="align-middle"></i>
-                            <span class="align-middle">Bagi Kelas</span>
+                            <span class="align-middle">Daftar Siswa</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -174,6 +168,18 @@
                             <span class="align-middle">Nilai Siswa</span>
                         </a>
                     </li>
+		   <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
+                            <i data-feather="pie-chart" class="align-middle"></i>
+                            <span class="align-middle">Presensi Siswa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ListClassServlet">
+                            <i data-feather="table" class="align-middle"></i>
+                            <span class="align-middle">Daftar Kelas</span>
+                        </a>
+                    </li>
                 </ul>
                 <hr>
                 <ul class="nav flex-column">
@@ -181,9 +187,9 @@
                         <span class="  text-white fw-bold">Guru</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ListTeacherServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/TeacherServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List Guru</span>
+                            <span class="align-middle">Daftar Guru</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -196,6 +202,19 @@
                 <hr>
                 <ul class="nav flex-column">
                     <li class="nav-item">
+                        <span class="  text-white fw-bold">User</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/SigninServlet">
+                            <i data-feather="users" class="align-middle"></i>
+                            <span class="align-middle">Daftar User</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+
+                <ul class="nav flex-column">
+                    <li class="nav-item">
                         <span class="  text-white fw-bold">Accounts</span>
                     </li>
                     <li class="nav-item">
@@ -204,7 +223,6 @@
                             <span class="align-middle">Log Out</span>
                         </a>
                     </li>
-
                 </ul>
             </div>
         </nav>

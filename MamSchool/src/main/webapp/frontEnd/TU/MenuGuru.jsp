@@ -30,6 +30,8 @@
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <!-- Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
         <style>
            body {
                 display: flex;
@@ -132,7 +134,7 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  " href="${pageContext.request.contextPath}/DashboardTU">
+                        <a class="nav-link " href="${pageContext.request.contextPath}/DashboardTU">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -146,7 +148,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/SiswaServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List Siswa</span>
+                            <span class="align-middle">Daftar Siswa</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -168,7 +170,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="${pageContext.request.contextPath}/ListClassServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ListClassServlet">
                             <i data-feather="table" class="align-middle"></i>
                             <span class="align-middle">Daftar Kelas</span>
                         </a>
@@ -182,7 +184,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="${pageContext.request.contextPath}/TeacherServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List Guru</span>
+                            <span class="align-middle">Daftar Guru</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -200,7 +202,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/SigninServlet">
                             <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List User</span>
+                            <span class="align-middle">Daftar User</span>
                         </a>
                     </li>
                 </ul>
@@ -219,6 +221,7 @@
                 </ul>
             </div>
         </nav>
+                            
         <!-- Main Content -->
         <div id="content" class="flex-grow-1">
             <!-- Navbar -->
