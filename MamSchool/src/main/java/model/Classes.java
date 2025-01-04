@@ -42,7 +42,13 @@ public class Classes {
         this.teacher_id = teacher_id;
         this.tingkat = tingkat;
     }
-
+    
+    public Classes(String name, String major, int tingkat) {
+        this.name = name;
+        this.major = major;
+        this.tingkat = tingkat;
+    }
+    
     // Getter dan Setter
     public int getId() {
         return id;

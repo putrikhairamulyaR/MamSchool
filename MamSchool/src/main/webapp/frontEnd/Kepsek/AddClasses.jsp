@@ -74,11 +74,6 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="teacher_id" class="form-label">ID Guru:</label>
-                        <input type="number" name="teacher_id" class="form-control" id="teacher_id" placeholder="Masukkan ID guru" required>
-                    </div>
-
-                    <div class="mb-3">
                         <label for="tingkat" class="form-label">Tingkat:</label>
                         <input type="number" name="tingkat" class="form-control" id="tingkat" placeholder="Masukkan tingkat" required>
                     </div>

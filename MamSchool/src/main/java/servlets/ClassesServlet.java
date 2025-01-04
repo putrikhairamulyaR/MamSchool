@@ -123,20 +123,17 @@ public class ClassesServlet extends HttpServlet {
     private void handleAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         String major = request.getParameter("major");
-        String teacherIdStr = request.getParameter("teacher_id");
         String tingkatStr = request.getParameter("tingkat");
 
         // Log payload values
         System.out.println("Payload received:");
         System.out.println("Name: " + name);
         System.out.println("Major: " + major);
-        System.out.println("Teacher ID: " + teacherIdStr);
         System.out.println("Tingkat: " + tingkatStr);
 
         // Server-side validation
         if (name == null || name.trim().isEmpty()
                 || major == null || major.trim().isEmpty()
-                || teacherIdStr == null || teacherIdStr.trim().isEmpty()
                 || tingkatStr == null || tingkatStr.trim().isEmpty()) {
 
             System.out.println("Validation error: Missing required fields.");
@@ -145,12 +142,11 @@ public class ClassesServlet extends HttpServlet {
             return;
         }
 
-        int teacherId = Integer.parseInt(teacherIdStr);
         int tingkat = Integer.parseInt(tingkatStr);
 
-        System.out.println("Adding new class: Name=" + name + ", Major=" + major + ", Teacher ID=" + teacherId + ", Tingkat=" + tingkat);
+        System.out.println("Adding new class: Name=" + name + ", Major=" + major + ", Tingkat=" + tingkat);
 
-        Classes newClass = new Classes(name, major, teacherId, tingkat);
+        Classes newClass = new Classes(name, major, tingkat);
         boolean isSuccess = classesDAO.addClass(newClass);
 
         System.out.println("Add class operation success: " + isSuccess);

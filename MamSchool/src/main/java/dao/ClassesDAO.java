@@ -147,7 +147,7 @@ public class ClassesDAO {
     }
 
     public boolean addClass(Classes classes) {
-        String query = "INSERT INTO classes (name, major, teacher_id, tingkat) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO classes (name, major, tingkat) VALUES (?, ?, ?)";
 
         try (Connection connection = JDBC.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -158,13 +158,12 @@ public class ClassesDAO {
             }
 
             // Log values before setting parameters
-            logger.debug("PreparedStatement values - Name: {}, Major: {}, Teacher ID: {}, Tingkat: {}",
-                    classes.getName(), classes.getMajor(), classes.getTeacher_id(), classes.getTingkat());
+            logger.debug("PreparedStatement values - Name: {}, Major: {}, , Tingkat: {}",
+                    classes.getName(), classes.getMajor(), classes.getTingkat());
 
             preparedStatement.setString(1, classes.getName());
             preparedStatement.setString(2, classes.getMajor());
-            preparedStatement.setInt(3, classes.getTeacher_id());
-            preparedStatement.setInt(4, classes.getTingkat());
+            preparedStatement.setInt(3, classes.getTingkat());
 
             logger.debug("Executing query: {}", query);
             int rowsAffected = preparedStatement.executeUpdate();
