@@ -22,14 +22,14 @@
         return;
     }
 %>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Daftar Guru</title>
-        
+        <title>Dashboard TU</title>
+        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         <!-- Feather Icons -->
         <script src="https://unpkg.com/feather-icons"></script>
         <style>
@@ -137,7 +137,7 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="${pageContext.request.contextPath}/DashboardTU">
+                        <a class="nav-link  " href="${pageContext.request.contextPath}/DashboardTU">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -173,7 +173,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ListClassServlet">
+                        <a class="nav-link " href="${pageContext.request.contextPath}/ListClassServlet">
                             <i data-feather="table" class="align-middle"></i>
                             <span class="align-middle">Daftar Kelas</span>
                         </a>
@@ -191,7 +191,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ClassScheduleServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
                             <i data-feather="file-text" class="align-middle"></i>
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>
@@ -224,8 +224,7 @@
                 </ul>
             </div>
         </nav>
-                            
-        <!-- Main Content -->
+         <!-- Main Content -->
         <div id="content" class="flex-grow-1">
             <!-- Navbar -->
             <nav class="navbar navbar-light bg-light px-3 border-bottom">
@@ -242,7 +241,8 @@
                     %>
                 </span>
             </nav>
-        <div class="p-3">
+        <!-- Page Content -->
+            <div class="p-3">
                 <div class="table-container">                    
                     <h1>Daftar Guru</h1>
                     <div class="container">
@@ -305,7 +305,7 @@
                             </tbody>
                         </table>
                     </div>
-            </div>
+                </div>
             </div>
         </div>
                             

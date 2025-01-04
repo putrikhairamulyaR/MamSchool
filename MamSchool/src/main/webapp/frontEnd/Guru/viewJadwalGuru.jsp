@@ -71,7 +71,23 @@
             #content.expanded {
                 margin-left: 0; /* Konten memenuhi layar */
             }
+            /* Table Styling */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 10px;
+            }
 
+            table th, table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            table th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
             /* Nav Link */
             #sidebar .nav-link {
                 color: #ffffff;
@@ -208,10 +224,10 @@
             <!-- Display current date and time -->
             <h3 class="text-center text-primary">Hari: <%= formattedDate%></h3>
 
-            <h1 class="text-center text-primary">Jadwal</h1>
+            <h1 class="text-center text-primary">Presensi</h1>
             <!-- Tombol Lihat Presensi -->
             <a href="editPresensi.jsp" class="btn btn-success btn-sm mb-3">
-                <i class="bi bi-plus"></i> view
+                <i class="bi bi-plus"></i> Lihat
             </a>
             <form action="${pageContext.request.contextPath}/PresensiServlet" method="get">
                 <input type="hidden" name="action" value="view">
@@ -219,13 +235,13 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Class ID</th>
-                            <th>Class Name</th>
-                            <th>Subject</th>
-                            <th>Day</th>
-                            <th>Start Time</th>
-                            <th>End Time</th>
-                            <th>Action</th>
+                            <th>ID Kelas</th>
+                            <th>Kelas</th>
+                            <th>Mata Pelajaran</th>
+                            <th>Hari</th>
+                            <th>Waktu Mulai</th>
+                            <th>Waktu Selesai</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
