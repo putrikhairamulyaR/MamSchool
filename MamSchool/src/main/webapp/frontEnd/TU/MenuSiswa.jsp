@@ -35,8 +35,7 @@
         <title>Daftar Siswa</title>
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Feather Icons -->
-        <script src="https://unpkg.com/feather-icons"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         <style>
             /* Sidebar */
             #sidebar {
@@ -120,33 +119,7 @@
                 background-color: #34495e;
                 color: white;
             }
-            
-            .action-buttons a {
-                text-decoration: none;
-                padding: 6px 12px;
-                color: white;
-                border-radius: 5px;
-            }
-            
-            .action-buttons a.edit {
-                background-color:#FFD700;
-                
-            }
-            
-            .action-buttons a.delete {
-                background-color: #dc3545;
-            }
-            
-            .btn-add {
-                display: inline-block;
-                padding: 8px 15px;
-                color: white;
-                background-color: #218838;
-                text-decoration: none;
-                border-radius: 5px;
-                margin-bottom: 15px;
-            }
-
+           
             .username-display {
                 display: inline-block;
                 padding: 5px 15px;
@@ -281,7 +254,9 @@
             <h2>Daftar Siswa</h2>
             <div class="container">
                 <!-- Tombol Add Siswa -->
-                <a href="frontEnd/TU/addSiswa.jsp" class="btn-add">+ Tambah Siswa</a>
+                <a href="frontEnd/TU/addSiswa.jsp" class="btn btn-success btn-sm mb-3">
+                    <i class="bi bi-plus"></i> Tambah User
+                </a>
 
                 <table>
                     <thead>
@@ -313,8 +288,12 @@
                             <td><%= (student.getMajor() != null ? student.getMajor() : "Tidak Ada")%></td>
                             <td class="action-buttons">
                                 <!-- Edit dan Hapus -->
-                                <a href="frontEnd/TU/editSiswa.jsp?id=<%= student.getId()%>" class="edit">Edit</a>
-                                <a href="SiswaServlet?action=delete&id=<%= student.getId()%>" class="delete" onclick="return confirm('Apakah Anda yakin ingin menghapus siswa ini?');">Hapus</a>
+                                <a href="frontEnd/TU/editSiswa.jsp?id=<%= student.getId()%>" class="btn btn-warning btn-sm">
+                                  <i class="bi bi-pencil"></i> Edit
+                                </a>
+                                <a href="SiswaServlet?action=delete&id=<%= student.getId()%>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus siswa ini?');">
+                                    <i class="bi bi-trash"></i> Hapus
+                                </a>
                             </td>
                         </tr>
                         <%
@@ -333,6 +312,7 @@
             
             <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/feather-icons"></script>
         <!-- Activate Feather Icons -->
         <script>
             feather.replace({color: '#ffffff'});
