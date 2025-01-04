@@ -278,7 +278,7 @@
             </nav>
         </head>
         <body>
-            <h1>Daftar Siswa</h1>
+            <h2>Daftar Siswa</h2>
             <div class="container">
                 <!-- Tombol Add Siswa -->
                 <a href="frontEnd/TU/addSiswa.jsp" class="btn-add">+ Tambah Siswa</a>

@@ -33,12 +33,10 @@
         <title>Edit Siswa</title>
         <style>
             body {
-                font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                margin: 0;
-                padding: 0;
                 display: flex;
                 height: 100vh;
+                margin: 0;
+                font-family: Arial, sans-serif;
             } 
 
             .container {
@@ -90,7 +88,7 @@
             button:hover {
                 background-color: #006400;
             }
-            /*
+            
             .btn-back {
                 display: inline-block;
                 padding: 10px 20px;
@@ -106,7 +104,7 @@
             
             .btn-back:hover {
                 background-color: #c9302c;
-            }*/
+            }
             
             select {
                 width: 100%;
@@ -120,8 +118,9 @@
         </style>
     </head>
     <body> 
+                
         <div class="container">
-        <h2>Edit Data Siswa</h2>
+        <h3>Edit Data Siswa</h3>
             <%
                 siswaDAO siswaDao = new siswaDAO();
                 Student student = siswaDao.getSiswaById(Integer.parseInt(request.getParameter("id")));
@@ -157,30 +156,18 @@
                 </select>
 
                 <button type="submit">Edit Siswa</button>
+            <a class="nav-link" href="${pageContext.request.contextPath}/SiswaServlet">
+                    <button href="MenuSiswa.jsp" class="btn-back">Kembali</button>
+            </a>
             </form>
             <% } %>
         </div>
         
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Activate Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
         <script>
-            feather.replace({color: '#ffffff'});
-
-            const toggleButton = document.getElementById("toggleSidebar");
-            const sidebar = document.getElementById("sidebar");
-            const content = document.getElementById("content");
-
-            toggleButton.addEventListener("click", () => {
-                // Toggle Sidebar
-                if (sidebar.classList.contains("hidden")) {
-                    sidebar.classList.remove("hidden");
-                    content.classList.remove("expanded");
-                } else {
-                    sidebar.classList.add("hidden");
-                    content.classList.add("expanded");
-                }
-            });
+            feather.replace({color: '#000000'});
         </script>
         
     </body>
