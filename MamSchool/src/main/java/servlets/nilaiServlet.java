@@ -51,10 +51,10 @@ public class nilaiServlet extends HttpServlet {
 
     private void viewGrades(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
-        gradeDao KelasDao = new gradeDao();
+        gradeDao nilai = new gradeDao();
         User user = (User) request.getSession().getAttribute("user");
-        Teacher guru = KelasDao.getTeacherByUserId(user.getId());
-        List<Classes> Kelas = KelasDao.getAllClassesByTeacherID(guru.getId());
+        Teacher guru = nilai.getTeacherByUserId(user.getId());
+        List<Classes> Kelas = nilai.getAllClassesByTeacherID(guru.getId());
         int id = guru.getId();
          String className = request.getParameter("kelas");
         

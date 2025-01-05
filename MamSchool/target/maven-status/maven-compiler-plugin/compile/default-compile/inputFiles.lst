@@ -1,117 +1,57 @@
-<<<<<<< HEAD
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\classes\JDBC.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\ClassesDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\ClassScheduleDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\DashboardGuruDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\DashboardKepsekDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\DashboardSiswaDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\DashboardTUDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\gradeDao.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\GradesDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\JadwalDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\ListClassDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\ListPresensiDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\ListStudentDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\ListTeacherDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\LoginDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\PresensiDao.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\ProfileUserDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\rapotDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\rapotSiswaDao.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\SigninDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\siswaDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\StudentDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\dao\TeacherDAO.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\Classes.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\gradeStudent.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\Jadwal.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\nilai.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\Presensi.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\rapot.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\Student.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\Teacher.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\model\User.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\ClassesServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\ClassScheduleServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\DashboardGuruServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\DashboardSiswaServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\DashboardTUServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\GradesServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\JadwalServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\ListClassServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\ListPresensiServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\ListStudentServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\ListTeacherServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\LoginServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\LogoutServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\nilaiServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\PresensiServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\ProfileUserServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\rapotDiSiswa.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\rapotServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\SigninServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\siswaServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\StudentServlet.java
-D:\NetBeans\MamSchool\MamSchool\MamSchool\src\main\java\servlets\TeacherServlet.java
-=======
-D:\MamSchool\MamSchool\src\main\java\classes\JDBC.java
-D:\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
-D:\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
-D:\MamSchool\MamSchool\src\main\java\dao\ClassesDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\ClassScheduleDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\DashboardGuruDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\DashboardKepsekDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\DashboardSiswaDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\DashboardTUDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\gradeDao.java
-D:\MamSchool\MamSchool\src\main\java\dao\GradesDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\JadwalDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\ListClassDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\ListPresensiDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\ListStudentDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\ListTeacherDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\LoginDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\PresensiDao.java
-D:\MamSchool\MamSchool\src\main\java\dao\ProfileUserDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\rapotDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\rapotSiswaDao.java
-D:\MamSchool\MamSchool\src\main\java\dao\SigninDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\siswaDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\StudentDAO.java
-D:\MamSchool\MamSchool\src\main\java\dao\TeacherDAO.java
-D:\MamSchool\MamSchool\src\main\java\model\Classes.java
-D:\MamSchool\MamSchool\src\main\java\model\gradeStudent.java
-D:\MamSchool\MamSchool\src\main\java\model\Jadwal.java
-D:\MamSchool\MamSchool\src\main\java\model\nilai.java
-D:\MamSchool\MamSchool\src\main\java\model\Presensi.java
-D:\MamSchool\MamSchool\src\main\java\model\rapot.java
-D:\MamSchool\MamSchool\src\main\java\model\Student.java
-D:\MamSchool\MamSchool\src\main\java\model\Teacher.java
-D:\MamSchool\MamSchool\src\main\java\model\User.java
-D:\MamSchool\MamSchool\src\main\java\servlets\ClassesServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\ClassScheduleServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\DashboardGuruServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\DashboardSiswaServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\DashboardTUServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\GradesServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\JadwalServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\ListClassServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\ListPresensiServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\ListStudentServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\ListTeacherServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\LoginServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\LogoutServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\nilaiServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\PresensiServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\ProfileUserServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\rapotDiSiswa.java
-D:\MamSchool\MamSchool\src\main\java\servlets\rapotServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\SigninServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\siswaServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\StudentServlet.java
-D:\MamSchool\MamSchool\src\main\java\servlets\TeacherServlet.java
->>>>>>> afb445a4c546c6ad96682ecedc7e5ebbb07450b4
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\classes\JDBC.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\JakartaRestConfiguration.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\ClassesDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\ClassScheduleDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\DashboardGuruDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\DashboardKepsekDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\DashboardSiswaDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\DashboardTUDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\gradeDao.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\GradesDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\JadwalDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\ListClassDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\ListPresensiDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\ListStudentDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\ListTeacherDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\LoginDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\PresensiDao.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\ProfileUserDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\rapotDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\rapotSiswaDao.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\SigninDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\siswaDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\StudentDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\dao\TeacherDAO.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\model\Classes.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\model\gradeStudent.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\model\Jadwal.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\model\nilai.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\model\Presensi.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\model\rapot.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\model\Student.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\model\Teacher.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\model\User.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\ClassesServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\ClassScheduleServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\DashboardGuruServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\DashboardSiswaServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\DashboardTUServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\GradesServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\JadwalServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\ListClassServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\ListPresensiServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\ListStudentServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\ListTeacherServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\LoginServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\LogoutServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\nilaiServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\PresensiServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\ProfileUserServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\rapotDiSiswa.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\rapotServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\SigninServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\siswaServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\StudentServlet.java
+C:\Tubes pbo terbaru bismillah\New folder\terbaru\MamSchool\MamSchool\src\main\java\servlets\TeacherServlet.java
