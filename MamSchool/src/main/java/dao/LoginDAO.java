@@ -31,7 +31,7 @@ public class LoginDAO {
 
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password); 
+            preparedStatement.setString(2, password);
 
             resultSet = preparedStatement.executeQuery();
 
@@ -48,14 +48,35 @@ public class LoginDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (resultSet != null) resultSet.close();
-                if (preparedStatement != null) preparedStatement.close();
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
                 JDBC.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
-        return user; 
+        return user;
     }
+
+    public int getStudentIdByUserId(int userId) {
+        String query = "SELECT id FROM students WHERE user_id = ?";
+        try (Connection connection = JDBC.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Jika tidak ditemukan, return -1
+    }
+
 }

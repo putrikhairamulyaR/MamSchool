@@ -40,10 +40,14 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            session.setAttribute("userId", user.getId()); 
+            session.setAttribute("userId", user.getId());
             session.setAttribute("username", user.getUsername());
             session.setAttribute("role", user.getRole());
-
+            
+            if ("siswa".equals(user.getRole())) {
+                int studentId = loginDAO.getStudentIdByUserId(user.getId()); // Tambahkan method ini ke LoginDAO
+                session.setAttribute("studentId", studentId);
+            }
             // Redirect berdasarkan role
             switch (user.getRole()) {
                 case "kepsek":

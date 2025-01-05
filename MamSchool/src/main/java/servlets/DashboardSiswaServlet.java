@@ -29,8 +29,9 @@ public class DashboardSiswaServlet extends HttpServlet {
         // Get the logged-in student's ID from session
         Integer studentId = (Integer) request.getSession().getAttribute("studentId");
 
-        if (studentId == null) {
-            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        String role = (String) request.getSession().getAttribute("role");
+        if (role == null || !role.equals("siswa")) {
+            response.sendRedirect(request.getContextPath() + "/frontEnd/Login.jsp");
             return;
         }
 
