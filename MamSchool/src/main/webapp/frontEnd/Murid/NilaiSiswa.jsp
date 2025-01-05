@@ -156,7 +156,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ProfileUser">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ProfileUserServlet">
                             <i data-feather="user" class="align-middle"></i>
                             <span class="align-middle">Profile</span>
                         </a>
@@ -168,21 +168,9 @@
                         <span class=" text-white fw-bold">Siswa</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/siswaServlet">
-                            <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">List Siswa</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
                             <i data-feather="pie-chart" class="align-middle"></i>
                             <span class="align-middle">Presensi Siswa</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
-                            <i data-feather="file-text" class="align-middle"></i>
-                            <span class="align-middle">Jadwal Mata Pelajaran</span>
                         </a>
                     </li>
                     <li class="nav-item">
