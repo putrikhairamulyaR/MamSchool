@@ -24,23 +24,23 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-dark shadow sticky-top" style="background-color: #26335D">
             <div class="container-fluid px-3">
-                <a class="navbar-brand" href="#">Mam School</a>
+                <a class="navbar-brand" href="#home">Mam School</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto ">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Home</a>
+                            <a class="nav-link" href="#home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Product</a>
+                            <a class="nav-link" href="#features">Features</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
+                            <a class="nav-link" href="#programs">Programs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="#contact">Contact</a>
                         </li>
                     </ul>
                     <div class="d-flex ms-auto"> <!-- ms-auto untuk menggeser tombol login ke kanan -->
@@ -50,7 +50,7 @@
             </div>
         </nav>
 
-        <section class="hero d-flex align-items-center">
+        <section id="home" class="hero d-flex align-items-center">
             <div class="container py-5">
                 <div class="row justify-content-center text-center align-items-center g-3">
                     <div class="col-lg-6 col-12">
@@ -76,11 +76,11 @@
         </section>
 
         <!-- Owl Carousel Section with Cards -->
-        <section class="container my-5 px-4">
+        <section id="features" class="container my-5 px-4">
             <h2 class="text-center p-2">Features</h2>
             <div class="owl-carousel owl-theme">
                 <div class="item">
-                    <div class="card" style="min-height: 400px;">
+                    <div class="card" style="min-height: 400px; background-color: #adadb0;">
                         <img src="Image/education.svg" class="card-img-top" alt="Education Image">
                         <div class="card-body">
                             <h5 class="card-title">Personalized Education</h5>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <div class="item">
-                    <div class="card" style="min-height: 400px;">
+                    <div class="card" style="min-height: 400px; background-color: #adadb0;">
                         <img src="Image/education.svg" class="card-img-top" alt="Education Image">
                         <div class="card-body">
                             <h5 class="card-title">Expert Mentorship</h5>
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <div class="item">
-                    <div class="card" style="min-height: 400px;">
+                    <div class="card" style="min-height: 400px; background-color: #adadb0;">
                         <img src="Image/education.svg" class="card-img-top" alt="Education Image">
                         <div class="card-body">
                             <h5 class="card-title">Engaging Curriculum</h5>
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="item">
-                    <div class="card" style="min-height: 400px;">
+                    <div class="card" style="min-height: 400px; background-color: #adadb0;">
                         <img src="Image/education.svg" class="card-img-top" alt="Education Image">
                         <div class="card-body">
                             <h5 class="card-title">Leadership Development</h5>
@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="item">
-                    <div class="card" style="min-height: 400px;">
+                    <div class="card" style="min-height: 400px; background-color: #adadb0;">
                         <img src="Image/education.svg" class="card-img-top" alt="Education Image">
                         <div class="card-body">
                             <h5 class="card-title">Comprehensive Student Support</h5>
@@ -129,7 +129,7 @@
 
 
         <!-- Program Sekolah -->
-        <section class="container my-5">
+        <section id="programs" class="container my-5">
             <h2 class="text-center p-2 text-white">Our Programs</h2>
             <div class="row">
                 <!-- Program 1: Beasiswa -->
@@ -208,7 +208,7 @@
         </section>
 
         <!-- Footer Section -->
-        <footer class="text-light py-5" style="background-color: #26335D">
+        <footer id="contact" class="text-light py-5" style="background-color: #26335D">
             <div class="container">
                 <div class="row">
                     <!-- About Us Section -->
