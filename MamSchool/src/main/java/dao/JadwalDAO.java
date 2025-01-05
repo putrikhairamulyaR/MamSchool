@@ -20,7 +20,10 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import model.Classes;
 import model.Jadwal;
 import model.Teacher;
 
@@ -68,32 +71,6 @@ public boolean addJadwal(Jadwal jadwal) {
     }
 }
 
-public boolean checkScheduleConflict(int kelasId, String hari, LocalTime startTime, LocalTime endTime) {
-    String query = "SELECT * FROM class_Schedule WHERE class_id = ? AND day = ? AND " +
-                   "((startTime <= ? AND endTime > ?) OR " +
-                   "(startTime < ? AND endTime >= ?) OR " +
-                   "(startTime >= ? AND endTime <= ?))";
-
-    try (Connection conn = JDBC.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(query)) {
-        stmt.setInt(1, kelasId);
-        stmt.setString(2, hari);
-        stmt.setTime(3, Time.valueOf(startTime));
-        stmt.setTime(4, Time.valueOf(startTime));
-        stmt.setTime(5, Time.valueOf(endTime));
-        stmt.setTime(6, Time.valueOf(endTime));
-        stmt.setTime(7, Time.valueOf(startTime));
-        stmt.setTime(8, Time.valueOf(endTime));
-
-        ResultSet rs = stmt.executeQuery();
-        return rs.next(); 
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
-    }
-}
-
-
 
     public Jadwal getJadwalById(int id) {
         String sql = "SELECT * FROM class_schedule WHERE id = ?";
@@ -114,24 +91,7 @@ public boolean checkScheduleConflict(int kelasId, String hari, LocalTime startTi
     }
      
     
-    public int getKelasId(String name) {
-        String sql = "SELECT id FROM classes WHERE name = ?";
-        
-        try (Connection connection = JDBC.getConnection(); 
-                 PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setString(1, name);
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getInt("id");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); 
-        }
-        return 0; 
-    }
-
+    
    
     public List<Jadwal> getAllJadwals() {
         List<Jadwal> jadwals = new ArrayList<>();
@@ -151,29 +111,50 @@ public boolean checkScheduleConflict(int kelasId, String hari, LocalTime startTi
     }
 
     
-    public boolean updateJadwal(Jadwal jadwal) {
+  public boolean updateJadwal(Jadwal jadwal) {
+    String conflictCheckSql = "SELECT * FROM class_schedule WHERE teacher_id = ? AND day = ? AND (start_time < ? AND end_time > ?) AND id != ?";
     String sql = "UPDATE class_schedule SET class_id = ?, subject_id = ?, teacher_id = ?, day = ?, start_time = ?, end_time = ? WHERE id = ?";
     
-   
-    try (Connection connection = JDBC.getConnection();  
-         PreparedStatement statement = connection.prepareStatement(sql)) {
+    try (Connection connection = JDBC.getConnection()) {
+        if (connection == null) {
+            System.out.println("Koneksi database gagal.");
+            return false;
+        }
+
         
-       
-        statement.setInt(1, jadwal.getidKelas());
-        statement.setInt(2, jadwal.getSubjectId());
-        statement.setInt(3, jadwal.getTeacherId());
-        statement.setString(4, jadwal.getDay());
-        statement.setTime(5, Time.valueOf(jadwal.getStartTime()));
-        statement.setTime(6, Time.valueOf(jadwal.getEndTime()));
-        statement.setInt(7, jadwal.getId());
+        try (PreparedStatement conflictStatement = connection.prepareStatement(conflictCheckSql)) {
+            conflictStatement.setInt(1, jadwal.getTeacherId());
+            conflictStatement.setString(2, jadwal.getDay());
+            conflictStatement.setTime(3, Time.valueOf(jadwal.getEndTime()));
+            conflictStatement.setTime(4, Time.valueOf(jadwal.getStartTime()));
+            conflictStatement.setInt(5, jadwal.getId());
+            
+            try (ResultSet resultSet = conflictStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    System.out.println("Jadwal bentrok dengan jadwal lain.");
+                    return false;
+                }
+            }
+        }
+
         
-       
-        return statement.executeUpdate() > 0;  
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, jadwal.getidKelas());
+            statement.setInt(2, jadwal.getSubjectId());
+            statement.setInt(3, jadwal.getTeacherId());
+            statement.setString(4, jadwal.getDay());
+            statement.setTime(5, Time.valueOf(jadwal.getStartTime()));
+            statement.setTime(6, Time.valueOf(jadwal.getEndTime()));
+            statement.setInt(7, jadwal.getId());
+            
+            return statement.executeUpdate() > 0;
+        }
     } catch (SQLException e) {
-        e.printStackTrace();  
-        return false;  
+        e.printStackTrace();
+        return false;
     }
 }
+
 
 
   
@@ -295,28 +276,99 @@ public Teacher getTeacherId(int teacherId) {
     }
     return teacher;
 }
-public boolean isScheduleConflict(int teacherId, String day, LocalTime startTime, LocalTime endTime) {
-    String sql = "SELECT * FROM class_schedule WHERE teacher_id = ? AND day = ? AND ((start_time <= ? AND end_time > ?) OR (start_time < ? AND end_time >= ?))";
 
-    try (Connection connection = JDBC.getConnection();
-         PreparedStatement statement = connection.prepareStatement(sql)) {
-        
-        statement.setInt(1, teacherId);
-        statement.setString(2, day);
-        statement.setTime(3, Time.valueOf(startTime));
-        statement.setTime(4, Time.valueOf(endTime));
-        statement.setTime(5, Time.valueOf(startTime));
-        statement.setTime(6, Time.valueOf(endTime));
-        
-        try (ResultSet resultSet = statement.executeQuery()) {
-            if (resultSet.next()) {
-                return true;
-            }
+ public List<Map<String, Object>> getAllSchedules(String className, String day) {
+        List<Map<String, Object>> schedules = new ArrayList<>();
+        StringBuilder query = new StringBuilder(
+            "SELECT cs.id, cs.class_id, c.name AS class_name, cs.subject_id, s.name AS subject_name, " +
+            "cs.teacher_id, t.name AS teacher_name, cs.day, cs.start_time, cs.end_time " +
+            "FROM class_schedule cs " +
+            "LEFT JOIN classes c ON cs.class_id = c.id " +
+            "LEFT JOIN subjects s ON cs.subject_id = s.id " +
+            "LEFT JOIN teachers t ON cs.teacher_id = t.id WHERE 1=1"
+        );
+
+        if (className != null && !className.isEmpty()) {
+            query.append(" AND c.name = ?");
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        if (day != null && !day.isEmpty()) {
+            query.append(" AND cs.day = ?");
+        }
+
+        query.append(" ORDER BY FIELD(cs.day, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'), cs.start_time");
+
+        try (Connection connection = JDBC.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query.toString())) {
+
+            int paramIndex = 1;
+            if (className != null && !className.isEmpty()) {
+                stmt.setString(paramIndex++, className);
+            }
+            if (day != null && !day.isEmpty()) {
+                stmt.setString(paramIndex++, day);
+            }
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Map<String, Object> schedule = new HashMap<>();
+                schedule.put("id", rs.getInt("id"));
+                schedule.put("classId", rs.getInt("class_id"));
+                schedule.put("className", rs.getString("class_name"));
+                schedule.put("subjectId", rs.getInt("subject_id"));
+                schedule.put("subjectName", rs.getString("subject_name"));
+                schedule.put("teacherId", rs.getInt("teacher_id"));
+                schedule.put("teacherName", rs.getString("teacher_name"));
+                schedule.put("day", rs.getString("day"));
+                schedule.put("startTime", rs.getTime("start_time").toLocalTime());
+                schedule.put("endTime", rs.getTime("end_time").toLocalTime());
+                schedules.add(schedule);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return schedules;
     }
-    return false; 
-}
+ 
+
+    public List<String> getAvailableDays() {
+        List<String> days = new ArrayList<>();
+        String query = "SELECT DISTINCT day FROM class_schedule ORDER BY FIELD(day, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu')";
+
+        try (Connection connection = JDBC.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                days.add(rs.getString("day"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return days;
+    }
+
+
+    public List<String> getAvailableClasses() {
+        List<String> classes = new ArrayList<>();
+        String query = "SELECT DISTINCT name FROM classes ORDER BY name";
+
+        try (Connection connection = JDBC.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                classes.add(rs.getString("name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return classes;
+    }
+    
+    
 
 }
