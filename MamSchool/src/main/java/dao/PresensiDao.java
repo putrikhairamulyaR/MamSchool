@@ -27,23 +27,6 @@ public class PresensiDao {
             return false;
         }
     }
-
-    public boolean editKehadiran(int id_siswa, Date tanggal, String kehadiran) {
-        String query = "UPDATE attendance SET status = ? WHERE student_id = ? AND date = ?";
-        try (Connection connection = JDBC.getConnection(); 
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setInt(1, id_siswa);
-            java.sql.Date releaseDateSql = new java.sql.Date(tanggal.getTime());
-            preparedStatement.setDate(2, releaseDateSql);
-            preparedStatement.setString(3, kehadiran);
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     
     public List<Classes> getClassByTeacherId(int id) {
         String query = "SELECT * FROM classes WHERE teacher_id = ?";
@@ -137,35 +120,37 @@ public class PresensiDao {
     }
 
     public List<Student> getStudentsByFilter(String className, java.util.Date filterDate) {
-    List<Student> students = new ArrayList<>();
-    String query = "SELECT s.id, s.name, a.date, a.status " +
-                   "FROM students s " +
-                   "JOIN classes c ON s.class_id = c.id " +
-                   "LEFT JOIN attendance a ON s.id = a.student_id " +
-                   "WHERE c.name = ? AND (a.date = ? OR ? IS NULL)";
-    try (Connection connection = JDBC.getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        List<Student> students = new ArrayList<>();
+        String query = "SELECT s.id, s.name, a.date, a.status FROM students s "
+                     + "JOIN classes c ON s.class_id = c.id LEFT JOIN attendance a ON s.id = a.student_id "
+                     + "WHERE c.name = ? AND (a.date = ? OR ? IS NULL) AND (a.status IS NOT NULL)";
 
-        preparedStatement.setString(1, className);
-        java.sql.Date sqlDate = (filterDate != null) ? new java.sql.Date(filterDate.getTime()) : null;
-        preparedStatement.setDate(2, sqlDate);
-        preparedStatement.setDate(3, sqlDate);
+        try (Connection connection = JDBC.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            Presensi presen = new Presensi();
-            Student student = new Student();
-            presen.setStudentId(resultSet.getInt("id"));
-            student.setName(resultSet.getString("name"));
-            // Tambahkan informasi presensi
-            presen.setStatus(resultSet.getString("status"));
-            students.add(student);
+            preparedStatement.setString(1, className);
+            java.sql.Date sqlDate = (filterDate != null) ? new java.sql.Date(filterDate.getTime()) : null;
+            preparedStatement.setDate(2, sqlDate);
+            preparedStatement.setDate(3, sqlDate);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Student student = new Student();
+                student.setId(resultSet.getInt("id"));
+                student.setName(resultSet.getString("name"));
+
+                // Assuming Presensi class has a setDate and setStatus method
+                Presensi presensi = new Presensi();
+                presensi.setDate(resultSet.getDate("date"));
+                presensi.setStatus(resultSet.getString("status"));
+                students.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return students;
     }
-    return students;
-}
+
 
     
     public List<String> getAllClassNames() {
@@ -183,40 +168,20 @@ public class PresensiDao {
         return classNames;
     }
 
-    public Presensi getPresensiByStudentId(int studentId) {
-        Presensi presensi = null;
-        String sql = "SELECT * FROM presensi WHERE student_id = ?";
-
-        try (Connection connection = JDBC.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, studentId);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            if (rs.next()) {
-                int id = rs.getInt("id");
-                Date date = rs.getDate("date");
-                String status = rs.getString("status");
-                presensi = new Presensi(id, studentId, date, status);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return presensi;
-    }
     
-   public Presensi getPresensiByStudentIdAndDate(int studentId, Date date) {
-        Presensi presensi = null;
-        String sql = "SELECT status FROM attendance WHERE student_id = ? AND date = ?;";
+    public Presensi getPresensiByStudentIdAndDate(int studentId, java.sql.Date date) {
+        Presensi presensi = null; // This will hold the result to return
+        String sql = "SELECT status FROM attendance WHERE student_id = ? AND date = ?";
         try (Connection conn = JDBC.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, studentId);
             stmt.setDate(2, date);
+
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     String status = rs.getString("status");
-                    Presensi pres = new Presensi();
-                    pres.setStatus(status);
+                    presensi = new Presensi(); // Initialize the result object
+                    presensi.setStatus(status);
                 }
             }
         } catch (SQLException e) {
@@ -224,6 +189,7 @@ public class PresensiDao {
         }
         return presensi;
     }
+
     
             public int getTotalKehadiranByStudent(int id, String status) {
         String query = "SELECT COUNT(status) AS total_kehadiran FROM attendance WHERE student_id = ? AND status = ?";

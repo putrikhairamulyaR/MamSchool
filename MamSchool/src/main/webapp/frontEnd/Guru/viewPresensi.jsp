@@ -209,19 +209,27 @@
                 </div>
             </form>
 
-            <!-- Attendance Records -->
             <%
                 String selectedClassName = request.getParameter("className");
                 String dateParam = request.getParameter("filterDate");
-                Date filterDate = null;
+
+                // Convert dateParam to java.sql.Date
+                java.sql.Date filterDate = null;
                 if (dateParam != null && !dateParam.isEmpty()) {
-                    filterDate = java.sql.Date.valueOf(dateParam);
+                    try {
+                        filterDate = java.sql.Date.valueOf(dateParam); // Ensure format yyyy-MM-dd
+                    } catch (IllegalArgumentException e) {
+                        out.println("<p>Error: Invalid date format. Please use yyyy-MM-dd.</p>");
+                    }
                 }
+
+                // Retrieve students by filter
                 List<Student> students = null;
                 if (selectedClassName != null && !selectedClassName.isEmpty()) {
                     students = presensiDao.getStudentsByFilter(selectedClassName, filterDate);
                 }
             %>
+
             <% if (students != null && !students.isEmpty()) { %>
                 <table class="table table-bordered">
                     <thead>
@@ -231,16 +239,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (Student student : students) { 
-                            java.sql.Date tanggal = null;
-                            if (dateParam != null && !dateParam.isEmpty()) {
-                                tanggal = java.sql.Date.valueOf(dateParam); // Konversi String ke java.sql.Date
-                            }
-                            Presensi presensi = presensiDao.getPresensiByStudentIdAndDate(student.getId(), tanggal);
+                        <% for (Student student : students) {
+                            java.sql.Date sqlFilterDate = (filterDate != null) ? new java.sql.Date(filterDate.getTime()) : null;
+                            Presensi presensi = presensiDao.getPresensiByStudentIdAndDate(student.getId(), sqlFilterDate);
                         %>
                             <tr>
                                 <td><%= student.getName() %></td>
-                                <td><%= (presensi != null) ? presensi.getStatus() : "Alpa" %></td>
+                                <td><%= (presensi != null) ? presensi.getStatus() : "N/A" %></td>
                             </tr>
                         <% } %>
                     </tbody>
@@ -248,6 +253,7 @@
             <% } else { %>
                 <p>Belum mengisi presensi.</p>
             <% } %>
+
         </div>
     </div>
 

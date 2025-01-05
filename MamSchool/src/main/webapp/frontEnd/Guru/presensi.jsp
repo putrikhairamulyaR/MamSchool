@@ -197,6 +197,7 @@
             <div class="alert alert-warning text-center">No students found for this teacher.</div>
             <% } else { %>
             <!-- Form to submit attendance -->
+            <% for (Student student : students) {%>
             <form action="${pageContext.request.contextPath}/PresensiServlet" method="POST">
                 <input type="hidden" name="action" value="add">
                 <input type="date" name="Date" class="form-control">
@@ -212,7 +213,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (Student student : students) {%>
                         <tr class="text-center">
                             <td><%= student.getId() %></td>
                             <td><%= student.getName()%></td>
