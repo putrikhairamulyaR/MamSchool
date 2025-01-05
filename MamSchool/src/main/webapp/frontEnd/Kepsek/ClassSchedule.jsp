@@ -234,7 +234,7 @@
                      <a href="frontEnd/Kepsek/addJadwal.jsp" class="btn btn-success btn-sm mb-3">
                         <i class="bi bi-plus"></i> Tambah Jadwal
                     </a>
-                    <form action="${pageContext.request.contextPath}/listJadwalServlet" method="get" class="mb-4">
+                    <form action="${pageContext.request.contextPath}/ClassScheduleServlet" method="get" class="mb-4">
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="classId" class="form-label">Kelas:</label>
@@ -266,7 +266,7 @@
                                 <th>ID</th>
                                 <th>Kelas</th>
                                 <th>Mata Pelajaran</th>
-                                <th>Wali Kelas</th>
+                                <th>Guru</th>
                                 <th>Hari</th>
                                 <th>Jam Mulai</th>
                                 <th>Jam Selesai</th>
