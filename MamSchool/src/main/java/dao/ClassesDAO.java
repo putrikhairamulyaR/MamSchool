@@ -9,20 +9,20 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /**
  *
  * @author Raisa Lukman Hakim
  */
 public class ClassesDAO {
+
     private static final Logger logger = LoggerFactory.getLogger(ClassesDAO.class);
 
     public List<Classes> getAllClasses() {
         List<Classes> classesList = new ArrayList<>();
         String query = "SELECT * FROM classes";
 
-        try (Connection connection = JDBC.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
 
             if (connection == null) {
                 logger.warn("Failed to establish database connection.");
@@ -59,19 +59,21 @@ public class ClassesDAO {
         List<Classes> classesList = new ArrayList<>();
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM classes");
 
-        if (major != null || tingkat != null) {
+        // Tambahkan kondisi filter hanya jika parameter tidak null atau kosong
+        if ((major != null && !major.isEmpty()) || tingkat != null) {
             queryBuilder.append(" WHERE");
-            if (major != null) {
+            if (major != null && !major.isEmpty()) {
                 queryBuilder.append(" major = ?");
             }
             if (tingkat != null) {
-                if (major != null) queryBuilder.append(" AND");
+                if (major != null && !major.isEmpty()) {
+                    queryBuilder.append(" AND");
+                }
                 queryBuilder.append(" tingkat = ?");
             }
         }
 
-        try (Connection connection = JDBC.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder.toString())) {
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder.toString())) {
 
             if (connection == null) {
                 logger.warn("Failed to establish database connection.");
@@ -79,7 +81,7 @@ public class ClassesDAO {
             }
 
             int parameterIndex = 1;
-            if (major != null) {
+            if (major != null && !major.isEmpty()) {
                 preparedStatement.setString(parameterIndex++, major);
             }
             if (tingkat != null) {
@@ -113,8 +115,7 @@ public class ClassesDAO {
         String query = "SELECT * FROM classes WHERE id = ?";
         Classes classes = null;
 
-        try (Connection connection = JDBC.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             if (connection == null) {
                 logger.warn("Failed to establish database connection.");
@@ -149,8 +150,7 @@ public class ClassesDAO {
     public boolean addClass(Classes classes) {
         String query = "INSERT INTO classes (name, major, tingkat) VALUES (?, ?, ?)";
 
-        try (Connection connection = JDBC.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             if (connection == null) {
                 logger.warn("Failed to establish database connection.");
@@ -179,12 +179,10 @@ public class ClassesDAO {
         return false;
     }
 
-
     public boolean updateClass(Classes classes) {
         String query = "UPDATE classes SET name = ?, major = ?, teacher_id = ?, tingkat = ? WHERE id = ?";
 
-        try (Connection connection = JDBC.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             if (connection == null) {
                 logger.warn("Failed to establish database connection.");
@@ -214,8 +212,7 @@ public class ClassesDAO {
     public boolean deleteClass(int id) {
         String query = "DELETE FROM classes WHERE id = ?";
 
-        try (Connection connection = JDBC.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             if (connection == null) {
                 logger.warn("Failed to establish database connection.");
