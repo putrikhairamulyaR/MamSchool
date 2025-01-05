@@ -1,3 +1,4 @@
+dao\TUStudentDAO.class
 model\rapot.class
 dao\ListClassDAO.class
 dao\ClassesDAO.class
@@ -5,6 +6,7 @@ dao\rapotDAO.class
 dao\gradeDao.class
 model\Student.class
 servlets\GradesServlet.class
+servlets\TUStudentServlet.class
 servlets\StudentServlet.class
 model\Classes.class
 model\nilai.class

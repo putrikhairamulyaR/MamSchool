@@ -5,12 +5,14 @@
 package model;
 
 import java.time.LocalDate;
+
 /**
  *
  * @author Raisa Lukman Hakim
  */
 
 public class Student {
+
     private int id;
     private int userId;
     private String nis;
@@ -19,6 +21,7 @@ public class Student {
     private int enrollmentYear;
     private Integer classId; // Nullable
     private String major;
+    private Classes classInfo;
 
     public Student() {
     }
@@ -100,15 +103,23 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", nis='" + nis + '\'' +
-                ", name='" + name + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", enrollmentYear=" + enrollmentYear +
-                ", classId=" + classId +
-                ", major='" + major + '\'' +
-                '}';
+        return "Student{"
+                + "id=" + id
+                + ", userId=" + userId
+                + ", nis='" + nis + '\''
+                + ", name='" + name + '\''
+                + ", dateOfBirth=" + dateOfBirth
+                + ", enrollmentYear=" + enrollmentYear
+                + ", classId=" + classId
+                + ", major='" + major + '\''
+                + '}';
+    }
+    
+    public Classes getClassInfo() {
+        return classInfo;
+    }
+
+    public void setClassInfo(Classes classInfo) {
+        this.classInfo = classInfo;
     }
 }
