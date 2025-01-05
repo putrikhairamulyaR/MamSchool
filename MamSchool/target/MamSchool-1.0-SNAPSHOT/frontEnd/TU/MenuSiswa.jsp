@@ -249,7 +249,7 @@
             <div class="container">
                 <!-- Tombol Add Siswa -->
                 <a href="frontEnd/TU/addSiswa.jsp" class="btn btn-success btn-sm mb-3">
-                    <i class="bi bi-plus"></i> Tambah User
+                    <i class="bi bi-plus"></i> Tambah Siswa
                 </a>
 
                 <table>
