@@ -169,21 +169,21 @@
                                 <div class="mb-3">
                                     <label for="uts" class="form-label"><b>Nilai UTS</b></label>
                                     <input type="number" name="uts" id="uts" class="form-control" 
-                                        value="<%=grade.getUts()%>" required>
+                                        value="<%=grade.getUts()%>" min="0" max="100" required>
                                 </div>
 
                                 <!-- Input UAS -->
                                 <div class="mb-3">
                                     <label for="uas" class="form-label"><b>Nilai UAS</b></label>
                                     <input type="number" name="uas" id="uas" class="form-control" 
-                                        value="<%=grade.getUas()%>" required>
+                                        value="<%=grade.getUas()%>" min="0" max="100" required>
                                 </div>
 
                                 <!-- Input Tugas -->
                                 <div class="mb-3">
                                     <label for="tugas" class="form-label"><b>Nilai Tugas</b></label>
                                     <input type="number" name="tugas" id="tugas" class="form-control" 
-                                        value="<%=grade.getTugas()%>" required>
+                                        value="<%=grade.getTugas()%>" min="0" max="100" required>
                                 </div>
 
                                 <!-- Tombol Submit -->
