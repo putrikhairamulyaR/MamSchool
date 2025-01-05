@@ -67,7 +67,7 @@ public class rapotDAO {
                 // Hitung rata-rata dari semua nilai
                 double rataRata = (rapot.getMatematika() + rapot.getGeografi() + rapot.getBiologi() +
                                    rapot.getFisika() + rapot.getKimia() + rapot.getEkonomi() +
-                                   rapot.getSejarah() + rapot.getInggris()) / 8.0;
+                                   rapot.getSejarah() + rapot.getInggris()) / 4.0;
                 rapot.setRataRata(rataRata);
                 
                 // Tentukan kategori berdasarkan rata-rata
