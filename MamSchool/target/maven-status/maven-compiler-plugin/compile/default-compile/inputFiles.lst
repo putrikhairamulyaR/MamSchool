@@ -4,6 +4,7 @@ C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\ClassesDAO.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\ClassScheduleDAO.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\DashboardKepsekDAO.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\DashboardTUDAO.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\gradeDao.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\GradesDAO.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\JadwalDAO.java
@@ -32,6 +33,7 @@ C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\ClassesServlet.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\ClassScheduleServlet.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\DashboardTUServlet.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\GradesServlet.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\JadwalServlet.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\ListClassServlet.java

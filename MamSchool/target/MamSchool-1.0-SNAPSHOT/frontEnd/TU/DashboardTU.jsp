@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0
@@ -34,6 +35,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Feather Icons -->
         <script src="https://unpkg.com/feather-icons"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <style>
             /* Sidebar */
             #sidebar {
@@ -162,7 +164,7 @@
                             <span class="align-middle">Nilai Siswa</span>
                         </a>
                     </li>
-		   <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/ListPresensiServlet">
                             <i data-feather="pie-chart" class="align-middle"></i>
                             <span class="align-middle">Presensi Siswa</span>
@@ -242,17 +244,150 @@
 
 
             <!-- Page Content -->
-            <div class="p-3">
-                <h1>Welcome to AdminKit</h1>
-                <p>This is the main content area.</p>
-                <!-- <a href="addJadwal.jsp">Tambah Jadwal</a>-->
+            <div class="container mt-5">
+                <h1>Dashboard Tata Usaha</h1>
+                <div class="row mt-4">
+                    <!-- Statistics -->
+                    <div class="col-md-3">
+                        <div class="card   mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Jumlah Pengguna</h5>
+                                <p class="card-text">${totalUsers}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card   mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Jumlah Siswa</h5>
+                                <p class="card-text">${totalStudents}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card   mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Jumlah Guru</h5>
+                                <p class="card-text">${totalTeachers}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card   mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Jumlah Kelas</h5>
+                                <p class="card-text">${totalClasses}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="row mt-4">
+                    <!-- Pie Chart: Distribution of Students by Major -->
+                    <div class="col-md-6">
+                        <h3>Distribusi Siswa Berdasarkan Jurusan</h3>
+                        <canvas id="studentDistributionChart"></canvas>
+                    </div>
+
+                    <!-- Bar Chart: Average Monthly Attendance -->
+                    <div class="col-md-6">
+                        <h3>Rata-rata Kehadiran Bulanan</h3>
+                        <canvas id="attendanceChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Problematic Students -->
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <h3>Highlight Siswa Bermasalah</h3>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>NIS</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Kehadiran (%)</th>
+                                    <th>Kelas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="student" items="${problematicStudents}">
+                                    <tr>
+                                        <td>${student["nis"]}</td>
+                                        <td>${student["name"]}</td>
+                                        <td>${student["attendance"]}%</td>
+                                        <td>${student["className"]}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Today Schedules -->
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <h3>Jadwal Pelajaran Hari Ini</h3>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Kelas</th>
+                                    <th>Mata Pelajaran</th>
+                                    <th>Jam Mulai</th>
+                                    <th>Jam Selesai</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="schedule" items="${todaySchedules}">
+                                    <tr>
+                                        <td>${schedule["className"]}</td>
+                                        <td>${schedule["subjectName"]}</td>
+                                        <td>${schedule["startTime"]}</td>
+                                        <td>${schedule["endTime"]}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Activate Feather Icons -->
+        <!-- Chart.js Scripts -->
         <script>
+            // Student Distribution Chart
+            const studentDistributionCtx = document.getElementById('studentDistributionChart').getContext('2d');
+            const studentDistributionData = {
+                labels: <c:out value="${studentDistributionByMajor.keySet()}"/>,
+                datasets: [{
+                        label: 'Jumlah Siswa',
+                        data: <c:out value="${studentDistributionByMajor.values()}"/>,
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                    }]
+            };
+            new Chart(studentDistributionCtx, {
+                type: 'pie',
+                data: studentDistributionData,
+            });
+
+            // Attendance Chart
+            const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
+            const attendanceData = {
+                labels: <c:out value="${averageMonthlyAttendance.keySet()}"/>,
+                datasets: [{
+                        label: 'Kehadiran',
+                        data: <c:out value="${averageMonthlyAttendance.values()}"/>,
+                        backgroundColor: '#4BC0C0',
+                    }]
+            };
+            new Chart(attendanceCtx, {
+                type: 'bar',
+                data: attendanceData,
+            });
+        
             feather.replace({color: '#ffffff'});
 
             const toggleButton = document.getElementById("toggleSidebar");

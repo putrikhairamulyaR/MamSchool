@@ -7,12 +7,14 @@ model\Student.class
 servlets\GradesServlet.class
 dao\ListPresensiDAO.class
 servlets\StudentServlet.class
+dao\DashboardTUDAO.class
 model\Classes.class
 model\nilai.class
 model\User.class
 servlets\LoginServlet.class
 dao\rapotSiswaDao.class
 dao\LoginDAO.class
+servlets\DashboardTUServlet.class
 servlets\DashboardKepsekServlet.class
 servlets\ListClassServlet.class
 classes\JDBC.class
