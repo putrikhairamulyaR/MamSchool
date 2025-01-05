@@ -30,10 +30,12 @@ servlets\siswaServlet.class
 servlets\LogoutServlet.class
 com\mycompany\mamschool\JakartaRestConfiguration.class
 dao\GradesDAO.class
+servlets\DashboardSiswaServlet.class
 servlets\rapotDiSiswa.class
 dao\SigninDAO.class
 dao\StudentDAO.class
 dao\ClassScheduleDAO.class
+dao\DashboardSiswaDAO.class
 com\mycompany\mamschool\resources\JakartaEE11Resource.class
 servlets\TeacherServlet.class
 dao\ListTeacherDAO.class
