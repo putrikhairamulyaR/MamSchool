@@ -150,7 +150,7 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/DashboardSiswa">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/DashboardSiswa">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -180,7 +180,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/rapotDiSiswa">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/rapotDiSiswa">
                             <i data-feather="file-text" class="align-middle"></i>
                             <span class="align-middle">Raport Siswa</span>
                         </a>
