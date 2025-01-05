@@ -164,17 +164,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ClassScheduleServlet">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/MamSchool/frontEnd/Kepsek/listJadwal.jsp">
-                            <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">Informasi Jadwal</span>
-                        </a>
-                    </li>
+                   
                 </ul>
                 <hr>
                 <ul class="nav flex-column">
@@ -217,11 +212,15 @@
                       <!-- Pilih NIP Guru -->
                     <div class="mb- 3">
                         <label for="nip" class="form-label">NIP - Nama - Mapel Guru</label>
-                         <select name="nip" id="class" class="form-select" required onchange="fetchTeacherDetails()">
-                            <%  for (Teacher teacher : teachers) {%>
-                            <option value="<%= teacher.getNip()%> "><%= teacher.getNip()%> - <%= teacher.getName()%> - <%= teacher.getSubject()%> </option>                        
-                            <%  }%>
-                         </select>
+                         <select name="nip" id="nip" class="form-select" required onchange="filterClasses()">
+                             <option value="" disabled selected>Pilih Guru</option>
+                        <% for (Teacher teacher : teachers) { %>
+                            <option value="<%= teacher.getNip() %>" data-subject="<%= teacher.getSubject() %>">
+                                <%= teacher.getNip() %> - <%= teacher.getName() %> - <%= teacher.getSubject() %>
+                            </option>
+                        <% } %>
+                    </select>
+
                      </div>
                          
 
@@ -229,20 +228,14 @@
                     <!-- Input Kelas -->
                     <div class="mb-3">
                         <label for="class" class="form-label">Kelas</label>
-                        <select name="kelas" id="kelas" class="form-select" required>
-                            <%
-                                for (Classes cls : classes) {
-                                  
-                            %>
-                            <option value="<%= cls.getId() %>">
-                                <%= cls.getName()%>
+                       <select name="kelas" id="kelas" class="form-select" required>
+                             <option value="" disabled selected>Pilih Kelas</option>
+                       <% for (Classes cls : classes) { %>
+                            <option value="<%= cls.getId() %>" data-major="<%= cls.getMajor() %>">
+                                <%= cls.getName() %>
                             </option>
-                            <%
-                                
-                                }
-                            %>
-                        </select>
-                    </div>
+                        <% } %>
+                    </select>
 
 
                     <!-- Input Hari -->
@@ -279,10 +272,7 @@
                     <button type="button" class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#confirmModal">
                         <i class="bi bi-save me-2"></i> Simpan
                     </button>
-                    <a href="ClassSchedule.jsp" class="btn btn-secondary btn-custom">
-                        <i class="bi bi-arrow-left me-2"></i> Kembali
-                        
-                    </a>
+                       <a href="${pageContext.request.contextPath}/ClassScheduleServlet" class="btn btn-secondary">Batal</a>
                 </div>
             </form>
         </div>
@@ -305,7 +295,43 @@
             </div>
         </div>
     </div>
-                   
+
+<script>
+    function filterClasses() {
+        const nipSelect = document.getElementById('nip');
+        const selectedTeacher = nipSelect.options[nipSelect.selectedIndex];
+        const teacherSubject = selectedTeacher.getAttribute('data-subject');
+
+        let allowedMajor = '';
+        const ipaSubjects = ['Matematika', 'Fisika', 'Kimia', 'Biologi'];
+        const ipsSubjects = ['Sejarah', 'Ekonomi', 'Geografi', 'Bahasa Inggris'];
+
+        if (ipaSubjects.includes(teacherSubject)) {
+            allowedMajor = 'IPA';
+        } else if (ipsSubjects.includes(teacherSubject)) {
+            allowedMajor = 'IPS';
+        }
+
+       
+        const kelasSelect = document.getElementById('kelas');
+        const kelasOptions = kelasSelect.options;
+
+        for (let i = 0; i < kelasOptions.length; i++) {
+            const option = kelasOptions[i];
+            const classMajor = option.getAttribute('data-major');
+
+           
+            if (classMajor === allowedMajor) {
+                option.style.display = 'block';
+            } else {
+                option.style.display = 'none';
+            }
+        }
+
+       
+        kelasSelect.selectedIndex = 0;
+    }
+</script>
      <!-- Bootstrap JS -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://unpkg.com/feather-icons"></script>

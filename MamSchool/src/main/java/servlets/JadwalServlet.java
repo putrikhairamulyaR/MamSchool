@@ -19,6 +19,8 @@ import dao.TeacherDAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Map;
+import model.Classes;
 import model.Jadwal;
 import model.Teacher;
 
@@ -45,7 +47,7 @@ public class JadwalServlet extends HttpServlet {
             
            
             default:
-                response.sendRedirect("/MamSchool/frontEnd/Kepsek/listJadwal.jsp");
+                response.sendRedirect("/MamSchool/frontEnd/Kepsek/ClassSchedule.jsp");
                 break;
         }
     }
@@ -65,15 +67,27 @@ public class JadwalServlet extends HttpServlet {
                 deleteJadwal(request, response);
                 break;
             default:
-                response.sendRedirect("/MamSchool/frontEnd/Kepsek/listJadwal.jsp");
+                response.sendRedirect("/MamSchool/frontEnd/Kepsek/ClassSchedule.jsp");
                 break;
         }
     }
 
     private void listJadwals(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Jadwal> Jadwals = jadwalDAO.getAllJadwals();
-        request.getSession().setAttribute("scheduleList", Jadwals);
-        response.sendRedirect("/MamSchool/frontEnd/Kepsek/listJadwal.jsp");
+             String className = request.getParameter("classId");
+        String day = request.getParameter("day");
+
+        JadwalDAO JadwalDAO = new JadwalDAO();
+        List<Map<String, Object>> schedules = JadwalDAO.getAllSchedules(className, day);
+
+        List<String> availableDays = JadwalDAO.getAvailableDays();
+        List<String> availableClasses = JadwalDAO.getAvailableClasses();
+
+        request.setAttribute("schedules", schedules);
+        request.setAttribute("availableDays", availableDays);
+        request.setAttribute("availableClasses", availableClasses);
+
+        request.getRequestDispatcher("/frontEnd/Kepsek/ClassSchedule.jsp").forward(request, response);
+    
     }
     
     
@@ -125,7 +139,8 @@ private void addJadwal(HttpServletRequest request, HttpServletResponse response)
             idMapel = 8;
         } 
     
-  
+
+
     LocalTime start = LocalTime.parse(startTime);
     LocalTime end = LocalTime.parse(endTime);
     

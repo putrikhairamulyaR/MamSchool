@@ -1,5 +1,5 @@
 <%-- 
-    Document   : deleteJadwal
+    Document   : viewJadwal
     Created on : Dec 31, 2024, 9:26:30 AM
     Author     : Necha
 --%>
@@ -144,7 +144,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ClassScheduleServlet">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>
@@ -197,7 +197,7 @@
 %>
     <div class="container mt-5">
         <h2>Informasi Jadwal</h2>
-        <form action="${pageContext.request.contextPath}/Jadwal?action=delete" method="post">
+        <form action="${pageContext.request.contextPath}/Jadwal" method="post">
             <input type="hidden" name="id" value="<%= jadwal.getId() %>">
             
             <!-- Informasi Guru -->
@@ -248,9 +248,10 @@
                 <label for="jamSelesai" class="form-label">Jam Selesai</label>
                 <input type="time" name="jamSelesai" id="jamSelesai" class="form-control" value="<%= jadwal.getEndTime() %>" disabled>
             </div>
-
+                
+            <a href="${pageContext.request.contextPath}/ClassScheduleServlet" class="btn btn-secondary">Kembali</a>
            
-            <a href="listJadwal.jsp" class="btn btn-secondary">Kembali</a>
+           
         </form>
     </div>
             <!-- Bootstrap JS -->

@@ -154,7 +154,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ClassScheduleServlet">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>
@@ -171,12 +171,7 @@
                             <span class="align-middle">Log Out</span>
                         </a>
                     </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="/MamSchool/frontEnd/Kepsek/listJadwal.jsp">
-                            <i data-feather="jad-wal" class="align-middle"></i>
-                            <span class="align-middle">Informasi Jadwal</span>
-                        </a>
-                    </li>
+                     
                 </ul>
             </div>
         </nav>
@@ -254,7 +249,7 @@
             </div>
 
             <button type="submit" class="btn btn-danger">Hapus Jadwal</button>
-            <a href="listJadwal.jsp" class="btn btn-secondary">Batal</a>
+            <a href="${pageContext.request.contextPath}/ClassScheduleServlet" class="btn btn-secondary" >Batal</a>
         </form>
     </div>
 </body>

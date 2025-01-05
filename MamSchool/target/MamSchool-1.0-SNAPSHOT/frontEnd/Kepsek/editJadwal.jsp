@@ -142,17 +142,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ClassScheduleServlet">
                             <i data-feather="users" class="align-middle"></i>
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/MamSchool/frontEnd/Kepsek/listJadwal.jsp">
-                            <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">Informasi Jadwal</span>
-                        </a>
-                    </li>
+                   
                 </ul>
                 <hr>
                 <ul class="nav flex-column">
@@ -186,16 +181,21 @@
 <%
     JadwalDAO jadwalDAO = new JadwalDAO();
     ClassesDAO classesDao = new ClassesDAO();
-     List<Classes> classes = classesDao.getAllClasses();
-    Teacher teacher = null;
+    TeacherDAO teacherDAO = new TeacherDAO();
+    
     int id = Integer.parseInt(request.getParameter("id"));
+    
     Jadwal jadwal = jadwalDAO.getJadwalById(id);
+    Teacher teacher = null;
+    List<Classes> classes = classesDao.getAllClasses();
     
     if (jadwal != null) {
-        teacher = jadwalDAO.getTeacherId(jadwal.getTeacherId());
+        teacher = teacherDAO.getTeacherById(jadwal.getTeacherId()); 
+    } else {
+        out.println("Jadwal not found.");
+        return;
     }
 %>
-
     <div class="container mt-5">
         <h2>Edit Jadwal</h2>
         <form action="${pageContext.request.contextPath}/Jadwal?action=update" method="post">
@@ -217,25 +217,23 @@
             <div class="mb-3">
                 <label for="subject" class="form-label">Mapel</label>
                 <input type="text" class="form-control" id="subject" name="subject" value="<%= teacher.getSubject() %>" disabled>
+            
             </div>
+             <input type="hidden" id="teacherSubject" value="<%= teacher.getSubject() %>">
+
 
              <!-- Input Kelas -->
-                    <div class="mb-3">
-                        <label for="class" class="form-label">Kelas</label>
-                        <select name="kelas" id="kelas" class="form-select" required>
-                            <%
-                                for (Classes cls : classes) {
-                                  
-                            %>
-                            <option value="<%= cls.getId() %>">
-                                <%= cls.getName()%>
-                            </option>
-                            <%
-                                
-                                }
-                            %>
-                        </select>
-                    </div>
+            <div class="mb-3">
+                <label for="kelas" class="form-label">Kelas</label>
+                <select name="kelas" id="kelas" class="form-select" required>
+                    <option value="" disabled selected>Pilih Kelas</option>
+                    <% for (Classes cls : classes) { %>
+                        <option value="<%= cls.getId() %>" data-major="<%= cls.getMajor() %>">
+                            <%= cls.getName() %>
+                        </option>
+                    <% } %>
+                </select>
+            </div>
 
             <!-- Input Hari -->
             <div class="mb-3">
@@ -264,12 +262,48 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update Jadwal</button>
-            <a href="listJadwal.jsp" class ="btn btn-secondary">Batal</a>
-       
-                
+            <a href="${pageContext.request.contextPath}/ClassScheduleServlet" class="btn btn-secondary">Kembali</a>
+           
          
         </form>
     </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        filterClasses(); 
+    });
+
+    function filterClasses() {
+        const teacherSubject = document.getElementById('teacherSubject').value;
+        let allowedMajor = '';
+        const ipaSubjects = ['Matematika', 'Fisika', 'Kimia', 'Biologi'];
+        const ipsSubjects = ['Sejarah', 'Ekonomi', 'Geografi', 'Bahasa Inggris'];
+
+        if (ipaSubjects.includes(teacherSubject)) {
+            allowedMajor = 'IPA';
+        } else if (ipsSubjects.includes(teacherSubject)) {
+            allowedMajor = 'IPS';
+        }
+
+        const kelasSelect = document.getElementById('kelas');
+        const kelasOptions = kelasSelect.options;
+
+   
+        for (let i = 0; i < kelasOptions.length; i++) {
+            const option = kelasOptions[i];
+            const classMajor = option.getAttribute('data-major');
+
+            if (classMajor === allowedMajor) {
+                option.style.display = 'block'; 
+            } else {
+                option.style.display = 'none'; 
+            }
+        }
+
+        kelasSelect.selectedIndex = 0;
+    }
+</script>
+    
             <!-- Bootstrap JS -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://unpkg.com/feather-icons"></script>

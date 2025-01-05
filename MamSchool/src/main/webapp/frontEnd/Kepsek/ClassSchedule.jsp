@@ -1,7 +1,7 @@
 <%-- 
     Document   : ClassSchedule
     Created on : 31 Dec 2024, 20.01.50
-    Author     : Royal
+    Author     : Dafi/Necha
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -43,7 +43,7 @@
                 top: 0;
                 left: 0;
                 bottom: 0;
-                z-index: 1030; /* Tetap di atas konten utama */
+                z-index: 1030;
                 background-color: #34495e;
                 color: #ffffff;
             }
@@ -53,18 +53,17 @@
                 visibility: hidden;
             }
 
-            /* Content */
             #content {
                 flex-grow: 1;
-                margin-left: 250px; /* Ruang default sidebar */
+                margin-left: 250px; 
                 transition: margin-left 0.3s ease;
             }
 
             #content.expanded {
-                margin-left: 0; /* Konten memenuhi layar */
+                margin-left: 0; 
             }
 
-            /* Nav Link */
+            
             #sidebar .nav-link {
                 color: #ffffff;
                 border-radius: 5px;
@@ -79,15 +78,15 @@
                 font-weight: bold;
             }
 
-            /* Content */
+           
             #content {
                 flex-grow: 1;
-                margin-left: 250px; /* Ruang default sidebar */
+                margin-left: 250px; 
                 transition: margin-left 0.3s ease;
             }
 
             #content.expanded {
-                margin-left: 0; /* Konten memenuhi layar */
+                margin-left: 0; 
             }
 
             .table-container {
@@ -192,12 +191,7 @@
                             <span class="align-middle">Jadwal Mengajar</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/MamSchool/frontEnd/Kepsek/listJadwal.jsp">
-                            <i data-feather="users" class="align-middle"></i>
-                            <span class="align-middle">Informasi Jadwal</span>
-                        </a>
-                    </li>
+                  
                 </ul>
                 <hr>
                 <ul class="nav flex-column">
@@ -240,7 +234,7 @@
                      <a href="frontEnd/Kepsek/addJadwal.jsp" class="btn btn-success btn-sm mb-3">
                         <i class="bi bi-plus"></i> Tambah Jadwal
                     </a>
-                    <form action="${pageContext.request.contextPath}/ClassScheduleServlet" method="get" class="mb-4">
+                    <form action="${pageContext.request.contextPath}/listJadwalServlet" method="get" class="mb-4">
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="classId" class="form-label">Kelas:</label>
@@ -276,6 +270,8 @@
                                 <th>Hari</th>
                                 <th>Jam Mulai</th>
                                 <th>Jam Selesai</th>
+                                <th>Aksi</th>
+                              
                             </tr>
                         </thead>
                         <tbody>
@@ -288,7 +284,19 @@
                                     <td>${schedule["day"]}</td>
                                     <td>${schedule["startTime"]}</td>
                                     <td>${schedule["endTime"]}</td>
-                                </tr>
+                                    <td>
+                                   <a href="frontEnd/Kepsek/editJadwal.jsp?id=${schedule["id"]}" class="btn btn-warning btn-sm">
+                                     <i class="bi bi-pencil"></i> Edit
+                                   </a>
+                                   <!-- Delete Button -->
+                                   <a href="frontEnd/Kepsek/deleteJadwal.jsp?id=${schedule["id"]}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');">
+                                    <i class="bi bi-trash"></i> Hapus
+                                   </a>
+                                     <a href="frontEnd/Kepsek/viewJadwal.jsp?id=${schedule["id"]}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Lihat
+                                   </a>
+                                    </td>
+                         </tr>
                             </c:forEach>
                         </tbody>
                     </table>
