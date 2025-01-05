@@ -81,7 +81,7 @@
                         <label for="role" class="form-label">Role:</label>
                         <select name="role" class="form-select" id="role">
                             <option value="kepsek" ${user.role == 'kepsek' ? 'selected' : ''}>Kepsek</option>
-                            <option value="tu" ${user.role == 'tu' ? 'selected' : ''}>TU</option>
+                            <option value="tu" ${user.role == 'tu' ? 'selected' : ''}>Tata Usaha</option>
                             <option value="guru" ${user.role == 'guru' ? 'selected' : ''}>Guru</option>
                             <option value="siswa" ${user.role == 'siswa' ? 'selected' : ''}>Siswa</option>
                         </select>
