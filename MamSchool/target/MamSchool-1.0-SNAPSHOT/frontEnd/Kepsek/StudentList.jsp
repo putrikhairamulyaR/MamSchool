@@ -286,7 +286,7 @@
                                         <a href="StudentServlet?action=edit&id=${student.id}" class="btn btn-warning btn-sm">
                                             <i class="bi bi-pencil"></i> Edit
                                         </a>
-                                        <a href="StudentServlet?action=delete&id=${student.id}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus siswa ini?');">
+                                        <a href="StudentServlet?action=delete&id=${student.id}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus kelas dari siswa ini?');">
                                             <i class="bi bi-trash"></i> Hapus
                                         </a>
                                     </td>

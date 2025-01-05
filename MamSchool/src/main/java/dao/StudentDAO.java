@@ -181,7 +181,7 @@ public class StudentDAO {
     }
 
     public boolean deleteStudent(int id) {
-        String query = "DELETE FROM students WHERE id = ?";
+        String query = "UPDATE students SET class_id = NULL WHERE id = ?";
 
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 

@@ -78,7 +78,7 @@
 
                     <div class="mb-3">
                         <label for="name" class="form-label">Nama Siswa:</label>
-                        <input type="text" name="name" class="form-control" id="name" value="${student.name}" required>
+                        <input type="text" name="name" class="form-control" id="name" value="${student.name}" readonly required>
                     </div>
 
                     <div class="mb-3">
