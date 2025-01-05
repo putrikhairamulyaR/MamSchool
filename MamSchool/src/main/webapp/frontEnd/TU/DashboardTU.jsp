@@ -157,7 +157,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/StudentServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/TUStudentServlet">
                             <i data-feather="user-check" class="align-middle"></i>
                             <span class="align-middle">Siswa dan Kelas</span>
                         </a>

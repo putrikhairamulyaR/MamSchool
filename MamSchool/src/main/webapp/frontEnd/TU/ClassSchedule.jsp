@@ -139,7 +139,7 @@
                         <span class=" text-sm text-white fw-bold">Pages</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="${pageContext.request.contextPath}/DashboardTU">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/DashboardTU">
                             <i data-feather="sliders" class="align-middle"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -157,7 +157,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/StudentServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/TUStudentServlet">
                             <i data-feather="user-check" class="align-middle"></i>
                             <span class="align-middle">Siswa dan Kelas</span>
                         </a>
