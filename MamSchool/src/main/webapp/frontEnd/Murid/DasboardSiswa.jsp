@@ -173,82 +173,9 @@
                 </span>
             </nav>
 
-            <h1>Hi, Nama User</h1>
-            <p>Semangat untuk hari ini!</p>
-
-            <!-- Statistics -->
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <div class="stat-card">
-                        <h5>Jumlah Subjek</h5>
-                        <p>10</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="stat-card">
-                        <h5>Rata-Rata Nilai</h5>
-                        <p>85.4</p>
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="mb-3">Mata Pelajaran</h3>
-            <div class="row mb-4">
-                <div class="col-md-2">
-                    <div class="stat-card">
-                        <h6>MTK</h6>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="stat-card">
-                        <h6>Bhs Indonesia</h6>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="stat-card">
-                        <h6>PAI</h6>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="stat-card">
-                        <h6>PJOK</h6>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="stat-card">
-                        <h6>SBD</h6>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <h3 class="mb-3">Presensi</h3>
-                    <div class="stat-card">
-                        <img src="/mamSchool/Image/prensensiiIlustrasi.png" alt="logo" class="custom-image">
-                        <p>Presensi dan Info Kehadiran</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <h3 class="mb-3">Kalender Akademik</h3>
-                    <div class="calendar-box">
-                        <div class="calendar">
-                            <div class="day-header">Sun</div>
-                            <div class="day-header">Mon</div>
-                            <div class="day-header">Tue</div>
-                            <div class="day-header">Wed</div>
-                            <div class="day-header">Thu</div>
-                            <div class="day-header">Fri</div>
-                            <div class="day-header">Sat</div>
-                            <div></div><div></div><div>1</div><div>2</div>
-                            <div>3</div><div>4</div><div>5</div>
-                            <div>6</div><div>7</div><div>8</div>
-                            <div>9</div><div>10</div><div>11</div>
-                        </div>
-                        <p class="mt-3">2: Ujian Sekolah<br>10: Libur</p>
-                    </div>
-                </div>
-            </div>
+            //main contenct here
+            
+            
         </div>
 
         <!-- Bootstrap JS -->
