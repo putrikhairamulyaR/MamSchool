@@ -267,7 +267,7 @@
                                 <th>ID</th>
                                 <th>User ID</th>
                                 <th>Nama</th>
-                                <th>ID Kelas</th>
+                                <th>Kelas</th>
                                 <th>Jurusan</th>
                                 <th>Tingkat</th>
                                 <th>Aksi</th>
@@ -277,11 +277,11 @@
                             <c:forEach var="student" items="${studentList}">
                                 <tr>
                                     <td>${student.id}</td>
-                                    <td>${student.userId}</td>
+                                    <td>${student.user_id}</td>
                                     <td>${student.name}</td>
-                                    <td>${student.classId != null ? student.classId : 'Belum Ada'}</td>
+                                    <td>${student['class_name'] != null ? student['class_name'] : 'Belum Ada'}</td>
                                     <td>${student.major}</td>
-                                    <td>${2024 - student.enrollmentYear + 1}</td>
+                                    <td>${student['tingkat']-1}</td>
                                     <td>
                                         <a href="StudentServlet?action=edit&id=${student.id}" class="btn btn-warning btn-sm">
                                             <i class="bi bi-pencil"></i> Edit

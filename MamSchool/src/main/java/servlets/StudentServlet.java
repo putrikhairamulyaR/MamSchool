@@ -15,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Map;
 import model.Classes;
 
 /**
@@ -68,14 +69,13 @@ public class StudentServlet extends HttpServlet {
             }
         }
 
-        System.out.println("Filter Major: " + major + ", Tingkat: " + tingkat); // Log untuk debugging
+        // Gunakan DAO untuk mengambil data siswa dengan nama kelas
+        List<Map<String, Object>> studentList = studentDAO.getAllStudents(major, tingkat);
 
-        List<Student> studentList = studentDAO.getAllStudents(major, tingkat);
         int studentsWithClass = studentDAO.countStudentsWithClass();
         int studentsWithoutClass = studentDAO.countStudentsWithoutClass();
 
-        System.out.println("Filtered Students: " + studentList.size()); // Log untuk jumlah data
-
+        // Kirim data ke JSP
         request.setAttribute("studentList", studentList);
         request.setAttribute("studentsWithClass", studentsWithClass);
         request.setAttribute("studentsWithoutClass", studentsWithoutClass);

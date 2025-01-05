@@ -10,7 +10,9 @@ import model.Student;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import model.Classes;
 
 import org.slf4j.Logger;
@@ -24,14 +26,21 @@ public class StudentDAO {
 
     private static final Logger logger = LoggerFactory.getLogger(StudentDAO.class);
 
-    public List<Student> getAllStudents(String major, Integer tingkat) {
-        List<Student> studentList = new ArrayList<>();
-        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM students");
+    public List<Map<String, Object>> getAllStudents(String major, Integer tingkat) {
+        List<Map<String, Object>> studentList = new ArrayList<>();
+        StringBuilder queryBuilder = new StringBuilder(
+                "SELECT s.id, s.user_id, s.nis, s.name, s.date_of_birth, "
+                + "(YEAR(CURDATE()) - s.enrollment_year + 1) AS tingkat, "
+                + // Hitung tingkat langsung
+                "s.major, c.name AS class_name "
+                + "FROM students s "
+                + "LEFT JOIN classes c ON s.class_id = c.id"
+        );
 
         boolean hasCondition = false;
 
         if (major != null && !major.isEmpty()) {
-            queryBuilder.append(" WHERE major = ?");
+            queryBuilder.append(" WHERE s.major = ?");
             hasCondition = true;
         }
 
@@ -41,15 +50,10 @@ public class StudentDAO {
             } else {
                 queryBuilder.append(" WHERE");
             }
-            queryBuilder.append(" (YEAR(CURDATE()) - enrollment_year) = ?");
+            queryBuilder.append(" (YEAR(CURDATE()) - s.enrollment_year ) = ?"); // Filter tingkat
         }
 
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder.toString())) {
-
-            if (connection == null) {
-                logger.warn("Failed to establish database connection.");
-                return studentList;
-            }
 
             int parameterIndex = 1;
             if (major != null && !major.isEmpty()) {
@@ -59,21 +63,21 @@ public class StudentDAO {
                 preparedStatement.setInt(parameterIndex++, tingkat);
             }
 
-            System.out.println("Query: " + preparedStatement); // Tambahkan log untuk debugging
+            System.out.println("Final Query: " + preparedStatement); // Debugging log
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Student student = new Student(
-                            resultSet.getInt("id"),
-                            resultSet.getInt("user_id"),
-                            resultSet.getString("nis"),
-                            resultSet.getString("name"),
-                            resultSet.getDate("date_of_birth").toLocalDate(),
-                            resultSet.getInt("enrollment_year"),
-                            (Integer) resultSet.getObject("class_id"), // Nullable
-                            resultSet.getString("major")
-                    );
-                    studentList.add(student);
+                    Map<String, Object> studentData = new HashMap<>();
+                    studentData.put("id", resultSet.getInt("id"));
+                    studentData.put("user_id", resultSet.getInt("user_id"));
+                    studentData.put("nis", resultSet.getString("nis"));
+                    studentData.put("name", resultSet.getString("name"));
+                    studentData.put("date_of_birth", resultSet.getDate("date_of_birth"));
+                    studentData.put("tingkat", resultSet.getInt("tingkat")); // Tingkat hasil perhitungan
+                    studentData.put("major", resultSet.getString("major"));
+                    studentData.put("class_name", resultSet.getString("class_name")); // Nama kelas
+
+                    studentList.add(studentData);
                 }
             }
 
