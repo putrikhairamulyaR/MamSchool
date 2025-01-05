@@ -59,17 +59,22 @@ public class StudentServlet extends HttpServlet {
         String major = request.getParameter("major");
         String tingkatParam = request.getParameter("tingkat");
         Integer tingkat = null;
+
         if (tingkatParam != null && !tingkatParam.trim().isEmpty()) {
             try {
                 tingkat = Integer.parseInt(tingkatParam);
             } catch (NumberFormatException e) {
-                tingkat = null; // Jika format tidak valid, abaikan filter tingkat
+                tingkat = null; // Abaikan jika format tidak valid
             }
         }
+
+        System.out.println("Filter Major: " + major + ", Tingkat: " + tingkat); // Log untuk debugging
 
         List<Student> studentList = studentDAO.getAllStudents(major, tingkat);
         int studentsWithClass = studentDAO.countStudentsWithClass();
         int studentsWithoutClass = studentDAO.countStudentsWithoutClass();
+
+        System.out.println("Filtered Students: " + studentList.size()); // Log untuk jumlah data
 
         request.setAttribute("studentList", studentList);
         request.setAttribute("studentsWithClass", studentsWithClass);

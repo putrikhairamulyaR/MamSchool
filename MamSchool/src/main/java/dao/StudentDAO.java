@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package dao;
 
 import classes.JDBC;
@@ -42,7 +41,7 @@ public class StudentDAO {
             } else {
                 queryBuilder.append(" WHERE");
             }
-            queryBuilder.append(" ? - enrollment_year + 1 = ?");
+            queryBuilder.append(" (YEAR(CURDATE()) - enrollment_year) = ?");
         }
 
         try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder.toString())) {
@@ -57,11 +56,10 @@ public class StudentDAO {
                 preparedStatement.setString(parameterIndex++, major);
             }
             if (tingkat != null) {
-                preparedStatement.setInt(parameterIndex++, LocalDate.now().getYear());
-                preparedStatement.setInt(parameterIndex, tingkat);
+                preparedStatement.setInt(parameterIndex++, tingkat);
             }
 
-            logger.debug("Query executed: {}", preparedStatement);
+            System.out.println("Query: " + preparedStatement); // Tambahkan log untuk debugging
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
@@ -243,7 +241,7 @@ public class StudentDAO {
 
         return student;
     }
-    
+
     public List<Classes> getFilteredClasses(String major, Integer tingkat) {
         List<Classes> classesList = new ArrayList<>();
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM classes");
@@ -254,13 +252,14 @@ public class StudentDAO {
                 queryBuilder.append(" major = ?");
             }
             if (tingkat != null) {
-                if (major != null) queryBuilder.append(" AND");
+                if (major != null) {
+                    queryBuilder.append(" AND");
+                }
                 queryBuilder.append(" tingkat = ?");
             }
         }
 
-        try (Connection connection = JDBC.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder.toString())) {
+        try (Connection connection = JDBC.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder.toString())) {
 
             if (connection == null) {
                 logger.warn("Failed to establish database connection.");
