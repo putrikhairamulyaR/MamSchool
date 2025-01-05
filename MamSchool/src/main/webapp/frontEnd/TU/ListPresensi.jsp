@@ -1,7 +1,7 @@
 <%-- 
-    Document   : GradesList
-    Created on : 28 Dec 2024, 17.04.29
-    Author     : Dafi Utomo
+    Document   : ListPresensi
+    Created on : 5 Jan 2025, 10.31.19
+    Author     : Royal
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -29,7 +29,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Daftar Nilai</title>
+        <title>List Presensi</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         <script src="https://unpkg.com/feather-icons"></script>
@@ -116,13 +116,13 @@
             }
             .username-display {
                 display: inline-block;
-                padding: 5px 15px; 
+                padding: 5px 15px;
                 background-color: #f0f0f0;
-                border-radius: 20px; 
-                color: #333; 
-                font-weight: bold; 
-                font-size: 14px; 
-                border: 1px solid #ccc; 
+                border-radius: 20px;
+                color: #333;
+                font-weight: bold;
+                font-size: 14px;
+                border: 1px solid #ccc;
             }
         </style>
     </head>
@@ -157,13 +157,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/GradesServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/GradesServlet">
                             <i data-feather="bar-chart-2" class="align-middle"></i>
                             <span class="align-middle">Nilai Siswa</span>
                         </a>
                     </li>
-		   <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/ListPresensiServlet">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/ListPresensiServlet">
                             <i data-feather="pie-chart" class="align-middle"></i>
                             <span class="align-middle">Presensi Siswa</span>
                         </a>
@@ -221,7 +221,7 @@
             </div>
         </nav>
 
-       <!-- Main Content -->
+        <!-- Main Content -->
         <div id="content" class="flex-grow-1">
             <!-- Navbar -->
             <nav class="navbar navbar-light bg-light px-3 border-bottom">
@@ -242,17 +242,24 @@
             <!-- Page Content -->
             <div class="p-3">
                 <div class="table-container">
-                    <h3 class="mb-4">Daftar Nilai</h3>
-                    <form action="${pageContext.request.contextPath}/GradesServlet" method="get" class="mb-4">
+                    <h3 class="mb-4">Daftar Kehadiran</h3>
+                    <form action="${pageContext.request.contextPath}/ListPresensiServlet" method="get" class="mb-4">
                         <div class="row g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="kelas" class="form-label">Pilih Kelas:</label>
-                                <select name="kelas" id="kelas" class="form-select" onchange="this.form.submit()">
+                                <label for="className" class="form-label">Pilih Kelas:</label>
+                                <select name="className" id="className" class="form-select" onchange="this.form.submit()">
                                     <option value="">Semua Kelas</option>
-                                    <c:forEach var="className" items="${classList}">
+                                    <c:forEach var="className" items="${availableClasses}">
                                         <option value="${className}" ${className == selectedClass ? 'selected' : ''}>${className}</option>
                                     </c:forEach>
                                 </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="date" class="form-label">Pilih Tanggal:</label>
+                                <input type="date" name="date" id="date" class="form-control" value="${selectedDate}" onchange="this.form.submit()">
+                            </div>
+                            <div class="col-md-4 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary w-100">Filter</button>
                             </div>
                         </div>
                     </form>
@@ -260,36 +267,31 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>ID Nilai</th>
+                                <th>ID</th>
                                 <th>NIS</th>
                                 <th>Nama Siswa</th>
                                 <th>Kelas</th>
-                                <th>UTS</th>
-                                <th>UAS</th>
-                                <th>Tugas</th>
-                                <th>Total</th>
-                                <th>Kategori</th>
+                                <th>Tanggal</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="grade" items="${grades}">
+                            <c:forEach var="attendance" items="${attendanceList}">
                                 <tr>
-                                    <td>${grade.idNilai}</td>
-                                    <td>${grade.nis}</td>
-                                    <td>${grade.name}</td>
-                                    <td>${grade.kelas.name}</td>
-                                    <td>${grade.uts}</td>
-                                    <td>${grade.uas}</td>
-                                    <td>${grade.tugas}</td>
-                                    <td>${grade.grade}</td>
+                                    <td>${attendance.id}</td>
+                                    <td>${attendance.nis}</td>
+                                    <td>${attendance.name}</td>
+                                    <td>${attendance.className}</td>
+                                    <td>${attendance.date}</td>
                                     <td>
                                         <span class="badge 
                                               <c:choose>
-                                                  <c:when test="${grade.kategori == 'lulus'}">bg-success</c:when>
+                                                  <c:when test="${attendance.status == 'Hadir'}">bg-success</c:when>
+                                                  <c:when test="${attendance.status == 'Tidak Hadir'}">bg-danger</c:when>
                                                   <c:otherwise>bg-warning text-dark</c:otherwise>
                                               </c:choose>
                                               ">
-                                            ${grade.kategori}
+                                            ${attendance.status}
                                         </span>
                                     </td>
                                 </tr>
@@ -298,7 +300,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
 
         <!-- Bootstrap JS -->

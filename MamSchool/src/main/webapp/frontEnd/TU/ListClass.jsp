@@ -163,7 +163,7 @@
                         </a>
                     </li>
 		   <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/PresensiServlet">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/ListPresensiServlet">
                             <i data-feather="pie-chart" class="align-middle"></i>
                             <span class="align-middle">Presensi Siswa</span>
                         </a>

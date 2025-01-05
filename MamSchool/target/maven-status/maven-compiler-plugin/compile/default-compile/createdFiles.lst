@@ -5,6 +5,7 @@ dao\rapotDAO.class
 dao\gradeDao.class
 model\Student.class
 servlets\GradesServlet.class
+dao\ListPresensiDAO.class
 servlets\StudentServlet.class
 model\Classes.class
 model\nilai.class
@@ -36,6 +37,7 @@ servlets\TeacherServlet.class
 dao\ListTeacherDAO.class
 servlets\ProfileUserServlet.class
 servlets\nilaiServlet.class
+servlets\ListPresensiServlet.class
 servlets\JadwalServlet.class
 dao\TeacherDAO.class
 servlets\ListTeacherServlet.class
