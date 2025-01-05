@@ -157,12 +157,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/TUStudentServlet">
-                            <i data-feather="user-check" class="align-middle"></i>
-                            <span class="align-middle">Siswa dan Kelas</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link active" href="${pageContext.request.contextPath}/GradesServlet">
                             <i data-feather="bar-chart-2" class="align-middle"></i>
                             <span class="align-middle">Nilai Siswa</span>
