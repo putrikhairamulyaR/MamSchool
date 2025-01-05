@@ -117,7 +117,7 @@
         }
 
         th {
-            background-color: #f8f9fa;
+             background-color: #d3d3d3 !important
         }
 
         .action-icons i {
