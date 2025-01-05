@@ -306,6 +306,7 @@
                             <th>Ekonomi</th>
                             <th>Geografi</th>
                             <th>Sejarah</th>
+                            <th>Inggris</th>
                                 <%
                                     }
                                 %>
@@ -343,6 +344,7 @@
                             <td><%= rapot.getEkonomi()%></td>
                             <td><%= rapot.getGeografi()%></td>
                             <td><%= rapot.getSejarah()%></td>
+                            <td><%= rapot.getInggris()%></td>
                             <%
                                 }
                             %>
