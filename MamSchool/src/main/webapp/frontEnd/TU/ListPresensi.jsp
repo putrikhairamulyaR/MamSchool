@@ -291,7 +291,8 @@
                                         <span class="badge 
                                               <c:choose>
                                                   <c:when test="${attendance['status'] eq 'Hadir'}">bg-success</c:when>
-                                                  <c:otherwise>bg-danger</c:otherwise>
+                                                  <c:when test="${attendance['status'] eq 'Alpa'}">bg-danger</c:when>
+                                                  <c:otherwise>bg-warning</c:otherwise>
                                               </c:choose>">
                                             ${attendance["status"]}
                                         </span>
