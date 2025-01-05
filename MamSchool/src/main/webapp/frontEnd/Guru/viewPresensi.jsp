@@ -232,11 +232,15 @@
                     </thead>
                     <tbody>
                         <% for (Student student : students) { 
-                            Presensi presensi = presensiDao.getPresensiByStudentId(student.getId());
+                            java.sql.Date tanggal = null;
+                            if (dateParam != null && !dateParam.isEmpty()) {
+                                tanggal = java.sql.Date.valueOf(dateParam); // Konversi String ke java.sql.Date
+                            }
+                            Presensi presensi = presensiDao.getPresensiByStudentIdAndDate(student.getId(), tanggal);
                         %>
                             <tr>
                                 <td><%= student.getName() %></td>
-                                <td><%= presensi != null ? presensi.getStatus() : "N/A" %></td>
+                                <td><%= (presensi != null) ? presensi.getStatus() : "Alpa" %></td>
                             </tr>
                         <% } %>
                     </tbody>
