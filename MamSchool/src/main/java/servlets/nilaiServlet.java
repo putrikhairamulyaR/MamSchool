@@ -113,22 +113,10 @@ public class nilaiServlet extends HttpServlet {
             String uasParam = request.getParameter("uas");
             String tugasParam = request.getParameter("tugas");
 
-            if (utsParam == null || uasParam == null || tugasParam == null
-                    || utsParam.isEmpty() || uasParam.isEmpty() || tugasParam.isEmpty()) {
-                response.sendRedirect("/MamSchool/frontEnd/Guru/error.jsp?message=Invalid input");
-                return;
-            }
-
             // Parsing input ke tipe double
             double uts = Double.parseDouble(utsParam);
             double uas = Double.parseDouble(uasParam);
             double tugas = Double.parseDouble(tugasParam);
-
-            // Validasi nilai
-            if (uts < 0 || uts > 100 || uas < 0 || uas > 100 || tugas < 0 || tugas > 100) {
-                response.sendRedirect("/MamSchool/frontEnd/Guru/error.jsp?message=Invalid grade range");
-                return;
-            }
 
             //DAO untuk update
             boolean isUpdated = gradeDao.updateNilaiSiswa(Integer.parseInt(id_nilai), uts, uas, tugas);
@@ -157,20 +145,9 @@ public class nilaiServlet extends HttpServlet {
             String tugasParam = request.getParameter("tugas");
             String idGuru = request.getParameter("idGuru");
 
-            if (utsParam == null || uasParam == null || tugasParam == null
-                    || utsParam.isEmpty() || uasParam.isEmpty() || tugasParam.isEmpty()) {
-                response.sendRedirect("error.jsp?message=Invalid input");
-                return;
-            }
             double uts = Double.parseDouble(utsParam);
             double uas = Double.parseDouble(uasParam);
             double tugas = Double.parseDouble(tugasParam);
-
-            // Validasi nilai
-            if (uts < 0 || uts > 100 || uas < 0 || uas > 100 || tugas < 0 || tugas > 100) {
-                response.sendRedirect("/MamSchool/frontEnd/Guru/error.jsp?message=Invalid grade range");
-                return;
-            }
 
             //DAO untuk menyimpan nilai
             boolean isAdded = gradeDao.setNilaiSiswa(nis, kelas, uts, uas, tugas, Integer.parseInt(idGuru));
