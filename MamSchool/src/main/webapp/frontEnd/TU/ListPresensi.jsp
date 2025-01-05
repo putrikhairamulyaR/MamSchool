@@ -245,6 +245,7 @@
                     <h3 class="mb-4">Daftar Kehadiran</h3>
                     <form action="${pageContext.request.contextPath}/ListPresensiServlet" method="get" class="mb-4">
                         <div class="row g-3 align-items-center">
+                            <!-- Dropdown for Class Filter -->
                             <div class="col-md-4">
                                 <label for="className" class="form-label">Pilih Kelas:</label>
                                 <select name="className" id="className" class="form-select" onchange="this.form.submit()">
@@ -254,12 +255,15 @@
                                     </c:forEach>
                                 </select>
                             </div>
+                            <!-- Dropdown for Date Filter -->
                             <div class="col-md-4">
                                 <label for="date" class="form-label">Pilih Tanggal:</label>
-                                <input type="date" name="date" id="date" class="form-control" value="${selectedDate}" onchange="this.form.submit()">
-                            </div>
-                            <div class="col-md-4 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary w-100">Filter</button>
+                                <select name="date" id="date" class="form-select" onchange="this.form.submit()">
+                                    <option value="">Semua Tanggal</option>
+                                    <c:forEach var="date" items="${availableDates}">
+                                        <option value="${date}" ${date == selectedDate ? 'selected' : ''}>${date}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                         </div>
                     </form>
@@ -278,20 +282,18 @@
                         <tbody>
                             <c:forEach var="attendance" items="${attendanceList}">
                                 <tr>
-                                    <td>${attendance.id}</td>
-                                    <td>${attendance.nis}</td>
-                                    <td>${attendance.name}</td>
-                                    <td>${attendance.className}</td>
-                                    <td>${attendance.date}</td>
+                                    <td>${attendance["id"]}</td>
+                                    <td>${attendance["studentNis"]}</td>
+                                    <td>${attendance["studentName"]}</td>
+                                    <td>${attendance["className"]}</td>
+                                    <td>${attendance["date"]}</td>
                                     <td>
                                         <span class="badge 
                                               <c:choose>
-                                                  <c:when test="${attendance.status == 'Hadir'}">bg-success</c:when>
-                                                  <c:when test="${attendance.status == 'Tidak Hadir'}">bg-danger</c:when>
-                                                  <c:otherwise>bg-warning text-dark</c:otherwise>
-                                              </c:choose>
-                                              ">
-                                            ${attendance.status}
+                                                  <c:when test="${attendance['status'] eq 'Hadir'}">bg-success</c:when>
+                                                  <c:otherwise>bg-danger</c:otherwise>
+                                              </c:choose>">
+                                            ${attendance["status"]}
                                         </span>
                                     </td>
                                 </tr>

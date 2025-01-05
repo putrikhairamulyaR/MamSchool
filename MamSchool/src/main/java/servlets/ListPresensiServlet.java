@@ -30,32 +30,32 @@ public class ListPresensiServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Get filter parameters
+        // Get parameters for filtering
         String className = request.getParameter("className");
         String dateParam = request.getParameter("date");
-        Date date = null;
+        Date selectedDate = null;
 
         if (dateParam != null && !dateParam.isEmpty()) {
             try {
-                date = new SimpleDateFormat("yyyy-MM-dd").parse(dateParam); // Parse date string to java.util.Date
+                selectedDate = new SimpleDateFormat("yyyy-MM-dd").parse(dateParam);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
 
-        // Fetch attendance data
-        List<Map<String, Object>> attendanceList = listPresensiDAO.getAttendance(className, date);
-
-        // Fetch class names for filtering
+        // Fetch data based on filters
+        List<Map<String, Object>> attendanceList = listPresensiDAO.getAttendance(className, selectedDate);
         List<String> availableClasses = listPresensiDAO.getAvailableClasses();
+        List<Date> availableDates = listPresensiDAO.getAvailableDates(className);
 
-        // Set attributes for the JSP
+        // Pass data to JSP
         request.setAttribute("attendanceList", attendanceList);
         request.setAttribute("availableClasses", availableClasses);
+        request.setAttribute("availableDates", availableDates);
         request.setAttribute("selectedClass", className);
         request.setAttribute("selectedDate", dateParam);
 
-        // Forward to the JSP page
+        // Forward to JSP
         request.getRequestDispatcher("/frontEnd/TU/ListPresensi.jsp").forward(request, response);
     }
 }
