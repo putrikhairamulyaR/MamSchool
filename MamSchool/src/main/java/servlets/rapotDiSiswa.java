@@ -82,7 +82,7 @@ public class rapotDiSiswa extends HttpServlet {
               if (sejarah != null) listNilai.add(sejarah);
               
              nilai inggris = rapotDao.getRapotBySubject(siswa.getNis(), "inggris");
-              if (sejarah != null) listNilai.add(sejarah);
+              if (inggris != null) listNilai.add(inggris);
           }
 
 
@@ -92,9 +92,11 @@ public class rapotDiSiswa extends HttpServlet {
         // Hitung total D dan E
         long totD = listNilai.stream().filter(n -> "D".equalsIgnoreCase(n.getKategori())).count();
         long totE = listNilai.stream().filter(n -> "E".equalsIgnoreCase(n.getKategori())).count();
+        
         // Simpan total kelulusan ke session
         request.getSession().setAttribute("totD", totD);
         request.getSession().setAttribute("totE", totE);
+        
         // Ambil data presensi
         PresensiDao presensiDao = new PresensiDao();
         int kehadiranHadir = presensiDao.getTotalKehadiranByStudent(siswa.getId(), "Hadir");
