@@ -82,7 +82,7 @@ public class PresensiServlet extends HttpServlet {
         PresensiDao PresensiDao = new PresensiDao();
         String Id = request.getParameter("id");
         int id = Integer.parseInt(Id);
-        String attendanceParam = request.getParameter("attendance");
+        String attendanceParam = request.getParameter("attendance_" + id);
         String dateString = request.getParameter("Date");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // Match HTML date format
         Date releaseDate = null;

@@ -216,19 +216,19 @@
                         <tr class="text-center">
                             <td><%= student.getId() %></td>
                             <td><%= student.getName()%></td>
-                            <!-- Radio inputs for attendance -->
+                            <!-- Hidden input for student ID -->
                             <input type="hidden" name="id" value="<%= student.getId()%>">
                             <td>
-                                <input type="radio" name="attendance" value="Hadir" class="form-check-input">
+                                <input type="radio" name="attendance_<%= student.getId()%>" value="Hadir" class="form-check-input">
                             </td>
                             <td>
-                                <input type="radio" name="attendance" value="Sakit" class="form-check-input">
+                                <input type="radio" name="attendance_<%= student.getId()%>" value="Sakit" class="form-check-input">
                             </td>
                             <td>
-                                <input type="radio" name="attendance" value="Alpa" class="form-check-input">
+                                <input type="radio" name="attendance_<%= student.getId()%>" value="Alpa" class="form-check-input">
                             </td>
                             <td>
-                                <input type="radio" name="attendance" value="Izin" class="form-check-input">
+                                <input type="radio" name="attendance_<%= student.getId()%>" value="Izin" class="form-check-input">
                             </td>
                         </tr>
                         <% } %>
