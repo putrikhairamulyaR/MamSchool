@@ -5,6 +5,7 @@
 package servlets;
 
 import dao.LoginDAO;
+import dao.TeacherDAO;
 import model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,6 +48,13 @@ public class LoginServlet extends HttpServlet {
             if ("siswa".equals(user.getRole())) {
                 int studentId = loginDAO.getStudentIdByUserId(user.getId()); // Tambahkan method ini ke LoginDAO
                 session.setAttribute("studentId", studentId);
+            }
+            if ("guru".equals(user.getRole())) {
+                TeacherDAO teacherDAO = new TeacherDAO();
+                Integer teacherId = teacherDAO.getTeacherIdByUserId(user.getId());
+                if (teacherId != null) {
+                    session.setAttribute("teacherId", teacherId);
+                }
             }
             // Redirect berdasarkan role
             switch (user.getRole()) {

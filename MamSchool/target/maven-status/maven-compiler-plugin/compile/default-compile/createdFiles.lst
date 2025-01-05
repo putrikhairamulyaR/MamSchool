@@ -28,6 +28,7 @@ dao\JadwalDAO.class
 model\Teacher.class
 servlets\siswaServlet.class
 servlets\LogoutServlet.class
+servlets\DashboardGuruServlet.class
 com\mycompany\mamschool\JakartaRestConfiguration.class
 dao\GradesDAO.class
 servlets\DashboardSiswaServlet.class
@@ -38,6 +39,7 @@ dao\ClassScheduleDAO.class
 dao\DashboardSiswaDAO.class
 com\mycompany\mamschool\resources\JakartaEE11Resource.class
 servlets\TeacherServlet.class
+dao\DashboardGuruDAO.class
 dao\ListTeacherDAO.class
 servlets\ProfileUserServlet.class
 servlets\nilaiServlet.class

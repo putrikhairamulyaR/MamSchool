@@ -3,6 +3,7 @@ C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\com\mycompany\mamschool\resources\JakartaEE11Resource.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\ClassesDAO.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\ClassScheduleDAO.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\DashboardGuruDAO.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\DashboardKepsekDAO.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\DashboardSiswaDAO.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\dao\DashboardTUDAO.java
@@ -33,6 +34,7 @@ C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\model\User.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\ClassesServlet.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\ClassScheduleServlet.java
+C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\DashboardGuruServlet.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\DashboardKepsekServlet.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\DashboardSiswaServlet.java
 C:\Users\Royal\Documents\NetBeansProjects\mamschool\MamSchool\MamSchool\src\main\java\servlets\DashboardTUServlet.java

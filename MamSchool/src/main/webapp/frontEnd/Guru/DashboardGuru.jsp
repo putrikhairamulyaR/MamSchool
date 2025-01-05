@@ -1,4 +1,11 @@
+<%-- 
+    Document   : DashboardKepsek
+    Created on : 7 Dec 2024, 09.24.03
+    Author     : Dafi Utomo
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0
@@ -76,13 +83,13 @@
 
             .username-display {
                 display: inline-block;
-                padding: 5px 15px; 
+                padding: 5px 15px;
                 background-color: #f0f0f0;
-                border-radius: 20px; 
-                color: #333; 
-                font-weight: bold; 
-                font-size: 14px; 
-                border: 1px solid #ccc; 
+                border-radius: 20px;
+                color: #333;
+                font-weight: bold;
+                font-size: 14px;
+                border: 1px solid #ccc;
             }
         </style>
     </head>
@@ -115,7 +122,7 @@
                     <li class="nav-item">
                         <span class=" text-white fw-bold">Menu</span>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/JadwalServlet">
                             <i data-feather="calendar" class="align-middle"></i>
@@ -175,15 +182,69 @@
                 </span>
             </nav>
 
-
-
             <!-- Page Content -->
             <div class="p-3">
-                <h1>Welcome to AdminKit</h1>
-                <p>This is the main content area.</p>
-                <!-- <a href="addJadwal.jsp">Tambah Jadwal</a>-->
+                <h3 class="mb-4">Dashboard Guru</h3>
+
+                <!-- Jadwal Hari Ini -->
+                <div class="mb-4">
+                    <h5>Jadwal Hari Ini</h5>
+                    <div class="container overflow-auto" style="max-height: 300px;">
+                        <div class="row">
+                            <c:forEach var="jadwal" items="${jadwalHariIni}">
+                                <div class="col-md-4 mb-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h6 class="card-title">${jadwal.subjectName}</h6>
+                                            <p class="card-text">
+                                                <strong>Kelas:</strong> ${jadwal.className}<br>
+                                                <strong>Jam:</strong> ${jadwal.startTime} - ${jadwal.endTime}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                            <c:if test="${empty jadwalHariIni}">
+                                <p class="text-muted">Tidak ada jadwal pelajaran hari ini.</p>
+                            </c:if>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jadwal Mingguan -->
+                <div class="table-container">
+                    <h5>Jadwal Mingguan</h5>
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Hari</th>
+                                <th>Kelas</th>
+                                <th>Mata Pelajaran</th>
+                                <th>Jam Mulai</th>
+                                <th>Jam Selesai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="jadwal" items="${jadwalMingguan}">
+                            <tr>
+                                <td>${jadwal.day}</td>
+                                <td>${jadwal.className}</td>
+                                <td>${jadwal.subjectName}</td>
+                                <td>${jadwal.startTime}</td>
+                                <td>${jadwal.endTime}</td>
+                            </tr>
+                        </c:forEach>
+                        <c:if test="${empty jadwalMingguan}">
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">Tidak ada jadwal pelajaran tersedia.</td>
+                            </tr>
+                        </c:if>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
