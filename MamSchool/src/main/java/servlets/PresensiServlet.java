@@ -45,8 +45,8 @@ public class PresensiServlet extends HttpServlet {
         if ("view".equals(action)) {
            listKehadiran(request,response);
         } else if ("filter".equals(action)) {
-        filterAttendance(request, response);
-    }
+            filterAttendance(request, response);
+        }
         
        
     }
@@ -71,14 +71,7 @@ public class PresensiServlet extends HttpServlet {
             } catch (ParseException ex) {
                 Logger.getLogger(PresensiServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if ("edit".equals(action)) {
-            try {
-                editKehadiran(request, response);
-            } catch (ParseException ex) {
-                Logger.getLogger(PresensiServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
-
     }
 
     protected void addKehadiran(HttpServletRequest request, HttpServletResponse response)
@@ -104,31 +97,6 @@ public class PresensiServlet extends HttpServlet {
             response.getWriter().print(releaseDate);
         }
 
-    }
-
-    protected void editKehadiran(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException, ParseException {
-
-        User user = (User) request.getSession().getAttribute("user");
-
-        PresensiDao presensiDao = new PresensiDao();
-        String idParam = request.getParameter("id");
-        int id = Integer.parseInt(idParam);
-        String attendanceParam = request.getParameter("attendance");
-        String dateString = request.getParameter("date");
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // Match HTML date format
-        java.util.Date utilDate = formatter.parse(dateString);
-
-        // Convert java.util.Date to java.sql.Date
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-
-        boolean isUpdated = presensiDao.editKehadiran(id, sqlDate, attendanceParam);
-
-        if (isUpdated) {
-            response.sendRedirect(request.getContextPath() + "/frontEnd/Guru/viewJadwalGuru.jsp");
-        } else {
-            response.getWriter().print("Failed to update attendance");
-        }
     }
 
 

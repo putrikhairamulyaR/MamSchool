@@ -205,7 +205,7 @@ public class PresensiDao {
         return presensi;
     }
     
-    public Presensi getPresensiByStudentIdAndDate(int studentId, Date date) {
+   public Presensi getPresensiByStudentIdAndDate(int studentId, Date date) {
         Presensi presensi = null;
         String sql = "SELECT status FROM attendance WHERE student_id = ? AND date = ?;";
         try (Connection conn = JDBC.getConnection();
@@ -214,10 +214,9 @@ public class PresensiDao {
             stmt.setDate(2, date);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    presensi = new Presensi();
-                    presensi.setStudentId(rs.getInt("student_id"));
-                    presensi.setDate(rs.getDate("date"));
-                    presensi.setStatus(rs.getString("status"));
+                    String status = rs.getString("status");
+                    Presensi pres = new Presensi();
+                    pres.setStatus(status);
                 }
             }
         } catch (SQLException e) {
