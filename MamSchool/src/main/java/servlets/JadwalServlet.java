@@ -123,19 +123,19 @@ private void addJadwal(HttpServletRequest request, HttpServletResponse response)
     if (mapel != null) {
         if (mapel.equals("Matematika")) {
             idMapel = 1;
-        } else if (mapel.equals("Bahasa Inggris")) {
+        } else if (mapel.equals("Biologi")) {
             idMapel = 2;
         } else if (mapel.equals("Fisika")) {
             idMapel = 3;
         } else if (mapel.equals("Kimia")) {
             idMapel = 4;
-        } else if (mapel.equals("Biologi")) {
-            idMapel = 5;
-        } else if (mapel.equals("Sejarah")) {
-            idMapel = 6;
-        } else if (mapel.equals("Geografi")) {
-            idMapel = 7;
         } else if (mapel.equals("Ekonomi")) {
+            idMapel = 5;
+        } else if (mapel.equals("Geografi")) {
+            idMapel = 6;
+        } else if (mapel.equals("Sejarah")) {
+            idMapel = 7;
+        } else if (mapel.equals("Inggris")) {
             idMapel = 8;
         } 
     
